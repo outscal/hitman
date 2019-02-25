@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 using Common;
 
@@ -12,12 +10,17 @@ namespace InputSystem
         private Vector2 startClickPos, endCLickPos;
         private Directions direction;
 
-        public TouchInput(IInputService inputService)
+        public TouchInput()
         {
-            this.inputService = inputService; 
+
         }
 
-        public void Tick()
+        public void OnInitialized(IInputService inputService)
+        {
+            this.inputService = inputService;
+        }
+
+        public void OnTick()
         {
             if (Input.GetMouseButtonDown(0))
                 startClickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
-public interface IInputComponent
+namespace InputSystem
 {
+    public interface IInputComponent
+    {
+        void OnInitialized(IInputService inputService);
 
+        void OnTick();
+    }
 }
