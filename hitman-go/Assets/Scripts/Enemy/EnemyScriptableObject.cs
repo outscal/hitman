@@ -8,6 +8,7 @@ namespace Enemy
     public class EnemyScriptableObject : ScriptableObject
     {
         public EnemyType enemyType;
-        public EnemyView enemyPrefab;               
+        public EnemyView enemyPrefab;
+        public Quaternion enemyRotation;
     }
 }
