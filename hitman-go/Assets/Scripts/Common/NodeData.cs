@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 namespace Common
-{ 
+{
     [Serializable]
     public struct Edge
     {
@@ -9,10 +9,16 @@ namespace Common
     }
 
     [Serializable]
-    public struct Node
+    public struct NodeData
     {
         public int uniqueID;
         public Vector3 nodePosition;
     }
+    [Serializable]
+    public class Node
+    {
+        public NodeData node;
+        public int[] connections = new int[4];
 
+    }
 }
