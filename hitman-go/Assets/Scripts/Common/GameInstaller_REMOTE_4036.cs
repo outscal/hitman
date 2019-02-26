@@ -26,13 +26,20 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
+        //Container.Bind<IPathService>()
+            //.To<PathService>()
+            //.AsSingle()
+            //.NonLazy();
+
         //Container.Bind<IPickupService>()
         //  .To<PickupService>()
         //.AsSingle()
         //.NonLazy();
+
         Container.BindSignal<EnemyDeathSignal>().ToMethod<PlayerService>(x => x.IncreaseScore).FromResolve();
-        Container.BindSignal<PlayerDeathSignal>().ToMethod<UI/animatoretc>().FromResolve();
+        //Container.BindSignal<PlayerDeathSignal>().ToMethod<UI/animatoretc>().FromResolve();
 
 
     }
+
 }

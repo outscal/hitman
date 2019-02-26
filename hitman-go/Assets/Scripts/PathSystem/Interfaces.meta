@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0f5bbcd02ba6ca946b2f94010bbf4ce6
+=======
+guid: 2e07a34ef8d30404d8b85d79c8eba2de
+>>>>>>> origin/MergeTest/CoreGameplay
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
