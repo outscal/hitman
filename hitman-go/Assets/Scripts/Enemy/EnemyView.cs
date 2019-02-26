@@ -3,19 +3,11 @@ using System.Collections;
 
 namespace Enemy
 {
-    public class EnemyView : MonoBehaviour
+    public class EnemyView : MonoBehaviour, IEnemyView
     {
-
-        // Use this for initialization
-        void Start()
+        public GameObject GetGameObject()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            return this.gameObject;
         }
     }
 }

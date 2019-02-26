@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
+using Enemy;
 using System.Collections;
 
 namespace Player
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {
-
-        // Use this for initialization
-        void Start()
+        public GameObject GetGameObject()
         {
-
+            return this.gameObject;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnCollisionEnter(Collision collision)
         {
-
+            if(collision.gameObject.GetComponent<IEnemyView>()!=null)
+            {
+                
+            }
         }
     }
 }

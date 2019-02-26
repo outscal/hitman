@@ -5,6 +5,6 @@ namespace Player
 {
     public interface IPlayerView 
     {
-
+        GameObject GetGameObject();
     }
 }

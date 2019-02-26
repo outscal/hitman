@@ -8,17 +8,19 @@ namespace Player
     public class PlayerController :IPlayerController
     {
         private IPlayerService currentPlayerService;
-        private PlayerView currentPlayerView;
+        private IPlayerView currentPlayerView;
+        private PlayerScriptableObject scriptableObject;
         private Node currentNode;
         
 
-        public PlayerController(IPlayerService _playerService, Node _spawnNode)
+        public PlayerController(IPlayerService _playerService, Node _spawnNode, PlayerScriptableObject _playerScriptableObject)
         {
             currentPlayerService = _playerService;
             currentNode = _spawnNode;
+            scriptableObject = _playerScriptableObject;    
             SpawnPlayerView();
         }
-
+        
         public Node GetCurrentNode()
         {
             return currentNode;
@@ -26,12 +28,16 @@ namespace Player
 
         public void MoveToNode(Node node)
         {
-            currentPlayerView.gameObject.transform.localPosition = node.nodePosition;
+            GameObject currentPlayer=currentPlayerView.GetGameObject();
+            currentPlayer.transform.LookAt(node.nodePosition);
+            currentPlayer.transform.localPosition=Vector3.Lerp(currentPlayer.transform.localPosition, node.nodePosition,1f);
         }
 
         private void SpawnPlayerView()
         {
             //SPAWN PLAYER PREFAB
+            currentPlayerView=scriptableObject.playerView;
+
         }
     }
 }
