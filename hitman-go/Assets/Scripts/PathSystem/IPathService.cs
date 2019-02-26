@@ -6,9 +6,10 @@ namespace PathSystem
 {
     public interface IPathService
     {
-        Node GetNode(Node _currentNode, Directions _dir);
+        Node GetNode(int _nodeId, Directions _dir);
 
-        List<Node> GetShortestPath(Node _currentNode, Node _destinationNode);
+
+        void GetShortestPath(int currentNode, int destinationNode);
         void DrawGraph(); 
     }
 }

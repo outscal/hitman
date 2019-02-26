@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+
 namespace Common
 {
     [Serializable]
@@ -12,6 +14,7 @@ namespace Common
     public struct NodeData
     {
         public int uniqueID;
+        public List<int> enemyList;
         public Vector3 nodePosition;
     }
     [Serializable]
