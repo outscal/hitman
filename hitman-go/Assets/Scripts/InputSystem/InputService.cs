@@ -3,13 +3,11 @@ using System;
 using Common;
 using Player;
 using Zenject;
-using TMPro;
 
 namespace InputSystem
 {
     public class InputService : IInputService, ITickable
     {
-        private TextMeshProUGUI directionText;
         private IPlayerService playerService;
 
         private IInputComponent inputComponent;
@@ -19,13 +17,14 @@ namespace InputSystem
             Debug.Log("<color=red>[InputService] Created:</color>");
             //this.playerService = playerService;
 
-            inputComponent = new KeyboardInput();
+            //inputComponent = new KeyboardInput();
+            inputComponent = new TouchInput();
 
-//#if UNITY_ANDROID || UNITY_IOS
-//            inputComponent = new TouchInput();
-//#elif UNITY_EDITOR || UNITY_STANDALONE
-//            inputComponent = new KeyboardInput();
-//#endif
+            //#if UNITY_ANDROID || UNITY_IOS
+            //            inputComponent = new TouchInput();
+            //#elif UNITY_EDITOR || UNITY_STANDALONE
+            //            inputComponent = new KeyboardInput();
+            //#endif
             inputComponent.OnInitialized(this);
         }
 

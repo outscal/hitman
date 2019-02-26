@@ -12,7 +12,10 @@ public class SpawnServices : MonoInstaller
     public override void InstallBindings()
     {
         Debug.Log("<color=blue>[SpawnService] Created:</color>");
-        Container.Bind(typeof(IInputService), typeof(ITickable)).To<InputService>().AsSingle().NonLazy();
+        Container.Bind(typeof(IInputService), typeof(ITickable))
+        .To<InputService>()
+        .AsSingle()
+        .NonLazy();
     }
 
 
