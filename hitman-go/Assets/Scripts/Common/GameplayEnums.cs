@@ -15,7 +15,8 @@ namespace Common
         SNIPER,
         SHIELDED,
         DOGS,
-        CIRCULAR_COP
+        CIRCULAR_COP,
+        TARGET
     }
     public enum InteractablePickup
     {
