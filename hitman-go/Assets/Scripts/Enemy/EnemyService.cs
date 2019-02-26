@@ -29,15 +29,16 @@ namespace Enemy
 
         private void SpawnSingleEnemy(EnemyScriptableObject _enemyScriptableObject)
         {
-            List<Vector3> spawnLocations = new List<Vector3>();
+            List<int> spawnNodeID = new List<int>();
             switch(_enemyScriptableObject.enemyType)
             {
                 case EnemyType.STATIC:
-                    spawnLocations.Clear();
-                    spawnLocations=pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnLocations.Count; i++)
+                    spawnNodeID.Clear();
+                    spawnNodeID=pathService.GetEnemySpawnLocation(EnemyType.STATIC);
+                    for (int i = 0; i < spawnNodeID.Count; i++)
                     {
-                        EnemyController newEnemy = new StaticEnemyController(this,spawnLocations[i],_enemyScriptableObject);
+                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
+                        EnemyController newEnemy = new StaticEnemyController(this,spawnLocation,_enemyScriptableObject);
                         enemyList.Add(newEnemy);
                         
                     }

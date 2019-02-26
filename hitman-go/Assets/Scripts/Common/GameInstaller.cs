@@ -26,10 +26,10 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
-        Container.Bind<IPathService>()
-            .To<PathService>()
-            .AsSingle()
-            .NonLazy();
+        //Container.Bind<IPathService>()
+            //.To<PathService>()
+            //.AsSingle()
+            //.NonLazy();
 
         //Container.Bind<IPickupService>()
         //  .To<PickupService>()
