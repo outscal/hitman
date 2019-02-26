@@ -25,9 +25,9 @@ namespace Player
             
         }
 
-        public void SpawnPlayer(Node _node)
+        public void SpawnPlayer(Vector3 _spwanLocation)
         {
-            playerController = new PlayerController(this,_node,playerScriptableObject);
+           // playerController = new PlayerController(this,_node,playerScriptableObject);
 
         }
 
