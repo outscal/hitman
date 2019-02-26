@@ -8,8 +8,10 @@ namespace Player
     public interface IPlayerService
     {       
 
-        void SpawnPlayer(Node node);
+        void SpawnPlayer();
+
         void SetDirection(Directions _direction);
 
     }
 }
+

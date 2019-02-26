@@ -37,7 +37,8 @@ public class GameInstaller : MonoInstaller
         //.NonLazy();
 
         Container.BindSignal<EnemyDeathSignal>().ToMethod<PlayerService>(x => x.IncreaseScore).FromResolve();
-      
+        //Container.BindSignal<PlayerDeathSignal>().ToMethod<UI/animatoretc>().FromResolve();
+
 
     }
 
