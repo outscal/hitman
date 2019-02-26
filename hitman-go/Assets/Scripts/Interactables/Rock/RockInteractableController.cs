@@ -17,6 +17,7 @@ namespace InteractableSystem
         public override void TakeAction()
         {
             base.TakeAction();
+            RockAction();
         }
 
         void RockAction()
