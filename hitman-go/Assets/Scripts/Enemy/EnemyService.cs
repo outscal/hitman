@@ -34,7 +34,7 @@ namespace Enemy
             {
                 case EnemyType.STATIC:
                     spawnLocations.Clear();
-                    spawnLocations=pathService.GetSpawnLocation(EnemyType.STATIC);
+                    spawnLocations=pathService.GetEnemySpawnLocation(EnemyType.STATIC);
                     for (int i = 0; i < spawnLocations.Count; i++)
                     {
                         EnemyController newEnemy = new StaticEnemyController(this,spawnLocations[i],_enemyScriptableObject);

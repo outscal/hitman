@@ -11,7 +11,8 @@ namespace Player
         private IPathService currentPathService;
         private PlayerDeathSignal playerDeathSignal;
         private PlayerScriptableObject playerScriptableObject;
-        
+        private Vector3 spawnLocation;
+        private int playerNodeID;
 
         public PlayerService(IPathService _pathService,PlayerScriptableObject _playerScriptableObject)
         {
@@ -20,20 +21,26 @@ namespace Player
         }
 
         public void SetDirection(Directions _direction)
-        {
-            
+        {            
+            int nextNodeID=currentPathService.GetNextNodeID(playerNodeID,_direction);
+           Vector3 nextLocation= currentPathService.GetNodeLocation(nextNodeID);
+            playerController.MoveToLocation(nextLocation);
+            playerNodeID = nextNodeID;
             
         }
 
-        public void SpawnPlayer(Vector3 _spwanLocation)
+        public void SpawnPlayer()
         {
-           // playerController = new PlayerController(this,_node,playerScriptableObject);
+            
+            playerNodeID = currentPathService.GetPlayerNodeID();
+            spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
+            playerController = new PlayerController(this,spawnLocation,playerScriptableObject);
 
         }
 
         public void IncreaseScore()
         {
-
+            Debug.Log("increase score called");
         }
     }
 }
