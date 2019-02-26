@@ -16,7 +16,6 @@ namespace InputSystem
         {
             Debug.Log("<color=red>[InputService] Created:</color>");
             this.playerService = playerService;
-
             #if UNITY_ANDROID || UNITY_IOS
                         inputComponent = new TouchInput();
             #elif UNITY_EDITOR || UNITY_STANDALONE

@@ -12,13 +12,11 @@ namespace Enemy
         private List<EnemyController> enemyList = new List<EnemyController>();
         private IPathService pathService;
 
-        public EnemyService(IPathService _pathService)
+        public EnemyService(IPathService _pathService,EnemyScriptableObjectList enemyList)
         {
             pathService = _pathService;
+            SpawnEnemy(enemyList);
         }
-
-       
-
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
         {
             for(int i=0;i<scriptableObjectList.enemyList.Count;i++)

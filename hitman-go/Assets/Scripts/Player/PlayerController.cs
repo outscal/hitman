@@ -10,6 +10,8 @@ namespace Player
         private IPlayerService currentPlayerService;
         private IPlayerView currentPlayerView;
         private PlayerScriptableObject scriptableObject;
+
+         GameObject playerInstance;
         private Vector3 spawnLocation;
         
 
@@ -28,16 +30,19 @@ namespace Player
 
         public void MoveToLocation(Vector3 _location)
         {
-            GameObject currentPlayer=currentPlayerView.GetGameObject();
-            currentPlayer.transform.LookAt(_location);
-            currentPlayer.transform.localPosition=Vector3.Lerp(currentPlayer.transform.localPosition, _location,1f);
+            //Debug.Log("next Node"+_location);
+           // GameObject currentPlayer=currentPlayerView.GetGameObject();
+            playerInstance.transform.LookAt(_location);
+            playerInstance.transform.localPosition=Vector3.Lerp(playerInstance.transform.localPosition, _location,1f);
+            //playerInstance.transform.position=_location;
+            Debug.Log(playerInstance.transform.position);
         }
 
         private void SpawnPlayerView()
         {
             //SPAWN PLAYER PREFAB
             currentPlayerView=scriptableObject.playerView;
-            GameObject playerInstance= GameObject.Instantiate(currentPlayerView.GetGameObject());
+            playerInstance= GameObject.Instantiate(currentPlayerView.GetGameObject());
             playerInstance.transform.localPosition = spawnLocation;
 
         }

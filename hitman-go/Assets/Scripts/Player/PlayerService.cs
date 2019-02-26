@@ -23,7 +23,12 @@ namespace Player
         public void SetDirection(Directions _direction)
         {
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
+            if(nextNodeID==-1)
+            {
+                return;
+            }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
+            
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
 
