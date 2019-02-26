@@ -11,7 +11,7 @@ namespace Common
         
         public  GameService(IInputService inputService,IPlayerService playerService,IEnemyService enemyService, IPathService pathService)
         {  
-            pathService.DrawGraph();
+            //pathService.DrawGraph();
             playerService.SpawnPlayer(playerSpawnNode);
         }
     }

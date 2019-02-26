@@ -14,7 +14,9 @@ namespace Common
     public struct NodeData
     {
         public int uniqueID;
-        public List<int> enemyList;
+        public bool spawnPlayer;
+        public List<InteractablePickup> spawnPickups;
+        public List<EnemyType> spawnEnemies;
         public Vector3 nodePosition;
     }
     [Serializable]

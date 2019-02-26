@@ -36,10 +36,7 @@ namespace PathSystem
             }
             GetShortestPath(0, 3);
         }
-        public Node GetNode(int _nodeId, Directions _dir)
-        {
-            return graph[graph[_nodeId].connections[(int)_dir]];
-        }
+
         private void printAllPaths(int s, int d)
         {
             bool[] isVisited = new bool[graph.Count];
@@ -49,12 +46,13 @@ namespace PathSystem
         }
         private void printAllPathsUtil(int u, int d, bool[] isVisited, List<int> localPathList)
         {
-            int shortPathLength=graph.Count;
+            int shortPathLength = graph.Count;
             isVisited[u] = true;
             if (u.Equals(d))
             {
-                if(localPathList.Count<shortPathLength){
-                    shortestPath=localPathList;
+                if (localPathList.Count < shortPathLength)
+                {
+                    shortestPath = localPathList;
                 }
                 isVisited[u] = false;
                 return;
@@ -73,10 +71,56 @@ namespace PathSystem
             }
             isVisited[u] = false;
         }
-        public void GetShortestPath(int _currentNode, int _destinationNode)
+        public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
+            shortestPath = new List<int>();
             printAllPaths(_currentNode, _destinationNode);
-            Debug.Log("Shortest Path Length is"+shortestPath.Count);
+            Debug.Log("Shortest Path Length is" + shortestPath.Count);
+            return shortestPath;
+        }
+        public int GetNextNodeID(int _nodeId, Directions _dir)
+        {
+            return graph[_nodeId].connections[(int)_dir];
+        }
+
+        public Vector3 GetNodeLocation(int _nodeID)
+        {
+            return graph[_nodeID].node.nodePosition;
+        }
+
+        public List<int> GetPickupSpawnLocation(InteractablePickup type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetPlayerNodeID()
+        {
+            int playerNode = -1;
+            for (int i = 0; i < graph.Count; i++)
+            {
+                if (graph[i].node.spawnPlayer)
+                {
+                    playerNode = graph[i].node.uniqueID;
+                    break;
+                }
+            }
+            return playerNode;
+        }
+        public List<int> GetEnemySpawnLocation(EnemyType type)
+        {
+            List<int> enemySpawnNode = new List<int>();
+            for (int i = 0; i < graph.Count; i++)
+            {
+                if (graph[i].node.spawnEnemies.Contains(type))
+                {
+                    enemySpawnNode.Add(graph[i].node.uniqueID);
+                }
+            }
+            return enemySpawnNode;
+        }
+        public List<int> GetAlertedNodes(int _targetNodeID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
