@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Interactable
+namespace InteractableSystem
 {
     public class InteractableView : MonoBehaviour
     {

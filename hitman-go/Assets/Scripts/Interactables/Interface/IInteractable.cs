@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Common;
 
-namespace Interactable
+namespace InteractableSystem
 {
     public interface IInteractable
     {
-        void SpawnInteractables();
+        void SpawnInteractables(InteractablePickup pickups, int nodeID);
     }
 }

@@ -6,7 +6,8 @@ namespace PathSystem
 {
     public interface IPathService
     {
-        Node GetNode(Node _currentNode, Directions _dir);
+        int GetNextNodeID(int _nodeID, Directions _dir);
+        Vector3 GetNodeLocation(int _nodeID);
 
         List<Node> GetShortestPath(Node _currentNode, Node _destinationNode);
     }
