@@ -14,7 +14,8 @@ namespace Common
         ROTATING_KNIFE,
         SNIPER,
         SHIELDED,
-        DOGS
+        DOGS,
+        CIRCULAR_COP
     }
     public enum InteractablePickup
     {
