@@ -12,25 +12,22 @@ namespace InputSystem
 
         private IInputComponent inputComponent;
 
-        public InputService (/*IPlayerService playerService*/)
+        public InputService (IPlayerService playerService)
         {
             Debug.Log("<color=red>[InputService] Created:</color>");
-            //this.playerService = playerService;
+            this.playerService = playerService;
 
-            //inputComponent = new KeyboardInput();
-            inputComponent = new TouchInput();
-
-            //#if UNITY_ANDROID || UNITY_IOS
-            //            inputComponent = new TouchInput();
-            //#elif UNITY_EDITOR || UNITY_STANDALONE
-            //            inputComponent = new KeyboardInput();
-            //#endif
+            #if UNITY_ANDROID || UNITY_IOS
+                        inputComponent = new TouchInput();
+            #elif UNITY_EDITOR || UNITY_STANDALONE
+                        inputComponent = new KeyboardInput();
+            #endif
             inputComponent.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
         {
-            //playerService.SetDirection(direction);
+            playerService.SetDirection(direction);
         }
 
         public void Tick()
