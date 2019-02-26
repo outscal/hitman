@@ -7,13 +7,17 @@ namespace PathSystem
 {
     public class PathService : IPathService
     {
-       
-
-        public int GetNode(int _nodeID, Directions _dir)
+        public int GetNextNodeID(int _nodeID, Directions _dir)
         {
-            return 1;
+            throw new System.NotImplementedException();
         }
+
       
+
+        public Vector3 GetNodeLocation(int _nodeID)
+        {
+            throw new System.NotImplementedException();
+        }
 
         public List<Vector3> GetShortestPath(int _currentNodeID, int _destinationNodeID)
         {

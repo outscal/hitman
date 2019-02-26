@@ -6,7 +6,8 @@ namespace PathSystem
 {
     public interface IPathService
     {
-        int GetNode(int _nodeID, Directions _dir);
+        int GetNextNodeID(int _nodeID, Directions _dir);
+        Vector3 GetNodeLocation(int _nodeID);
 
         List<Vector3> GetSpawnLocation(EnemyType type);
 
