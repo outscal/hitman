@@ -7,9 +7,11 @@ namespace Player
 {
     public interface IPlayerService
     {       
+
         void SpawnPlayer();
 
         void SetDirection(Directions _direction);
 
     }
 }
+
