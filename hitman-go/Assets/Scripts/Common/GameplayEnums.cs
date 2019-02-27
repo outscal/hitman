@@ -9,7 +9,8 @@ namespace Common
     }
     public enum GameStatesType{
         PLAYERSTATE,
-        ENEMYSTATE
+        ENEMYSTATE,
+        GAMEOVERSTATE
     }
     public enum EnemyType
     {
