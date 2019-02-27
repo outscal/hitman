@@ -11,11 +11,9 @@ namespace Player
         private IPlayerView currentPlayerView;
         private PlayerScriptableObject scriptableObject;
 
-
-         GameObject playerInstance;
+        GameObject playerInstance;
         private Vector3 spawnLocation;
 
-        
 
         public PlayerController(IPlayerService _playerService, Vector3 _spawnLocation, PlayerScriptableObject _playerScriptableObject)
         {
@@ -31,12 +29,12 @@ namespace Player
         }
 
         public void MoveToLocation(Vector3 _location)
-
         {
             currentPlayerView.MoveToLocation(_location);
-
-
+            //playerserice.check for prese()
+            //
         }
+
 
         private void SpawnPlayerView()
         {

@@ -11,6 +11,7 @@ public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        SignalBusInstaller.Install(Container);
         
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
