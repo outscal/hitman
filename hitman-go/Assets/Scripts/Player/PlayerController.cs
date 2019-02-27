@@ -38,5 +38,10 @@ namespace Player
             playerInstance.transform.localPosition = spawnLocation;
 
         }
+
+        public void DisablePlayer()
+        {
+            currentPlayerView.DisablePlayer();
+        }
     }
 }

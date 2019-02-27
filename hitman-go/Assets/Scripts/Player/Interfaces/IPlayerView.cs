@@ -8,6 +8,6 @@ namespace Player
         GameObject GetGameObject();
 
         void MoveToLocation(Vector3 location);
-
+        void DisablePlayer();
     }
 }

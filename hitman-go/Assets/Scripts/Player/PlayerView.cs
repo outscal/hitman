@@ -6,6 +6,11 @@ namespace Player
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {
+        public void DisablePlayer()
+        {
+            gameObject.SetActive(false);
+        }
+
         public GameObject GetGameObject()
         {
             return this.gameObject;

@@ -18,6 +18,7 @@ namespace Player
         void KillEnemy();
 
         bool CheckForEnemyPresence();
+        void OnGameStart();
 
     }
 

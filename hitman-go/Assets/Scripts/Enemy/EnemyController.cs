@@ -20,7 +20,7 @@ namespace Enemy
         protected int spawnID;
         protected int enemyID;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
             spawnLocation = _spawnLocation;
@@ -28,6 +28,7 @@ namespace Enemy
             pathService = _pathService;
             spawnDirection = _spawnDirection;
             spawnID = _currentNodeID;
+            gameService = _gameService;
             SpawnEnemyView();
         }
     
@@ -57,6 +58,7 @@ namespace Enemy
         public void DisableEnemy()
         {
             currentEnemyView.DisableEnemy();
+            currentEnemyView=null;
         }
 
         public void SetID(int _ID)
@@ -75,18 +77,19 @@ namespace Enemy
             {
                 Debug.Log("inside move");
                 int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
-                MoveToNextNode(nextNodeID);
-                CheckForPlayerPresence(nextNodeID);
+                MoveToNextNode(nextNodeID);                
             }
             
         }
-        protected virtual void CheckForPlayerPresence(int _nextNodeID)
+        protected virtual bool CheckForPlayerPresence(int _nextNodeID)
         {
-            if(currentEnemyService.GetPlayerNodeID()==_nextNodeID)
+            if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
                 //trigger PlayerDeathSignal
-                currentEnemyService.TriggerPlayerDeath();
+                return true;
             }
+            else
+                return false;
         }
     }
 }

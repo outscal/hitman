@@ -27,6 +27,9 @@ namespace Player
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
             currentEnemyService=_enemyService;
+            _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
+            _signalBus.Subscribe<GameOverSignal>(GameOver);
+            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
         }
 
         public void SetSwipeDirection(Directions _direction)
@@ -37,7 +40,7 @@ namespace Player
                 return;
             }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-
+        
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
 
@@ -57,9 +60,23 @@ namespace Player
                 Debug.Log("Game finished");
             }
             _signalBus.TryFire(new StateChangeSignal());
-          //  currentEnemyService.PerformMovement();
+            currentEnemyService.PerformMovement();
         }
 
+        private void PlayerDead()
+        {
+            playerController.DisablePlayer();
+            _signalBus.TryFire(new GameOverSignal());
+        }
+        private void GameOver()
+        {
+            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
+            Debug.Log("GameOver");
+        }
+        public void OnGameStart()
+        {
+            SpawnPlayer();
+        }
         private bool CheckForFinishCondition()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
@@ -104,5 +121,6 @@ namespace Player
         {
             return currentEnemyService.CheckForEnemyPresence(playerNodeID);
         }
+
     }
 }
