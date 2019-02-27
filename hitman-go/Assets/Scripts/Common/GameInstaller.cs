@@ -6,6 +6,7 @@ using InputSystem;
 using PathSystem;
 using System.Collections;
 using Common;
+using GameState;
 public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()

@@ -7,6 +7,10 @@ namespace Common
         LEFT,
         RIGHT
     }
+    public enum GameStatesType{
+        PLAYERSTATE,
+        ENEMYSTATE
+    }
     public enum EnemyType
     {
         STATIC,
