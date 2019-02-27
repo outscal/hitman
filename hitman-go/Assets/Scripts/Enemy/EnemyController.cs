@@ -54,6 +54,11 @@ namespace Enemy
             }
         }
 
+        public void DisableEnemy()
+        {
+            currentEnemyView.GetGameObject().SetActive(false);
+        }
+
         public void SetID(int _ID)
         {
             enemyID = _ID;

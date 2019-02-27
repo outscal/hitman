@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameState.Signals;
 using Player;
+using System.Linq;
 using Zenject;
 using PathSystem;
 using Common;
@@ -26,11 +27,11 @@ namespace Enemy
             SpawnEnemy(enemyList);
         }
 
-        public bool CheckForEnemyPresence(int playerNodeID)
+        public bool CheckForEnemyPresence(int nodeID)
         {
-            if (enemyList.ContainsKey(playerNodeID))
+            if (enemyList.ContainsKey(nodeID))
             {
-                enemyList.Remove(playerNodeID);
+                enemyList.Remove(nodeID);
 
                 return true;
             }
@@ -50,6 +51,12 @@ namespace Enemy
                 enemyList[i].Move();
             }
             signalBus.TryFire(new StateChangeSignal());
+        }
+        public void EnemyDead(EnemyDeathSignal _deathSignal)
+        {
+            EnemyController enemy=enemyList.ElementAt(_deathSignal.nodeID).Value;
+            enemy.DisableEnemy();
+            enemyList.Remove(_deathSignal.nodeID);
         }
 
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)

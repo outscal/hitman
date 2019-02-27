@@ -12,6 +12,6 @@ namespace Enemy
         void PerformMovement();
         int GetPlayerNodeID();
         void TriggerPlayerDeath();
-        bool CheckForEnemyPresence(int playerNodeID);
+      
     }
 }

@@ -21,5 +21,6 @@ namespace PathSystem
 
         List<int> GetAlertedNodes(int _targetNodeID);
         Directions GetEnemySpawnDirection(int _nodeID);
- bool CheckForTargetNode(int _NodeID);    }
+        bool CheckForTargetNode(int _NodeID);
+    }
 }
