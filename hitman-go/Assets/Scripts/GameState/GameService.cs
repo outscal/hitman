@@ -10,15 +10,17 @@ using Zenject;
 
 namespace GameState
 {
-    public class GameService: IGameService
-{       IGameStates currentGameState = new GamePlayerState();
+    public class GameService : IGameService
+    {
+        IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
- readonly SignalBus signalBus;
+        readonly SignalBus signalBus;
+
+        public GameService(SignalBus signalBus)
         {
-            
-            playerService.SpawnPlayer();
- this.signalBus=signalBus;
-            signalBus.TryFire(new GameStartSignal());        }
+            this.signalBus = signalBus;
+            signalBus.TryFire(new GameStartSignal());
+        }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
@@ -34,6 +36,6 @@ namespace GameState
                 currentGameState.OnStateEneter();
                 Debug.Log(currentGameState);
             }
-        }        
+        }
     }
 }
