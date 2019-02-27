@@ -10,6 +10,7 @@ namespace InputSystem
         private Vector2 startPos, endPos;
         private Directions direction;
         private float minDragDistance = Screen.height * 15 / 100;
+        private bool detectedPlayer = false;
 
         public TouchInput()
         {
@@ -29,13 +30,19 @@ namespace InputSystem
 
                 if(touch.phase == TouchPhase.Began)
                 {
+
+
                     startPos = touch.position;
                     endPos = touch.position; 
                 }
                 else if(touch.phase == TouchPhase.Ended)
                 {
-                    endPos = touch.position;
-                    DecideSwipe();
+                    if (detectedPlayer == true)
+                    {
+                        endPos = touch.position;
+                        DecideSwipe();
+                        detectedPlayer = false;
+                    }
                 }
             }
 
