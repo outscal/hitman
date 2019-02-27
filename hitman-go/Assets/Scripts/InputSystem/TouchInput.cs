@@ -17,6 +17,11 @@ namespace InputSystem
 
         }
 
+        public void DetectTap()
+        {
+
+        }
+
         public void OnInitialized(IInputService inputService)
         {
             this.inputService = inputService;
@@ -30,8 +35,6 @@ namespace InputSystem
 
                 if(touch.phase == TouchPhase.Began)
                 {
-
-
                     startPos = touch.position;
                     endPos = touch.position; 
                 }

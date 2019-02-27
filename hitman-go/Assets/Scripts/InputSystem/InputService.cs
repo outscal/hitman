@@ -10,7 +10,7 @@ namespace InputSystem
     {
         //private IPlayerService playerService;
 
-        private IInputComponent inputComponent;
+        private IInputComponent playerInput;
 
         public InputService (/*IPlayerService playerService*/)
         {
@@ -18,11 +18,11 @@ namespace InputSystem
             //this.playerService = playerService;
 
             #if UNITY_ANDROID || UNITY_IOS
-                        inputComponent = new TouchInput();
+                        playerInput = new TouchInput();
             #elif UNITY_EDITOR || UNITY_STANDALONE
                         inputComponent = new KeyboardInput();
             #endif
-            inputComponent.OnInitialized(this);
+            playerInput.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
@@ -32,7 +32,19 @@ namespace InputSystem
 
         public void Tick()
         {
-            inputComponent.OnTick();
+            playerInput.OnTick();
+        }
+
+        public void DetectTap()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit raycast;
+
+            if(Physics.Raycast(ray,out raycast))
+            {
+                 
+            }
+
         }
     }
 }
