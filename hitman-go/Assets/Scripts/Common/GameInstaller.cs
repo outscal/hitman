@@ -18,6 +18,7 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<PlayerSpawnSignal>();
         Container.DeclareSignal<PlayerDeathSignal>();
         Container.DeclareSignal<PlayerKillSignal>();
+        Container.DeclareSignal<StateChangeSignal>();
 
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
