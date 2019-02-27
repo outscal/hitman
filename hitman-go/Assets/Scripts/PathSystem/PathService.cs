@@ -8,7 +8,6 @@ namespace PathSystem
 {
     public class PathService : IPathService
     {
-
         List<int> shortestPath;
         GameObject line;
         NodeControllerView nodeprefab, targetNode;
