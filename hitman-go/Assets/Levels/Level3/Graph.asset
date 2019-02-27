@@ -19,56 +19,66 @@ MonoBehaviour:
   - node:
       uniqueID: 0
       spawnPlayer: 1
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: -10, y: 0, z: 0}
     connections: ffffffffffffffff01000000ffffffff
   - node:
       uniqueID: 1
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 0}
     connections: ffffffff070000000200000000000000
   - node:
       uniqueID: 2
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 0}
     connections: 03000000060000000400000001000000
   - node:
       uniqueID: 3
       spawnPlayer: 0
+      TargetNode: 1
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: -5}
     connections: ffffffff02000000ffffffffffffffff
   - node:
       uniqueID: 4
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 00000000
+      spawnEnemies:
+      - enemy: 0
+        dir: 3
       nodePosition: {x: 5, y: 0, z: 0}
     connections: ffffffff05000000ffffffff02000000
   - node:
       uniqueID: 5
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
     connections: 04000000ffffffffffffffff06000000
   - node:
       uniqueID: 6
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 5}
     connections: 02000000ffffffff0500000007000000
   - node:
       uniqueID: 7
       spawnPlayer: 0
+      TargetNode: 0
       spawnPickups: 
-      spawnEnemies: 
+      spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 5}
     connections: 01000000ffffffff06000000ffffffff

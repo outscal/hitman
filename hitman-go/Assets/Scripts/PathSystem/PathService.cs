@@ -39,7 +39,6 @@ namespace PathSystem
             }
             GetShortestPath(0, 3);
         }
-
         private void printAllPaths(int s, int d)
         {
             bool[] isVisited = new bool[graph.Count];
@@ -114,7 +113,7 @@ namespace PathSystem
             List<int> enemySpawnNode = new List<int>();
             for (int i = 0; i < graph.Count; i++)
             {
-                if (graph[i].node.spawnEnemies.Contains(type))
+                if (graph[i].ContainsEnemyType(type))
                 {
                     enemySpawnNode.Add(graph[i].node.uniqueID);
                 }
@@ -122,6 +121,11 @@ namespace PathSystem
             return enemySpawnNode;
         }
         public List<int> GetAlertedNodes(int _targetNodeID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Directions GetEnemySpawnDirection(int _nodeID)
         {
             throw new NotImplementedException();
         }

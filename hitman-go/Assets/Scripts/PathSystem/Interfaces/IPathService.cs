@@ -20,5 +20,6 @@ namespace PathSystem
         List<int> GetShortestPath(int _currentNodeID, int _destinationNodeID);
 
         List<int> GetAlertedNodes(int _targetNodeID);
+        Directions GetEnemySpawnDirection(int _nodeID);
     }
 }
