@@ -22,7 +22,7 @@ namespace Enemy
 
             if (CheckForPlayerPresence(nodeID))
             {
-                currentEnemyView.GetGameObject().transform.position = pathService.GetNodeLocation(nodeID);
+                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
                 currentEnemyService.TriggerPlayerDeath();
             }
         }

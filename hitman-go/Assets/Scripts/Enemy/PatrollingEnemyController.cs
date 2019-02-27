@@ -16,5 +16,11 @@ namespace Enemy
 
         }
 
+        protected override void MoveToNextNode(int nodeID)
+        {
+            currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+            currentNodeID = nodeID;
+        }
+
     }
 }
