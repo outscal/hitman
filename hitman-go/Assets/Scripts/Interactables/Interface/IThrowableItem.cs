@@ -5,8 +5,8 @@ using Common;
 
 namespace InteractableSystem
 {
-    public interface IInteractable
+    public interface IThrowableItem
     {
-
+        void ThrowAction(int targetNodeID);
     }
 }
