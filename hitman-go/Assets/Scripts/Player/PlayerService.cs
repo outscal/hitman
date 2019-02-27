@@ -1,6 +1,8 @@
 ﻿using Common;
 using Enemy;
 using PathSystem;
+using GameState.Signals;
+using System;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -41,7 +43,17 @@ namespace Player
             {
                 KillEnemy();
             }
+            if(CheckForFinishCondition())
+            {
 
+            }
+                _signalBus.TryFire(new StateChangeSignal());
+
+        }
+
+        private bool CheckForFinishCondition()
+        {
+            return currentPathService.CheckForTargetNode(playerNodeID);
         }
 
         public void SpawnPlayer()

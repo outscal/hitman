@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameState.Signals;
 using Player;
 using Zenject;
 using PathSystem;
@@ -17,10 +18,11 @@ namespace Enemy
         private IPlayerService playerService;
        
 
-        public EnemyService(IPathService _pathService,IPlayerService _playerService,EnemyScriptableObjectList enemyList)
+        public EnemyService(IPathService _pathService,IPlayerService _playerService,EnemyScriptableObjectList enemyList, SignalBus _signalBus)
         {
             pathService = _pathService;
             playerService = _playerService;
+            signalBus = _signalBus;
             SpawnEnemy(enemyList);
         }
 
@@ -47,6 +49,7 @@ namespace Enemy
             {
                 enemyList[i].Move();
             }
+            signalBus.TryFire(new StateChangeSignal());
         }
 
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
