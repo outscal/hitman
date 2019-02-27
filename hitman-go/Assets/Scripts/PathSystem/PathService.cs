@@ -133,10 +133,8 @@ namespace PathSystem
             return graph[_nodeID].node.spawnEnemies[0].dir;
         }
 
-        public bool CheckForTargetNode(int playerNodeID)
+ public bool CheckForTargetNode(int _NodeID)
         {
-            // throw new NotImplementedException();
-            
-        }
-    }
+            return graph[_NodeID].node.TargetNode;
+        }    }
 }
