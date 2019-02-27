@@ -19,6 +19,14 @@ namespace Enemy
             SpawnEnemy(enemyList);
         }
 
+        public void PerformMovement()
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Move();
+            }
+        }
+
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
         {
             for(int i=0;i<scriptableObjectList.enemyList.Count;i++)
@@ -40,7 +48,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation=pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new StaticEnemyController(this,pathService,spawnLocation,_enemyScriptableObject);
+                        EnemyController newEnemy = new StaticEnemyController(this,pathService,spawnLocation,_enemyScriptableObject,spawnNodeID[i],pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);                        
                     }
                     break;
@@ -51,7 +59,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new PatrollingEnemyController(this, pathService, spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new PatrollingEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -62,7 +70,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new RotatingKnifeEnemyController(this, pathService, spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new RotatingKnifeEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -73,7 +81,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new CircularCopEnemyController(this, pathService,spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new CircularCopEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -84,7 +92,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new ShieldedEnemyController(this, pathService, spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new ShieldedEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -95,7 +103,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new DogsEnemyController(this, pathService,spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new DogsEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -106,7 +114,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new SniperEnemyController(this, pathService, spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new SniperEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;
@@ -117,7 +125,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new TargetEnemyController(this, pathService,spawnLocation, _enemyScriptableObject);
+                        EnemyController newEnemy = new TargetEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         enemyList.Add(newEnemy);
                     }
                     break;

@@ -2,6 +2,7 @@
 using Common;
 using System.Collections;
 using PathSystem;
+using GameState.Interface;
 using System;
 
 namespace Enemy
@@ -12,17 +13,21 @@ namespace Enemy
         protected EnemyScriptableObject enemyScriptableObject;
         protected IPathService pathService;
         protected IEnemyView currentEnemyView;
+        protected IGameService gameService;
         protected Vector3 spawnLocation;
         protected GameObject enemyInstance;
+        protected Directions spawnDirection;
+        protected int spawnID;
         protected int enemyID;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
             spawnLocation = _spawnLocation;
             enemyScriptableObject = _enemyScriptableObject;
             pathService = _pathService;
-
+            spawnDirection = _spawnDirection;
+            spawnID = _currentNodeID;
             SpawnEnemyView();
         }
     
@@ -40,9 +45,18 @@ namespace Enemy
             enemyID = _ID;
         }
 
-        public virtual void MoveToNextNode(int nodeID)
+        protected virtual void MoveToNextNode(int nodeID)
         {
+            
+        }
 
+        public void Move()
+        {
+            if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
+            {
+                int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
+                MoveToNextNode(nextNodeID);
+            }
         }
     }
 }

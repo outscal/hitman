@@ -125,5 +125,10 @@ namespace PathSystem
         {
             throw new NotImplementedException();
         }
+
+        public Directions GetEnemySpawnDirection(int _nodeID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
