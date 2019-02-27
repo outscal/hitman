@@ -15,10 +15,8 @@ namespace Player
 
         int GetPlayerNodeID();
 
-        void KillEnemy();
-
-        bool CheckForEnemyPresence();
         void OnGameStart();
+        bool PlayerDeathStatus();
 
     }
 

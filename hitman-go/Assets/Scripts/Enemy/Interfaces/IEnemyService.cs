@@ -10,10 +10,9 @@ namespace Enemy
     {
 
         void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
-        void PerformMovement();
+        
         int GetPlayerNodeID();
         void TriggerPlayerDeath();
-        void SetPlayerService(IPlayerService _playerService);
         bool CheckForEnemyPresence(int playerNodeID);
     }
 }

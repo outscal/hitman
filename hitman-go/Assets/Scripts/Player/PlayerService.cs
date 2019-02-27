@@ -1,6 +1,7 @@
 ﻿using Common;
 using Enemy;
 using PathSystem;
+using GameState.Interface;
 using GameState.Signals;
 using System;
 using System.Collections;
@@ -14,26 +15,38 @@ namespace Player
         readonly SignalBus _signalBus;
         private PlayerController playerController;
         private IPathService currentPathService;
-        private PlayerDeathSignal playerDeathSignal;
-        private IEnemyService currentEnemyService;
+        private PlayerDeathSignal playerDeathSignal;        
         private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
+        private IGameService gameService;
+        private bool isPlayerDead=false;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService, IEnemyService _enemyService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService,IGameService  _gameService,PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
             _signalBus = signalBus;
+            gameService = _gameService;
             
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            currentEnemyService=_enemyService;
+            
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
             _signalBus.Subscribe<GameOverSignal>(GameOver);
             _signalBus.Subscribe<GameStartSignal>(OnGameStart);
+       
+        }
+
+        public void OnGameStart()
+        {
+            SpawnPlayer();
         }
 
         public void SetSwipeDirection(Directions _direction)
         {
+            if(gameService.GetCurrentState()!=GameStatesType.PLAYERSTATE)
+            {
+                return;
+            }
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
             if (nextNodeID == -1)
             {
@@ -42,32 +55,25 @@ namespace Player
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
         
             playerController.MoveToLocation(nextLocation);
-            playerNodeID = nextNodeID;
-            if (CheckForEnemyPresence())
-            {
-                KillEnemy();
-            }
+            playerNodeID = nextNodeID;           
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
             }
             _signalBus.TryFire(new StateChangeSignal());
-            currentEnemyService.PerformMovement();
+            
         }
-
+       
         private void PlayerDead()
         {
             playerController.DisablePlayer();
+            isPlayerDead = true;
             _signalBus.TryFire(new GameOverSignal());
         }
         private void GameOver()
         {
             _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
             Debug.Log("GameOver");
-        }
-        public void OnGameStart()
-        {
-            SpawnPlayer();
         }
         private bool CheckForFinishCondition()
         {
@@ -76,7 +82,7 @@ namespace Player
 
         public void SpawnPlayer()
         {
-            currentEnemyService.SetPlayerService(this);
+         
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
@@ -85,8 +91,7 @@ namespace Player
         }
 
         public void IncreaseScore()
-        {
-            Debug.Log("increase score called");
+        {          
             _signalBus.TryFire(new PlayerKillSignal());
         }
 
@@ -99,19 +104,11 @@ namespace Player
         {
             return playerNodeID;
         }
+        
 
-        public void KillEnemy()
+        public bool PlayerDeathStatus()
         {
-            // throw new System.NotImplementedException();
-            
-            _signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerNodeID });
-            
+            return isPlayerDead;
         }
-
-        public bool CheckForEnemyPresence()
-        {
-            return currentEnemyService.CheckForEnemyPresence(playerNodeID);
-        }
-
     }
 }
