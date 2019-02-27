@@ -52,17 +52,8 @@ public class GameInstaller : MonoInstaller
 
         Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
 
-       // Container.BindSignal<GameStartSignal>().ToMethod<PlayerService>(x=>x.OnGameStart).FromResolve();
+     
         
-        //Container.BindSignal<EnemyDeathSignal>().ToMethod<EnemyService>(x=>x.EnemyDead).FromResolve();
-        
-
-        //Container.Bind<IPickupService>()
-        //  .To<PickupService>()
-        //.AsSingle()
-        //.NonLazy();
-        //Container.BindSignal<EnemyDeathSignal>().ToMethod<PlayerService>(x => x.IncreaseScore).FromResolve();
-        //Container.BindSignal<PlayerDeathSignal>().ToMethod<UIanimatoretc>().FromResolve();
 
 
     }

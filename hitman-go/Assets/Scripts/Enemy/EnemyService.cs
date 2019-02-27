@@ -22,19 +22,17 @@ namespace Enemy
     
 
 
-        public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
+        public EnemyService(IPlayerService _playerService,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
             gameService = _gameService;
             signalBus = _signalBus;
+            playerService = _playerService;
             SpawnEnemy(enemyList);
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+            signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
         }
 
-        public void SetPlayerService(IPlayerService _playerService)
-        {
-            playerService = _playerService;
-        }
 
         public bool CheckForEnemyPresence(int nodeID)
         {
@@ -51,8 +49,15 @@ namespace Enemy
         {
             return playerService.GetPlayerNodeID();
         }
+        private void OnTurnStateChange()
+        {
+            if(gameService.GetCurrentState()==GameStatesType.ENEMYSTATE)
+            {
+                PerformMovement();
+            }
+        }
 
-        public void PerformMovement()
+        private void PerformMovement()
         {
             List<int> enemyKey = new List<int>();
             foreach (int key in enemyList.Keys)
@@ -66,18 +71,22 @@ namespace Enemy
 
                 enemyList.TryGetValue(enemyKey[i], out controller);
 
-                controller.Move();
+                if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
+                {
+                    signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
+                }
+                else { controller.Move(); }
             }
             if (!playerService.PlayerDeathStatus())
+            {
+                Debug.Log("changing from enemy to player");
                 signalBus.TryFire(new StateChangeSignal());
+            }
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-            Debug.Log("disable enemy");
-            Debug.Log("node value" + _deathSignal.nodeID.ToString());
-
-            EnemyController enemy;
-            //enemyList.ElementAt(_deathSignal.nodeID).Value;
+           
+            EnemyController enemy;            
             enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
             enemy.DisableEnemy();
             enemyList.Remove(_deathSignal.nodeID);

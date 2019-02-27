@@ -27,14 +27,23 @@ namespace GameState
         }
         public void ChangeState()
         {
-            IGameStates tempState = previousGameState;
+            
             if (GetCurrentState() == GameStatesType.PLAYERSTATE)
             {
                 previousGameState.OnStateExit();
                 previousGameState = currentGameState;
-                currentGameState = tempState;
+                currentGameState = new GameEnemyState();
                 currentGameState.OnStateEneter();
                 Debug.Log(currentGameState);
+            }
+            else
+            {
+                previousGameState.OnStateExit();
+                previousGameState = currentGameState;
+                currentGameState = new GamePlayerState();
+                currentGameState.OnStateEneter();
+                Debug.Log(currentGameState);
+
             }
         }
 
