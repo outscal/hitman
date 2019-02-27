@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
-  m_Name: Graph
+  m_Name: Level2
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
+    type: 3}
+  targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
   graph:
   - node:
@@ -22,7 +24,7 @@ MonoBehaviour:
       TargetNode: 0
       spawnPickups: 
       spawnEnemies: []
-      nodePosition: {x: -10, y: 0, z: 0}
+      nodePosition: {x: -10, y: 0, z: 5}
     connections: ffffffffffffffff01000000ffffffff
   - node:
       uniqueID: 1
@@ -30,55 +32,39 @@ MonoBehaviour:
       TargetNode: 0
       spawnPickups: 
       spawnEnemies: []
-      nodePosition: {x: -5, y: 0, z: 0}
-    connections: ffffffff070000000200000000000000
+      nodePosition: {x: -5, y: 0, z: 5}
+    connections: ffffffffffffffff0200000000000000
   - node:
       uniqueID: 2
       spawnPlayer: 0
       TargetNode: 0
       spawnPickups: 
-      spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    connections: 03000000060000000400000001000000
-  - node:
-      uniqueID: 3
-      spawnPlayer: 0
-      TargetNode: 1
-      spawnPickups: 
-      spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: -5}
-    connections: ffffffff02000000ffffffffffffffff
-  - node:
-      uniqueID: 4
-      spawnPlayer: 0
-      TargetNode: 0
-      spawnPickups: 
       spawnEnemies:
       - enemy: 0
-        dir: 3
-      nodePosition: {x: 5, y: 0, z: 0}
-    connections: ffffffff05000000ffffffff02000000
+        dir: 2
+      nodePosition: {x: 0, y: 0, z: 5}
+    connections: ffffffffffffffff0300000001000000
   - node:
-      uniqueID: 5
+      uniqueID: 3
       spawnPlayer: 0
       TargetNode: 0
       spawnPickups: 
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
-    connections: 04000000ffffffffffffffff06000000
+    connections: 04000000ffffffffffffffff02000000
   - node:
-      uniqueID: 6
+      uniqueID: 4
       spawnPlayer: 0
       TargetNode: 0
       spawnPickups: 
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 5}
-    connections: 02000000ffffffff0500000007000000
+      nodePosition: {x: 5, y: 0, z: 0}
+    connections: 0500000003000000ffffffffffffffff
   - node:
-      uniqueID: 7
+      uniqueID: 5
       spawnPlayer: 0
-      TargetNode: 0
+      TargetNode: 1
       spawnPickups: 
       spawnEnemies: []
-      nodePosition: {x: -5, y: 0, z: 5}
-    connections: 01000000ffffffff06000000ffffffff
+      nodePosition: {x: 5, y: 0, z: -5}
+    connections: ffffffff04000000ffffffffffffffff

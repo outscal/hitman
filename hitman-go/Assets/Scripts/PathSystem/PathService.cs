@@ -11,14 +11,13 @@ namespace PathSystem
 
         List<int> shortestPath;
         GameObject line;
-        NodeControllerView nodeprefab;
-
-        [SerializeField] List<Node> graph = new List<Node>();
+        NodeControllerView nodeprefab, targetNode;
+                 [SerializeField] List<Node> graph = new List<Node>();
         public PathService(ScriptableGraph _Graph)
         {
-            nodeprefab = _Graph.nodeprefab;
-            line = _Graph.line;
-            DrawGraph(_Graph);
+			nodeprefab = _Graph.nodeprefab;
+            targetNode = _Graph.targetNode;
+            line = _Graph.line;            DrawGraph(_Graph);
             Debug.Log("path created");
         }
         public void DrawGraph(ScriptableGraph Graph)
@@ -30,8 +29,14 @@ namespace PathSystem
                 node.connections = Graph.graph[i].connections;
                 graph.Add(node);
                 nodeprefab.SetNodeID(i);
-                GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
-                if (node.connections[0] != -1)
+				if (graph[i].node.TargetNode)
+                {
+                    GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
+                }
+                else
+                {
+                    GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
+                }                if (node.connections[0] != -1)
                 {
                     GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)));
                 }
@@ -39,6 +44,7 @@ namespace PathSystem
                 {
                     GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0));
                 }
+
             }
             GetShortestPath(0, 3);
         }
