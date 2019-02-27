@@ -18,7 +18,14 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<PlayerSpawnSignal>();
         Container.DeclareSignal<PlayerDeathSignal>();
         Container.DeclareSignal<PlayerKillSignal>();
+        Container.DeclareSignal<EnemyDeathSignal>();
+        Container.DeclareSignal<StateChangeSignal>();
+        
 
+        Container.Bind<IEnemyService>()
+            .To<EnemyService>()
+            .AsSingle()
+            .NonLazy();
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
             .AsSingle()
@@ -29,10 +36,6 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
-        Container.Bind<IEnemyService>()
-            .To<EnemyService>()
-            .AsSingle()
-            .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()
@@ -43,6 +46,8 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
         Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
+        //Container.BindSignal<EnemyDeathSignal>().ToMethod<EnemyService>(x=>x.EnemyDead).FromResolve();
+        
 
         //Container.Bind<IPickupService>()
         //  .To<PickupService>()

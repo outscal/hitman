@@ -12,6 +12,13 @@ namespace Player
         void SetSwipeDirection(Directions _direction);
 
         void SetTargetNode(int _nodeID);
+
+        int GetPlayerNodeID();
+
+        void KillEnemy();
+
+        bool CheckForEnemyPresence();
+
     }
 
 }

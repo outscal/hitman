@@ -8,7 +8,7 @@ namespace PathSystem
     public class ScriptableGraph : ScriptableObject
     {
         public GameObject line;
-        public NodeControllerView nodeprefab;       
+        public NodeControllerView nodeprefab,targetNode;       
         public List<Node> graph =new List<Node>();
 
     }

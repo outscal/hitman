@@ -5,6 +5,7 @@ namespace Enemy
 {
     public class EnemyDeathSignal
     {
-
+        public int nodeID;
+        
     }
 }

@@ -37,7 +37,26 @@ namespace Enemy
             enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             enemyInstance.transform.localPosition = spawnLocation;
-            enemyInstance.transform.localRotation = enemyScriptableObject.enemyRotation;
+            switch(spawnDirection)
+            {
+                case Directions.DOWN:
+                    enemyInstance.transform.localEulerAngles = new Vector3(0,-180f,0);
+                    break;
+                case Directions.UP:
+                    enemyInstance.transform.localEulerAngles = new Vector3(0,180f,0);
+                    break;
+                case Directions.LEFT:
+                    enemyInstance.transform.localEulerAngles = new Vector3(0,90f,0);
+                    break;
+                case Directions.RIGHT:
+                    enemyInstance.transform.localEulerAngles = new Vector3(0,-90f,0);
+                    break;
+            }
+        }
+
+        public void DisableEnemy()
+        {
+            currentEnemyView.DisableEnemy();
         }
 
         public void SetID(int _ID)
@@ -54,8 +73,19 @@ namespace Enemy
         {
             if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
             {
+                Debug.Log("inside move");
                 int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
                 MoveToNextNode(nextNodeID);
+                CheckForPlayerPresence(nextNodeID);
+            }
+            
+        }
+        protected virtual void CheckForPlayerPresence(int _nextNodeID)
+        {
+            if(currentEnemyService.GetPlayerNodeID()==_nextNodeID)
+            {
+                //trigger PlayerDeathSignal
+                currentEnemyService.TriggerPlayerDeath();
             }
         }
     }

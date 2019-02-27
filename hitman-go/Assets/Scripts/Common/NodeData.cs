@@ -32,7 +32,6 @@ namespace Common
     {
         public NodeData node;
         public int[] connections = new int[4];
-
         public bool ContainsEnemyType(EnemyType type){
             for(int i=0;i<node.spawnEnemies.Count;i++){
                 if(node.spawnEnemies[i].enemy==type){
