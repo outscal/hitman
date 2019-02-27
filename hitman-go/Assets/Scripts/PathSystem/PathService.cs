@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Common;
 using UnityEngine;
+using PathSystem.NodesScript;
 
 namespace PathSystem
 {
@@ -9,7 +10,8 @@ namespace PathSystem
     {
       
         List<int> shortestPath;
-        GameObject nodeprefab, line;
+        GameObject line;
+        NodeControllerView nodeprefab;
          
         [SerializeField] List<Node> graph = new List<Node>();
         public PathService ( ScriptableGraph _Graph)
@@ -27,7 +29,8 @@ namespace PathSystem
                 node.node = Graph.graph[i].node;
                 node.connections = Graph.graph[i].connections;
                 graph.Add(node);
-                GameObject.Instantiate(nodeprefab,new Vector3(node.node.nodePosition.x,node.node.nodePosition.y-0.195f,node.node.nodePosition.z), Quaternion.identity);
+                nodeprefab.SetNodeID(i);
+                GameObject.Instantiate(nodeprefab.gameObject,new Vector3(node.node.nodePosition.x,node.node.nodePosition.y-0.195f,node.node.nodePosition.z), Quaternion.identity);
                 if (node.connections[0] != -1)
                 {
                     GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y-0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)));
@@ -39,7 +42,6 @@ namespace PathSystem
             }
             GetShortestPath(0, 3);
         }
-
         private void printAllPaths(int s, int d)
         {
             bool[] isVisited = new bool[graph.Count];
@@ -114,7 +116,7 @@ namespace PathSystem
             List<int> enemySpawnNode = new List<int>();
             for (int i = 0; i < graph.Count; i++)
             {
-                if (graph[i].node.spawnEnemies.Contains(type))
+                if (graph[i].ContainsEnemyType(type))
                 {
                     enemySpawnNode.Add(graph[i].node.uniqueID);
                 }
@@ -128,7 +130,7 @@ namespace PathSystem
 
         public Directions GetEnemySpawnDirection(int _nodeID)
         {
-            throw new NotImplementedException();
+            return graph[_nodeID].node.spawnEnemies[0].dir;
         }
     }
 }
