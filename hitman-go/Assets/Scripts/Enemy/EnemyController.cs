@@ -17,7 +17,7 @@ namespace Enemy
         protected Vector3 spawnLocation;
         protected GameObject enemyInstance;
         protected Directions spawnDirection;
-        protected int spawnID;
+        protected int currentNodeID;
         protected int enemyID;
 
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
@@ -27,7 +27,7 @@ namespace Enemy
             enemyScriptableObject = _enemyScriptableObject;
             pathService = _pathService;
             spawnDirection = _spawnDirection;
-            spawnID = _currentNodeID;
+            currentNodeID = _currentNodeID;
             gameService = _gameService;
             SpawnEnemyView();
         }
