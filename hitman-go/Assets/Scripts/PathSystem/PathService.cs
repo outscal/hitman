@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Common;
 using UnityEngine;
+using PathSystem.NodesScript;
 
 namespace PathSystem
 {
@@ -9,7 +10,8 @@ namespace PathSystem
     {
       
         List<int> shortestPath;
-        GameObject nodeprefab, line;
+        GameObject line;
+        NodeControllerView nodeprefab;
          
         [SerializeField] List<Node> graph = new List<Node>();
         public PathService ( ScriptableGraph _Graph)
@@ -27,7 +29,8 @@ namespace PathSystem
                 node.node = Graph.graph[i].node;
                 node.connections = Graph.graph[i].connections;
                 graph.Add(node);
-                GameObject.Instantiate(nodeprefab,new Vector3(node.node.nodePosition.x,node.node.nodePosition.y-0.195f,node.node.nodePosition.z), Quaternion.identity);
+                nodeprefab.SetNodeID(i);
+                GameObject.Instantiate(nodeprefab.gameObject,new Vector3(node.node.nodePosition.x,node.node.nodePosition.y-0.195f,node.node.nodePosition.z), Quaternion.identity);
                 if (node.connections[0] != -1)
                 {
                     GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y-0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)));
