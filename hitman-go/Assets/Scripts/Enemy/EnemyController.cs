@@ -30,10 +30,7 @@ namespace Enemy
             enemyInstance.transform.localPosition = spawnLocation;
             enemyInstance.transform.localRotation = enemyScriptableObject.enemyRotation;
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> fce40dc3f5bda65f2644f01f554157912183462a
         public void SetID(int _ID)
         {
             enemyID = _ID;

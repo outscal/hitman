@@ -26,7 +26,7 @@ namespace InputSystem
 
         public void PassDirection(Directions direction)
         {
-            playerService.SetDirection(direction);
+            playerService.SetSwipeDirection(direction);
         }
 
         public void Tick()
