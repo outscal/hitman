@@ -76,7 +76,7 @@ namespace Enemy
             if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
             {
                 Debug.Log("inside move");
-                int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
+                int nextNodeID = pathService.GetNextNodeID(currentNodeID,spawnDirection);
                 MoveToNextNode(nextNodeID);                
             }
             
