@@ -9,6 +9,6 @@ namespace Enemy
     {
         
         void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
-
+        void PerformMovement();
     }
 }
