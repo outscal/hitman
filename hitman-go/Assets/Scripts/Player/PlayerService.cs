@@ -27,6 +27,8 @@ namespace Player
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
             currentEnemyService=_enemyService;
+            _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
+            _signalBus.Subscribe<GameOverSignal>(PlayerDead);
         }
 
         public void SetSwipeDirection(Directions _direction)
@@ -49,10 +51,18 @@ namespace Player
                 Debug.Log("Game finished");
             }
             _signalBus.TryFire(new StateChangeSignal());
-          //  currentEnemyService.PerformMovement();
-
+            currentEnemyService.PerformMovement();
         }
 
+        private void PlayerDead()
+        {
+            playerController.DisablePlayer();
+            _signalBus.TryFire(new GameOverSignal());
+        }
+        private void GameOver()
+        {
+            Debug.Log("GameOver");
+        }
         private bool CheckForFinishCondition()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);

@@ -35,5 +35,6 @@ namespace GameState
                 Debug.Log(currentGameState);
             }
         }
+        
     }
 }

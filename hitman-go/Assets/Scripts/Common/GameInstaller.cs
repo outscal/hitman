@@ -19,6 +19,7 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<PlayerDeathSignal>();
         Container.DeclareSignal<PlayerKillSignal>();
         Container.DeclareSignal<EnemyDeathSignal>();
+        Container.DeclareSignal<GameOverSignal>();
         Container.DeclareSignal<StateChangeSignal>();
         
 
@@ -48,6 +49,7 @@ public class GameInstaller : MonoInstaller
             .NonLazy();
 
         Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
+        
         //Container.BindSignal<EnemyDeathSignal>().ToMethod<EnemyService>(x=>x.EnemyDead).FromResolve();
         
 

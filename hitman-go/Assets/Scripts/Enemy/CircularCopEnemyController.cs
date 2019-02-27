@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Common;
 using PathSystem;
+using GameState.Interface;
 using System.Collections;
 
 namespace Enemy
@@ -9,7 +10,7 @@ namespace Enemy
     {
 
 
-        public CircularCopEnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
+        public CircularCopEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
 
 

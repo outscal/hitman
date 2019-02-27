@@ -20,7 +20,7 @@ namespace Enemy
         protected int spawnID;
         protected int enemyID;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
             spawnLocation = _spawnLocation;
@@ -28,6 +28,7 @@ namespace Enemy
             pathService = _pathService;
             spawnDirection = _spawnDirection;
             spawnID = _currentNodeID;
+            gameService = _gameService;
             SpawnEnemyView();
         }
     
@@ -75,8 +76,7 @@ namespace Enemy
             {
                 Debug.Log("inside move");
                 int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
-                MoveToNextNode(nextNodeID);
-                
+                MoveToNextNode(nextNodeID);                
             }
             
         }

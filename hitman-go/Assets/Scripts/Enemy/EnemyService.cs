@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using Common;
+using GameState.Signals;
+using PathSystem;
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GameState.Signals;
-using Player;
 using System.Linq;
+using UnityEngine;
+using GameState.Interface;
 using Zenject;
-using PathSystem;
-using Common;
 
 namespace Enemy
 {
@@ -17,25 +18,27 @@ namespace Enemy
         private Dictionary<int, EnemyController> enemyList = new Dictionary<int, EnemyController>();
         private IPathService pathService;
         private IPlayerService playerService;
+        private IGameService gameService;
 
 
-        public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus)
+        public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
-            
+            gameService = _gameService;
             signalBus = _signalBus;
             SpawnEnemy(enemyList);
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
         }
-        public void SetPlayerService(IPlayerService _playerService){
-              playerService = _playerService;          
+
+        public void SetPlayerService(IPlayerService _playerService)
+        {
+            playerService = _playerService;
         }
 
         public bool CheckForEnemyPresence(int nodeID)
         {
             if (enemyList.ContainsKey(nodeID))
             {
-                //enemyList.Remove(nodeID);
 
                 return true;
             }
@@ -50,20 +53,33 @@ namespace Enemy
 
         public void PerformMovement()
         {
-            for (int i = 0; i < enemyList.Count; i++)
+            List<int> enemyKey = new List<int>();
+            foreach(int key in enemyList.Keys)
             {
-                enemyList[i].Move();
+                enemyKey.Add(key);
+            }
+
+            for (int i = 0; i < enemyKey.Count; i++)
+            {
+                EnemyController controller;
+                
+                enemyList.TryGetValue(enemyKey[i], out controller);
+                if(controller==null)
+                {
+                    Debug.Log("null hai controller");
+                }
+                controller.Move();
             }
             signalBus.TryFire(new StateChangeSignal());
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
             Debug.Log("disable enemy");
-            Debug.Log("node value"+_deathSignal.nodeID.ToString());
+            Debug.Log("node value" + _deathSignal.nodeID.ToString());
 
             EnemyController enemy;
             //enemyList.ElementAt(_deathSignal.nodeID).Value;
-            enemyList.TryGetValue(_deathSignal.nodeID,out enemy);
+            enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
             enemy.DisableEnemy();
             //enemyList.Remove(_deathSignal.nodeID);
         }
@@ -96,7 +112,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new StaticEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        Debug.Log("spawn id node :"+ spawnNodeID[i]);
+                        Debug.Log("spawn id node :" + spawnNodeID[i]);
                         enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
