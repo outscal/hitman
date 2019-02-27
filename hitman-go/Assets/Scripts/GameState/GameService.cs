@@ -12,6 +12,7 @@ namespace GameState
         IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
            //pathService.DrawGraph();
+
             playerService.SpawnPlayer();
 
         }
