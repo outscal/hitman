@@ -1,6 +1,7 @@
 using Common;
 using Enemy;
 using GameState.Interface;
+using GameState.Signals;
 using InputSystem;
 using PathSystem;
 using Player;
@@ -10,13 +11,14 @@ using Zenject;
 namespace GameState
 {
     public class GameService: IGameService
-{        IGameStates currentGameState = new GamePlayerState();
+{       IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
-
-        public GameService()
+ readonly SignalBus signalBus;
         {
-                    
-        }
+            
+            playerService.SpawnPlayer();
+ this.signalBus=signalBus;
+            signalBus.TryFire(new GameStartSignal());        }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
