@@ -16,14 +16,7 @@ namespace Player
             this.transform.LookAt(_location);
             this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
         }
-
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(collision.gameObject.GetComponent<IEnemyView>()!=null)
-            {
-                
-            }
-        }
+           
+        
     }
 }

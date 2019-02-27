@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Common;
 using System.Collections;
+using GameState.Interface;
 using System;
 
 namespace Player
@@ -31,10 +32,10 @@ namespace Player
         }
 
         public void MoveToLocation(Vector3 _location)
-
         {
+           
             currentPlayerView.MoveToLocation(_location);
-
+            
 
         }
 
@@ -47,5 +48,7 @@ namespace Player
             playerInstance.transform.localPosition = spawnLocation;
 
         }
+
+
     }
 }
