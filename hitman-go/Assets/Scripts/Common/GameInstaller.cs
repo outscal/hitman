@@ -48,7 +48,7 @@ public class GameInstaller : MonoInstaller
             .NonLazy();
 
         Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
-        Container.BindSignal<EnemyDeathSignal>().ToMethod<EnemyService>(x=>x.EnemyDead).FromResolve();
+        //Container.BindSignal<EnemyDeathSignal>().ToMethod<EnemyService>(x=>x.EnemyDead).FromResolve();
         
 
         //Container.Bind<IPickupService>()
