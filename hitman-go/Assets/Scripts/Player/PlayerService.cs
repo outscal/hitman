@@ -16,7 +16,9 @@ namespace Player
         private Vector3 spawnLocation;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService
+                           , PlayerScriptableObject _playerScriptableObject
+                           , SignalBus signalBus)
         {
             _signalBus = signalBus;
             currentPathService = _pathService;
@@ -34,7 +36,12 @@ namespace Player
 
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
-            _signalBus.TryFire(new PlayerMoveSignal() { playerNodeID = nextNodeID });
+            _signalBus.TryFire(
+                new PlayerMoveSignal() 
+                { 
+                    playerNodeID = nextNodeID 
+                }
+            );
 
         }
 
@@ -42,7 +49,8 @@ namespace Player
         {
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
-            playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
+            playerController = new PlayerController(this, spawnLocation
+                                                  , playerScriptableObject);
             _signalBus.TryFire(new PlayerSpawnSignal());
 
         }
