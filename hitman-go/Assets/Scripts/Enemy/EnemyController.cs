@@ -81,6 +81,7 @@ namespace Enemy
             }
             
         }
+
         protected virtual bool CheckForPlayerPresence(int _nextNodeID)
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
