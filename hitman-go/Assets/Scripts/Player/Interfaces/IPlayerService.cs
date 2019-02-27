@@ -9,12 +9,10 @@ namespace Player
     {       
         void SpawnPlayer();
 
-        void SetDirection(Directions _direction);
+        void SetSwipeDirection(Directions _direction);
 
+        void SetTargetNode(int _nodeID);
     }
-<<<<<<< HEAD
-}
-=======
+
 }
 
->>>>>>> fce40dc3f5bda65f2644f01f554157912183462a

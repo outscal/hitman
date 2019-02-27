@@ -20,19 +20,15 @@ namespace Player
             playerScriptableObject = _playerScriptableObject;
         }
 
-        public void SetDirection(Directions _direction)
+        public void SetSwipeDirection(Directions _direction)
         {
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
-<<<<<<< HEAD
-            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-=======
-            if(nextNodeID==-1)
+           if(nextNodeID==-1)
             {
                 return;
             }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             
->>>>>>> fce40dc3f5bda65f2644f01f554157912183462a
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
 
@@ -49,6 +45,11 @@ namespace Player
         public void IncreaseScore()
         {
             Debug.Log("increase score called");
+        }        
+
+        public void SetTargetNode(int _nodeID)
+        {
+           
         }
     }
 }
