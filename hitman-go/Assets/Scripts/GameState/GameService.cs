@@ -10,7 +10,7 @@ using Zenject;
 
 namespace GameState
 {
-    public class GameService : IGameService
+    public class GameService : IGameService,IInitializable
     {
         IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
@@ -19,7 +19,7 @@ namespace GameState
         public GameService(SignalBus signalBus)
         {
             this.signalBus = signalBus;
-            signalBus.TryFire(new GameStartSignal());
+           
         }
         public GameStatesType GetCurrentState()
         {
@@ -36,6 +36,11 @@ namespace GameState
                 currentGameState.OnStateEneter();
                 Debug.Log(currentGameState);
             }
+        }
+
+        public void Initialize()
+        {
+            signalBus.TryFire(new GameStartSignal());
         }
     }
 }

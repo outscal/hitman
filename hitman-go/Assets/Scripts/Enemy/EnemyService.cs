@@ -19,6 +19,7 @@ namespace Enemy
         private IPathService pathService;
         private IPlayerService playerService;
         private IGameService gameService;
+        private bool playerDead=false;
 
 
         public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
@@ -64,12 +65,14 @@ namespace Enemy
                 EnemyController controller;
                 
                 enemyList.TryGetValue(enemyKey[i], out controller);
-                if(controller==null)
-                {
-                    Debug.Log("null hai controller");
-                }
+              
                 controller.Move();
+                if(playerDead)
+                {
+                    return;
+                }
             }
+            Debug.Log("changings state");
             signalBus.TryFire(new StateChangeSignal());
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
@@ -94,6 +97,8 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
+            playerDead = true;
+            Debug.Log("inside trigger");
             signalBus.TryFire(new PlayerDeathSignal());
         }
 
