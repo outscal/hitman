@@ -20,10 +20,6 @@ namespace Player
         private Vector3 spawnLocation;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService
-                           , PlayerScriptableObject _playerScriptableObject
-                           , SignalBus signalBus)
-
         public PlayerService(IPathService _pathService, IEnemyService _enemyService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
             _signalBus = signalBus;
