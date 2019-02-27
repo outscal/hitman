@@ -22,7 +22,7 @@ namespace Common
     {
         public int uniqueID;
         public NodeProperty property;
-        public List<InteractablePickup> spawnPickups;
+        public InteractablePickup spawnPickups;
         public List<NodeEnemyData> spawnEnemies;
         public Vector3 nodePosition;
     }

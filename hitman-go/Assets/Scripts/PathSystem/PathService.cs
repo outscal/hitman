@@ -101,7 +101,15 @@ namespace PathSystem
 
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
-            throw new NotImplementedException();
+             List<int>pickableNodeList = new List<int>();
+            for (int i = 0; i < graph.Count; i++)
+            {
+                if (graph[i].node.spawnPickups==type)
+                {
+                    pickableNodeList.Add(graph[i].node.uniqueID);
+                }
+            }
+            return pickableNodeList;
         }
 
         public int GetPlayerNodeID()
