@@ -11,13 +11,8 @@ namespace Player
         private IPlayerService currentPlayerService;
         private IPlayerView currentPlayerView;
         private PlayerScriptableObject scriptableObject;
-
-
          GameObject playerInstance;
         private Vector3 spawnLocation;
-
-        
-
         public PlayerController(IPlayerService _playerService, Vector3 _spawnLocation, PlayerScriptableObject _playerScriptableObject)
         {
             currentPlayerService = _playerService;
@@ -32,12 +27,7 @@ namespace Player
         }
 
         public void MoveToLocation(Vector3 _location)
-        {
-           
-            currentPlayerView.MoveToLocation(_location);
-            
-
-        }
+        {            currentPlayerView.MoveToLocation(_location)       }
 
         private void SpawnPlayerView()
         {
@@ -48,7 +38,5 @@ namespace Player
             playerInstance.transform.localPosition = spawnLocation;
 
         }
-
-
     }
 }

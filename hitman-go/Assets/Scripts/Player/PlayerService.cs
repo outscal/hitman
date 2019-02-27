@@ -3,22 +3,22 @@ using PathSystem;
 using Enemy;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace Player
 {
     public class PlayerService : IPlayerService
     {
-
-        private PlayerController playerController;
+ readonly SignalBus _signalBus;        private PlayerController playerController;
         private IPathService currentPathService;
-        private IEnemyService currentEnemyService;
-       
-        private PlayerScriptableObject playerScriptableObject;
+        private PlayerDeathSignal playerDeathSignal;
+		 private IEnemyService currentEnemyService;
+	private IEnemyService currentEnemyService;        private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService, IEnemyService _enemyService, PlayerScriptableObject _playerScriptableObject)
-        {
+        public PlayerService(IPathService _pathService,IEnemyService _enemyService PlayerScriptableObject _playerScriptableObject)        {
+            _signalBus = signalBus;
             currentPathService = _pathService;
             currentEnemyService = _enemyService;
             playerScriptableObject = _playerScriptableObject;
@@ -27,20 +27,18 @@ namespace Player
         public void SetSwipeDirection(Directions _direction)
         {
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
-           if(nextNodeID==-1)
+            if (nextNodeID == -1)
             {
                 return;
             }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-            
+
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
-            if(CheckForEnemyPresence())
+ if(CheckForEnemyPresence())
             {
                 KillEnemy();
             }
-
-            
 
         }
 
@@ -49,13 +47,15 @@ namespace Player
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
+            _signalBus.TryFire(new PlayerSpawnSignal());
 
         }
 
         public void IncreaseScore()
         {
-            Debug.Log("increase score called");
-        }        
+            Debug.Log("increase score called");      
+            _signalBus.TryFire(new PlayerKillSignal());
+        }
 
         public void SetTargetNode(int _nodeID)
         {

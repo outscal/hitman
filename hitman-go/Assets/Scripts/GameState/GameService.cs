@@ -10,16 +10,25 @@ namespace GameState
 {
     public class GameService: IGameService
     {   
+        IGameStates currentGameState,previousGameState;
         public  GameService(IInputService inputService,IPlayerService playerService,IEnemyService enemyService, IPathService pathService)
         {  
             //pathService.DrawGraph();
             playerService.SpawnPlayer();
         
         }
-
         public GameStatesType GetCurrentState()
         {
-            throw new System.NotImplementedException();
+            return currentGameState.GetStatesType();
+        }
+        public void ChangeState(){
+            IGameStates tempState=previousGameState;
+            if(GetCurrentState()==GameStatesType.PLAYERSTATE){
+                previousGameState.OnStateExit();
+                previousGameState=currentGameState;
+                currentGameState=tempState;
+                currentGameState.OnStateEneter();
+            }
         }
     }
 }
