@@ -6,6 +6,7 @@ using InputSystem;
 using PathSystem;
 using System.Collections;
 using Common;
+using GameState.Interface;
 using GameState;
 using GameState.Signals;
 
@@ -36,6 +37,7 @@ public class GameInstaller : MonoInstaller
             .To<InputService>()
             .AsSingle()
             .NonLazy();
+        
 
 
         Container.Bind<IPathService>()
@@ -43,7 +45,7 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
-        Container.Bind<GameService>()
+        Container.Bind<IGameService>()
             .To<GameService>()
             .AsSingle()
             .NonLazy();
