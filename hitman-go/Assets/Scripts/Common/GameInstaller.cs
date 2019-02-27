@@ -13,7 +13,12 @@ public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        
+        SignalBusInstaller.Install(Container);
+        Container.DeclareSignal<PlayerMoveSignal>();
+        Container.DeclareSignal<PlayerSpawnSignal>();
+        Container.DeclareSignal<PlayerDeathSignal>();
+        Container.DeclareSignal<PlayerKillSignal>();
+
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
             .AsSingle()
@@ -28,6 +33,7 @@ public class GameInstaller : MonoInstaller
             .To<EnemyService>()
             .AsSingle()
             .NonLazy();
+
         Container.Bind<IPathService>()
             .To<PathService>()
             .AsSingle()
