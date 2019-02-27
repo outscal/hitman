@@ -93,7 +93,7 @@ namespace PathSystem
         {
             return graph[_nodeId].connections[(int)_dir];
         }
-
+        
         public Vector3 GetNodeLocation(int _nodeID)
         {
             return graph[_nodeID].node.nodePosition;
