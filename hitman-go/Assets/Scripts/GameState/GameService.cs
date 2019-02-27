@@ -9,11 +9,13 @@ using UnityEngine;
 
 namespace GameState
 {
-    public class GameService{
+    public class GameService : IGameService
+    {
         IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
-        public GameService(IPlayerService playerService){
-           //pathService.DrawGraph();
+        public GameService(IPlayerService playerService)
+        {
+            //pathService.DrawGraph();
             playerService.SpawnPlayer();
         }
         public GameStatesType GetCurrentState()
