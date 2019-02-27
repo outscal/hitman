@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
+using Zenject;
 using PathSystem;
 using Common;
 
@@ -9,14 +11,34 @@ namespace Enemy
 {
     public class EnemyService : IEnemyService
     {
-        private List<EnemyController> enemyList = new List<EnemyController>();
+        readonly SignalBus signalBus;
+        private Dictionary<int,EnemyController> enemyList = new Dictionary<int, EnemyController>();
         private IPathService pathService;
+        private IPlayerService playerService;
        
 
-        public EnemyService(IPathService _pathService,EnemyScriptableObjectList enemyList)
+        public EnemyService(IPathService _pathService,IPlayerService _playerService,EnemyScriptableObjectList enemyList)
         {
             pathService = _pathService;
+            playerService = _playerService;
             SpawnEnemy(enemyList);
+        }
+
+        public bool CheckForEnemyPresence(int playerNodeID)
+        {
+            if (enemyList.ContainsKey(playerNodeID))
+            {
+                enemyList.Remove(playerNodeID);
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public int GetPlayerNodeID()
+        {
+            return playerService.GetPlayerNodeID();
         }
 
         public void PerformMovement()
@@ -35,6 +57,11 @@ namespace Enemy
             }
         }
 
+        public void TriggerPlayerDeath()
+        {
+            signalBus.TryFire(new PlayerDeathSignal());
+        }
+
         private void SpawnSingleEnemy(EnemyScriptableObject _enemyScriptableObject)
         {
             List<int> spawnNodeID = new List<int>();
@@ -49,7 +76,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation=pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new StaticEnemyController(this,pathService,spawnLocation,_enemyScriptableObject,spawnNodeID[i],pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);                        
+                        enemyList.Add(spawnNodeID[i],newEnemy);                        
                     }
                     break;
 
@@ -60,7 +87,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new PatrollingEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -71,7 +98,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new RotatingKnifeEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -82,7 +109,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new CircularCopEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -93,7 +120,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new ShieldedEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -104,7 +131,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new DogsEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -115,7 +142,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new SniperEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 
@@ -126,7 +153,7 @@ namespace Enemy
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new TargetEnemyController(this, pathService,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(newEnemy);
+                        enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;
 

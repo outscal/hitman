@@ -10,5 +10,8 @@ namespace Enemy
         
         void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
         void PerformMovement();
+        int GetPlayerNodeID();
+        void TriggerPlayerDeath();
+        bool CheckForEnemyPresence(int playerNodeID);
     }
 }

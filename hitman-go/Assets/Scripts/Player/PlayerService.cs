@@ -1,5 +1,6 @@
 ﻿using Common;
 using PathSystem;
+using Enemy;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -8,18 +9,18 @@ namespace Player
 {
     public class PlayerService : IPlayerService
     {
-        readonly SignalBus _signalBus;
-
-        private PlayerController playerController;
+ readonly SignalBus _signalBus;        private PlayerController playerController;
         private IPathService currentPathService;
-        private PlayerScriptableObject playerScriptableObject;
+        private PlayerDeathSignal playerDeathSignal;
+		 private IEnemyService currentEnemyService;
+	private IEnemyService currentEnemyService;        private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
-        {
+        public PlayerService(IPathService _pathService,IEnemyService _enemyService PlayerScriptableObject _playerScriptableObject)        {
             _signalBus = signalBus;
             currentPathService = _pathService;
+            currentEnemyService = _enemyService;
             playerScriptableObject = _playerScriptableObject;
         }
 
@@ -34,7 +35,10 @@ namespace Player
 
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
-            _signalBus.TryFire(new PlayerMoveSignal() { playerNodeID = nextNodeID });
+ if(CheckForEnemyPresence())
+            {
+                KillEnemy();
+            }
 
         }
 
@@ -49,13 +53,28 @@ namespace Player
 
         public void IncreaseScore()
         {
-            Debug.Log("increase score called");
+            Debug.Log("increase score called");      
             _signalBus.TryFire(new PlayerKillSignal());
         }
 
         public void SetTargetNode(int _nodeID)
         {
+           
+        }
 
+        public int GetPlayerNodeID()
+        {
+            return playerNodeID;
+        }
+
+        public void KillEnemy()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CheckForEnemyPresence()
+        {
+           return currentEnemyService.CheckForEnemyPresence(playerNodeID);
         }
     }
 }

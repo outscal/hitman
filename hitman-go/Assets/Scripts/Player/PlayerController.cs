@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Common;
 using System.Collections;
+using GameState.Interface;
 using System;
 
 namespace Player
@@ -10,11 +11,8 @@ namespace Player
         private IPlayerService currentPlayerService;
         private IPlayerView currentPlayerView;
         private PlayerScriptableObject scriptableObject;
-
-        GameObject playerInstance;
+         GameObject playerInstance;
         private Vector3 spawnLocation;
-
-
         public PlayerController(IPlayerService _playerService, Vector3 _spawnLocation, PlayerScriptableObject _playerScriptableObject)
         {
             currentPlayerService = _playerService;
@@ -29,12 +27,7 @@ namespace Player
         }
 
         public void MoveToLocation(Vector3 _location)
-        {
-            currentPlayerView.MoveToLocation(_location);
-            //playerserice.check for prese()
-            //
-        }
-
+        {            currentPlayerView.MoveToLocation(_location)       }
 
         private void SpawnPlayerView()
         {
