@@ -22,14 +22,14 @@ namespace PathSystem
         }
         public void DrawGraph(ScriptableGraph Graph)
         {
-            for (int i = 0; i < Graph.graph.Count; i++)
+            for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
-                node.node = Graph.graph[i].node;
-                node.connections = Graph.graph[i].connections;
+                node.node = Graph.Graph[i].node;
+                node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
                 nodeprefab.SetNodeID(i);
-				if (graph[i].node.TargetNode)
+				if (graph[i].node.property==NodeProperty.TARGETNODE)
                 {
                     GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
                 }
@@ -109,7 +109,7 @@ namespace PathSystem
             int playerNode = -1;
             for (int i = 0; i < graph.Count; i++)
             {
-                if (graph[i].node.spawnPlayer)
+                if (graph[i].node.property==NodeProperty.SPAWNPLAYER)
                 {
                     playerNode = graph[i].node.uniqueID;
                     break;
@@ -141,7 +141,7 @@ namespace PathSystem
 
         public bool CheckForTargetNode(int _NodeID)
         {
-            return graph[_NodeID].node.TargetNode;
+            return graph[_NodeID].node.property==NodeProperty.TARGETNODE;
         }
     }
 }

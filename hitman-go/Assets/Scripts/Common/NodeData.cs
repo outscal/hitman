@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 namespace Common
 {
+    public enum NodeProperty
+    {
+        NONE,
+        SPAWNPLAYER,
+        TARGETNODE
+        
+    }
     [Serializable]
     public struct Edge
     {
@@ -14,8 +21,7 @@ namespace Common
     public struct NodeData
     {
         public int uniqueID;
-        public bool spawnPlayer;
-        public bool TargetNode;
+        public NodeProperty property;
         public List<InteractablePickup> spawnPickups;
         public List<NodeEnemyData> spawnEnemies;
         public Vector3 nodePosition;
@@ -27,18 +33,35 @@ namespace Common
         public Directions dir;
     }
 
+
     [Serializable]
     public class Node
     {
         public NodeData node;
         public int[] connections = new int[4];
-        public bool ContainsEnemyType(EnemyType type){
-            for(int i=0;i<node.spawnEnemies.Count;i++){
-                if(node.spawnEnemies[i].enemy==type){
+        public bool ContainsEnemyType(EnemyType type)
+        {
+            for (int i = 0; i < node.spawnEnemies.Count; i++)
+            {
+                if (node.spawnEnemies[i].enemy == type)
+                {
                     return true;
                 }
             }
             return false;
+        }
+    }
+    [Serializable]
+    public class ScriptableNode
+    {
+        public NodeData node;
+        public int up=-1, down=-1, left=-1, right=-1;
+        public ScriptableNode(){
+            up=-1; down=-1; left=-1; right=-1;
+        }
+        public int[] GetConnections()
+        {
+            return new int[4] { up, down, left, right };
         }
     }
 }
