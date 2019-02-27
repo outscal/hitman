@@ -4,16 +4,18 @@ using GameState.Interface;
 using InputSystem;
 using PathSystem;
 using Player;
-using Zenject;
 using UnityEngine;
+using Zenject;
 
 namespace GameState
 {
-    public class GameService{
+    public class GameService
+    {
         IGameStates currentGameState = new GamePlayerState();
         IGameStates previousGameState = new GameEnemyState();
-        public GameService(IPlayerService playerService){
-           //pathService.DrawGraph();
+        public GameService(IPlayerService playerService)
+        {
+            //pathService.DrawGraph();
 
             playerService.SpawnPlayer();
         }
