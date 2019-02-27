@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using Common;
 using PathSystem;
-using Zenject;
 using Player;
-using Common;
 using System.Collections;
+using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
@@ -11,7 +11,7 @@ namespace Enemy
     {
         //readonly PlayerDeathSignal _playerDeathSignal;
 
-        public StaticEnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService,_pathService, _spawnLocation, _enemyScriptableObject,currentNodeID,spawnDirection)
+        public StaticEnemyController(IEnemyService _enemyService, IPathService _pathService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
             SpawnEnemyView();
 
@@ -19,8 +19,13 @@ namespace Enemy
         protected override void MoveToNextNode(int nodeID)
         {
             //if in range()
-            //currentEnemyView.GetGameObject().transform.position = pathService.GetNodeLocation(nodeID);
-           
+            //
+            if (CheckForPlayerPresence(nodeID))
+            {
+                currentEnemyView.GetGameObject().transform.position = pathService.GetNodeLocation(nodeID);
+                currentEnemyService.TriggerPlayerDeath();
+            }
+
         }
 
     }

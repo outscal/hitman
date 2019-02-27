@@ -75,17 +75,19 @@ namespace Enemy
             {
                 int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
                 MoveToNextNode(nextNodeID);
-                CheckForPlayerPresence(nextNodeID);
+                
             }
             
         }
-        protected virtual void CheckForPlayerPresence(int _nextNodeID)
+        protected virtual bool CheckForPlayerPresence(int _nextNodeID)
         {
-            if(currentEnemyService.GetPlayerNodeID()==_nextNodeID)
+            if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
                 //trigger PlayerDeathSignal
-                currentEnemyService.TriggerPlayerDeath();
+                return true;
             }
+            else
+                return false;
         }
     }
 }
