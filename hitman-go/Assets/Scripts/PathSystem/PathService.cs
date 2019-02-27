@@ -127,7 +127,7 @@ namespace PathSystem
 
         public Directions GetEnemySpawnDirection(int _nodeID)
         {
-            throw new NotImplementedException();
+            return graph[_nodeID].node.spawnEnemies[0].dir;
         }
     }
 }
