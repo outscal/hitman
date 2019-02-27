@@ -6,5 +6,6 @@ namespace Enemy
     public interface IEnemyView
     {
         GameObject GetGameObject();
+        void DisableEnemy();
     }
 }

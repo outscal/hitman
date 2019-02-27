@@ -19,19 +19,23 @@ namespace Enemy
         private IPlayerService playerService;
 
 
-        public EnemyService(IPathService _pathService, IPlayerService _playerService, EnemyScriptableObjectList enemyList, SignalBus _signalBus)
+        public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus)
         {
             pathService = _pathService;
-            playerService = _playerService;
+            
             signalBus = _signalBus;
             SpawnEnemy(enemyList);
+            signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+        }
+        public void SetPlayerService(IPlayerService _playerService){
+              playerService = _playerService;          
         }
 
         public bool CheckForEnemyPresence(int nodeID)
         {
             if (enemyList.ContainsKey(nodeID))
             {
-                enemyList.Remove(nodeID);
+                //enemyList.Remove(nodeID);
 
                 return true;
             }
@@ -54,9 +58,14 @@ namespace Enemy
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-            EnemyController enemy=enemyList.ElementAt(_deathSignal.nodeID).Value;
+            Debug.Log("disable enemy");
+            Debug.Log("node value"+_deathSignal.nodeID.ToString());
+
+            EnemyController enemy;
+            //enemyList.ElementAt(_deathSignal.nodeID).Value;
+            enemyList.TryGetValue(_deathSignal.nodeID,out enemy);
             enemy.DisableEnemy();
-            enemyList.Remove(_deathSignal.nodeID);
+            //enemyList.Remove(_deathSignal.nodeID);
         }
 
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
@@ -82,10 +91,12 @@ namespace Enemy
                     spawnNodeID.Clear();
 
                     spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
+                    Debug.Log(spawnNodeID.Count);
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new StaticEnemyController(this, pathService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
+                        Debug.Log("spawn id node :"+ spawnNodeID[i]);
                         enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;

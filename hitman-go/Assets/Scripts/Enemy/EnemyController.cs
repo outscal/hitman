@@ -56,7 +56,7 @@ namespace Enemy
 
         public void DisableEnemy()
         {
-            currentEnemyView.GetGameObject().SetActive(false);
+            currentEnemyView.DisableEnemy();
         }
 
         public void SetID(int _ID)
@@ -73,6 +73,7 @@ namespace Enemy
         {
             if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
             {
+                Debug.Log("inside move");
                 int nextNodeID = pathService.GetNextNodeID(spawnID,spawnDirection);
                 MoveToNextNode(nextNodeID);
                 CheckForPlayerPresence(nextNodeID);
