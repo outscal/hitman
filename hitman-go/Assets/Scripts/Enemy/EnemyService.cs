@@ -12,6 +12,7 @@ namespace Enemy
         private List<EnemyController> enemyList = new List<EnemyController>();
         private IPathService pathService;
 
+<<<<<<< HEAD
         public EnemyService(IPathService _pathService)
         {
             pathService = _pathService;
@@ -19,6 +20,13 @@ namespace Enemy
 
        
 
+=======
+        public EnemyService(IPathService _pathService,EnemyScriptableObjectList enemyList)
+        {
+            pathService = _pathService;
+            SpawnEnemy(enemyList);
+        }
+>>>>>>> fce40dc3f5bda65f2644f01f554157912183462a
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
         {
             for(int i=0;i<scriptableObjectList.enemyList.Count;i++)
@@ -30,11 +38,15 @@ namespace Enemy
         private void SpawnSingleEnemy(EnemyScriptableObject _enemyScriptableObject)
         {
             List<int> spawnNodeID = new List<int>();
+<<<<<<< HEAD
             
+=======
+>>>>>>> fce40dc3f5bda65f2644f01f554157912183462a
             switch(_enemyScriptableObject.enemyType)
             {
                 case EnemyType.STATIC:
                     spawnNodeID.Clear();
+<<<<<<< HEAD
                     spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
@@ -116,6 +128,29 @@ namespace Enemy
                     }
                     break;
 
+=======
+                    spawnNodeID=pathService.GetEnemySpawnLocation(EnemyType.STATIC);
+                    for (int i = 0; i < spawnNodeID.Count; i++)
+                    {
+                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
+                        EnemyController newEnemy = new StaticEnemyController(this,spawnLocation,_enemyScriptableObject);
+                        enemyList.Add(newEnemy);
+                        
+                    }
+                    break;
+                case EnemyType.PATROLLING:
+                    break;
+                case EnemyType.ROTATING_KNIFE:
+                    break;
+                case EnemyType.CIRCULAR_COP:
+                    break;
+                case EnemyType.SHIELDED:
+                    break;
+                case EnemyType.DOGS:
+                    break;
+                case EnemyType.SNIPER:
+                    break;
+>>>>>>> fce40dc3f5bda65f2644f01f554157912183462a
                 default:
                     Debug.Log("No Enemy Controller of this type");
                     break;

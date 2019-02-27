@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
+  m_Name: Graph
+  m_EditorClassIdentifier: 
+  nodeprefab: {fileID: 1838143807061197822, guid: a3a9e6039fe1a974b9eb306788280d91,
+    type: 3}
+  line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  graph:
+  - node:
+      uniqueID: 0
+      spawnPlayer: 1
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: -10, y: 0, z: 0}
+    connections: ffffffffffffffff01000000ffffffff
+  - node:
+      uniqueID: 1
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: -5, y: 0, z: 0}
+    connections: ffffffff070000000200000000000000
+  - node:
+      uniqueID: 2
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: 0, y: 0, z: 0}
+    connections: 03000000060000000400000001000000
+  - node:
+      uniqueID: 3
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: 0, y: 0, z: -5}
+    connections: ffffffff02000000ffffffffffffffff
+  - node:
+      uniqueID: 4
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 00000000
+      nodePosition: {x: 5, y: 0, z: 0}
+    connections: ffffffff05000000ffffffff02000000
+  - node:
+      uniqueID: 5
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: 5, y: 0, z: 5}
+    connections: 04000000ffffffffffffffff06000000
+  - node:
+      uniqueID: 6
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: 0, y: 0, z: 5}
+    connections: 02000000ffffffff0500000007000000
+  - node:
+      uniqueID: 7
+      spawnPlayer: 0
+      spawnPickups: 
+      spawnEnemies: 
+      nodePosition: {x: -5, y: 0, z: 5}
+    connections: 01000000ffffffff06000000ffffffff
