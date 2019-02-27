@@ -28,7 +28,8 @@ namespace Player
             playerScriptableObject = _playerScriptableObject;
             currentEnemyService=_enemyService;
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<GameOverSignal>(PlayerDead);
+            _signalBus.Subscribe<GameOverSignal>(GameOver);
+            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
         }
 
         public void SetSwipeDirection(Directions _direction)
@@ -39,7 +40,7 @@ namespace Player
                 return;
             }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-
+        
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
             if (CheckForEnemyPresence())
@@ -61,7 +62,12 @@ namespace Player
         }
         private void GameOver()
         {
+            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
             Debug.Log("GameOver");
+        }
+        public void OnGameStart()
+        {
+            SpawnPlayer();
         }
         private bool CheckForFinishCondition()
         {
