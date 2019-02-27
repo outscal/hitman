@@ -11,9 +11,11 @@ namespace PathSystem
         List<int> shortestPath;
         GameObject line;
         NodeControllerView nodeprefab, targetNode;
+        int shortestPathLength;
         [SerializeField] List<Node> graph = new List<Node>();
         public PathService(ScriptableGraph _Graph)
         {
+            
             nodeprefab = _Graph.nodeprefab;
             targetNode = _Graph.targetNode;
             line = _Graph.line; DrawGraph(_Graph);
@@ -46,7 +48,9 @@ namespace PathSystem
                 }
 
             }
-            // GetShortestPath(0, 3);
+            shortestPathLength=graph.Count;
+            GetShortestPath(0, 3);
+
         }
         private void printAllPaths(int s, int d)
         {
@@ -57,14 +61,10 @@ namespace PathSystem
         }
         private void printAllPathsUtil(int u, int d, bool[] isVisited, List<int> localPathList)
         {
-            int shortPathLength = graph.Count;
             isVisited[u] = true;
             if (u.Equals(d))
             {
-                if (localPathList.Count < shortPathLength)
-                {
-                    shortestPath = localPathList;
-                }
+                Debug.Log("Shortest Path Length is" +localPathList);
                 isVisited[u] = false;
                 return;
             }
