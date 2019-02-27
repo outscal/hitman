@@ -72,6 +72,7 @@ namespace Enemy
                 MoveToNextNode(nextNodeID);
                 CheckForPlayerPresence(nextNodeID);
             }
+            
         }
         protected virtual void CheckForPlayerPresence(int _nextNodeID)
         {

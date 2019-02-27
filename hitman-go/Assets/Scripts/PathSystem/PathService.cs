@@ -132,5 +132,11 @@ namespace PathSystem
         {
             return graph[_nodeID].node.spawnEnemies[0].dir;
         }
+
+        public bool CheckForTargetNode(int playerNodeID)
+        {
+            // throw new NotImplementedException();
+            
+        }
     }
 }
