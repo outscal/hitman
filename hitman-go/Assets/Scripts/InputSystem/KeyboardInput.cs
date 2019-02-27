@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Zenject;
 using Common;
 
 namespace InputSystem
@@ -21,6 +20,11 @@ namespace InputSystem
         public void OnTick()
         {
             DecideDirection();
+        }
+
+        public void OnDetect(Touch touch)
+        {
+
         }
 
         void DecideDirection()

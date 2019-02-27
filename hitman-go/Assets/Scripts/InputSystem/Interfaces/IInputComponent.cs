@@ -7,7 +7,7 @@ namespace InputSystem
     public interface IInputComponent
     {
         void OnInitialized(IInputService inputService);
-
+        void OnDetect(Touch touch);
         void OnTick();
     }
 }
