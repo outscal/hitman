@@ -22,7 +22,13 @@ namespace GameState
             return currentGameState.GetStatesType();
         }
         public void ChangeState(){
-            
+            IGameStates tempState=previousGameState;
+            if(GetCurrentState()==GameStatesType.PLAYERSTATE){
+                previousGameState.OnStateExit();
+                previousGameState=currentGameState;
+                currentGameState=tempState;
+                currentGameState.OnStateEneter();
+            }
         }
     }
 }

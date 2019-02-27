@@ -7,6 +7,8 @@ using PathSystem;
 using System.Collections;
 using Common;
 using GameState;
+using GameState.Signals;
+
 public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
@@ -34,6 +36,7 @@ public class GameInstaller : MonoInstaller
             .To<GameService>()
             .AsSingle()
             .NonLazy();
+        Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
 
         //Container.Bind<IPickupService>()
         //  .To<PickupService>()
