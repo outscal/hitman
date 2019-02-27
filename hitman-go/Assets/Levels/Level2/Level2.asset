@@ -21,7 +21,7 @@ MonoBehaviour:
   - node:
       uniqueID: 0
       property: 1
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -10, y: 0, z: 5}
     up: -1
@@ -31,7 +31,7 @@ MonoBehaviour:
   - node:
       uniqueID: 1
       property: 0
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 5}
     up: -1
@@ -41,7 +41,7 @@ MonoBehaviour:
   - node:
       uniqueID: 2
       property: 0
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies:
       - enemy: 0
         dir: 2
@@ -53,7 +53,7 @@ MonoBehaviour:
   - node:
       uniqueID: 3
       property: 0
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4
@@ -63,7 +63,7 @@ MonoBehaviour:
   - node:
       uniqueID: 4
       property: 0
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 0}
     up: 5
@@ -73,7 +73,7 @@ MonoBehaviour:
   - node:
       uniqueID: 5
       property: 2
-      spawnPickups: 
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -5}
     up: -1
