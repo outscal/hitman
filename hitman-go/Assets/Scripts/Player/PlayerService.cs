@@ -29,6 +29,7 @@ namespace Player
             currentEnemyService=_enemyService;
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
             _signalBus.Subscribe<GameOverSignal>(PlayerDead);
+            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
         }
 
         public void SetSwipeDirection(Directions _direction)
@@ -62,6 +63,10 @@ namespace Player
         private void GameOver()
         {
             Debug.Log("GameOver");
+        }
+        private void OnGameStart()
+        {
+            SpawnPlayer();
         }
         private bool CheckForFinishCondition()
         {
