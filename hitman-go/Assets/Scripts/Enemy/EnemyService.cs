@@ -84,7 +84,7 @@ namespace Enemy
             //enemyList.ElementAt(_deathSignal.nodeID).Value;
             enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
             enemy.DisableEnemy();
-            //enemyList.Remove(_deathSignal.nodeID);
+            enemyList.Remove(_deathSignal.nodeID);
         }
 
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
@@ -112,12 +112,12 @@ namespace Enemy
                     spawnNodeID.Clear();
 
                     spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    Debug.Log(spawnNodeID.Count);
+                    //Debug.Log(spawnNodeID.Count);
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
                         EnemyController newEnemy = new StaticEnemyController(this, pathService,gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        Debug.Log("spawn id node :" + spawnNodeID[i]);
+                        //Debug.Log("spawn id node :" + spawnNodeID[i]);
                         enemyList.Add(spawnNodeID[i], newEnemy);
                     }
                     break;

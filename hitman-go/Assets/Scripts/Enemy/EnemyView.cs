@@ -7,7 +7,8 @@ namespace Enemy
     {
         public void DisableEnemy()
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         }
 
         public GameObject GetGameObject()

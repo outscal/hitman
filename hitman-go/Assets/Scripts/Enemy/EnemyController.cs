@@ -58,6 +58,7 @@ namespace Enemy
         public void DisableEnemy()
         {
             currentEnemyView.DisableEnemy();
+            currentEnemyView=null;
         }
 
         public void SetID(int _ID)
