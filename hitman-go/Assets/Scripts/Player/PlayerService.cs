@@ -18,6 +18,7 @@ namespace Player
         private IEnemyService currentEnemyService;
         private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
+        private bool isPlayerDead=false;
         private int playerNodeID;
 
         public PlayerService(IPathService _pathService, IEnemyService _enemyService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
@@ -58,6 +59,7 @@ namespace Player
         private void PlayerDead()
         {
             playerController.DisablePlayer();
+            isPlayerDead = true;
             _signalBus.TryFire(new GameOverSignal());
         }
         private void GameOver()
@@ -113,5 +115,9 @@ namespace Player
             return currentEnemyService.CheckForEnemyPresence(playerNodeID);
         }
 
+        public bool PlayerDeathStatus()
+        {
+            return isPlayerDead;
+        }
     }
 }

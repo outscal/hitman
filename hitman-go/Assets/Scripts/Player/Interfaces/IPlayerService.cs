@@ -19,6 +19,7 @@ namespace Player
 
         bool CheckForEnemyPresence();
         void OnGameStart();
+        bool PlayerDeathStatus();
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using Common;
+using GameState.Interface;
 using GameState.Signals;
 using PathSystem;
 using Player;
@@ -7,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using GameState.Interface;
 using Zenject;
 
 namespace Enemy
@@ -19,7 +19,7 @@ namespace Enemy
         private IPathService pathService;
         private IPlayerService playerService;
         private IGameService gameService;
-        private bool playerDead=false;
+    
 
 
         public EnemyService(IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
@@ -55,7 +55,7 @@ namespace Enemy
         public void PerformMovement()
         {
             List<int> enemyKey = new List<int>();
-            foreach(int key in enemyList.Keys)
+            foreach (int key in enemyList.Keys)
             {
                 enemyKey.Add(key);
             }
@@ -63,17 +63,13 @@ namespace Enemy
             for (int i = 0; i < enemyKey.Count; i++)
             {
                 EnemyController controller;
-                
+
                 enemyList.TryGetValue(enemyKey[i], out controller);
-              
+
                 controller.Move();
-                if(playerDead)
-                {
-                    return;
-                }
             }
-            Debug.Log("changings state");
-            signalBus.TryFire(new StateChangeSignal());
+            if (!playerService.PlayerDeathStatus())
+                signalBus.TryFire(new StateChangeSignal());
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
@@ -97,8 +93,7 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
-            playerDead = true;
-            Debug.Log("inside trigger");
+           
             signalBus.TryFire(new PlayerDeathSignal());
         }
 
@@ -116,7 +111,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new StaticEnemyController(this, pathService,gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
+                        EnemyController newEnemy = new StaticEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         //Debug.Log("spawn id node :" + spawnNodeID[i]);
                         enemyList.Add(spawnNodeID[i], newEnemy);
                     }
