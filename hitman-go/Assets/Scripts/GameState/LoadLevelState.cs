@@ -22,6 +22,7 @@ namespace GameState
         public void OnStateEnter()
         {
             signalBus.TryFire(new NewLevelLoadedSignal()); 
+            signalBus.TryFire(new GameOverSignal()); 
             pathService.DestroyPath();
             pathService.DrawGraph(Graph);
             signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
