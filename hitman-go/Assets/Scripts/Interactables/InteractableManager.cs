@@ -20,6 +20,7 @@ namespace InteractableSystem
 
         public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus, IInputService inputService)
         {
+            interactableScriptableObj = interactableScriptableObjList;
             this.inputService = inputService;
             this.signalBus = signalBus;
             this.pathService = pathService;
