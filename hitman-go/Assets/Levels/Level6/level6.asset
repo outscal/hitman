@@ -23,71 +23,71 @@ MonoBehaviour:
       property: 1
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -5, y: 0, z: 5}
+    up: 2
+    down: -1
+    left: 1
+    right: -1
   - node:
       uniqueID: 1
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
+      nodePosition: {x: 0, y: 0, z: 5}
+    up: -1
+    down: -1
+    left: 4
     right: 0
   - node:
       uniqueID: 2
       property: 0
       spawnPickups: 2
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
+      nodePosition: {x: -5, y: 0, z: 0}
+    up: -1
     down: 0
-    left: 0
-    right: 0
+    left: 3
+    right: -1
   - node:
       uniqueID: 3
       property: 0
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+    up: -1
+    down: -1
+    left: 5
+    right: 2
   - node:
       uniqueID: 4
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: 5, y: 0, z: 5}
+    up: 5
+    down: -1
+    left: -1
+    right: 1
   - node:
       uniqueID: 5
       property: 0
       spawnPickups: 2
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: 5, y: 0, z: 0}
+    up: 6
+    down: 4
+    left: -1
+    right: 3
   - node:
       uniqueID: 6
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: 5, y: 0, z: -5}
+    up: -1
+    down: 5
+    left: -1
+    right: 7
   - node:
       uniqueID: 7
       property: 0
@@ -95,21 +95,21 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 0
         dir: 2
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: 0, y: 0, z: -5}
+    up: 9
+    down: -1
+    left: 6
+    right: 8
   - node:
       uniqueID: 8
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -5, y: 0, z: -5}
+    up: -1
+    down: -1
+    left: 7
+    right: 10
   - node:
       uniqueID: 9
       property: 0
@@ -117,11 +117,11 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 0
         dir: 1
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: 0, y: 0, z: -10}
+    up: -1
+    down: 7
+    left: -1
+    right: -1
   - node:
       uniqueID: 10
       property: 0
@@ -129,21 +129,21 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 0
         dir: 2
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -10, y: 0, z: -5}
+    up: 13
+    down: 11
+    left: 8
+    right: -1
   - node:
       uniqueID: 11
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -10, y: 0, z: 0}
+    up: 10
+    down: 12
+    left: -1
+    right: -1
   - node:
       uniqueID: 12
       property: 0
@@ -151,18 +151,18 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 0
         dir: 1
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -10, y: 0, z: 5}
+    up: 11
+    down: -1
+    left: -1
+    right: -1
   - node:
       uniqueID: 13
       property: 2
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 0}
-    up: 0
-    down: 0
-    left: 0
-    right: 0
+      nodePosition: {x: -10, y: 0, z: -10}
+    up: -1
+    down: 10
+    left: -1
+    right: -1
