@@ -88,6 +88,10 @@ namespace Enemy
         {           
             if(enemyList.Count==0)
             {
+                if (!playerService.PlayerDeathStatus())
+                {
+                    signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                }
                 return;
             }
             for (int i = 0; i < enemyList.Count; i++)
@@ -105,8 +109,7 @@ namespace Enemy
                 }
             }
             if (!playerService.PlayerDeathStatus())
-            {
-                
+            {                
                 signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
