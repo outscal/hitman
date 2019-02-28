@@ -1,8 +1,8 @@
 ﻿using Common;
 using Enemy;
+using GameState;
 using InteractableSystem;
 using PathSystem;
-using GameState;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace Player
         private PlayerStateMachine playerStateMachine;
         private bool isPlayerDead = false;
         private int playerNodeID;
-        private int targetNode=-1;
+        private int targetNode = -1;
 
         public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
@@ -40,7 +40,7 @@ namespace Player
         }
 
         public void OnGameStart()
-        {          
+        {
             SpawnPlayer();
         }
 
@@ -69,21 +69,21 @@ namespace Player
 
         private void PerformMovement(int nextNodeID)
         {
+            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
+            playerController.MoveToLocation(nextLocation);
+            playerNodeID = nextNodeID;
             if (CheckForInteractables(nextNodeID))
             {
                 IInteractableController interactableController = interactableService.ReturnInteractableController(nextNodeID);
                 PerformInteractableAction(interactableController);
             }
-            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-            playerController.MoveToLocation(nextLocation);
-            playerNodeID = nextNodeID;
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
-            }            
+            }
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-            
+
         }
 
         //interactable perform
@@ -92,19 +92,19 @@ namespace Player
             int nodeID = GetTargetNode();
             switch (_interactableController.GetInteractablePickup())
             {
-                case InteractablePickup.AMBUSH_PLANT:                    
+                case InteractablePickup.AMBUSH_PLANT:
                     playerStateMachine.ChangePlayerState(PlayerStates.AMBUSH);
-                    _interactableController.TakeAction(playerNodeID);                    
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.BONE:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
-                    while(playerStateMachine.GetPlayerState()==PlayerStates.WAIT_FOR_INPUT)
+                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
                     {
                         nodeID = GetTargetNode();
                         if (nodeID != -1)
                         {
                             bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-                            if(inRange)
+                            if (inRange)
                             {
                                 playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
                                 _interactableController.TakeAction(nodeID);
@@ -127,7 +127,7 @@ namespace Player
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     playerStateMachine.ChangePlayerState(PlayerStates.DISGUISE);
-                     _interactableController.TakeAction(playerNodeID);
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
@@ -153,7 +153,7 @@ namespace Player
                     while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
                     {
                         nodeID = GetTargetNode();
-                        Debug.Log("node iD in pickup"+nodeID);                 
+                        Debug.Log("node iD in pickup" + nodeID);
                         if (nodeID != -1)
                         {
                             bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
@@ -187,22 +187,22 @@ namespace Player
                     break;
             }
         }
-         //dead trigger
+        //dead trigger
         private void PlayerDead()
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new GameOverSignal());  
+            _signalBus.TryFire(new GameOverSignal());
         }
         //gameOver trigger
         private void GameOver()
         {
-            if(playerController==null)
+            if (playerController == null)
             {
                 return;
             }
             ResetEverything();
-            Debug.Log("GameOver");        
+            Debug.Log("GameOver");
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
 
@@ -218,7 +218,7 @@ namespace Player
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
         }
-        
+
         public void SpawnPlayer()
         {
 
@@ -239,8 +239,8 @@ namespace Player
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
         {
-          
-            if(playerStateMachine.GetPlayerState()==PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT|| playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
+
+            if (playerStateMachine.GetPlayerState() == PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
             {
                 targetNode = _nodeID;
                 return;
@@ -253,15 +253,11 @@ namespace Player
             {
                 return;
             }
-            else
-            {
-                
-                targetNode = _nodeID;
-                if(currentPathService.CanMoveToNode(playerNodeID,_nodeID))
-                {
-                    PerformMovement(_nodeID);
-                }
 
+            targetNode = _nodeID;
+            if (currentPathService.CanMoveToNode(playerNodeID, _nodeID))
+            {
+                PerformMovement(_nodeID);
             }
 
         }
@@ -286,7 +282,7 @@ namespace Player
         //is interactable present
         private bool CheckForInteractables(int _nodeID)
         {
-            return  interactableService.CheckForInteractable(_nodeID);
+            return interactableService.CheckForInteractable(_nodeID);
         }
 
     }
