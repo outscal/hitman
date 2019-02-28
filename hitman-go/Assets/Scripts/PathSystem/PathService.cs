@@ -25,13 +25,15 @@ namespace PathSystem
                 node.node = Graph.Graph[i].node;
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
-                nodeprefab.SetNodeID(i);
+                
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
+                    targetNode.SetNodeID(i);
                     physicalPath.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else
                 {
+                     nodeprefab.SetNodeID(i);
                     physicalPath.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 if (node.connections[0] != -1)
