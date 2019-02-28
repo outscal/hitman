@@ -23,6 +23,8 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<GameOverSignal>();
         Container.DeclareSignal<StateChangeSignal>();
         Container.DeclareSignal<NewLevelLoadedSignal>();
+        Container.DeclareSignal<BriefCaseSignal>();
+
         Container.Bind<IEnemyService>()
             .To<EnemyService>()
             .AsSingle()
