@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Common;
 using UnityEngine;
 
 namespace Player
@@ -9,5 +10,7 @@ namespace Player
 
         void MoveToLocation(Vector3 location);
         void DisablePlayer();
+        void Reset();
+        void PlayAnimation(PlayerStates state);
     }
 }
