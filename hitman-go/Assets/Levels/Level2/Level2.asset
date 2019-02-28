@@ -57,9 +57,9 @@ MonoBehaviour:
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4
-    down: 3
+    down: -1
     left: -1
-    right: -1
+    right: 2
   - node:
       uniqueID: 4
       property: 0

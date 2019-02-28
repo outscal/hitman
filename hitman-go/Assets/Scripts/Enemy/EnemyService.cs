@@ -166,8 +166,12 @@ namespace Enemy
                     spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.PATROLLING);
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
+                        Debug.Log(spawnNodeID[i]);
+
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
+                        //Debug.Log(spawnLocation);
                         EnemyController newEnemy = new PatrollingEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
+                        Debug.Log(spawnNodeID[i]);
                         enemyList.Add(newEnemy);
                     }
                     break;

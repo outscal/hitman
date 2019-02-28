@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PatrollingEnemyAsset
   m_EditorClassIdentifier: 
   enemyType: 1
-  enemyPrefab: {fileID: 4126106033669793196, guid: e1c9636a4621e744b8bac48795590a81,
+  enemyPrefab: {fileID: 4126106033669793196, guid: 8946f103ec1406248b241dab5075e2e4,
     type: 3}
   enemyRotation: {x: 0, y: 0, z: 0, w: 0}

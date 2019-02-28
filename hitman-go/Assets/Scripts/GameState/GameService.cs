@@ -32,7 +32,7 @@ namespace GameState
         }
         public void ChangeState(StateChangeSignal signal)
         {
-            Debug.Log(signal.newGameState);
+            //Debug.Log(signal.newGameState);
             previousGameState = currentGameState;
             if (previousGameState != null){previousGameState.OnStateExit();}
             switch (signal.newGameState)
