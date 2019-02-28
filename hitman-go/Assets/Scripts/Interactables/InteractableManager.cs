@@ -7,7 +7,6 @@ using Zenject;
 using Enemy;
 using InputSystem;
 using GameState;
-using GameState.Signals;
 
 namespace InteractableSystem
 {
