@@ -28,7 +28,7 @@ namespace Enemy
             enemyScriptableObjectList = enemyList;
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
-            signalBus.Subscribe<GameOverSignal>(GameOver);
+           // signalBus.Subscribe<GameOverSignal>(GameOver);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);
         }
 
@@ -80,7 +80,10 @@ namespace Enemy
 
         private void PerformMovement()
         {           
-
+            if(enemyList.Count==0)
+            {
+                return;
+            }
             for (int i = 0; i < enemyList.Count; i++)
             {
                 EnemyController controller;
@@ -97,22 +100,21 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
-                Debug.Log("changing from enemy to player");
+                
                 signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
 
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-            EnemyController enemy;
-            Debug.Log(_deathSignal.nodeID);
+              Debug.Log(_deathSignal.nodeID);
             foreach(EnemyController enemyController in enemyList)
             {
                 if(enemyController.GetCurrentID()==_deathSignal.nodeID)
                 {
-                    enemy = enemyController;
-                    enemy.DisableEnemy();
-                    enemyList.Remove(enemy);
+                   
+                    enemyController.DisableEnemy();
+                    enemyList.Remove(enemyController);
                     break;
                 }
             }           
