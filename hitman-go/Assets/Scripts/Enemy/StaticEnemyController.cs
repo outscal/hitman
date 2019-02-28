@@ -1,7 +1,7 @@
 ﻿using Common;
 using PathSystem;
 using Player;
-using GameState.Interface;
+using GameState;
 using System.Collections;
 using UnityEngine;
 using Zenject;

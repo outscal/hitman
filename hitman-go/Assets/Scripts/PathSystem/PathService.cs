@@ -10,19 +10,15 @@ namespace PathSystem
     {
         List<int> shortestPath;
         GameObject line;
+        List<GameObject> physicalPath = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode;
         int shortestPathLength;
         [SerializeField] List<Node> graph = new List<Node>();
-        public PathService(ScriptableGraph _Graph)
-        {
-            
-            nodeprefab = _Graph.nodeprefab;
-            targetNode = _Graph.targetNode;
-            line = _Graph.line; DrawGraph(_Graph);
-            Debug.Log("path created");
-        }
         public void DrawGraph(ScriptableGraph Graph)
         {
+            nodeprefab = Graph.nodeprefab;
+            targetNode = Graph.targetNode;
+            line = Graph.line;
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
@@ -32,25 +28,32 @@ namespace PathSystem
                 nodeprefab.SetNodeID(i);
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
-                    GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
+                    physicalPath.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else
                 {
-                    GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
+                    physicalPath.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 if (node.connections[0] != -1)
                 {
-                    GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)));
+                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));
                 }
                 if (node.connections[2] != -1)
                 {
-                    GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0));
+                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0)));
                 }
 
             }
-            shortestPathLength=graph.Count;
+            shortestPathLength = graph.Count;
             GetShortestPath(0, 3);
-
+        }
+        public void DestroyPath()
+        {
+            graph = new List<Node>();
+            for (int i = 0; i < physicalPath.Count; i++)
+            {
+                GameObject.Destroy(physicalPath[i]);
+            }
         }
         private void printAllPaths(int s, int d)
         {
@@ -85,14 +88,14 @@ namespace PathSystem
         {
             shortestPath = new List<int>();
             printAllPaths(_currentNode, _destinationNode);
-            Debug.Log("Shortest Path Length is" + shortestPath.Count);
+//            Debug.Log("Shortest Path Length is" + shortestPath.Count);
             return shortestPath;
         }
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
             return graph[_nodeId].connections[(int)_dir];
         }
-        
+
         public Vector3 GetNodeLocation(int _nodeID)
         {
             return graph[_nodeID].node.nodePosition;

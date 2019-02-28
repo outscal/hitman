@@ -1,6 +1,6 @@
 
 using Common;
-using GameState.Interface;
+using GameState;
 
 namespace GameState
 {
@@ -11,7 +11,7 @@ namespace GameState
             return GameStatesType.PLAYERSTATE;
         }
 
-        public void OnStateEneter()
+        public void OnStateEnter()
         {
             
         }

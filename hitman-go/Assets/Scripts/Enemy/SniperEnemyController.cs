@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using GameState.Interface;
+using GameState;
 using Common;
 using PathSystem;
 using System.Collections;

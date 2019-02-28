@@ -1,5 +1,5 @@
 using Common;
-namespace GameState.Interface
+namespace GameState
 {
     public interface IGameService
     {

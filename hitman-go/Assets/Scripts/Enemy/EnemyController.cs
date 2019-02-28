@@ -2,7 +2,7 @@
 using Common;
 using System.Collections;
 using PathSystem;
-using GameState.Interface;
+using GameState;
 using System;
 
 namespace Enemy

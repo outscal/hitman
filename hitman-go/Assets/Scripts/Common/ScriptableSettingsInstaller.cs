@@ -11,7 +11,7 @@ namespace Common
     public class ScriptableSettingsInstaller : ScriptableObjectInstaller
     {
 
-        public ScriptableGraph scriptableGraph;
+        public ScriptableLevels scriptableGraph;
         public PlayerScriptableObject playerScriptableObject;
 
         public EnemyScriptableObjectList enemyScriptableObjectList;      

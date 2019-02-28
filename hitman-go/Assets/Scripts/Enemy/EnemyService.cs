@@ -1,6 +1,6 @@
 ﻿using Common;
-using GameState.Interface;
-using GameState.Signals;
+
+using GameState;
 using PathSystem;
 using Player;
 using System;
@@ -19,20 +19,25 @@ namespace Enemy
         private IPathService pathService;
         private IPlayerService playerService;
         private IGameService gameService;
-    
+        EnemyScriptableObjectList enemyScriptableObjList;
 
 
-        public EnemyService(IPlayerService _playerService,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
+        public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
             gameService = _gameService;
             signalBus = _signalBus;
             playerService = _playerService;
-            SpawnEnemy(enemyList);
+            enemyScriptableObjList=enemyList;
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
-        }
+            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
 
+        }
+        public void OnGameStart()
+        {
+             SpawnEnemy(enemyScriptableObjList);
+        }
 
         public bool CheckForEnemyPresence(int nodeID)
         {
@@ -51,7 +56,7 @@ namespace Enemy
         }
         private void OnTurnStateChange()
         {
-            if(gameService.GetCurrentState()==GameStatesType.ENEMYSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
                 PerformMovement();
             }
@@ -80,13 +85,13 @@ namespace Enemy
             if (!playerService.PlayerDeathStatus())
             {
                 Debug.Log("changing from enemy to player");
-                signalBus.TryFire(new StateChangeSignal());
+                signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-           
-            EnemyController enemy;            
+
+            EnemyController enemy;
             enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
             enemy.DisableEnemy();
             enemyList.Remove(_deathSignal.nodeID);
@@ -102,7 +107,7 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
-           
+
             signalBus.TryFire(new PlayerDeathSignal());
         }
 

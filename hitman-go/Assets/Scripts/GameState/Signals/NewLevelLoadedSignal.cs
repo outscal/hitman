@@ -1,6 +1,6 @@
 namespace GameState
 {
-    public class GameStartSignal
+    public class NewLevelLoadedSignal
     {
         
     }
