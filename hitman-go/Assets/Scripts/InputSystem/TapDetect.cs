@@ -14,7 +14,8 @@ namespace InputSystem
             if (Physics.Raycast(ray, out raycast, Mathf.Infinity, layerMask))
             {
                 gameObject = raycast.collider.gameObject;
-                Debug.Log("[TapDetect] GameObject:" + gameObject.GetComponent<NodeControllerView>().GetNodeId());
+                if (gameObject != null)
+                    Debug.Log("[TapDetect] GameObject:" + gameObject.name);
             }
 
             return gameObject;
