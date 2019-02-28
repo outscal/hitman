@@ -81,8 +81,10 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-
+            else
+            {
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            }
         }
 
         //interactable perform
@@ -191,7 +193,7 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new StateChangeSignal(){newGameState=GameStatesType.GAMEOVERSTATE});
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         //gameOver trigger
         private void GameOver()
