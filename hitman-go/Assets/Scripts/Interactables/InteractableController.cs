@@ -1,14 +1,41 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace InteractableSystem
 {
-    public class InteractableController
+    public class InteractableController : IInteractableController
     {
-        public virtual void TakeAction()
-        {
+        protected InteractableView interactableView;
+        protected InteractablePickup interactablePickup;
 
+        public InteractableController()
+        {
+            OnInitialized();
+        }
+
+        protected virtual void OnInitialized()
+        {
+            interactablePickup = InteractablePickup.NONE;
+        }
+
+        public virtual void TakeAction(int nodeID) { }
+
+        public InteractablePickup GetInteractablePickup()
+        {
+            return interactablePickup;
+        }
+
+        public void DeactivateView()
+        {
+            interactableView.gameObject.SetActive(false); 
+        }
+
+        public void Destroy()
+        {
+            GameObject.Destroy(interactableView.gameObject); 
         }
     }
 }
