@@ -19,7 +19,6 @@ namespace Enemy
         }
         protected override void MoveToNextNode(int nodeID)
         {
-
             if (CheckForPlayerPresence(nodeID))
             {
                 currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);

@@ -9,6 +9,7 @@ using Common;
 using GameState.Interface;
 using GameState;
 using GameState.Signals;
+using InteractableSystem;
 
 public class GameInstaller : MonoInstaller
 {
@@ -38,8 +39,11 @@ public class GameInstaller : MonoInstaller
             .To<InputService>()
             .AsSingle()
             .NonLazy();
-        
 
+        Container.Bind<IInteractable>()
+        .To<InteractableManager>()
+        .AsSingle()
+        .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()

@@ -16,5 +16,16 @@ namespace Enemy
 
         }
 
+        protected override void MoveToNextNode(int nodeID)
+        {
+            ChangeDirection();
+            currentEnemyView.GetGameObject().transform.Rotate(new Vector3(0,180,0));
+
+            if(CheckForPlayerPresence(nodeID))
+            {
+                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+                currentEnemyService.TriggerPlayerDeath();
+            }
+        }
     }
 }

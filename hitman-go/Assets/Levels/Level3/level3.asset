@@ -42,7 +42,9 @@ MonoBehaviour:
       uniqueID: 2
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 2
+        dir: 2
       nodePosition: {x: 0, y: 0, z: 0}
     up: 3
     down: 6
@@ -62,9 +64,7 @@ MonoBehaviour:
       uniqueID: 4
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 0
-        dir: 3
+      spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 0}
     up: -1
     down: 5

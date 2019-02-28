@@ -47,15 +47,18 @@ namespace Player
             {
                 return;
             }
+            if(gameService.GetCurrentState()==GameStatesType.GAMEOVERSTATE)
+            {
+                return;                    
+            }
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
             if (nextNodeID == -1)
             {
                 return;
             }
-            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-        
+            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);        
             playerController.MoveToLocation(nextLocation);
-            playerNodeID = nextNodeID;           
+            playerNodeID = nextNodeID;
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
@@ -67,12 +70,14 @@ namespace Player
         private void PlayerDead()
         {
             playerController.DisablePlayer();
+            playerController = null;
+            playerNodeID = -1;
             isPlayerDead = true;
             _signalBus.TryFire(new GameOverSignal());
         }
         private void GameOver()
-        {
-            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
+        {           
+           
             Debug.Log("GameOver");
         }
         private bool CheckForFinishCondition()
@@ -85,7 +90,8 @@ namespace Player
          
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
-            playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
+            playerController = new PlayerController(this, spawnLocation
+                                                  , playerScriptableObject);
             _signalBus.TryFire(new PlayerSpawnSignal());
 
         }
@@ -103,9 +109,7 @@ namespace Player
         public int GetPlayerNodeID()
         {
             return playerNodeID;
-        }
-        
-
+        }        
         public bool PlayerDeathStatus()
         {
             return isPlayerDead;

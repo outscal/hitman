@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Common;
 using System.Collections;
 using PathSystem;
@@ -55,6 +55,11 @@ namespace Enemy
             }
         }
 
+        public int GetCurrentID()
+        {
+            return currentNodeID;
+        }
+
         public void DisableEnemy()
         {
             currentEnemyView.DisableEnemy();
@@ -75,9 +80,9 @@ namespace Enemy
         {
             if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
             {
-                Debug.Log("inside move");
+                
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID,spawnDirection);
-                MoveToNextNode(nextNodeID);                
+                MoveToNextNode(nextNodeID);           
             }
             
         }
@@ -86,11 +91,31 @@ namespace Enemy
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
-                //trigger PlayerDeathSignal
-                return true;
+                  return true;
             }
             else
                 return false;
+        }
+
+        protected virtual void ChangeDirection()
+        {
+            if (spawnDirection == Directions.UP)
+            {
+                spawnDirection = Directions.DOWN;
+            }
+            else if (spawnDirection == Directions.LEFT)
+            {
+                spawnDirection = Directions.RIGHT;
+            }
+            else if (spawnDirection == Directions.DOWN)
+            {
+                spawnDirection = Directions.UP;
+            }
+            else
+            {
+                spawnDirection = Directions.LEFT;
+
+            }
         }
     }
 }
