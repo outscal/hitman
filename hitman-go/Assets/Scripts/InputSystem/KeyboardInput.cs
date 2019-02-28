@@ -13,6 +13,11 @@ namespace InputSystem
             Debug.Log("<color=green>[KeyboardInput] Created:</color>");
         }
 
+        public void DetectTap()
+        {
+
+        }
+
         public void OnInitialized(IInputService inputService)
         {
             this.inputService = inputService;
