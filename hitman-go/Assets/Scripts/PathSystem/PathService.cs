@@ -25,7 +25,7 @@ namespace PathSystem
                 node.node = Graph.Graph[i].node;
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
-                
+
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
                     targetNode.SetNodeID(i);
@@ -33,7 +33,7 @@ namespace PathSystem
                 }
                 else
                 {
-                     nodeprefab.SetNodeID(i);
+                    nodeprefab.SetNodeID(i);
                     physicalPath.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 if (node.connections[0] != -1)
@@ -70,10 +70,10 @@ namespace PathSystem
             {
                 if (localPathList.Count < shortestPathLength)
                 {
-                    int[] shortest=new int[localPathList.Count];
+                    int[] shortest = new int[localPathList.Count];
                     localPathList.CopyTo(shortest);
-                    shortestPath=new List<int>(shortest);
-                    shortestPathLength=localPathList.Count;
+                    shortestPath = new List<int>(shortest);
+                    shortestPathLength = localPathList.Count;
                 }
                 isVisited[u] = false;
                 return;
@@ -174,6 +174,7 @@ namespace PathSystem
             {
                 return false;
             }
+
         }
         public bool ThrowRange(int playerNode, int destinationNode)
         {
