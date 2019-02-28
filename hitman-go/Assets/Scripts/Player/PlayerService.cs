@@ -83,9 +83,7 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            else if(playerStateMachine.GetPlayerState()!=PlayerStates.WAIT_FOR_INPUT) { _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE }); }
-
-        }
+ else if(playerStateMachine.GetPlayerState()!=PlayerStates.WAIT_FOR_INPUT) { _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE }); }        }
 
         //interactable perform
        async private void PerformInteractableAction(IInteractableController _interactableController)
@@ -100,6 +98,7 @@ namespace Player
                     break;
                 case InteractablePickup.BONE:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                   
                     if (targetNode != -1)
                     { targetNode = -1; }
                     NewWaitForTask(_interactableController, PlayerStates.THROWING);
@@ -122,6 +121,7 @@ namespace Player
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    
                     if (targetNode != -1)
                     { targetNode = -1; }
                     NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
@@ -131,10 +131,12 @@ namespace Player
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
                     if (targetNode != -1)
                     { targetNode = -1; }
+                    
                      NewWaitForTask(_interactableController,PlayerStates.THROWING);                   
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                   
                     if (targetNode != -1)
                     { targetNode = -1; }
                     NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
@@ -157,13 +159,15 @@ namespace Player
 
                     if (inRange)
                     {
+                    
                         Debug.Log("take action called");
                         playerStateMachine.ChangePlayerState(playerState);
                         _interactableController.TakeAction(nodeID);
                         playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
                         _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
                         break;
-                    }
+                    
+                    
                 }
                 else
                 {
@@ -176,9 +180,11 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new StateChangeSignal(){newGameState=GameStatesType.GAMEOVERSTATE});
+       
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         //gameOver trigger
+
          private void GameOver()
         {
             if (playerController == null)
@@ -220,6 +226,7 @@ namespace Player
         }
 
         //Get Tap Input
+  
         async public void SetTargetNode(int _nodeID)
         {
 

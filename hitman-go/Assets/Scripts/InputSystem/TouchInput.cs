@@ -38,7 +38,7 @@ namespace InputSystem
                         {
                             inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
                         }
-                        else
+                        else if (gameObject.GetComponent<PlayerView>() != null)
                         {
                             startPos = touch.position;
                             endPos = touch.position;
