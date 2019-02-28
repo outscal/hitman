@@ -5,7 +5,9 @@ using Common;
 using PathSystem;
 using Zenject;
 using Enemy;
+using InputSystem;
 using GameState;
+using GameState.Signals;
 
 namespace InteractableSystem
 {
@@ -15,15 +17,33 @@ namespace InteractableSystem
         private IPathService pathService;
         private Dictionary<int, InteractableController> interactableControllers;
         private InteractableScriptableObj interactableScriptableObj;
+        private IInputService inputService;
 
-        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus)
+        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus, IInputService inputService)
         {
+            this.inputService = inputService;
             this.signalBus = signalBus;
             this.pathService = pathService;
             interactableControllers = new Dictionary<int, InteractableController>();
-            this.interactableScriptableObj = interactableScriptableObjList;
-            signalBus.Subscribe<GameStartSignal>(OnGameStart);
-        
+            signalBus.Subscribe<GameStartSignal>(GameStart);
+            signalBus.Subscribe<NewLevelLoadedSignal>(ResetInteractableDictionary);
+
+        }
+
+        void GameStart()
+        {
+            SpawnPickups(interactableScriptableObj);
+        }
+
+        void ResetInteractableDictionary()
+        {
+            for (int i = 0; i < interactableControllers.Count; i++)
+            {
+                interactableControllers[i].Destroy();
+                interactableControllers[i] = null;
+            }
+
+            interactableControllers = new Dictionary<int, InteractableController>();
         }
 
         public void OnGameStart()
@@ -93,6 +113,36 @@ namespace InteractableSystem
             interactablePickup = interactablePickup});
         }
 
+        public Vector3 GetNodeLocation(int nodeID)
+        {
+            return pathService.GetNodeLocation(nodeID);
+        }
 
+
+
+        public IInteractableController ReturnInteractableController(int nodeID)
+        {
+            InteractableController interactableController;
+            if (interactableControllers.TryGetValue(nodeID, out interactableController))
+            {
+                interactableController.DeactivateView();
+                return interactableController;
+            }
+
+            return interactableController;
+        }
+
+        public bool CheckForInteractable(int nodeID)
+        {
+            foreach (int node in interactableControllers.Keys)
+            {
+                if(node == nodeID)
+                {
+                    return true; 
+                }
+            }
+
+            return false;
+        }
     }
 }

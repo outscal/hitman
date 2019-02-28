@@ -7,29 +7,30 @@ using Common;
 
 namespace InteractableSystem
 {
-    public class RockInteractableController : InteractableController
+    public class DualGunInteractableController : InteractableController
     {
         private InteractableManager interactableManager;
 
-        public RockInteractableController(Vector3 nodePos , InteractableManager interactableManager, InteractableView rockPrefab)
+        public DualGunInteractableController(Vector3 nodePos, InteractableManager interactableManager
+                                            , InteractableView dualGunPrefab)
         {
             this.interactableManager = interactableManager;
-            GameObject rock = GameObject.Instantiate<GameObject>(rockPrefab.gameObject);
+            GameObject rock = GameObject.Instantiate<GameObject>(dualGunPrefab.gameObject);
             interactableView = rock.GetComponent<RockInteractableView>();
             interactableView.transform.position = nodePos;
         }
 
         protected override void OnInitialized()
         {
-            interactablePickup = InteractablePickup.STONE;
+            interactablePickup = InteractablePickup.DUAL_GUN;
         }
 
         public override void TakeAction(int nodeID)
         {
-            Throw(nodeID);
+            Shoot(nodeID);
         }
 
-        async void Throw(int targetNodeID)
+        async void Shoot(int targetNodeID)
         {
             //await Task.Delay(TimeSpan.FromSeconds(1));
             Vector3 position = interactableManager.GetNodeLocation(targetNodeID);

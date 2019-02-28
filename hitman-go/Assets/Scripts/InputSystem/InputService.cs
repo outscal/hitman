@@ -3,6 +3,7 @@ using System;
 using Common;
 using Player;
 using Zenject;
+using PathSystem.NodesScript;
 
 namespace InputSystem
 {
@@ -12,6 +13,8 @@ namespace InputSystem
 
         private IInputComponent playerInput;
         private ISwipeDirection swipeDirection;
+        private ITapDetect tapDetect;
+        private GameObject tapObject;
 
         public InputService (IPlayerService playerService)
         {
@@ -19,6 +22,7 @@ namespace InputSystem
             this.playerService = playerService;
 
             swipeDirection = new SwipeDirection();
+            tapDetect = new TapDetect();
 
 #if UNITY_ANDROID || UNITY_IOS
             playerInput = new TouchInput();
@@ -33,31 +37,45 @@ namespace InputSystem
             playerService.SetSwipeDirection(direction);
         }
 
+        public void PassNodeID(int nodeID)
+        {
+            playerService.SetTargetNode(nodeID);
+        }
+
         public void Tick()
         {
-            playerInput.OnTick();
-        }
-
-        public void DetectTap()
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit raycast;
-
-            if(Physics.Raycast(ray,out raycast))
+            if(Input.GetMouseButtonDown(0))
             {
-                 
+                tapObject = GetTapDetect().ReturnObject(Input.mousePosition); 
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                tapObject = null;
             }
 
+            if (tapObject != null)
+            {
+                if (tapObject.GetComponent<PlayerView>() != null
+                || tapObject.GetComponent<NodeControllerView>() != null)
+                {
+                    playerInput.OnTick();
+                }
+                else
+                {
+                    //Camera Input Code 
+                }
+            }
         }
+
 
         public ISwipeDirection GetSwipeDirection()
         {
             return swipeDirection;
         }
 
-        public void PassNodeID(int nodeID)
+        public ITapDetect GetTapDetect()
         {
-            playerService.SetTargetNode(nodeID);
+            return tapDetect; 
         }
     }
 }

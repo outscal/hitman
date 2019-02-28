@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace InputSystem
 {
-    public interface IInputComponent
+    public interface ITapDetect
     {
-        void OnInitialized(IInputService inputService);
-
-        void OnTick();
+        GameObject ReturnObject(Vector2 position);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 using Common;
+using PathSystem.NodesScript;
 
 namespace InputSystem
 {
@@ -13,9 +14,16 @@ namespace InputSystem
             Debug.Log("<color=green>[KeyboardInput] Created:</color>");
         }
 
-        public void DetectTap()
+        void DetectTap()
         {
-
+            if(Input.GetMouseButtonDown(0))
+            {
+                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition);
+                if(gameObject.GetComponent<NodeControllerView>() != null)
+                {
+                    inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID); 
+                }
+            }
         }
 
         public void OnInitialized(IInputService inputService)
@@ -25,6 +33,7 @@ namespace InputSystem
 
         public void OnTick()
         {
+            DetectTap();
             DecideDirection();
         }
 
