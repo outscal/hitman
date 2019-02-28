@@ -113,5 +113,10 @@ namespace Player
         {
             return isPlayerDead;
         }
+
+        private void CheckForInteractables(int _nodeID)
+        {
+            //IInterface
+        }
     }
 }
