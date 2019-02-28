@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using PathSystem;
+﻿using Common;
 using GameState.Interface;
-using Common;
+using PathSystem;
 using System.Collections;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -18,8 +18,25 @@ namespace Enemy
 
         protected override void MoveToNextNode(int nodeID)
         {
+            if (nodeID == -1)
+            {
+                ChangeDirection();
+
+                nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+            }
+            if (CheckForPlayerPresence(nodeID))
+            {
+                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+                currentEnemyService.TriggerPlayerDeath();
+            }
             currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+
             currentNodeID = nodeID;
+            int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+            if (n == -1)
+            {
+                currentEnemyView.GetGameObject().transform.Rotate(new Vector3(0, 180, 0));
+            }
         }
 
     }
