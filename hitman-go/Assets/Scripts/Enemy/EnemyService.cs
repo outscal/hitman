@@ -43,6 +43,11 @@ namespace Enemy
             {
                 return false;
             }
+            if(enemyList.Count==0)
+            {
+                return false;
+            }
+
             foreach (var enemy in enemyList)
             {
                 if (enemy.GetCurrentID() == nodeID)
@@ -50,6 +55,7 @@ namespace Enemy
                     return true;
                 }
             }
+
             return false;
         }
         private void GameOver()
@@ -80,7 +86,14 @@ namespace Enemy
 
         private void PerformMovement()
         {           
-
+            if(enemyList.Count==0)
+            {
+                if (!playerService.PlayerDeathStatus())
+                {
+                    signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                }
+                return;
+            }
             for (int i = 0; i < enemyList.Count; i++)
             {
                 EnemyController controller;
@@ -96,23 +109,20 @@ namespace Enemy
                 }
             }
             if (!playerService.PlayerDeathStatus())
-            {
-                Debug.Log("changing from enemy to player");
+            {                
                 signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
 
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-            EnemyController enemy;
-            Debug.Log(_deathSignal.nodeID);
+              Debug.Log(_deathSignal.nodeID);
             foreach(EnemyController enemyController in enemyList)
             {
                 if(enemyController.GetCurrentID()==_deathSignal.nodeID)
-                {
-                    enemy = enemyController;
-                    enemy.DisableEnemy();
-                    enemyList.Remove(enemy);
+                {                   
+                    enemyController.DisableEnemy();
+                    enemyList.Remove(enemyController);
                     break;
                 }
             }           

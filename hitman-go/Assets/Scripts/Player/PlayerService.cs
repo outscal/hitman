@@ -159,9 +159,9 @@ namespace Player
                             if (inRange)
                             {
                                 Debug.Log("take action called");
-                                playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
-                                _interactableController.TakeAction(nodeID);
                                 playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                                _interactableController.TakeAction(nodeID);
+                                //playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
                                 break;
                             }
                         }
