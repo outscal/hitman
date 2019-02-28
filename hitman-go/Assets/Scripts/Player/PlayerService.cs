@@ -1,5 +1,6 @@
 ﻿using Common;
 using Enemy;
+using InteractableSystem;
 using PathSystem;
 using GameState;
 using System;
@@ -18,14 +19,16 @@ namespace Player
         private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
         private IGameService gameService;
+        private IInteractable interactableService;
+        private PlayerStateMachine playerStateMachine;
         private bool isPlayerDead = false;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService, IGameService _gameService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
             _signalBus = signalBus;
             gameService = _gameService;
-
+            interactableService = _interactableService;
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
 
@@ -41,32 +44,72 @@ namespace Player
             SpawnPlayer();
         }
 
+        //swipe input
         public void SetSwipeDirection(Directions _direction)
         {
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 return;
             }
-            if(gameService.GetCurrentState()==GameStatesType.GAMEOVERSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.GAMEOVERSTATE)
             {
-                return;                    
+                return;
             }
+
+
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
+
             if (nextNodeID == -1)
             {
                 return;
             }
-            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);        
+            if (CheckForInteractables(nextNodeID))
+            {
+                //InteractablePickup interactable = interactableService.getPickup();
+                //PerformInteractableAction();
+            }
+            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
-            }
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            }            
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
 
         }
+
+        //interactable perform
+        private void PerformInteractableAction(InteractablePickup _interactablePickup)
+        {
+            switch (_interactablePickup)
+            {
+                case InteractablePickup.AMBUSH_PLANT:
+                    
+                    playerStateMachine.ChangePlayerState(PlayerStates.AMBUSH);
+                    //interactable.takeaction();
+
+                    break;
+                case InteractablePickup.BONE:
+                    break;
+                case InteractablePickup.BREIFCASE:
+                    break;
+                case InteractablePickup.COLOR_KEY:
+                    break;
+                case InteractablePickup.DUAL_GUN:
+                    break;
+                case InteractablePickup.GUARD_DISGUISE:
+                    break;
+                case InteractablePickup.SNIPER_GUN:
+                    break;
+                case InteractablePickup.STONE:
+                    break;
+                case InteractablePickup.TRAP_DOOR:
+                    break;
+            }
+        }
+         //dead trigger
         private void PlayerDead()
         {
             playerController.DisablePlayer();
@@ -75,43 +118,70 @@ namespace Player
             isPlayerDead = true;
             _signalBus.TryFire(new GameOverSignal());
         }
+        //gameOver trigger
         private void GameOver()
         {
-            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
+
+            ResetEverything();
+            Debug.Log("GameOver");        
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
+
+        //reset calls
+        private void ResetEverything()
+        {
+            playerController.Reset();
+            playerController = null;
+        }
+
+        //is game finished?
         private bool CheckForFinishCondition()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
         }
+        
         public void SpawnPlayer()
         {
 
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
-            playerController = new PlayerController(this, spawnLocation
-                                                  , playerScriptableObject);
+            playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
+            playerStateMachine = playerController.GetCurrentStateMachine();
             _signalBus.TryFire(new PlayerSpawnSignal());
 
         }
 
+        //increase score on enemyKill etc 
         public void IncreaseScore()
         {
             _signalBus.TryFire(new PlayerKillSignal());
         }
 
+        //Get Tap Input
         public void SetTargetNode(int _nodeID)
         {
 
         }
 
+        //return player node id
         public int GetPlayerNodeID()
         {
             return playerNodeID;
         }
+        //is player dead?
+
         public bool PlayerDeathStatus()
         {
             return isPlayerDead;
         }
+
+        //is interactable present
+        private bool CheckForInteractables(int _nodeID)
+        {
+            //IInterface
+            return false;
+
+        }
+
     }
 }
