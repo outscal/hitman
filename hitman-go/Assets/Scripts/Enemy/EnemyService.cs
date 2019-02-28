@@ -80,7 +80,10 @@ namespace Enemy
 
         private void PerformMovement()
         {           
-
+            if(enemyList.Count==0)
+            {
+                return;
+            }
             for (int i = 0; i < enemyList.Count; i++)
             {
                 EnemyController controller;
@@ -97,7 +100,7 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
-                Debug.Log("changing from enemy to player");
+                
                 signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
