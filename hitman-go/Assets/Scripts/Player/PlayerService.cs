@@ -71,6 +71,7 @@ namespace Player
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
+
             if (CheckForInteractables(nextNodeID))
             {
                 IInteractableController interactableController = interactableService.ReturnInteractableController(nextNodeID);
@@ -89,6 +90,7 @@ namespace Player
         private void PerformInteractableAction(IInteractableController _interactableController)
         {
             int nodeID = GetTargetNode();
+
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
