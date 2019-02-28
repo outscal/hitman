@@ -18,7 +18,8 @@ MonoBehaviour:
     interactableView: {fileID: 0}
   - name: Breifcase
     interactablePickup: 1
-    interactableView: {fileID: 0}
+    interactableView: {fileID: 8452448333639867623, guid: e60836ab6807c4aff89efb6eee7b2974,
+      type: 3}
   - name: Stone
     interactablePickup: 2
     interactableView: {fileID: 196724156742594001, guid: efd4652ec7a074974a6a2a1db7d99549,
