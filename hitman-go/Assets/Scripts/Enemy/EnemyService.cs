@@ -55,7 +55,6 @@ namespace Enemy
                     return true;
                 }
             }
-
             return false;
         }
         private void GameOver()
