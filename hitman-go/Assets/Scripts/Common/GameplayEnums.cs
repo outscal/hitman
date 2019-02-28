@@ -7,6 +7,11 @@ namespace Common
         LEFT,
         RIGHT
     }
+    public enum GameStatesType{
+        PLAYERSTATE,
+        ENEMYSTATE,
+        GAMEOVERSTATE
+    }
     public enum EnemyType
     {
         STATIC,
@@ -20,6 +25,7 @@ namespace Common
     }
     public enum InteractablePickup
     {
+        NONE,
         BREIFCASE,
         STONE,
         BONE,

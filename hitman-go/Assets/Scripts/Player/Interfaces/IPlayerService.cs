@@ -7,9 +7,18 @@ namespace Player
 {
     public interface IPlayerService
     {       
+        void SpawnPlayer();
 
-        void SpawnPlayer(Node node);
-        void SetDirection(Directions _direction);
+        void SetSwipeDirection(Directions _direction);
+
+        void SetTargetNode(int _nodeID);
+
+        int GetPlayerNodeID();
+
+        void OnGameStart();
+        bool PlayerDeathStatus();
 
     }
+
 }
+
