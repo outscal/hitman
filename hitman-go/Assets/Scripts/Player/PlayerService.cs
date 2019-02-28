@@ -147,15 +147,18 @@ namespace Player
                     }
                     break;
                 case InteractablePickup.STONE:
+                    Debug.Log("Stone found");
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
                     while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
                     {
                         nodeID = GetTargetNode();
+                        Debug.Log("node iD in pickup"+nodeID);                 
                         if (nodeID != -1)
                         {
                             bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
                             if (inRange)
                             {
+                                Debug.Log("take action called");
                                 playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
                                 _interactableController.TakeAction(nodeID);
                                 break;
@@ -185,11 +188,9 @@ namespace Player
          //dead trigger
         private void PlayerDead()
         {
-            playerController.DisablePlayer();
-            playerController = null;
-            playerNodeID = -1;
             isPlayerDead = true;
-            _signalBus.TryFire(new GameOverSignal());
+            playerNodeID = -1;
+            _signalBus.TryFire(new GameOverSignal());          
         }
         //gameOver trigger
         private void GameOver()
@@ -233,7 +234,6 @@ namespace Player
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
         {
-             targetNode = _nodeID;
           
             if(playerStateMachine.GetPlayerState()==PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT|| playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
             {
@@ -249,6 +249,7 @@ namespace Player
             }
             else
             {
+                targetNode = _nodeID;
                 if(currentPathService.CanMoveToNode(playerNodeID,_nodeID))
                 {
                     PerformMovement(_nodeID);
