@@ -28,7 +28,7 @@ namespace Enemy
             enemyScriptableObjectList = enemyList;
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
-            signalBus.Subscribe<GameOverSignal>(GameOver);
+            signalBus.Subscribe<ResetSignal>(GameOver);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);
         }
 

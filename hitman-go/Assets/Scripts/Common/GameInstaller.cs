@@ -20,9 +20,8 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<PlayerKillSignal>();
         Container.DeclareSignal<EnemyDeathSignal>();
         Container.DeclareSignal<GameStartSignal>();
-        Container.DeclareSignal<GameOverSignal>();
+        Container.DeclareSignal<ResetSignal>();
         Container.DeclareSignal<StateChangeSignal>();
-        Container.DeclareSignal<NewLevelLoadedSignal>();
         Container.DeclareSignal<BriefCaseSignal>();
 
         Container.Bind<IEnemyService>()

@@ -1,6 +1,6 @@
 namespace GameState
 {
-    public class GameOverSignal
+    public class ResetSignal
     {
         
     }
