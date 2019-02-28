@@ -24,6 +24,7 @@ namespace InteractableSystem
             this.inputService = inputService;
             this.signalBus = signalBus;
             this.pathService = pathService;
+            interactableScriptableObj=interactableScriptableObjList;
             interactableControllers = new Dictionary<int, InteractableController>();
             signalBus.Subscribe<GameStartSignal>(GameStart);
             signalBus.Subscribe<NewLevelLoadedSignal>(ResetInteractableDictionary);
