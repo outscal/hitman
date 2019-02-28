@@ -4,6 +4,7 @@ using Player;
 using Enemy;
 using System.Collections;
 using PathSystem;
+using InteractableSystem;
 
 namespace Common
 {
@@ -13,14 +14,16 @@ namespace Common
 
         public ScriptableGraph scriptableGraph;
         public PlayerScriptableObject playerScriptableObject;
+        public InteractableScriptableObj interactableScriptableObj;
 
         public EnemyScriptableObjectList enemyScriptableObjectList;      
 
         public override void InstallBindings()
         {
-           Container.BindInstance(playerScriptableObject);
-           Container.BindInstance(enemyScriptableObjectList);
-           Container.BindInstance(scriptableGraph);
+            Container.BindInstances(interactableScriptableObj);
+            Container.BindInstance(playerScriptableObject);
+            Container.BindInstance(enemyScriptableObjectList);
+            Container.BindInstance(scriptableGraph);
         }
     }
 }

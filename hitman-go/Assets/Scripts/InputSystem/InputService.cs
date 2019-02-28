@@ -10,18 +10,22 @@ namespace InputSystem
     {
         private IPlayerService playerService;
 
-        private IInputComponent inputComponent;
+        private IInputComponent playerInput;
+        private ISwipeDirection swipeDirection;
 
         public InputService (IPlayerService playerService)
         {
             Debug.Log("<color=red>[InputService] Created:</color>");
             this.playerService = playerService;
-            #if UNITY_ANDROID || UNITY_IOS
-                        inputComponent = new TouchInput();
-            #elif UNITY_EDITOR || UNITY_STANDALONE
-                        inputComponent = new KeyboardInput();
-            #endif
-            inputComponent.OnInitialized(this);
+
+            swipeDirection = new SwipeDirection();
+
+#if UNITY_ANDROID || UNITY_IOS
+            playerInput = new TouchInput();
+#elif UNITY_EDITOR || UNITY_STANDALONE
+            inputComponent = new KeyboardInput();
+#endif
+            playerInput.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
@@ -31,7 +35,29 @@ namespace InputSystem
 
         public void Tick()
         {
-            inputComponent.OnTick();
+            playerInput.OnTick();
+        }
+
+        public void DetectTap()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit raycast;
+
+            if(Physics.Raycast(ray,out raycast))
+            {
+                 
+            }
+
+        }
+
+        public ISwipeDirection GetSwipeDirection()
+        {
+            return swipeDirection;
+        }
+
+        public void PassNodeID(int nodeID)
+        {
+            playerService.SetTargetNode(nodeID);
         }
     }
 }

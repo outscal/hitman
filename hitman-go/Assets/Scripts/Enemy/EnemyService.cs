@@ -1,4 +1,4 @@
-﻿using Common;
+using Common;
 using GameState.Interface;
 using GameState.Signals;
 using PathSystem;

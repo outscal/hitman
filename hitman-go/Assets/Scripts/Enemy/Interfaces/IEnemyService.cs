@@ -2,7 +2,6 @@
 using Common;
 using Zenject;
 using System.Collections;
-using Player;
 
 namespace Enemy
 {
@@ -10,9 +9,10 @@ namespace Enemy
     {
 
         void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
-        
+
         int GetPlayerNodeID();
         void TriggerPlayerDeath();
         bool CheckForEnemyPresence(int playerNodeID);
+
     }
 }
