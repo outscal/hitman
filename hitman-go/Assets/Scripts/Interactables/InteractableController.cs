@@ -21,7 +21,10 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.NONE;
         }
 
-        public virtual void TakeAction(int nodeID) { }
+        public virtual void TakeAction(int nodeID) 
+        {
+
+        }
 
         public InteractablePickup GetInteractablePickup()
         {

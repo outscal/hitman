@@ -36,24 +36,24 @@ namespace Enemy
         {
             //SPAWN ENEMY VIEW
             enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
-            currentEnemyView = enemyInstance.GetComponent<EnemyView>();
-            currentEnemyView.SetPosition(spawnLocation);
-            //enemyInstance.transform.localPosition = spawnLocation;
+            enemyInstance.transform.localPosition = spawnLocation;                     
             
+
             switch(spawnDirection)
             {
-                case Directions.DOWN:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,0,0);
-                    break;
-                case Directions.UP:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,180f,0);
-                    break;
+                case Directions.DOWN:               
+                    enemyInstance.transform.Rotate(new Vector3(0, 0, 0));
+                    break;                 
+                case Directions.UP:        
+                    enemyInstance.transform.Rotate(new Vector3(0,180f,0));
+                    break;                 
                 case Directions.LEFT:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,90f,0);
+                    enemyInstance.transform.Rotate(new Vector3(0, 90f, 0));
+                    break;                 
+                case Directions.RIGHT:      
+                    enemyInstance.transform.Rotate(new Vector3(0,-90f,0));
                     break;
-                case Directions.RIGHT:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,-90f,0);
-                    break;
+            
             }
         }
 

@@ -23,7 +23,7 @@ namespace Player
         private PlayerStateMachine playerStateMachine;
         private bool isPlayerDead = false;
         private int playerNodeID;
-        private int targetNode = -1;
+        private int targetNode;
 
         public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
@@ -71,6 +71,7 @@ namespace Player
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
+
             if (CheckForInteractables(nextNodeID))
             {
                 IInteractableController interactableController = interactableService.ReturnInteractableController(nextNodeID);
@@ -91,6 +92,7 @@ namespace Player
         private void PerformInteractableAction(IInteractableController _interactableController)
         {
             int nodeID = GetTargetNode();
+
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
@@ -150,7 +152,8 @@ namespace Player
                 case InteractablePickup.STONE:
                     Debug.Log("Stone found");
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
-                    targetNode = -1;
+                    if (targetNode != -1)
+                    { targetNode = -1; }
                     while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
                     {
                         nodeID = GetTargetNode();
@@ -158,6 +161,7 @@ namespace Player
                         if (nodeID != -1)
                         {
                             bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+
                             if (inRange)
                             {
                                 Debug.Log("take action called");

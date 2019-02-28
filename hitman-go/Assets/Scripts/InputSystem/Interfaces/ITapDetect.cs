@@ -6,6 +6,6 @@ namespace InputSystem
 {
     public interface ITapDetect
     {
-        GameObject ReturnObject(Vector2 position);
+        GameObject ReturnObject(Vector2 position, LayerMask layerMask);
     }
 }
