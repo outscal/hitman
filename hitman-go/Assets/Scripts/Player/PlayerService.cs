@@ -34,7 +34,8 @@ namespace Player
             playerScriptableObject = _playerScriptableObject;
 
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<GameOverSignal>(GameOver);
+            //_signalBus.Subscribe<GameOverSignal>(GameOver);
+           
             _signalBus.Subscribe<GameStartSignal>(OnGameStart);
 
         }
@@ -160,9 +161,9 @@ namespace Player
                             if (inRange)
                             {
                                 Debug.Log("take action called");
-                                playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
-                                _interactableController.TakeAction(nodeID);
                                 playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                                _interactableController.TakeAction(nodeID);
+                                //playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
                                 break;
                             }
                         }
