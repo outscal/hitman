@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Common;
 using System.Collections;
 using PathSystem;

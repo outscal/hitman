@@ -90,7 +90,8 @@ namespace Player
          
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
-            playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
+            playerController = new PlayerController(this, spawnLocation
+                                                  , playerScriptableObject);
             _signalBus.TryFire(new PlayerSpawnSignal());
 
         }

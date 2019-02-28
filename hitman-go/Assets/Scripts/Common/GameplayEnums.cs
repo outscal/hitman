@@ -7,7 +7,8 @@ namespace Common
         LEFT,
         RIGHT
     }
-    public enum GameStatesType{
+    public enum GameStatesType
+    {
         PLAYERSTATE,
         ENEMYSTATE,
         GAMEOVERSTATE
