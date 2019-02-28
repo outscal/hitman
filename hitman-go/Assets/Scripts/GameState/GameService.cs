@@ -42,7 +42,7 @@ namespace GameState
                 case GameStatesType.GAMEOVERSTATE: currentGameState = new GameOverState(signalBus); break;
                 case GameStatesType.LOADLEVELSTATE: currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService); break;
                 case GameStatesType.LEVELFINISHEDSTATE:
-                    ++currentLevel;
+                    if(levels.levelsList.Count>currentLevel){++currentLevel;} 
                     currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService);
                     break;
             }
