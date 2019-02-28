@@ -71,17 +71,7 @@ namespace Enemy
         }
 
         private void PerformMovement()
-        {
-            //List<int> enemyKey = new List<int>();
-            //foreach (var enemy in enemyList)
-            //{
-            //    int key = enemy.GetCurrentID();
-            //    Debug.Log(key);
-            //    if (key != -1)
-            //    {
-            //        enemyKey.Add(key);
-            //    }
-            //}
+        {           
 
             for (int i = 0; i < enemyList.Count; i++)
             {

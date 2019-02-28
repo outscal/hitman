@@ -91,8 +91,7 @@ namespace Enemy
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
-                //trigger PlayerDeathSignal
-                return true;
+                  return true;
             }
             else
                 return false;
