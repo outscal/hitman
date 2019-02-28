@@ -52,10 +52,10 @@ namespace Enemy
             {
                 if (enemy.GetCurrentID() == nodeID)
                 {
+                    Debug.Log("enemy found");
                     return true;
                 }
             }
-
             return false;
         }
         private void GameOver()
@@ -94,9 +94,9 @@ namespace Enemy
                 }
                 return;
             }
+            EnemyController controller;
             for (int i = 0; i < enemyList.Count; i++)
             {
-                EnemyController controller;
 
                 controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
@@ -117,6 +117,7 @@ namespace Enemy
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
               Debug.Log(_deathSignal.nodeID);
+             Debug.Log("enemy death");
             foreach(EnemyController enemyController in enemyList)
             {
                 if(enemyController.GetCurrentID()==_deathSignal.nodeID)
@@ -139,6 +140,7 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
+            Debug.Log("PlayerDeath triggered");
             signalBus.TryFire(new PlayerDeathSignal());
         }
 

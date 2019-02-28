@@ -259,6 +259,7 @@ namespace Player
 
         }
 
+        //get the node after tap
         private int GetTargetNode()
         {
             return targetNode;
