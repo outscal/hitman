@@ -1,10 +1,11 @@
 using GameState.Interface;
 using Common;
+
 namespace GameState
 {
     public class GameEnemyState:IGameStates
     {
-         public GameStatesType GetStatesType()
+        public GameStatesType GetStatesType()
         {
             return GameStatesType.ENEMYSTATE;
         }

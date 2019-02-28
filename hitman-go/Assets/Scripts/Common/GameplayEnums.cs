@@ -7,6 +7,12 @@ namespace Common
         LEFT,
         RIGHT
     }
+    public enum GameStatesType
+    {
+        PLAYERSTATE,
+        ENEMYSTATE,
+        GAMEOVERSTATE
+    }
     public enum EnemyType
     {
         STATIC,
@@ -14,10 +20,13 @@ namespace Common
         ROTATING_KNIFE,
         SNIPER,
         SHIELDED,
-        DOGS
+        DOGS,
+        CIRCULAR_COP,
+        TARGET
     }
     public enum InteractablePickup
     {
+        NONE,
         BREIFCASE,
         STONE,
         BONE,

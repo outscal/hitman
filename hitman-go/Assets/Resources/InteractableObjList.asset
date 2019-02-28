@@ -13,31 +13,34 @@ MonoBehaviour:
   m_Name: InteractableObjList
   m_EditorClassIdentifier: 
   interactableItems:
-  - name: BreifCase
+  - name: 
     interactablePickup: 0
     interactableView: {fileID: 0}
-  - name: Stone
+  - name: Breifcase
     interactablePickup: 1
+    interactableView: {fileID: 0}
+  - name: Stone
+    interactablePickup: 2
     interactableView: {fileID: 196724156742594001, guid: efd4652ec7a074974a6a2a1db7d99549,
       type: 3}
   - name: Bone
-    interactablePickup: 2
-    interactableView: {fileID: 0}
-  - name: Sniper Gun
     interactablePickup: 3
     interactableView: {fileID: 0}
-  - name: Dual Gun
+  - name: SniperGun
     interactablePickup: 4
     interactableView: {fileID: 0}
-  - name: Trap Door
+  - name: DualGun
     interactablePickup: 5
     interactableView: {fileID: 0}
-  - name: Color Key
+  - name: TrapDoor
     interactablePickup: 6
     interactableView: {fileID: 0}
-  - name: Ambush Plant
+  - name: ColorKey
     interactablePickup: 7
     interactableView: {fileID: 0}
-  - name: Guard Disguise
+  - name: AmbushPlant
     interactablePickup: 8
+    interactableView: {fileID: 0}
+  - name: GuardDisguise
+    interactablePickup: 9
     interactableView: {fileID: 0}

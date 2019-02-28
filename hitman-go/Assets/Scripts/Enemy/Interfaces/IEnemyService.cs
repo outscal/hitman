@@ -7,8 +7,12 @@ namespace Enemy
 {
     public interface IEnemyService
     {
-        
-        //void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
+
+        void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObject);
+
+        int GetPlayerNodeID();
+        void TriggerPlayerDeath();
+        bool CheckForEnemyPresence(int playerNodeID);
 
     }
 }

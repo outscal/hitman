@@ -12,13 +12,15 @@ namespace InteractableSystem
     {
         readonly SignalBus signalBus;
         private IPathService pathService;
-        private List<InteractableController> interactableControllers;
+        private Dictionary<int, InteractableController> interactableControllers;
+        private InteractableScriptableObj interactableScriptableObj;
 
         public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus)
         {
             this.signalBus = signalBus;
             this.pathService = pathService;
-            interactableControllers = new List<InteractableController>();
+            interactableControllers = new Dictionary<int, InteractableController>();
+            this.interactableScriptableObj = interactableScriptableObjList;
             SpawnPickups(interactableScriptableObjList);
         }
 
@@ -36,6 +38,8 @@ namespace InteractableSystem
 
             switch (interactablePickup)
             {
+                case InteractablePickup.NONE:
+                    break;
                 case InteractablePickup.BREIFCASE:
                     break;
                 case InteractablePickup.STONE:
@@ -45,9 +49,14 @@ namespace InteractableSystem
 
                     for (int i = 0; i < nodeID.Count; i++)
                     {
+                        int k = (int)InteractablePickup.STONE;
+                        InteractableView stoneView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
                         Vector3 position = pathService.GetNodeLocation(nodeID[i]);
-                        InteractableController rockController = new RockInteractableController(position, this);
-                        interactableControllers.Add(rockController);
+                        InteractableController rockController = new RockInteractableController(position
+                        , this
+                        , stoneView);
+                        interactableControllers.Add(nodeID[i], rockController);
                     }
 
                     break;

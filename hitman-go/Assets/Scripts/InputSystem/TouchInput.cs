@@ -14,6 +14,11 @@ namespace InputSystem
             Debug.Log("<color=green>[TouchInput] Created:</color>");
         }
 
+        public void DetectTap()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void OnInitialized(IInputService inputService)
         {
             this.inputService = inputService;

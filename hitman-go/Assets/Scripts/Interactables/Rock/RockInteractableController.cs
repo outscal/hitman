@@ -12,10 +12,11 @@ namespace InteractableSystem
         private RockInteractableView rockInteractableView;
         private InteractableManager interactableManager;
 
-        public RockInteractableController(Vector3 nodePos , InteractableManager interactableManager)
+        public RockInteractableController(Vector3 nodePos , InteractableManager interactableManager, InteractableView rockPrefab)
         {
             this.interactableManager = interactableManager;
-            rockInteractableView = new RockInteractableView();
+            GameObject rock = GameObject.Instantiate<GameObject>(rockPrefab.gameObject);
+            rockInteractableView = rock.GetComponent<RockInteractableView>();
             rockInteractableView.transform.position = nodePos;
         }
 

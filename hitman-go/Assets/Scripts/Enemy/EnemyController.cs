@@ -7,7 +7,7 @@ using System;
 
 namespace Enemy
 {
-    public class EnemyController:IEnemyController
+    public class EnemyController : IEnemyController
     {
         protected IEnemyService currentEnemyService;
         protected EnemyScriptableObject enemyScriptableObject;
@@ -20,7 +20,7 @@ namespace Enemy
         protected int currentNodeID;
         protected int enemyID;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
             spawnLocation = _spawnLocation;
@@ -31,26 +31,26 @@ namespace Enemy
             gameService = _gameService;
             SpawnEnemyView();
         }
-    
+
         protected virtual void SpawnEnemyView()
         {
             //SPAWN ENEMY VIEW
-            enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
+            enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             enemyInstance.transform.localPosition = spawnLocation;
-            switch(spawnDirection)
+            switch (spawnDirection)
             {
                 case Directions.DOWN:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,-180f,0);
+                    enemyInstance.transform.localEulerAngles = new Vector3(0, -180f, 0);
                     break;
                 case Directions.UP:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,180f,0);
+                    enemyInstance.transform.localEulerAngles = new Vector3(0, 180f, 0);
                     break;
                 case Directions.LEFT:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,90f,0);
+                    enemyInstance.transform.localEulerAngles = new Vector3(0, 90f, 0);
                     break;
                 case Directions.RIGHT:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,-90f,0);
+                    enemyInstance.transform.localEulerAngles = new Vector3(0, -90f, 0);
                     break;
             }
         }
@@ -58,7 +58,7 @@ namespace Enemy
         public void DisableEnemy()
         {
             currentEnemyView.DisableEnemy();
-            currentEnemyView=null;
+            currentEnemyView = null;
         }
 
         public void SetID(int _ID)
@@ -68,18 +68,18 @@ namespace Enemy
 
         protected virtual void MoveToNextNode(int nodeID)
         {
-            
+
         }
 
         public void Move()
         {
-            if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
                 Debug.Log("inside move");
-                int nextNodeID = pathService.GetNextNodeID(currentNodeID,spawnDirection);
-                MoveToNextNode(nextNodeID);                
+                int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                MoveToNextNode(nextNodeID);
             }
-            
+
         }
 
         protected virtual bool CheckForPlayerPresence(int _nextNodeID)

@@ -19,10 +19,10 @@ namespace Enemy
         private IPathService pathService;
         private IPlayerService playerService;
         private IGameService gameService;
-    
 
 
-        public EnemyService(IPlayerService _playerService,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
+
+        public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
             gameService = _gameService;
@@ -51,7 +51,7 @@ namespace Enemy
         }
         private void OnTurnStateChange()
         {
-            if(gameService.GetCurrentState()==GameStatesType.ENEMYSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
                 PerformMovement();
             }
@@ -85,8 +85,8 @@ namespace Enemy
         }
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-           
-            EnemyController enemy;            
+
+            EnemyController enemy;
             enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
             enemy.DisableEnemy();
             enemyList.Remove(_deathSignal.nodeID);
@@ -102,7 +102,7 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
-           
+
             signalBus.TryFire(new PlayerDeathSignal());
         }
 

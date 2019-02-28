@@ -8,24 +8,24 @@ namespace InputSystem
 {
     public class InputService : IInputService, ITickable
     {
-        //private IPlayerService playerService;
+        private IPlayerService playerService;
 
-        private IInputComponent inputComponent;
+        private IInputComponent playerInput;
         private ISwipeDirection swipeDirection;
 
-        public InputService (/*IPlayerService playerService*/)
+        public InputService (IPlayerService playerService)
         {
             Debug.Log("<color=red>[InputService] Created:</color>");
-            //this.playerService = playerService;
+            this.playerService = playerService;
 
             swipeDirection = new SwipeDirection();
 
 #if UNITY_ANDROID || UNITY_IOS
-            inputComponent = new TouchInput();
+            playerInput = new TouchInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
             inputComponent = new KeyboardInput();
 #endif
-            inputComponent.OnInitialized(this);
+            playerInput.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
