@@ -42,7 +42,6 @@ namespace PathSystem
                 {
                     physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0)));
                 }
-
             }
             shortestPathLength = graph.Count;
             GetShortestPath(0, 3);
@@ -67,6 +66,13 @@ namespace PathSystem
             isVisited[u] = true;
             if (u.Equals(d))
             {
+                if (localPathList.Count < shortestPathLength)
+                {
+                    int[] shortest=new int[localPathList.Count];
+                    localPathList.CopyTo(shortest);
+                    shortestPath=new List<int>(shortest);
+                    shortestPathLength=localPathList.Count;
+                }
                 isVisited[u] = false;
                 return;
             }
@@ -87,8 +93,10 @@ namespace PathSystem
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
             shortestPath = new List<int>();
+            shortestPathLength = graph.Count;
+            Debug.Log("is" + shortestPathLength);
             printAllPaths(_currentNode, _destinationNode);
-            //            Debug.Log("Shortest Path Length is" + shortestPath.Count);
+            Debug.Log("Shortest Path Length is" + shortestPath.Count);
             return shortestPath;
         }
         public int GetNextNodeID(int _nodeId, Directions _dir)
@@ -167,12 +175,14 @@ namespace PathSystem
         }
         public bool ThrowRange(int playerNode, int destinationNode)
         {
-            Vector3 playerpos =graph[playerNode].node.nodePosition;
-            Vector3 testpos= graph[destinationNode].node.nodePosition;
-            if((playerpos.x+5==testpos.x || playerpos.x-5==testpos.x) && playerpos.z==testpos.z){
+            Vector3 playerpos = graph[playerNode].node.nodePosition;
+            Vector3 testpos = graph[destinationNode].node.nodePosition;
+            if ((playerpos.x + 5 == testpos.x || playerpos.x - 5 == testpos.x) && playerpos.z == testpos.z)
+            {
                 return true;
             }
-            if((playerpos.z+5==testpos.z || playerpos.z-5==testpos.z) && playerpos.x==testpos.x){
+            if ((playerpos.z + 5 == testpos.z || playerpos.z - 5 == testpos.z) && playerpos.x == testpos.x)
+            {
                 return true;
             }
             return false;
