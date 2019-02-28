@@ -88,7 +88,7 @@ namespace PathSystem
         {
             shortestPath = new List<int>();
             printAllPaths(_currentNode, _destinationNode);
-//            Debug.Log("Shortest Path Length is" + shortestPath.Count);
+            //            Debug.Log("Shortest Path Length is" + shortestPath.Count);
             return shortestPath;
         }
         public int GetNextNodeID(int _nodeId, Directions _dir)
@@ -156,11 +156,26 @@ namespace PathSystem
 
         public bool CanMoveToNode(int playerNode, int destinationNode)
         {
-            if(graph[playerNode].connections[0]==destinationNode || graph[playerNode].connections[1]==destinationNode || graph[playerNode].connections[2]==destinationNode || graph[playerNode].connections[3]==destinationNode){
+            if (graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode)
+            {
                 return true;
-            }else{
+            }
+            else
+            {
                 return false;
             }
+        }
+        public bool ThrowRange(int playerNode, int destinationNode)
+        {
+            Vector3 playerpos =graph[playerNode].node.nodePosition;
+            Vector3 testpos= graph[destinationNode].node.nodePosition;
+            if((playerpos.x+5==testpos.x || playerpos.x-5==testpos.x) && playerpos.z==testpos.z){
+                return true;
+            }
+            if((playerpos.z+5==testpos.z || playerpos.z-5==testpos.z) && playerpos.x==testpos.x){
+                return true;
+            }
+            return false;
         }
     }
 }
