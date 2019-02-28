@@ -149,6 +149,7 @@ namespace Player
                 case InteractablePickup.STONE:
                     Debug.Log("Stone found");
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    targetNode = -1;
                     while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
                     {
                         nodeID = GetTargetNode();
@@ -161,6 +162,7 @@ namespace Player
                                 Debug.Log("take action called");
                                 playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
                                 _interactableController.TakeAction(nodeID);
+                                playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
                                 break;
                             }
                         }
@@ -240,6 +242,7 @@ namespace Player
           
             if(playerStateMachine.GetPlayerState()==PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT|| playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
             {
+                targetNode = _nodeID;
                 return;
             }
             else if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
@@ -253,6 +256,7 @@ namespace Player
             else
             {
                 
+                targetNode = _nodeID;
                 if(currentPathService.CanMoveToNode(playerNodeID,_nodeID))
                 {
                     PerformMovement(_nodeID);
