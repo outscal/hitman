@@ -15,5 +15,10 @@ namespace Enemy
         {
             return this.gameObject;
         }
+
+        public void Reset()
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

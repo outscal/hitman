@@ -43,5 +43,10 @@ namespace Player
         {
             currentPlayerView.DisablePlayer();
         }
+
+        public void Reset()
+        {
+            currentPlayerView.Reset();
+        }
     }
 }

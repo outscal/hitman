@@ -56,8 +56,18 @@ namespace Enemy
         }
         private void GameOver()
         {
-
+            ResetEverything();
         }
+
+        private void ResetEverything()
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Reset();
+            }
+            enemyList.Clear();
+        }
+
         public int GetPlayerNodeID()
         {
             return playerService.GetPlayerNodeID();

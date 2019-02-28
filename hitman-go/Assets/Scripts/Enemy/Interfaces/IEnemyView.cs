@@ -7,5 +7,6 @@ namespace Enemy
     {
         GameObject GetGameObject();
         void DisableEnemy();
+        void Reset();
     }
 }

@@ -76,10 +76,17 @@ namespace Player
             _signalBus.TryFire(new GameOverSignal());
         }
         private void GameOver()
-        {           
-           
+        {
+            ResetEverything();
             Debug.Log("GameOver");
         }
+
+        private void ResetEverything()
+        {
+            playerController.Reset();
+            playerController = null;
+        }
+
         private bool CheckForFinishCondition()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);

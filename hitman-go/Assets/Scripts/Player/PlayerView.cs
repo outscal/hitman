@@ -21,7 +21,10 @@ namespace Player
             this.transform.LookAt(_location);
             this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
         }
-           
-        
+
+        public void Reset()
+        {
+            Destroy(gameObject);
+        }
     }
 }

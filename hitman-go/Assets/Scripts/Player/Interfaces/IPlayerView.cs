@@ -9,5 +9,6 @@ namespace Player
 
         void MoveToLocation(Vector3 location);
         void DisablePlayer();
+        void Reset();
     }
 }
