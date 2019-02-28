@@ -22,5 +22,7 @@ namespace PathSystem
         List<int> GetAlertedNodes(int _targetNodeID);
         Directions GetEnemySpawnDirection(int _nodeID);
         bool CheckForTargetNode(int _NodeID);
+        void DestroyPath();
+        void DrawGraph(ScriptableGraph Graph);
     }
 }

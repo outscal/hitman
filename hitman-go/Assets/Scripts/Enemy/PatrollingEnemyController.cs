@@ -1,6 +1,7 @@
-﻿using Common;
-using GameState.Interface;
+using GameState;
 using PathSystem;
+using Common;
+
 using System.Collections;
 using UnityEngine;
 

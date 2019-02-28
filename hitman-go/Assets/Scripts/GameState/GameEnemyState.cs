@@ -1,4 +1,4 @@
-using GameState.Interface;
+using GameState;
 using Common;
 
 namespace GameState
@@ -10,7 +10,7 @@ namespace GameState
             return GameStatesType.ENEMYSTATE;
         }
 
-        public void OnStateEneter()
+        public void OnStateEnter()
         {
             
         }

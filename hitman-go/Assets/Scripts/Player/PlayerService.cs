@@ -1,8 +1,7 @@
 ﻿using Common;
 using Enemy;
 using PathSystem;
-using GameState.Interface;
-using GameState.Signals;
+using GameState;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -15,35 +14,36 @@ namespace Player
         readonly SignalBus _signalBus;
         private PlayerController playerController;
         private IPathService currentPathService;
-        private PlayerDeathSignal playerDeathSignal;        
+        private PlayerDeathSignal playerDeathSignal;
         private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
         private IGameService gameService;
-        private bool isPlayerDead=false;
+        private bool isPlayerDead = false;
         private int playerNodeID;
 
-        public PlayerService(IPathService _pathService,IGameService  _gameService,PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService, IGameService _gameService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
             _signalBus = signalBus;
             gameService = _gameService;
-            
+
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            
+
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
             _signalBus.Subscribe<GameOverSignal>(GameOver);
             _signalBus.Subscribe<GameStartSignal>(OnGameStart);
-       
+
         }
 
         public void OnGameStart()
         {
+            Debug.Log("PlayerSpawned");
             SpawnPlayer();
         }
 
         public void SetSwipeDirection(Directions _direction)
         {
-            if(gameService.GetCurrentState()!=GameStatesType.PLAYERSTATE)
+            if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 return;
             }
@@ -62,11 +62,11 @@ namespace Player
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            _signalBus.TryFire(new StateChangeSignal());
-            
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+
         }
-       
         private void PlayerDead()
         {
             playerController.DisablePlayer();
@@ -76,18 +76,17 @@ namespace Player
             _signalBus.TryFire(new GameOverSignal());
         }
         private void GameOver()
-        {           
-           
-            Debug.Log("GameOver");
+        {
+            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         private bool CheckForFinishCondition()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
         }
-
         public void SpawnPlayer()
         {
-         
+
             playerNodeID = currentPathService.GetPlayerNodeID();
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation
@@ -97,7 +96,7 @@ namespace Player
         }
 
         public void IncreaseScore()
-        {          
+        {
             _signalBus.TryFire(new PlayerKillSignal());
         }
 
@@ -109,7 +108,7 @@ namespace Player
         public int GetPlayerNodeID()
         {
             return playerNodeID;
-        }        
+        }
         public bool PlayerDeathStatus()
         {
             return isPlayerDead;
