@@ -36,8 +36,10 @@ namespace Enemy
         {
             //SPAWN ENEMY VIEW
             enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
-            currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
-            enemyInstance.transform.localPosition = spawnLocation;
+            currentEnemyView = enemyInstance.GetComponent<EnemyView>();
+            currentEnemyView.SetPosition(spawnLocation);
+            //enemyInstance.transform.localPosition = spawnLocation;
+            
             switch(spawnDirection)
             {
                 case Directions.DOWN:

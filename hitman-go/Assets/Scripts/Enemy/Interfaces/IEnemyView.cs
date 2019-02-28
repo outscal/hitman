@@ -8,5 +8,6 @@ namespace Enemy
         GameObject GetGameObject();
         void DisableEnemy();
         void Reset();
+        void SetPosition(Vector3 pos);
     }
 }

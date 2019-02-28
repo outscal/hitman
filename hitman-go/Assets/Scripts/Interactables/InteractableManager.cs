@@ -24,7 +24,7 @@ namespace InteractableSystem
             interactableScriptableObj=interactableScriptableObjList;
             interactableControllers = new Dictionary<int, InteractableController>();
             signalBus.Subscribe<GameStartSignal>(GameStart);
-            signalBus.Subscribe<NewLevelLoadedSignal>(ResetInteractableDictionary);
+            signalBus.Subscribe<ResetSignal>(ResetInteractableDictionary);
 
         }
 

@@ -32,10 +32,8 @@ namespace Player
             interactableService = _interactableService;
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            targetNode = -1;
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            //_signalBus.Subscribe<GameOverSignal>(GameOver);
-           
+            _signalBus.Subscribe<ResetSignal>(GameOver);
             _signalBus.Subscribe<GameStartSignal>(OnGameStart);
 
         }
@@ -195,7 +193,7 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new GameOverSignal());
+            _signalBus.TryFire(new StateChangeSignal(){newGameState=GameStatesType.GAMEOVERSTATE});
         }
         //gameOver trigger
         private void GameOver()
@@ -205,8 +203,6 @@ namespace Player
                 return;
             }
             ResetEverything();
-            Debug.Log("GameOver");
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
 
         //reset calls
@@ -265,6 +261,7 @@ namespace Player
 
         }
 
+        //get the node after tap
         private int GetTargetNode()
         {
             return targetNode;
