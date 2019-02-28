@@ -1,6 +1,5 @@
 using Common;
-using GameState.Interface;
-using GameState.Signals;
+using GameState;
 using PathSystem;
 using Player;
 using System;
@@ -20,8 +19,6 @@ namespace Enemy
         private IPlayerService playerService;
         private IGameService gameService;
         private EnemyScriptableObjectList enemyScriptableObjectList;
-
-
         public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
@@ -39,6 +36,7 @@ namespace Enemy
         {
             SpawnEnemy(enemyScriptableObjectList);
         }
+
         public bool CheckForEnemyPresence(int nodeID)
         {
             if (nodeID == -1)
@@ -99,7 +97,8 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
-                signalBus.TryFire(new StateChangeSignal());
+                Debug.Log("changing from enemy to player");
+                signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
 
@@ -117,7 +116,7 @@ namespace Enemy
                     break;
                 }
             }           
-          
+
         }
 
         public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)

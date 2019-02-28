@@ -7,29 +7,36 @@ using Common;
 
 namespace InteractableSystem
 {
-    public class RockInteractableController : InteractableController, IThrowableItem
+    public class RockInteractableController : InteractableController
     {
-        private RockInteractableView rockInteractableView;
         private InteractableManager interactableManager;
 
         public RockInteractableController(Vector3 nodePos , InteractableManager interactableManager, InteractableView rockPrefab)
         {
             this.interactableManager = interactableManager;
             GameObject rock = GameObject.Instantiate<GameObject>(rockPrefab.gameObject);
-            rockInteractableView = rock.GetComponent<RockInteractableView>();
-            rockInteractableView.transform.position = nodePos;
+            interactableView = rock.GetComponent<RockInteractableView>();
+            interactableView.transform.position = nodePos;
         }
 
-        public void ThrowAction(int targetNodeID)
+        protected override void OnInitialized()
         {
-            Throw(targetNodeID);
+            interactablePickup = InteractablePickup.STONE;
+        }
+
+        public override void TakeAction(int nodeID)
+        {
+            Throw(nodeID);
         }
 
         async void Throw(int targetNodeID)
         {
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            //await Task.Delay(TimeSpan.FromSeconds(1));
+            Vector3 position = interactableManager.GetNodeLocation(targetNodeID);
+            interactableView.transform.position = position;
             interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.STONE);
-            rockInteractableView.gameObject.SetActive(false);
+            await Task.Delay(TimeSpan.FromSeconds(0.25f));
+            interactableView.gameObject.SetActive(false);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace InputSystem
         void PassDirection(Directions direction);
         void PassNodeID(int nodeID);
         ISwipeDirection GetSwipeDirection();
+        ITapDetect GetTapDetect();
     }
 }

@@ -7,6 +7,7 @@ namespace InteractableSystem
 {
     public interface IInteractable
     {
-
+        bool CheckForInteractable(int nodeID);
+        IInteractableController ReturnInteractableController(int nodeID);
     }
 }

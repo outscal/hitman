@@ -1,7 +1,6 @@
 using Common;
 using Enemy;
-using GameState.Interface;
-using GameState.Signals;
+using GameState;
 using InputSystem;
 using PathSystem;
 using Player;
@@ -10,46 +9,49 @@ using Zenject;
 
 namespace GameState
 {
-    public class GameService : IGameService,IInitializable
+    public class GameService : IGameService, IInitializable
     {
-        IGameStates currentGameState = new GamePlayerState();
-        IGameStates previousGameState = new GameEnemyState();
+        IGameStates currentGameState;
+        IGameStates previousGameState;
         readonly SignalBus signalBus;
+        ScriptableLevels levels;
+        int currentLevel = 0;
+        IPathService pathService;
 
-        public GameService(SignalBus signalBus)
+        public GameService(SignalBus signalBus, ScriptableLevels levels, IPathService pathService)
         {
+            this.pathService = pathService;
+            this.levels = levels;
             this.signalBus = signalBus;
-           
+            signalBus.Subscribe<StateChangeSignal>(ChangeState);
+            //pathService.DrawGraph(levels.levelsList[currentLevel]);
         }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
         }
-        public void ChangeState()
+        public void ChangeState(StateChangeSignal signal)
         {
-            
-            if (GetCurrentState() == GameStatesType.PLAYERSTATE)
+            Debug.Log(signal.newGameState);
+            previousGameState = currentGameState;
+            if (previousGameState != null){previousGameState.OnStateExit();}
+            switch (signal.newGameState)
             {
-                previousGameState.OnStateExit();
-                previousGameState = currentGameState;
-                currentGameState = new GameEnemyState();
-                currentGameState.OnStateEneter();
-                Debug.Log(currentGameState);
+                case GameStatesType.PLAYERSTATE: currentGameState = new GamePlayerState(); break;
+                case GameStatesType.ENEMYSTATE: currentGameState = new GameEnemyState(); break;
+                case GameStatesType.GAMEOVERSTATE: currentGameState = new GameOverState(signalBus); break;
+                case GameStatesType.LOADLEVELSTATE: currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService); break;
+                case GameStatesType.LEVELFINISHEDSTATE:
+                    if(levels.levelsList.Count>currentLevel){++currentLevel;} 
+                    currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService);
+                    break;
             }
-            else
-            {
-                previousGameState.OnStateExit();
-                previousGameState = currentGameState;
-                currentGameState = new GamePlayerState();
-                currentGameState.OnStateEneter();
-                Debug.Log(currentGameState);
-
-            }
+            currentGameState.OnStateEnter();
         }
-
         public void Initialize()
         {
-            signalBus.TryFire(new GameStartSignal());
+            ChangeState(new StateChangeSignal() { newGameState = GameStatesType.LOADLEVELSTATE });
+            //signalBus.TryFire(new GameStartSignal());
         }
     }
 }

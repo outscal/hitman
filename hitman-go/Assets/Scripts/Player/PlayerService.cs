@@ -1,9 +1,8 @@
 ﻿using Common;
 using Enemy;
-using GameState.Interface;
-using GameState.Signals;
 using InteractableSystem;
 using PathSystem;
+using GameState;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -41,6 +40,7 @@ namespace Player
 
         public void OnGameStart()
         {
+            Debug.Log("PlayerSpawned");
             SpawnPlayer();
         }
 
@@ -74,8 +74,9 @@ namespace Player
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
-            }
-            _signalBus.TryFire(new StateChangeSignal());
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
+            }            
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
 
         }
 
@@ -108,8 +109,7 @@ namespace Player
                     break;
             }
         }
-
-        //dead trigger
+         //dead trigger
         private void PlayerDead()
         {
             playerController.DisablePlayer();
@@ -121,8 +121,10 @@ namespace Player
         //gameOver trigger
         private void GameOver()
         {
+
             ResetEverything();
-            Debug.Log("GameOver");
+            Debug.Log("GameOver");        
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
 
         //reset calls
@@ -137,8 +139,7 @@ namespace Player
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
         }
-
-        //spawn Players
+        
         public void SpawnPlayer()
         {
 
@@ -167,8 +168,8 @@ namespace Player
         {
             return playerNodeID;
         }
-
         //is player dead?
+
         public bool PlayerDeathStatus()
         {
             return isPlayerDead;

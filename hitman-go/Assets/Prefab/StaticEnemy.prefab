@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7826291041779409312}
   - component: {fileID: 4126106033669793196}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: StaticEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1592349540199163854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.909597, y: -1.1300508, z: 0.40765345}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 186044377977345333}
   m_Father: {fileID: 0}
@@ -134,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 4279996947482834670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.45, z: 0.55}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.6}
   m_Children: []
   m_Father: {fileID: 4508711303850016643}
   m_RootOrder: 0

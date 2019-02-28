@@ -12,10 +12,9 @@ namespace Common
     public class ScriptableSettingsInstaller : ScriptableObjectInstaller
     {
 
-        public ScriptableGraph scriptableGraph;
+        public ScriptableLevels scriptableLevels;
         public PlayerScriptableObject playerScriptableObject;
         public InteractableScriptableObj interactableScriptableObj;
-
         public EnemyScriptableObjectList enemyScriptableObjectList;      
 
         public override void InstallBindings()
@@ -23,7 +22,7 @@ namespace Common
             Container.BindInstances(interactableScriptableObj);
             Container.BindInstance(playerScriptableObject);
             Container.BindInstance(enemyScriptableObjectList);
-            Container.BindInstance(scriptableGraph);
+            Container.BindInstance(scriptableLevels);
         }
     }
 }

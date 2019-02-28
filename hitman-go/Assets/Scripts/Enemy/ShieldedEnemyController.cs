@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using PathSystem;
-using GameState.Interface;
+using GameState;
 using Common;
 using System.Collections;
 

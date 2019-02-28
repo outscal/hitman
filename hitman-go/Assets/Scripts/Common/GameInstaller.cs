@@ -6,9 +6,7 @@ using InputSystem;
 using PathSystem;
 using System.Collections;
 using Common;
-using GameState.Interface;
 using GameState;
-using GameState.Signals;
 using InteractableSystem;
 
 public class GameInstaller : MonoInstaller
@@ -24,8 +22,7 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<GameStartSignal>();
         Container.DeclareSignal<GameOverSignal>();
         Container.DeclareSignal<StateChangeSignal>();
-        
-
+        Container.DeclareSignal<NewLevelLoadedSignal>();
         Container.Bind<IEnemyService>()
             .To<EnemyService>()
             .AsSingle()
@@ -53,12 +50,5 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<GameService>()
             .AsSingle()
             .NonLazy();
-
-        Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
-
-     
-        
-
-
     }
 }

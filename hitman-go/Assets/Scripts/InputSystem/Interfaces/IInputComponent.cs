@@ -8,8 +8,6 @@ namespace InputSystem
     {
         void OnInitialized(IInputService inputService);
 
-        void DetectTap();
-
         void OnTick();
     }
 }

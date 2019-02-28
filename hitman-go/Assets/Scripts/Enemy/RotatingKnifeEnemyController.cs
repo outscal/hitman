@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using PathSystem;
 using Common;
-using GameState.Interface;
+using GameState;
 using System.Collections;
 
 namespace Enemy

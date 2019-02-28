@@ -1,4 +1,4 @@
-namespace GameState.Signals
+namespace GameState
 {
     public class GameStartSignal
     {
