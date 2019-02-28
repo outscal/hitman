@@ -30,7 +30,7 @@ namespace InputSystem
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Began)
-                {
+                {   
                     gameObject = inputService.GetTapDetect().ReturnObject(touch.position, nodeLayer);
                     if (gameObject != null)
                     {

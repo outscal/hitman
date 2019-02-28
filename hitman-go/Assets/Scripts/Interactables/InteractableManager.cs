@@ -51,6 +51,20 @@ namespace InteractableSystem
             interactableControllers = new Dictionary<int, InteractableController>();
         }
 
+        public void RemoveInteractable(InteractableController interactableController)
+        {
+            for (int i = 0; i < interactableControllers.Count; i++)
+            {
+                if(interactableController == interactableControllers[i])
+                {
+                    interactableController.Destroy();
+                    interactableController = null;
+                    interactableControllers.Remove(i);
+                    break; 
+                }
+            }
+        }
+
         public void OnGameStart()
         {
             SpawnPickups(interactableScriptableObj);

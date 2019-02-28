@@ -37,6 +37,7 @@ namespace InteractableSystem
             interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.STONE);
             await Task.Delay(TimeSpan.FromSeconds(0.25f));
             interactableView.gameObject.SetActive(false);
+            interactableManager.RemoveInteractable(this);
         }
     }
 }
