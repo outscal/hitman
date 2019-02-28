@@ -52,6 +52,10 @@ namespace Player
                     currentState = new PlayerWaitingForInputState(playerView);
                     currentState.OnStateEnter();
                     break;
+                case PlayerStates.THROWING:
+                    currentState = new PlayerThrowingState(playerView);
+                    currentState.OnStateEnter();
+                    break;
 
                 default:
                     currentState = new PlayerIdleState(playerView);

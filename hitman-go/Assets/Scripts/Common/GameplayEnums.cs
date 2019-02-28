@@ -46,6 +46,7 @@ namespace Common
         DISGUISE,
         UNLOCK_DOOR,
         SHOOTING,
+        THROWING,
         WAIT_FOR_INPUT
 
     }

@@ -23,6 +23,7 @@ namespace Player
         private PlayerStateMachine playerStateMachine;
         private bool isPlayerDead = false;
         private int playerNodeID;
+        private int targetNode=-1;
 
         public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
@@ -39,8 +40,7 @@ namespace Player
         }
 
         public void OnGameStart()
-        {
-            Debug.Log("PlayerSpawned");
+        {          
             SpawnPlayer();
         }
 
@@ -56,17 +56,23 @@ namespace Player
                 return;
             }
 
-
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
 
             if (nextNodeID == -1)
             {
                 return;
             }
+            PerformMovement(nextNodeID);
+
+
+        }
+
+        private void PerformMovement(int nextNodeID)
+        {
             if (CheckForInteractables(nextNodeID))
             {
-                //InteractablePickup interactable = interactableService.getPickup();
-                //PerformInteractableAction();
+                IInteractableController interactableController = interactableService.ReturnInteractableController(nextNodeID);
+                PerformInteractableAction(interactableController);
             }
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
@@ -76,36 +82,103 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }            
-                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            
         }
 
         //interactable perform
-        private void PerformInteractableAction(InteractablePickup _interactablePickup)
+        private void PerformInteractableAction(IInteractableController _interactableController)
         {
-            switch (_interactablePickup)
+            int nodeID = GetTargetNode();
+            switch (_interactableController.GetInteractablePickup())
             {
-                case InteractablePickup.AMBUSH_PLANT:
-                    
+                case InteractablePickup.AMBUSH_PLANT:                    
                     playerStateMachine.ChangePlayerState(PlayerStates.AMBUSH);
-                    //interactable.takeaction();
-
+                    _interactableController.TakeAction(playerNodeID);                    
                     break;
                 case InteractablePickup.BONE:
+                    playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    while(playerStateMachine.GetPlayerState()==PlayerStates.WAIT_FOR_INPUT)
+                    {
+                        nodeID = GetTargetNode();
+                        if (nodeID != -1)
+                        {
+                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+                            if(inRange)
+                            {
+                                playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
+                                _interactableController.TakeAction(nodeID);
+                                break;
+                            }
+                        }
+                    }
                     break;
                 case InteractablePickup.BREIFCASE:
+                    playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.COLOR_KEY:
+                    playerStateMachine.ChangePlayerState(PlayerStates.UNLOCK_DOOR);
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.DUAL_GUN:
+                    playerStateMachine.ChangePlayerState(PlayerStates.SHOOTING);
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
+                    playerStateMachine.ChangePlayerState(PlayerStates.DISGUISE);
+                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.SNIPER_GUN:
+                    playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
+                    {
+                        nodeID = GetTargetNode();
+                        if (nodeID != -1)
+                        {
+                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+                            if (inRange)
+                            {
+                                playerStateMachine.ChangePlayerState(PlayerStates.SHOOTING);
+                                _interactableController.TakeAction(nodeID);
+                                break;
+                            }
+                        }
+                    }
                     break;
                 case InteractablePickup.STONE:
+                    playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
+                    {
+                        nodeID = GetTargetNode();
+                        if (nodeID != -1)
+                        {
+                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+                            if (inRange)
+                            {
+                                playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
+                                _interactableController.TakeAction(nodeID);
+                                break;
+                            }
+                        }
+                    }
                     break;
                 case InteractablePickup.TRAP_DOOR:
+                    playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
+                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
+                    {
+                        nodeID = GetTargetNode();
+                        if (nodeID != -1)
+                        {
+                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+                            if (inRange)
+                            {
+                                playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                                _interactableController.TakeAction(nodeID);
+                                break;
+                            }
+                        }
+                    }
                     break;
             }
         }
@@ -160,7 +233,34 @@ namespace Player
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
         {
+             targetNode = _nodeID;
+          
+            if(playerStateMachine.GetPlayerState()==PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT|| playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
+            {
+                return;
+            }
+            else if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
+            {
+                return;
+            }
+            else if (gameService.GetCurrentState() == GameStatesType.GAMEOVERSTATE)
+            {
+                return;
+            }
+            else
+            {
+                if(currentPathService.CanMoveToNode(playerNodeID,_nodeID))
+                {
+                    PerformMovement(_nodeID);
+                }
 
+            }
+
+        }
+
+        private int GetTargetNode()
+        {
+            return targetNode;
         }
 
         //return player node id
@@ -178,9 +278,7 @@ namespace Player
         //is interactable present
         private bool CheckForInteractables(int _nodeID)
         {
-            //IInterface
-            return false;
-
+            return  interactableService.CheckForInteractable(_nodeID);
         }
 
     }
