@@ -5,7 +5,6 @@ using Common;
 using PathSystem;
 using Zenject;
 using Enemy;
-using InputSystem;
 using GameState;
 
 namespace InteractableSystem
@@ -16,12 +15,10 @@ namespace InteractableSystem
         private IPathService pathService;
         private Dictionary<int, InteractableController> interactableControllers;
         private InteractableScriptableObj interactableScriptableObj;
-        private IInputService inputService;
 
-        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus, IInputService inputService)
+        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus)
         {
             interactableScriptableObj = interactableScriptableObjList;
-            this.inputService = inputService;
             this.signalBus = signalBus;
             this.pathService = pathService;
             interactableScriptableObj=interactableScriptableObjList;
@@ -69,6 +66,21 @@ namespace InteractableSystem
                 case InteractablePickup.NONE:
                     break;
                 case InteractablePickup.BREIFCASE:
+                    nodeID.Clear();
+
+                    nodeID = pathService.GetPickupSpawnLocation(InteractablePickup.BREIFCASE);
+
+                    for (int i = 0; i < nodeID.Count; i++)
+                    {
+                        int k = (int)InteractablePickup.BREIFCASE;
+                        InteractableView briefCaseView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
+                        Vector3 position = pathService.GetNodeLocation(nodeID[i]);
+                        InteractableController briefCaseController = new BriefCaseController(position
+                        , this
+                        , briefCaseView);
+                        interactableControllers.Add(nodeID[i], briefCaseController);
+                    }
                     break;
                 case InteractablePickup.STONE:
                     nodeID.Clear();
@@ -85,7 +97,6 @@ namespace InteractableSystem
                         , this
                         , stoneView);
                         interactableControllers.Add(nodeID[i], rockController);
-                        Debug.Log("[InteractableManager] Interactable Controler" + interactableControllers.Count);
                     }
 
                     break;
@@ -114,12 +125,15 @@ namespace InteractableSystem
             interactablePickup = interactablePickup});
         }
 
+        public void SendBriefCaseSignal()
+        {
+            signalBus.TryFire<BriefCaseSignal>();
+        }
+
         public Vector3 GetNodeLocation(int nodeID)
         {
             return pathService.GetNodeLocation(nodeID);
         }
-
-
 
         public IInteractableController ReturnInteractableController(int nodeID)
         {

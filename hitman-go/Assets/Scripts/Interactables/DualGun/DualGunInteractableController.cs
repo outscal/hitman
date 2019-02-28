@@ -30,14 +30,9 @@ namespace InteractableSystem
             Shoot(nodeID);
         }
 
-        async void Shoot(int targetNodeID)
+        void Shoot(int targetNodeID)
         {
-            //await Task.Delay(TimeSpan.FromSeconds(1));
-            Vector3 position = interactableManager.GetNodeLocation(targetNodeID);
-            interactableView.transform.position = position;
-            interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.STONE);
-            await Task.Delay(TimeSpan.FromSeconds(0.25f));
-            interactableView.gameObject.SetActive(false);
+
         }
     }
 }
