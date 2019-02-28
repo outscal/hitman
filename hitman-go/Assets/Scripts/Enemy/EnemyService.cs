@@ -43,6 +43,11 @@ namespace Enemy
             {
                 return false;
             }
+            if(enemyList.Count==0)
+            {
+                return false;
+            }
+
             foreach (var enemy in enemyList)
             {
                 if (enemy.GetCurrentID() == nodeID)
@@ -50,6 +55,7 @@ namespace Enemy
                     return true;
                 }
             }
+
             return false;
         }
         private void GameOver()
@@ -111,8 +117,7 @@ namespace Enemy
             foreach(EnemyController enemyController in enemyList)
             {
                 if(enemyController.GetCurrentID()==_deathSignal.nodeID)
-                {
-                   
+                {                   
                     enemyController.DisableEnemy();
                     enemyList.Remove(enemyController);
                     break;
