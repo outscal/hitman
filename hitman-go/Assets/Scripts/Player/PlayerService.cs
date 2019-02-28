@@ -71,6 +71,7 @@ namespace Player
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
+
             if (CheckForInteractables(nextNodeID))
             {
                 IInteractableController interactableController = interactableService.ReturnInteractableController(nextNodeID);
@@ -81,14 +82,17 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-
+            else
+            {
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            }
         }
 
         //interactable perform
         private void PerformInteractableAction(IInteractableController _interactableController)
         {
             int nodeID = GetTargetNode();
+
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
@@ -193,7 +197,7 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new StateChangeSignal(){newGameState=GameStatesType.GAMEOVERSTATE});
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         //gameOver trigger
         private void GameOver()

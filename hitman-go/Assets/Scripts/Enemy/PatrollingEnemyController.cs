@@ -19,6 +19,7 @@ namespace Enemy
 
         protected override void MoveToNextNode(int nodeID)
         {
+            Debug.Log("moooooooved");
             if (nodeID == -1)
             {
                 ChangeDirection();
