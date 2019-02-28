@@ -15,6 +15,7 @@ namespace InputSystem
         private ISwipeDirection swipeDirection;
         private ITapDetect tapDetect;
         private GameObject tapObject;
+        private int nodeLayer = 1 << 9;
 
         public InputService (IPlayerService playerService)
         {
@@ -44,27 +45,30 @@ namespace InputSystem
 
         public void Tick()
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                tapObject = GetTapDetect().ReturnObject(Input.mousePosition); 
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                tapObject = null;
-            }
+            //if(Input.GetMouseButtonDown(0))
+            //{
+            //    tapObject = GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer); 
+            //}
+            //else if (Input.GetMouseButtonUp(0))
+            //{
+            //    tapObject = null;
+            //}
 
-            if (tapObject != null)
-            {
-                if (tapObject.GetComponent<PlayerView>() != null
-                || tapObject.GetComponent<NodeControllerView>() != null)
-                {
-                    playerInput.OnTick();
-                }
-                else
-                {
-                    //Camera Input Code 
-                }
-            }
+            //if (tapObject != null)
+            //{
+            //    if (tapObject.GetComponent<PlayerView>() != null
+            //    || tapObject.GetComponent<NodeControllerView>() != null)
+            //    {
+            //        playerInput.StartPosition(Input.mousePosition);
+            //        playerInput.OnTick();
+            //    }
+            //    else
+            //    {
+            //        //Camera Input Code 
+            //    }
+            //}
+
+            playerInput.OnTick();
         }
 
 

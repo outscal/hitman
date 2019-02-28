@@ -37,8 +37,15 @@ namespace InteractableSystem
         {
             for (int i = 0; i < interactableControllers.Count; i++)
             {
-                interactableControllers[i].Destroy();
-                interactableControllers[i] = null;
+                if (interactableControllers[i] != null)
+                {
+                    interactableControllers[i].Destroy();
+                    interactableControllers[i] = null;
+                }
+                else
+                {
+                    Debug.Log("[InteractableManager] Item not in List"); 
+                }
             }
 
             interactableControllers = new Dictionary<int, InteractableController>();
@@ -60,19 +67,17 @@ namespace InteractableSystem
         public void SpawnInteractables(InteractablePickup interactablePickup)
         {
             List<int> nodeID = new List<int>();
-
+            nodeID.Clear();
+            int k = (int)interactablePickup;
             switch (interactablePickup)
             {
                 case InteractablePickup.NONE:
                     break;
                 case InteractablePickup.BREIFCASE:
-                    nodeID.Clear();
-
                     nodeID = pathService.GetPickupSpawnLocation(InteractablePickup.BREIFCASE);
 
                     for (int i = 0; i < nodeID.Count; i++)
                     {
-                        int k = (int)InteractablePickup.BREIFCASE;
                         InteractableView briefCaseView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
                         Vector3 position = pathService.GetNodeLocation(nodeID[i]);
@@ -83,13 +88,10 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.STONE:
-                    nodeID.Clear();
-
                     nodeID = pathService.GetPickupSpawnLocation(InteractablePickup.STONE);
 
                     for (int i = 0; i < nodeID.Count; i++)
                     {
-                        int k = (int)InteractablePickup.STONE;
                         InteractableView stoneView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
                         Vector3 position = pathService.GetNodeLocation(nodeID[i]);
