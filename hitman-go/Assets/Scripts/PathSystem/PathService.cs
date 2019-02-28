@@ -64,7 +64,6 @@ namespace PathSystem
             isVisited[u] = true;
             if (u.Equals(d))
             {
-                Debug.Log("Shortest Path Length is" +localPathList);
                 isVisited[u] = false;
                 return;
             }
