@@ -37,4 +37,14 @@ namespace Common
         AMBUSH_PLANT,
         GUARD_DISGUISE
     }
+    public enum PlayerStates
+    {
+        IDLE,
+        AMBUSH,
+        DISGUISE,
+        UNLOCK_DOOR,
+        SHOOTING,
+        WAIT_FOR_INPUT
+
+    }
 }

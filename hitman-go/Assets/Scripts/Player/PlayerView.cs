@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Enemy;
 using System.Collections;
+using Common;
 
 namespace Player
 {
@@ -20,6 +21,11 @@ namespace Player
         {
             this.transform.LookAt(_location);
             this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
+        }
+
+        public void PlayAnimation(PlayerStates state)
+        {
+           
         }
 
         public void Reset()

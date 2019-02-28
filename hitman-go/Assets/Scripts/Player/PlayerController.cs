@@ -10,6 +10,7 @@ namespace Player
     {
         private IPlayerService currentPlayerService;
         private IPlayerView currentPlayerView;
+        private PlayerStateMachine playerStateMachine;
         private PlayerScriptableObject scriptableObject;
         GameObject playerInstance;
         private Vector3 spawnLocation;
@@ -34,6 +35,7 @@ namespace Player
             // currentPlayerView=scriptableObject.playerView;
             playerInstance = GameObject.Instantiate(scriptableObject.playerView.gameObject);
             currentPlayerView = playerInstance.GetComponent<PlayerView>();
+            playerStateMachine = new PlayerStateMachine(currentPlayerView);
 
             playerInstance.transform.localPosition = spawnLocation;
 
@@ -47,6 +49,11 @@ namespace Player
         public void Reset()
         {
             currentPlayerView.Reset();
+        }
+
+        public PlayerStateMachine GetCurrentStateMachine()
+        {
+            return playerStateMachine;
         }
     }
 }
