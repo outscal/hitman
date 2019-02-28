@@ -190,12 +190,15 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = -1;
-            _signalBus.TryFire(new GameOverSignal());          
+            _signalBus.TryFire(new GameOverSignal());  
         }
         //gameOver trigger
         private void GameOver()
         {
-
+            if(playerController==null)
+            {
+                return;
+            }
             ResetEverything();
             Debug.Log("GameOver");        
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
@@ -249,7 +252,7 @@ namespace Player
             }
             else
             {
-                targetNode = _nodeID;
+                
                 if(currentPathService.CanMoveToNode(playerNodeID,_nodeID))
                 {
                     PerformMovement(_nodeID);
