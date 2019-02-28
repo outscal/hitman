@@ -25,6 +25,7 @@ namespace Common
     }
     public enum InteractablePickup
     {
+        NONE,
         BREIFCASE,
         STONE,
         BONE,
