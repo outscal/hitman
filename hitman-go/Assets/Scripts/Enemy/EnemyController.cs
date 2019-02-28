@@ -41,7 +41,7 @@ namespace Enemy
             switch(spawnDirection)
             {
                 case Directions.DOWN:
-                    enemyInstance.transform.localEulerAngles = new Vector3(0,-180f,0);
+                    enemyInstance.transform.localEulerAngles = new Vector3(0,0,0);
                     break;
                 case Directions.UP:
                     enemyInstance.transform.localEulerAngles = new Vector3(0,180f,0);

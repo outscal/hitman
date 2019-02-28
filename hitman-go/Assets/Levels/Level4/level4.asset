@@ -17,4 +17,198 @@ MonoBehaviour:
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
-  Graph: []
+  Graph:
+  - node:
+      uniqueID: 0
+      property: 1
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: -10}
+    up: -1
+    down: 7
+    left: -1
+    right: 1
+  - node:
+      uniqueID: 1
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: -10}
+    up: -1
+    down: 6
+    left: 0
+    right: 2
+  - node:
+      uniqueID: 2
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: -10}
+    up: -1
+    down: -1
+    left: 1
+    right: 3
+  - node:
+      uniqueID: 3
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 1
+      nodePosition: {x: -10, y: 0, z: -10}
+    up: -1
+    down: 4
+    left: 2
+    right: -1
+  - node:
+      uniqueID: 4
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -10, y: 0, z: -5}
+    up: 3
+    down: 11
+    left: -1
+    right: 16
+  - node:
+      uniqueID: 5
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 2
+      nodePosition: {x: -5, y: 0, z: -5}
+    up: -1
+    down: 10
+    left: 6
+    right: -1
+  - node:
+      uniqueID: 6
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+      nodePosition: {x: 0, y: 0, z: -5}
+    up: 1
+    down: 9
+    left: 7
+    right: 5
+  - node:
+      uniqueID: 7
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: -5}
+    up: 0
+    down: 8
+    left: -1
+    right: 6
+  - node:
+      uniqueID: 8
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: 0}
+    up: 7
+    down: 15
+    left: -1
+    right: 9
+  - node:
+      uniqueID: 9
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: 6
+    down: 14
+    left: 8
+    right: 10
+  - node:
+      uniqueID: 10
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 2
+      nodePosition: {x: -5, y: 0, z: 0}
+    up: 5
+    down: -1
+    left: 9
+    right: 11
+  - node:
+      uniqueID: 11
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+      nodePosition: {x: -10, y: 0, z: 0}
+    up: 4
+    down: 12
+    left: 10
+    right: -1
+  - node:
+      uniqueID: 12
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -10, y: 0, z: 5}
+    up: 11
+    down: -1
+    left: 13
+    right: -1
+  - node:
+      uniqueID: 13
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: 5}
+    up: -1
+    down: -1
+    left: 14
+    right: 12
+  - node:
+      uniqueID: 14
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 5}
+    up: 9
+    down: -1
+    left: 15
+    right: 13
+  - node:
+      uniqueID: 15
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 3
+      nodePosition: {x: 5, y: 0, z: 5}
+    up: 8
+    down: -1
+    left: -1
+    right: 14
+  - node:
+      uniqueID: 16
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -15, y: 0, z: -5}
+    up: -1
+    down: 17
+    left: 4
+    right: -1
+  - node:
+      uniqueID: 17
+      property: 2
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -15, y: 0, z: 0}
+    up: 16
+    down: -1
+    left: -1
+    right: -1

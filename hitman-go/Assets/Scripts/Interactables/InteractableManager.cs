@@ -5,6 +5,7 @@ using Common;
 using PathSystem;
 using Zenject;
 using Enemy;
+using GameState;
 
 namespace InteractableSystem
 {
@@ -21,7 +22,13 @@ namespace InteractableSystem
             this.pathService = pathService;
             interactableControllers = new Dictionary<int, InteractableController>();
             this.interactableScriptableObj = interactableScriptableObjList;
-            SpawnPickups(interactableScriptableObjList);
+            signalBus.Subscribe<GameStartSignal>(OnGameStart);
+        
+        }
+
+        public void OnGameStart()
+        {
+            SpawnPickups(interactableScriptableObj);
         }
 
         void SpawnPickups(InteractableScriptableObj interactableScriptableObj)
@@ -57,6 +64,7 @@ namespace InteractableSystem
                         , this
                         , stoneView);
                         interactableControllers.Add(nodeID[i], rockController);
+                        Debug.Log("[InteractableManager] Interactable Controler" + interactableControllers.Count);
                     }
 
                     break;
