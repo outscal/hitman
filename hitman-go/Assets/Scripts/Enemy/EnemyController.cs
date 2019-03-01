@@ -28,6 +28,10 @@ namespace Enemy
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
+            if(currentEnemyService==null)
+            {
+                Debug.Log("null enemy service");
+            }
             spawnLocation = _spawnLocation;
             enemyScriptableObject = _enemyScriptableObject;
             pathService = _pathService;
@@ -40,7 +44,7 @@ namespace Enemy
 
         protected virtual void SpawnEnemyView()
         {
-            //SPAWN ENEMY VIEW
+            
             enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             currentEnemyView.SetPosition(spawnLocation);
@@ -90,7 +94,7 @@ namespace Enemy
                 {
 
                     int nextNodeID = alertedPathNodes[alertMoveCalled];
-                    Debug.Log("next node in chase state: " + nextNodeID);
+                   
 
                     await MoveToNextNode(nextNodeID);
 

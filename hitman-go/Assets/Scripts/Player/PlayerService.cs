@@ -13,8 +13,8 @@ namespace Player
 {
     public class PlayerService : IPlayerService
     {
-        readonly SignalBus _signalBus;
-        private PlayerController playerController;
+        readonly SignalBus signalBus;
+        private IPlayerController playerController;
         private IPathService currentPathService;
         private PlayerDeathSignal playerDeathSignal;
         private PlayerScriptableObject playerScriptableObject;
@@ -26,16 +26,16 @@ namespace Player
         private int playerNodeID;
         private int targetNode;
 
-        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus _signalBus)
         {
-            _signalBus = signalBus;
+            this.signalBus = _signalBus;
             gameService = _gameService;
             interactableService = _interactableService;
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<ResetSignal>(ResetLevel);
-            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
+            this.signalBus.Subscribe<PlayerDeathSignal>(this.PlayerDead);
+            this.signalBus.Subscribe<ResetSignal>(this.ResetLevel);
+            this.signalBus.Subscribe<GameStartSignal>(this.OnGameStart);
 
         }
 
@@ -80,7 +80,9 @@ namespace Player
             {
                 return;
             }
+
             playerNodeID = nextNodeID;
+            
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             await playerController.MoveToLocation(nextLocation);
             
@@ -93,7 +95,7 @@ namespace Player
             if (IsGameFinished())
             {
                 Debug.Log("Game finished");
-                _signalBus.TryFire(new LevelFinishedSignal());
+                signalBus.TryFire(new LevelFinishedSignal());
                 //trigger level finished signal
 
             }
@@ -197,13 +199,13 @@ namespace Player
             Debug.Log("player node spawn" + playerNodeID);
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);            
-            _signalBus.TryFire(new PlayerSpawnSignal());
+            signalBus.TryFire(new PlayerSpawnSignal());
         }
 
         //increase score on enemyKill etc 
         public void IncreaseScore()
         {
-            _signalBus.TryFire(new PlayerKillSignal());
+            signalBus.TryFire(new PlayerKillSignal());
         }
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
@@ -276,7 +278,7 @@ namespace Player
 
         public void ChangeToEnemyState()
         {
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
         }
 
 
