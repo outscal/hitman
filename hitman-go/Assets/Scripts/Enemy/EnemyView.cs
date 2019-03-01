@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Enemy
@@ -45,7 +46,7 @@ namespace Enemy
             Destroy(this.gameObject);
         }
 
-        async public void RotateEnemy(Vector3 newRotation)
+        async public Task RotateEnemy(Vector3 newRotation)
         {
             iTween.RotateTo(gameObject, newRotation, 0.5f);
             await new WaitForSeconds(0.5f);
@@ -56,9 +57,6 @@ namespace Enemy
             transform.position = pos;
         }
 
-        public void SetRotation(Vector3 pos)
-        {
-            this.gameObject.transform.Rotate(pos);
-        }
+      
     }
 }
