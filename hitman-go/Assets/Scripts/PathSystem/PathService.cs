@@ -229,5 +229,16 @@ namespace PathSystem
             }
             return false;
         }
+        public Directions GetDirections(int sourceNode, int nextNode){
+            
+            if(graph[sourceNode].connections[0]==nextNode){
+                return Directions.UP;
+            }else if(graph[sourceNode].connections[1]==nextNode){
+                return Directions.DOWN;
+            }else if(graph[sourceNode].connections[2]==nextNode){
+                return Directions.LEFT;
+            }
+                return Directions.RIGHT;
+        }
     }
 }
