@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using PathSystem;
+using System.Threading.Tasks;
 using Common;
 using GameState;
 using System.Collections;
@@ -16,7 +17,7 @@ namespace Enemy
 
         }
 
-        protected override void MoveToNextNode(int nodeID)
+        async protected override Task MoveToNextNode(int nodeID)
         {
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
@@ -27,13 +28,14 @@ namespace Enemy
                 ChangeDirection();
             }
 
-            currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
+           await currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
 
             if (CheckForPlayerPresence(nodeID))
             {
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
             }
+          
         }
     }
 }

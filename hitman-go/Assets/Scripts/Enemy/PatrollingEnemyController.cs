@@ -1,7 +1,7 @@
 using GameState;
 using PathSystem;
 using Common;
-
+using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -17,33 +17,39 @@ namespace Enemy
 
         }
 
-        protected override void MoveToNextNode(int nodeID)
+       async protected override Task MoveToNextNode(int nodeID)
         {    
             if (nodeID == -1)
             {
                 ChangeDirection();
-
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+               await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {               
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+             await   currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+
             }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(currentEnemyService.CheckForKillablePlayer())
                 {                   
                  currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                 currentEnemyService.TriggerPlayerDeath();
+                    currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                    currentEnemyService.TriggerPlayerDeath();
                 }
             }
             currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
             currentNodeID = nodeID;
+
+           
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             if (n == -1)
             {
-                currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
+                ChangeDirection();
+               
+              await  currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
         }
 

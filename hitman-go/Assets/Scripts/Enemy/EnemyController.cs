@@ -1,13 +1,14 @@
-using UnityEngine;
 using Common;
-using System.Collections.Generic;
-using PathSystem;
 using GameState;
+using PathSystem;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyController:IEnemyController
+    public class EnemyController : IEnemyController
     {
         protected IEnemyService currentEnemyService;
         protected EnemyScriptableObject enemyScriptableObject;
@@ -24,7 +25,7 @@ namespace Enemy
         private int alertMoveCalled;
         protected EnemyType enemyType;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
         {
             currentEnemyService = _enemyService;
             spawnLocation = _spawnLocation;
@@ -36,30 +37,16 @@ namespace Enemy
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
         }
-    
+
         protected virtual void SpawnEnemyView()
         {
             //SPAWN ENEMY VIEW
-            enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
+            enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             currentEnemyView.SetPosition(spawnLocation);
-            
-            switch(spawnDirection)
-            {
-                case Directions.DOWN:               
-                    enemyInstance.transform.Rotate(new Vector3(0, 0, 0));
-                    break;                 
-                case Directions.UP:        
-                    enemyInstance.transform.Rotate(new Vector3(0,180f,0));
-                    break;                 
-                case Directions.LEFT:
-                    enemyInstance.transform.Rotate(new Vector3(0, 90f, 0));
-                    break;                 
-                case Directions.RIGHT:      
-                    enemyInstance.transform.Rotate(new Vector3(0,-90f,0));
-                    break;
-            
-            }
+
+            enemyInstance.transform.Rotate(GetRotation(spawnDirection), Space.World);
+
         }
 
         public void Reset()
@@ -76,7 +63,7 @@ namespace Enemy
         public void DisableEnemy()
         {
             currentEnemyView.DisableEnemy();
-            currentEnemyView=null;
+            currentEnemyView = null;
         }
 
         public void SetID(int _ID)
@@ -84,12 +71,12 @@ namespace Enemy
             enemyID = _ID;
         }
 
-        protected virtual void MoveToNextNode(int nodeID)
+        async protected virtual Task MoveToNextNode(int nodeID)
         {
-            
+            await new WaitForEndOfFrame();
         }
 
-        public void Move()
+        async public void Move()
         {
             alertMoveCalled++;
             if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
@@ -97,17 +84,17 @@ namespace Enemy
                 if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
                 {
                     int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                    MoveToNextNode(nextNodeID);
+                    await MoveToNextNode(nextNodeID);
                 }
-                else if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
+                else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
                 {
-                    
-                    int nextNodeID=alertedPathNodes[alertMoveCalled];
-                    Debug.Log("next node in chase state: "+ nextNodeID);
-                    
-                    MoveToNextNode(nextNodeID);
-                  
-                    if (alertMoveCalled == alertedPathNodes.Count-1)
+
+                    int nextNodeID = alertedPathNodes[alertMoveCalled];
+                    Debug.Log("next node in chase state: " + nextNodeID);
+
+                    await MoveToNextNode(nextNodeID);
+
+                    if (alertMoveCalled == alertedPathNodes.Count - 1)
                     {
                         stateMachine.ChangeEnemyState(EnemyStates.IDLE);
                         currentEnemyView.DisableAlertView();
@@ -122,7 +109,7 @@ namespace Enemy
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
-                  return true;
+                return true;
             }
             else
                 return false;
@@ -148,7 +135,7 @@ namespace Enemy
 
             }
         }
-    
+
         public virtual EnemyType GetEnemyType()
         {
             return enemyType;
@@ -156,13 +143,33 @@ namespace Enemy
 
         public void AlertEnemy(int _destinationID)
         {
-           stateMachine.ChangeEnemyState(EnemyStates.CHASE);
-           alertedPathNodes= pathService.GetShortestPath(currentNodeID,_destinationID);
-           alertMoveCalled = 0;            
-           currentEnemyView.AlertEnemyView();
-           Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
-           currentEnemyView.LookAtNode(_destinationLocation);
+            stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+            alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
+            alertMoveCalled = 0;
+            currentEnemyView.AlertEnemyView();
+            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
+            currentEnemyView.RotateEnemy(_destinationLocation);
 
+        }
+
+        protected virtual Vector3 GetRotation(Directions _spawnDirection)
+        {
+            switch (_spawnDirection)
+            {
+                case Directions.DOWN:
+                    return new Vector3(0, 0, 0);
+
+                case Directions.LEFT:
+                    return new Vector3(0, 90, 0);
+                case Directions.RIGHT:
+                    return new Vector3(0, -90, 0);
+
+                case Directions.UP:
+                    return new Vector3(0, 180, 0);
+                default:
+                    return Vector3.zero;
+
+            }
         }
     }
 }
