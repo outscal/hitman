@@ -44,7 +44,7 @@ namespace Enemy
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             currentEnemyView.SetPosition(spawnLocation);
 
-            enemyInstance.transform.Rotate(GetRotation(spawnDirection));
+            enemyInstance.transform.Rotate(GetRotation(spawnDirection), Space.World);
             
         }
 
@@ -147,7 +147,7 @@ namespace Enemy
            alertMoveCalled = 0;            
            currentEnemyView.AlertEnemyView();
            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
-           currentEnemyView.SetRotation(_destinationLocation);
+           currentEnemyView.RotateEnemy(_destinationLocation);
 
         }
 
@@ -159,12 +159,12 @@ namespace Enemy
                     return new Vector3(0, 0, 0);
 
                 case Directions.LEFT:
-                    return new Vector3(0, 0, 0);
+                    return new Vector3(0, 90, 0);
                 case Directions.RIGHT:
-                    return new Vector3(0, 0, 0);
+                    return new Vector3(0, -90, 0);
 
                 case Directions.UP:
-                    return new Vector3(0, 0, 0);
+                    return new Vector3(0, 180, 0);
                 default:
                     return Vector3.zero;
 

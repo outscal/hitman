@@ -52,8 +52,7 @@ namespace Enemy
         }
 
         public void SetPosition(Vector3 pos)
-        {
-           
+        {           
             transform.position = pos;
         }
 

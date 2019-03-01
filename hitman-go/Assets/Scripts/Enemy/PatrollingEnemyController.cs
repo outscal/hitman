@@ -22,28 +22,30 @@ namespace Enemy
             if (nodeID == -1)
             {
                 ChangeDirection();
-
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {               
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+                currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+
             }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(currentEnemyService.CheckForKillablePlayer())
                 {                   
                  currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                 currentEnemyService.TriggerPlayerDeath();
+                    currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                    currentEnemyService.TriggerPlayerDeath();
                 }
             }
             currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
             currentNodeID = nodeID;
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             if (n == -1)
             {
-                currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
+                currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
         }
 
