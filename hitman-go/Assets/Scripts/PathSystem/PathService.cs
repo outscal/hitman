@@ -156,12 +156,10 @@ namespace PathSystem
         {
             return graph[_nodeID].node.spawnEnemies[0].dir;
         }
-
         public bool CheckForTargetNode(int _NodeID)
         {
             return graph[_NodeID].node.property == NodeProperty.TARGETNODE;
         }
-
         public bool CanMoveToNode(int playerNode, int destinationNode)
         {
             if (graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode)

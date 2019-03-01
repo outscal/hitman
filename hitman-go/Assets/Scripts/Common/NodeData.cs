@@ -9,7 +9,7 @@ namespace Common
         NONE,
         SPAWNPLAYER,
         TARGETNODE
-        
+
     }
     [Serializable]
     public struct Edge
@@ -33,6 +33,12 @@ namespace Common
         public Directions dir;
     }
 
+    [Serializable]
+    public class LevelData
+    {
+        public StarTypes type;
+        public int bound ;
+    }
 
     [Serializable]
     public class Node
@@ -55,9 +61,10 @@ namespace Common
     public class ScriptableNode
     {
         public NodeData node;
-        public int up=-1, down=-1, left=-1, right=-1;
-        public ScriptableNode(){
-            up=-1; down=-1; left=-1; right=-1;
+        public int up = -1, down = -1, left = -1, right = -1;
+        public ScriptableNode()
+        {
+            up = -1; down = -1; left = -1; right = -1;
         }
         public int[] GetConnections()
         {

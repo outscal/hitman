@@ -8,6 +8,7 @@ using System.Collections;
 using Common;
 using GameState;
 using InteractableSystem;
+using StarSystem;
 
 public class GameInstaller : MonoInstaller
 {
@@ -31,6 +32,10 @@ public class GameInstaller : MonoInstaller
             .NonLazy();
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
+            .AsSingle()
+            .NonLazy();
+            Container.Bind<IStarService>()
+            .To<StarSystemService>()
             .AsSingle()
             .NonLazy();
 
