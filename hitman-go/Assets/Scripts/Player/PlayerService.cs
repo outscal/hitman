@@ -87,18 +87,16 @@ namespace Player
             }
             if (IsGameFinished())
             {
-                ChangeToLevelFinishState();
-              
+                Debug.Log("Game finished");
+                _signalBus.TryFire(new LevelFinishedSignal());
+                //trigger level finished signal
+
             }
             else if (playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
-                ChangeToEnemyState();
+                gameService.ChangeToEnemyState();
+                //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
             }
-        }
-
-        private void ChangeToLevelFinishState()
-        {
-           
         }
 
         //interactable perform
@@ -151,20 +149,45 @@ namespace Player
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT,PlayerStates.UNLOCK_DOOR,_interactableController);               
                     break;
             }
-        }       
+        }
+        async private void NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
+        {
+            int nodeID;
+            while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
+            {
+                nodeID = GetTargetNode();
 
+                if (nodeID != -1)
+                {
+                    bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+
+                    if (inRange)
+                    {
+                        Debug.Log("take action called");
+                        playerStateMachine.ChangePlayerState(playerState);
+                        _interactableController.TakeAction(nodeID);
+                        playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                        gameService.ChangeToEnemyState();
+                        //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+                        break;
+
+
+                    }
+                }
+                else
+                {
+                    await new WaitForEndOfFrame();
+                }
+            }
+        }
         //dead trigger
         async private void PlayerDead()
         {
             isPlayerDead = true;
             playerNodeID = -1;
             await new WaitForSeconds(2f);
-            ChangeToGameOverState();
-        }
-
-        private void ChangeToGameOverState()
-        {
-           
+            gameService.ChangeToGameOverState();
+            //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         //reset level trigger
         private void ResetLevel()
@@ -184,7 +207,6 @@ namespace Player
             playerController.Reset();
             playerController = null;
         }
-
         //is game finished?
         private bool IsGameFinished()
         {
@@ -194,10 +216,10 @@ namespace Player
         public void SpawnPlayer()
         {
             playerNodeID = currentPathService.GetPlayerNodeID();
+            Debug.Log("player node spawn" + playerNodeID);
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);            
             _signalBus.TryFire(new PlayerSpawnSignal());
-
         }
 
         //increase score on enemyKill etc 
@@ -205,7 +227,6 @@ namespace Player
         {
             _signalBus.TryFire(new PlayerKillSignal());
         }
-
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
         {
@@ -225,8 +246,10 @@ namespace Player
             }
 
             targetNode = _nodeID;
+            
             if (currentPathService.CanMoveToNode(playerNodeID, _nodeID))
             {
+                
                 PerformMovement(_nodeID);
             }
 

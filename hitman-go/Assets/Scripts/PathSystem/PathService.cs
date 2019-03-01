@@ -213,7 +213,6 @@ namespace PathSystem
             {
                 return false;
             }
-
         }
         public bool ThrowRange(int playerNode, int destinationNode)
         {
