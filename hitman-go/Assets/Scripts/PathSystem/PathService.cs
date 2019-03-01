@@ -103,7 +103,7 @@ namespace PathSystem
         private void ShowAlertedNodes(int nodeId)
         {
             for(int i =0 ;i<physicalHighlightedNodes.Count;i++){
-                GameObject.Destroy(physicalHighlightedNodes[i]);
+                physicalHighlightedNodes[i].GetComponent<NodeControllerView>().UnHighlightNode();
             }
             physicalHighlightedNodes = new List<GameObject>();
             physicalNode[nodeId].GetComponent<NodeControllerView>().ShowAlertedNodes();
