@@ -24,6 +24,9 @@ namespace Enemy
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
                 spawnDirection= pathService.GetDirections(currentNodeID, nodeID);
+                Vector3 rot=GetRotation(spawnDirection);
+                currentEnemyView.SetRotation(rot);
+
             }
             if (CheckForPlayerPresence(nodeID))
             {
@@ -31,6 +34,8 @@ namespace Enemy
                 {
                     return;
                 }
+                Vector3 rot = GetRotation(spawnDirection);
+                currentEnemyView.SetRotation(rot);
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();

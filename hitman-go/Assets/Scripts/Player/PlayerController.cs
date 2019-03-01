@@ -28,10 +28,10 @@ namespace Player
             return spawnLocation;
         }
 
-        async public void MoveToLocation(Vector3 _location)
+        async public Task MoveToLocation(Vector3 _location)
         {
-            currentPlayerView.MoveToLocation(_location);
-            await new WaitForSeconds(0.5f);
+           await currentPlayerView.MoveToLocation(_location);
+           
         }
 
         private void SpawnPlayerView()
@@ -59,5 +59,6 @@ namespace Player
         {
             return playerStateMachine;
         }
+       
     }
 }

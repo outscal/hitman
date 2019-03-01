@@ -71,11 +71,11 @@ namespace Player
 
         }
 
-        private void PerformMovement(int nextNodeID)
+        async private void PerformMovement(int nextNodeID)
         {
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-            playerController.MoveToLocation(nextLocation);
-
+            await playerController.MoveToLocation(nextLocation);
+            
             playerNodeID = nextNodeID;
 
             if (CheckForInteractables(nextNodeID))
@@ -88,7 +88,10 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            else if (playerStateMachine.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT) { _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE }); }
+            else if (playerStateMachine.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
+            {
+                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            }
         }
 
         //interactable perform
@@ -134,7 +137,7 @@ namespace Player
                     NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
                     break;
                 case InteractablePickup.STONE:
-                    currentPathService.ShowThrowableNodes(playerNodeID);                    
+                    currentPathService.ShowThrowableNodes(playerNodeID);
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
                     if (targetNode != -1)
                     { targetNode = -1; }

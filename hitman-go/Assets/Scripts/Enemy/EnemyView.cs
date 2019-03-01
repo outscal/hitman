@@ -57,9 +57,9 @@ namespace Enemy
             transform.position = pos;
         }
 
-        public void LookAtNode(Vector3 pos)
+        public void SetRotation(Vector3 pos)
         {
-            this.gameObject.transform.LookAt(pos);
+            this.gameObject.transform.Rotate(pos);
         }
     }
 }

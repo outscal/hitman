@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Enemy;
+using System.Threading.Tasks;
 using System.Collections;
 using Common;
 
@@ -17,11 +18,12 @@ namespace Player
             return this.gameObject;
         }
 
-        public void MoveToLocation(Vector3 _location)
+       async public Task MoveToLocation(Vector3 _location)
         {
             this.transform.LookAt(_location);
             // this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
             iTween.MoveTo(this.gameObject, _location, 0.5f);
+            await new WaitForSeconds(0.5f);
         }
 
         public void PlayAnimation(PlayerStates state)

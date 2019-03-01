@@ -43,23 +43,9 @@ namespace Enemy
             enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             currentEnemyView.SetPosition(spawnLocation);
+
+            enemyInstance.transform.Rotate(GetRotation(spawnDirection));
             
-            switch(spawnDirection)
-            {
-                case Directions.DOWN:               
-                    enemyInstance.transform.Rotate(new Vector3(0, 0, 0));
-                    break;                 
-                case Directions.UP:        
-                    enemyInstance.transform.Rotate(new Vector3(0,180f,0));
-                    break;                 
-                case Directions.LEFT:
-                    enemyInstance.transform.Rotate(new Vector3(0, 90f, 0));
-                    break;                 
-                case Directions.RIGHT:      
-                    enemyInstance.transform.Rotate(new Vector3(0,-90f,0));
-                    break;
-            
-            }
         }
 
         public void Reset()
@@ -161,8 +147,28 @@ namespace Enemy
            alertMoveCalled = 0;            
            currentEnemyView.AlertEnemyView();
            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
-           currentEnemyView.LookAtNode(_destinationLocation);
+           currentEnemyView.SetRotation(_destinationLocation);
 
+        }
+
+        protected virtual Vector3 GetRotation(Directions _spawnDirection)
+        {
+            switch (_spawnDirection)
+            {
+                case Directions.DOWN:
+                    return new Vector3(0, 0, 0);
+
+                case Directions.LEFT:
+                    return new Vector3(0, 0, 0);
+                case Directions.RIGHT:
+                    return new Vector3(0, 0, 0);
+
+                case Directions.UP:
+                    return new Vector3(0, 0, 0);
+                default:
+                    return Vector3.zero;
+
+            }
         }
     }
 }

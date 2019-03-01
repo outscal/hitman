@@ -13,6 +13,6 @@ namespace Enemy
         void RotateEnemy(Vector3 pos);
         void AlertEnemyView();
         void DisableAlertView();
-        void LookAtNode(Vector3 pos);
+        void SetRotation(Vector3 pos);
     }
 }
