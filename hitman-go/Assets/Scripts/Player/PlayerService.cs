@@ -34,7 +34,7 @@ namespace Player
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
             _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<ResetSignal>(GameOver);
+            _signalBus.Subscribe<ResetSignal>(ResetLevel);
             _signalBus.Subscribe<GameStartSignal>(OnGameStart);
 
         }
@@ -178,16 +178,17 @@ namespace Player
         }
 
         //dead trigger
-        private void PlayerDead()
+        async private void PlayerDead()
         {
             isPlayerDead = true;
             playerNodeID = -1;
-
+            await new WaitForSeconds(2f);
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
+
         //gameOver trigger
 
-        private void GameOver()
+        private void ResetLevel()
         {
             if (playerController == null)
             {
@@ -280,7 +281,7 @@ namespace Player
 
         public bool CheckForKillablePlayer()
         {
-            if(playerStateMachine.GetPlayerState()==PlayerStates.AMBUSH)
+            if (playerStateMachine.GetPlayerState() == PlayerStates.AMBUSH)
             {
                 return false;
             }

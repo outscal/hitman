@@ -35,7 +35,7 @@ namespace Enemy
 
         public void SetPosition(Vector3 pos)
         {
-            Debug.Log(pos);
+           
             transform.position = pos;
         }
     }
