@@ -161,7 +161,7 @@ namespace PathSystem
             List<int> alerted=new List<int>();
             for(int i =0;i<graph.Count;i++){
                 Vector3 node=graph[i].node.nodePosition;
-                if(node.x==tnode.x+5 || node.x==tnode.x-5 || node.z==tnode.z+5 || node.z==tnode.z-5)
+                if((tnode.x+6<node.x || node.x==tnode.x-6) || (tnode.z+6<node.z || node.z==tnode.z-6))
                 {
                     alerted.Add(i);
                 }
