@@ -22,12 +22,12 @@ namespace Player
 
         }
 
-       async public void OnStateEnter(PlayerStates playerStates = PlayerStates.NONE,IInteractableController controller = null )
+       async public Task OnStateEnter(PlayerStates playerStates = PlayerStates.NONE,IInteractableController controller = null )
         {           
             playerView.PlayAnimation(currentStateType);
             if(controller!=null && playerStates!= PlayerStates.NONE)
             {
-             await  NewWaitForTask(controller, playerStates);
+                 await  NewWaitForTask(controller, playerStates);
             }
         }
         

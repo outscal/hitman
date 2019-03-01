@@ -62,9 +62,10 @@ namespace Player
             return playerStateMachine;
         }
 
-        public void ChangePlayerState(PlayerStates _state, PlayerStates stateToChange, IInteractableController interactableController = null)
+       async public Task ChangePlayerState(PlayerStates _state, PlayerStates stateToChange, IInteractableController interactableController = null)
         {
             playerStateMachine.ChangePlayerState(_state,stateToChange,interactableController);
+            await new WaitForEndOfFrame();
         }
         public PlayerStates GetPlayerState()
         {

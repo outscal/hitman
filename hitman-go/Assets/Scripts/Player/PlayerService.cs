@@ -102,52 +102,52 @@ namespace Player
         }
 
         //interactable perform
-        private void PerformInteractableAction(IInteractableController _interactableController)
+       async private void PerformInteractableAction(IInteractableController _interactableController)
         {
             int nodeID = GetTargetNode();
 
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
-                    playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
+                  await  playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.BONE:
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
+                   await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
                     break;
                 case InteractablePickup.BREIFCASE:
-                    playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                  await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.COLOR_KEY:
-                    playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                   await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.DUAL_GUN:
-                    playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                   await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
-                    playerController.ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
+                 await   playerController.ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
+                   await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
                     break;
                 case InteractablePickup.STONE:
                     currentPathService.ShowThrowableNodes(playerNodeID);
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
+                   await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT,PlayerStates.UNLOCK_DOOR,_interactableController);               
+                   await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT,PlayerStates.UNLOCK_DOOR,_interactableController);               
                     break;
             }
         }       
@@ -274,7 +274,7 @@ namespace Player
 
         public void ChangeToEnemyState()
         {
-           
+            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
         }
 
 

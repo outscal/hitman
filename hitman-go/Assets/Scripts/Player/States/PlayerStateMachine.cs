@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using InteractableSystem;
 using Common;
+using System.Threading.Tasks;
 using System.Collections;
 
 namespace Player
@@ -20,7 +21,7 @@ namespace Player
             ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
         }
 
-        public void ChangePlayerState(PlayerStates _state,PlayerStates stateToChange,IInteractableController interactableController= null)
+        async public Task ChangePlayerState(PlayerStates _state,PlayerStates stateToChange,IInteractableController interactableController= null)
         {
             previousState = currentState;
             if (previousState != null)
@@ -61,9 +62,9 @@ namespace Player
                     break;
             }
             if (interactableController != null && stateToChange!=PlayerStates.NONE)
-                currentState.OnStateEnter(stateToChange,interactableController);
+               await currentState.OnStateEnter(stateToChange,interactableController);
             else
-                currentState.OnStateEnter();
+               await currentState.OnStateEnter();
 
         }
         public PlayerStates GetPlayerState()
