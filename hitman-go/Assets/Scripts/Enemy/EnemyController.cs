@@ -1,6 +1,6 @@
 using UnityEngine;
 using Common;
-using System.Collections;
+using System.Collections.Generic;
 using PathSystem;
 using GameState;
 using System;
@@ -18,8 +18,11 @@ namespace Enemy
         protected GameObject enemyInstance;
         protected Directions spawnDirection;
         protected EnemyStateMachine stateMachine;
+        protected List<int> alertedPathNodes = new List<int>();
         protected int currentNodeID;
         protected int enemyID;
+        private int alertMoveCalled;
+        protected EnemyType enemyType;
 
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation,EnemyScriptableObject _enemyScriptableObject, int _currentNodeID,Directions _spawnDirection)
         {
@@ -87,12 +90,27 @@ namespace Enemy
 
         public void Move()
         {
-            if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
-            {                
-                int nextNodeID = pathService.GetNextNodeID(currentNodeID,spawnDirection);
-                MoveToNextNode(nextNodeID);           
+            alertMoveCalled++;
+            if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
+            {
+                if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
+                {
+                    int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                    MoveToNextNode(nextNodeID);
+                }
+                else if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
+                {
+                    
+                    int nextNodeID=alertedPathNodes[alertMoveCalled];
+                    MoveToNextNode(nextNodeID);
+                    if (alertMoveCalled == alertedPathNodes.Count-1)
+                    {
+                        stateMachine.ChangeEnemyState(EnemyStates.IDLE);
+                        currentEnemyView.DisableAlertView();
+                    }
+
+                }
             }
-            
         }
 
         protected virtual bool CheckForPlayerPresence(int _nextNodeID)
@@ -125,10 +143,18 @@ namespace Enemy
 
             }
         }
-        protected virtual void AlertInRangeEnemies()
+    
+        public virtual EnemyType GetEnemyType()
         {
-
+            return enemyType;
         }
 
+        public void AlertEnemy(int _destinationID)
+        {
+           stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+           alertedPathNodes= pathService.GetShortestPath(currentNodeID,_destinationID);
+           alertMoveCalled = 0;
+            currentEnemyView.AlertEnemyView();
+        }
     }
 }
