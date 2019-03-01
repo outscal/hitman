@@ -1,34 +1,30 @@
-
-
 using Common;
-using GameState;
 using Zenject;
-
 namespace GameState
 {
-    
-    public class GameOverState : IGameStates
+    public class LevelFinishedState : IGameStates
     {
         SignalBus signalBus;
         GameService service;
-        public GameOverState(SignalBus signalBus, GameService service){
-            this.signalBus=signalBus;
-            this.service=service;
+        public LevelFinishedState(SignalBus signalBus, GameService service)
+        {
+            this.service = service;
+            this.signalBus = signalBus;
         }
         public GameStatesType GetStatesType()
         {
-            return GameStatesType.GAMEOVERSTATE;
+            return GameStatesType.LEVELFINISHEDSTATE;
         }
+
         public void OnStateEnter()
         {
-            signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType()});
+            signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType() });
             signalBus.TryFire(new ResetSignal());
             service.ChangeToLoadLevelState();
         }
-
         public void OnStateExit()
         {
-           
+
         }
     }
 }

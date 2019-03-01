@@ -93,7 +93,8 @@ namespace Enemy
             {
                 if (!playerService.PlayerDeathStatus())
                 {
-                    signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                    gameService.ChangeToPlayerState();
+                    //signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
                 }
                 return;
             }
@@ -113,7 +114,8 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
-                signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                gameService.ChangeToPlayerState();
+                //signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
 

@@ -86,11 +86,13 @@ namespace Player
             if (CheckForFinishCondition())
             {
                 Debug.Log("Game finished");
-                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
+                _signalBus.TryFire(new LevelFinishedSignal());
+                //trigger level finished signal
             }
             else if (playerStateMachine.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
-                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+                gameService.ChangeToEnemyState();
+                //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
             }
         }
 
@@ -167,12 +169,12 @@ namespace Player
 
                     if (inRange)
                     {
-
                         Debug.Log("take action called");
                         playerStateMachine.ChangePlayerState(playerState);
                         _interactableController.TakeAction(nodeID);
                         playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
-                        _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+                        gameService.ChangeToEnemyState();
+                        //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
                         break;
 
 
@@ -191,7 +193,8 @@ namespace Player
             isPlayerDead = true;
             playerNodeID = -1;
             await new WaitForSeconds(2f);
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
+            gameService.ChangeToGameOverState();
+            //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
 
         //gameOver trigger
@@ -222,8 +225,8 @@ namespace Player
 
         public void SpawnPlayer()
         {
-
             playerNodeID = currentPathService.GetPlayerNodeID();
+            Debug.Log("player node spawn" + playerNodeID);
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
             playerStateMachine = playerController.GetCurrentStateMachine();
@@ -236,12 +239,9 @@ namespace Player
         {
             _signalBus.TryFire(new PlayerKillSignal());
         }
-
         //Get Tap Input
-
         public void SetTargetNode(int _nodeID)
         {
-
             if (playerStateMachine.GetPlayerState() == PlayerStates.SHOOTING || playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerStateMachine.GetPlayerState() == PlayerStates.THROWING)
             {
                 targetNode = _nodeID;
@@ -257,8 +257,10 @@ namespace Player
             }
 
             targetNode = _nodeID;
+            
             if (currentPathService.CanMoveToNode(playerNodeID, _nodeID))
             {
+                
                 PerformMovement(_nodeID);
             }
 
