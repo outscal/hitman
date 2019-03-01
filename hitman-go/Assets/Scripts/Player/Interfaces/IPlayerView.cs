@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Player
 {
-    public interface IPlayerView 
-    {
-        GameObject GetGameObject();
+    public interface IPlayerView
+    { 
 
        Task MoveToLocation(Vector3 location);
         void DisablePlayer();

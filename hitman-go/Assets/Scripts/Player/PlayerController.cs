@@ -1,6 +1,7 @@
 ﻿using Common;
 using GameState;
 using System;
+using InteractableSystem;
 using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Player
             currentPlayerService = _playerService;
             spawnLocation = _spawnLocation;
             scriptableObject = _playerScriptableObject;
+      
             SpawnPlayerView();
         }
 
@@ -39,7 +41,7 @@ namespace Player
             // currentPlayerView=scriptableObject.playerView;
             playerInstance = GameObject.Instantiate(scriptableObject.playerView.gameObject);
             currentPlayerView = playerInstance.GetComponent<PlayerView>();
-            playerStateMachine = new PlayerStateMachine(currentPlayerView);
+            playerStateMachine = new PlayerStateMachine(currentPlayerView,currentPlayerService);
 
             playerInstance.transform.localPosition = spawnLocation;
 
@@ -55,10 +57,18 @@ namespace Player
             currentPlayerView.Reset();
         }
 
-        public PlayerStateMachine GetCurrentStateMachine()
+        private PlayerStateMachine GetCurrentStateMachine()
         {
             return playerStateMachine;
         }
-       
+
+        public void ChangePlayerState(PlayerStates _state, PlayerStates stateToChange, IInteractableController interactableController = null)
+        {
+            playerStateMachine.ChangePlayerState(_state,stateToChange,interactableController);
+        }
+        public PlayerStates GetPlayerState()
+        {
+            return playerStateMachine.GetPlayerState();
+        }
     }
 }
