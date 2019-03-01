@@ -101,7 +101,7 @@ namespace Player
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    NewWaitForTask(_interactableController, PlayerStates.THROWING);
+                   await NewWaitForTask(_interactableController, PlayerStates.THROWING);
                     break;
                 case InteractablePickup.BREIFCASE:
                     playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
@@ -124,7 +124,7 @@ namespace Player
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
+                    await NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
                     break;
                 case InteractablePickup.STONE:
                     Debug.Log("Stone found");
@@ -132,20 +132,20 @@ namespace Player
                     if (targetNode != -1)
                     { targetNode = -1; }
 
-                    NewWaitForTask(_interactableController, PlayerStates.THROWING);
+                    await NewWaitForTask(_interactableController, PlayerStates.THROWING);
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
+                    await NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
 
                     break;
             }
         }
 
-        private async void NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
+        async Task NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
         {
             int nodeID;
             while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)

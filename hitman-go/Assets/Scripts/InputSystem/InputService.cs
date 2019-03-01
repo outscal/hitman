@@ -11,7 +11,7 @@ namespace InputSystem
     {
         private IPlayerService playerService;
 
-        private IInputComponent playerInput;
+        private IInputComponent playerInput, cameraInput;
         private ISwipeDirection swipeDirection;
         private ITapDetect tapDetect;
         private GameObject tapObject;
@@ -24,6 +24,7 @@ namespace InputSystem
 
             swipeDirection = new SwipeDirection();
             tapDetect = new TapDetect();
+            cameraInput = new CameraInput();
             //playerInput = new KeyboardInput();
             #if UNITY_ANDROID || UNITY_IOS
                         playerInput = new TouchInput();
@@ -71,6 +72,7 @@ namespace InputSystem
             //}
 
             playerInput.OnTick();
+            //cameraInput.OnTick();
         }
 
 
