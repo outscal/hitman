@@ -205,6 +205,7 @@ namespace Player
         //reset calls
         private void ResetEverything()
         {
+            isPlayerDead = false;
             playerController.Reset();
             playerController = null;
         }

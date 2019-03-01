@@ -64,6 +64,7 @@ namespace Enemy
 
         public void Reset()
         {
+            stateMachine = null;
             currentEnemyView.Reset();
         }
 
