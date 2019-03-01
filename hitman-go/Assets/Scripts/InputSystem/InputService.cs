@@ -4,6 +4,7 @@ using Common;
 using Player;
 using Zenject;
 using PathSystem.NodesScript;
+using CameraSystem;
 
 namespace InputSystem
 {
@@ -16,15 +17,18 @@ namespace InputSystem
         private ITapDetect tapDetect;
         private GameObject tapObject;
         private int nodeLayer = 1 << 9;
+        private ICameraManager cameraManager;
 
-        public InputService (IPlayerService playerService)
+        public InputService (IPlayerService playerService, ICameraManager cameraManager)
         {
+            this.cameraManager = cameraManager;
             Debug.Log("<color=red>[InputService] Created:</color>");
             this.playerService = playerService;
 
             swipeDirection = new SwipeDirection();
             tapDetect = new TapDetect();
-            cameraInput = new CameraInput();
+            //cameraInput = new CameraInput();
+           //cameraInput.OnInitialized(this);
             //playerInput = new KeyboardInput();
             #if UNITY_ANDROID || UNITY_IOS
                         playerInput = new TouchInput();
@@ -48,29 +52,6 @@ namespace InputSystem
 
         public void Tick()
         {
-            //if(Input.GetMouseButtonDown(0))
-            //{
-            //    tapObject = GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer); 
-            //}
-            //else if (Input.GetMouseButtonUp(0))
-            //{
-            //    tapObject = null;
-            //}
-
-            //if (tapObject != null)
-            //{
-            //    if (tapObject.GetComponent<PlayerView>() != null
-            //    || tapObject.GetComponent<NodeControllerView>() != null)
-            //    {
-            //        playerInput.StartPosition(Input.mousePosition);
-            //        playerInput.OnTick();
-            //    }
-            //    else
-            //    {
-            //        //Camera Input Code 
-            //    }
-            //}
-
             playerInput.OnTick();
             //cameraInput.OnTick();
         }
@@ -84,6 +65,11 @@ namespace InputSystem
         public ITapDetect GetTapDetect()
         {
             return tapDetect; 
+        }
+
+        public ICameraManager GetCameraManager()
+        {
+            return cameraManager; 
         }
     }
 }

@@ -2,15 +2,21 @@
 using Common;
 using PathSystem.NodesScript;
 using Player;
+using CameraSystem;
 
 namespace InputSystem
 {
     public class CameraInput : IInputComponent
     {
         private IInputService inputService;
-        private GameObject camera;
+        //private GameObject camera;
         private GameObject gameObject;
         private float speed = 6f;
+        //private float minDragDistance = Screen.height * 2 / 100;
+
+        Vector2 startTouch, currentTouch;
+        //Vector2 firstTouch, secondTouch;
+
 
         public void OnInitialized(IInputService inputService)
         {
@@ -19,39 +25,51 @@ namespace InputSystem
 
         public void OnTick()
         {
-            if(camera == null)
-            {
-                camera = GameObject.FindObjectOfType<Camera>().gameObject;
-                Debug.Log("[CameraInput] Camera Found");
-            }
-
             if (Input.touchCount >= 1)
             {
                 Touch touch = Input.GetTouch(0);
 
-                if (touch.phase == TouchPhase.Began)
+                if(touch.phase == TouchPhase.Began)
                 {
-                    gameObject = inputService.GetTapDetect().ReturnObject(touch.position, 0);
-
+                    startTouch = touch.position;
+                    currentTouch = touch.position;
+                    if (inputService != null)
+                        gameObject = inputService.GetTapDetect().ReturnObject(touch.position);
                 }
-                else if(touch.phase == TouchPhase.Moved)
+
+                if (Input.touchCount == 1)
                 {
-                    if (gameObject != null)
+                    if (touch.phase == TouchPhase.Moved)
                     {
-                        Vector2 touchPosition = touch.position;
-                        if (gameObject.GetComponent<NodeControllerView>() == null
-                        && gameObject.GetComponent<PlayerView>() == null)
+                        if (gameObject != null)
                         {
-                            if (camera != null)
+                            currentTouch = touch.position;
+                            Vector3 panValue = currentTouch - startTouch;
+
+                            if (gameObject.GetComponent<NodeControllerView>() == null
+                                && gameObject.GetComponent<PlayerView>() == null)
                             {
-                                camera.transform.Translate(-touchPosition.x * 6f,
-                                                            touchPosition.y * 6f,
-                                                            1f);
+                                //if (camera != null)
+                                //{
+                                //    camera.transform.Translate(touchPosition.x * .5f,
+                                //                                touchPosition.y * .5f,
+                                //                                0f);
+                                //}
+
+                                inputService.GetCameraManager()
+                                .GetCameraController()
+                                    .PanCamera(panValue);
+
                             }
                         }
                     }
                 }
-                else if (touch.phase == TouchPhase.Ended)
+                else if(Input.touchCount >= 2)
+                {
+                    Debug.Log("[CameraInput] Zoom Camera");
+                }
+
+                if (touch.phase == TouchPhase.Ended)
                 {
                     if (gameObject != null)
                     {

@@ -1,5 +1,7 @@
 ﻿using System;
 using Common;
+using UnityEngine;
+using CameraSystem;
 
 namespace InputSystem
 {
@@ -9,5 +11,6 @@ namespace InputSystem
         void PassNodeID(int nodeID);
         ISwipeDirection GetSwipeDirection();
         ITapDetect GetTapDetect();
+        ICameraManager GetCameraManager();
     }
 }
