@@ -19,6 +19,11 @@ namespace Enemy
         }
         protected override void MoveToNextNode(int nodeID)
         {
+            if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
+            {
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
+            }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(!currentEnemyService.CheckForKillablePlayer())
@@ -26,6 +31,7 @@ namespace Enemy
                     return;
                 }
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();
             }
         }

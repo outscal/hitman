@@ -143,7 +143,7 @@ namespace Enemy
 
         public void TriggerPlayerDeath()
         {
-            Debug.Log("PlayerDeath triggered");
+
             signalBus.TryFire(new PlayerDeathSignal());
         }
 
@@ -262,23 +262,22 @@ namespace Enemy
         private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
         {
             List<int> alertedNodes = new List<int>();
-            Debug.Log("node id throw"+_signalAlertGuards.nodeID);
+            Debug.Log("node id throw" + _signalAlertGuards.nodeID);
             alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
             foreach (var item in alertedNodes)
             {
-
-             Debug.Log(item);
+                Debug.Log(item);
             }
 
             for (int i = 0; i < alertedNodes.Count; i++)
             {
                 for (int j = 0; j < enemyList.Count; j++)
                 {
-                   
+
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:
-                            if(enemyList[j].GetEnemyType()==EnemyType.DOGS)
+                            if (enemyList[j].GetEnemyType() == EnemyType.DOGS)
                             {
                                 if (enemyList[j].GetCurrentID() == alertedNodes[i])
                                 {
@@ -296,7 +295,7 @@ namespace Enemy
                             }
                             break;
                     }
-                    
+
                 }
             }
         }
