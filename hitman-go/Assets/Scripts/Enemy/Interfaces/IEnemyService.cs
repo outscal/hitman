@@ -13,6 +13,6 @@ namespace Enemy
         int GetPlayerNodeID();
         void TriggerPlayerDeath();
         bool CheckForEnemyPresence(int playerNodeID);
-
+        bool CheckForKillablePlayer();
     }
 }
