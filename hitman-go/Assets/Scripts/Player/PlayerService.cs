@@ -119,6 +119,7 @@ namespace Player
                     break;
                 case InteractablePickup.BREIFCASE:
                   await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                    //push test
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.COLOR_KEY:
