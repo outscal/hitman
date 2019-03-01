@@ -8,6 +8,7 @@ namespace PathSystem.NodesScript
     {
         public GameObject highlighter;
         public int nodeID;
+        GameObject highlightnode;
         public int GetNodeId()
         {
             return nodeID;
@@ -29,6 +30,14 @@ namespace PathSystem.NodesScript
             ));
             await Task.Delay(TimeSpan.FromSeconds(3));
             Destroy(high);
+        }
+        public void HighlightNode()
+        {
+            highlightnode = Instantiate(highlighter, transform.position, Quaternion.identity, transform);
+        }
+        public void UnHighlightNode()
+        {
+            Destroy(highlightnode);
         }
     }
 }

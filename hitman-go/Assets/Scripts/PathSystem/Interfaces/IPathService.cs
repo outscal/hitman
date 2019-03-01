@@ -6,6 +6,7 @@ namespace PathSystem
 {
     public interface IPathService
     {
+        void ShowThrowableNodes(int nodeId);
         bool ThrowRange(int playerNode,int destinationNode);
         bool CanMoveToNode(int playerNode,int destinationNode);
         int GetNextNodeID(int _nodeID, Directions _dir);

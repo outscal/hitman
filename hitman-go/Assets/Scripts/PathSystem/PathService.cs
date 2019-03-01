@@ -10,6 +10,7 @@ namespace PathSystem
     {
         List<int> shortestPath;
         GameObject line;
+        List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode;
@@ -47,7 +48,7 @@ namespace PathSystem
                 }
             }
             shortestPathLength = graph.Count;
-            
+
         }
         public void DestroyPath()
         {
@@ -56,10 +57,12 @@ namespace PathSystem
             {
                 GameObject.Destroy(physicalPath[i]);
             }
-             for (int i = 0; i < physicalNode.Count; i++)
+            for (int i = 0; i < physicalNode.Count; i++)
             {
                 GameObject.Destroy(physicalNode[i]);
             }
+            physicalPath = new List<GameObject>();
+            physicalNode = new List<GameObject>();
         }
         private void printAllPaths(int s, int d)
         {
@@ -97,8 +100,31 @@ namespace PathSystem
             }
             isVisited[u] = false;
         }
-        private void ShowAlertedNodes(int nodeId){  
+        private void ShowAlertedNodes(int nodeId)
+        {
+            for(int i =0 ;i<physicalHighlightedNodes.Count;i++){
+                GameObject.Destroy(physicalHighlightedNodes[i]);
+            }
+            physicalHighlightedNodes = new List<GameObject>();
             physicalNode[nodeId].GetComponent<NodeControllerView>().ShowAlertedNodes();
+        }
+        public void ShowThrowableNodes(int nodeId)
+        {
+            Vector3 playerpos = graph[nodeId].node.nodePosition;
+            for (int i = 0; i < graph.Count; i++)
+            {
+                Vector3 testpos = graph[i].node.nodePosition;
+                if ((playerpos.x + 5 == testpos.x || playerpos.x - 5 == testpos.x) && playerpos.z == testpos.z)
+                {
+                    physicalHighlightedNodes.Add(physicalNode[i]);
+                    physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                }
+                if ((playerpos.z + 5 == testpos.z || playerpos.z - 5 == testpos.z) && playerpos.x == testpos.x)
+                {
+                    physicalHighlightedNodes.Add(physicalNode[i]);
+                    physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                }
+            }
         }
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
@@ -157,11 +183,12 @@ namespace PathSystem
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
             ShowAlertedNodes(_targetNodeID);
-            Vector3 tnode=graph[_targetNodeID].node.nodePosition;
-            List<int> alerted=new List<int>();
-            for(int i =0;i<graph.Count;i++){
-                Vector3 node=graph[i].node.nodePosition;
-                if((tnode.x+6<node.x || node.x==tnode.x-6) || (tnode.z+6<node.z || node.z==tnode.z-6))
+            Vector3 tnode = graph[_targetNodeID].node.nodePosition;
+            List<int> alerted = new List<int>();
+            for (int i = 0; i < graph.Count; i++)
+            {
+                Vector3 node = graph[i].node.nodePosition;
+                if ((tnode.x + 6 < node.x || node.x == tnode.x - 6) || (tnode.z + 6 < node.z || node.z == tnode.z - 6))
                 {
                     alerted.Add(i);
                 }
