@@ -11,6 +11,7 @@ namespace PathSystem
         List<int> shortestPath;
         GameObject line;
         List<GameObject> physicalPath = new List<GameObject>();
+        List<GameObject> physicalNode = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode;
         int shortestPathLength;
         [SerializeField] List<Node> graph = new List<Node>();
@@ -29,12 +30,12 @@ namespace PathSystem
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
                     targetNode.SetNodeID(i);
-                    physicalPath.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    physicalNode.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else
                 {
                     nodeprefab.SetNodeID(i);
-                    physicalPath.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 if (node.connections[0] != -1)
                 {
@@ -46,7 +47,6 @@ namespace PathSystem
                 }
             }
             shortestPathLength = graph.Count;
-            GetShortestPath(0, 3);
         }
         public void DestroyPath()
         {
@@ -54,6 +54,10 @@ namespace PathSystem
             for (int i = 0; i < physicalPath.Count; i++)
             {
                 GameObject.Destroy(physicalPath[i]);
+            }
+             for (int i = 0; i < physicalNode.Count; i++)
+            {
+                GameObject.Destroy(physicalNode[i]);
             }
         }
         private void printAllPaths(int s, int d)
@@ -92,6 +96,9 @@ namespace PathSystem
             }
             isVisited[u] = false;
         }
+        private void ShowAlertedNodes(int nodeId){  
+            physicalNode[nodeId].GetComponent<NodeControllerView>().ShowAlertedNodes();
+        }
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
             shortestPath = new List<int>();
@@ -105,12 +112,10 @@ namespace PathSystem
         {
             return graph[_nodeId].connections[(int)_dir];
         }
-
         public Vector3 GetNodeLocation(int _nodeID)
         {
             return graph[_nodeID].node.nodePosition;
         }
-
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
             List<int> pickableNodeList = new List<int>();
@@ -123,7 +128,6 @@ namespace PathSystem
             }
             return pickableNodeList;
         }
-
         public int GetPlayerNodeID()
         {
             int playerNode = -1;
@@ -151,6 +155,7 @@ namespace PathSystem
         }
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
+            ShowAlertedNodes(_targetNodeID);
             Vector3 tnode=graph[_targetNodeID].node.nodePosition;
             List<int> alerted=new List<int>();
             for(int i =0;i<graph.Count;i++){
@@ -162,17 +167,14 @@ namespace PathSystem
             }
             return alerted;
         }
-
         public Directions GetEnemySpawnDirection(int _nodeID)
         {
             return graph[_nodeID].node.spawnEnemies[0].dir;
         }
-
         public bool CheckForTargetNode(int _NodeID)
         {
             return graph[_NodeID].node.property == NodeProperty.TARGETNODE;
         }
-
         public bool CanMoveToNode(int playerNode, int destinationNode)
         {
             if (graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode)
