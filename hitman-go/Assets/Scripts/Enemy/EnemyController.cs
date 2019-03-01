@@ -103,6 +103,8 @@ namespace Enemy
                 {
                     
                     int nextNodeID=alertedPathNodes[alertMoveCalled];
+                    Debug.Log("next node in chase state: "+ nextNodeID);
+                    
                     MoveToNextNode(nextNodeID);
                     if (alertMoveCalled == alertedPathNodes.Count-1)
                     {
@@ -156,8 +158,9 @@ namespace Enemy
            alertedPathNodes= pathService.GetShortestPath(currentNodeID,_destinationID);
            alertMoveCalled = 0;            
            currentEnemyView.AlertEnemyView();
-            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
-            currentEnemyView.LookAtNode(_destinationLocation);
+           Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
+           currentEnemyView.LookAtNode(_destinationLocation);
+
         }
     }
 }

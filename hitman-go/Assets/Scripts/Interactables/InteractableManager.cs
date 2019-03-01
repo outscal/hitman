@@ -31,7 +31,9 @@ namespace InteractableSystem
 
         void GameStart()
         {
+            Debug.Log("[InteractableManager] Interactable Count" + interactableControllers.Count);
             SpawnPickups(interactableScriptableObj);
+            Debug.Log("[InteractableManager] Interactable Count2" + interactableControllers.Count);
         }
 
         void ResetInteractableDictionary()
