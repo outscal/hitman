@@ -50,4 +50,9 @@ namespace Common
         WAIT_FOR_INPUT
 
     }
+    public enum EnemyStates
+    {
+        IDLE,
+        CHASE
+    }
 }

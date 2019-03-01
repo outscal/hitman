@@ -255,5 +255,10 @@ namespace Enemy
         {
             return playerService.CheckForKillablePlayer();
         }
+
+        private void AlertEnemies(int nodeID, InteractablePickup pickupType)
+        {
+
+        }
     }
 }

@@ -18,8 +18,7 @@ namespace Enemy
         }
 
         protected override void MoveToNextNode(int nodeID)
-        {
-            Debug.Log("moooooooved");
+        {    
             if (nodeID == -1)
             {
                 ChangeDirection();
@@ -28,18 +27,23 @@ namespace Enemy
             }
             if (CheckForPlayerPresence(nodeID))
             {
-                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
-                currentEnemyService.TriggerPlayerDeath();
+                if(currentEnemyService.CheckForKillablePlayer())
+                {                   
+                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                 currentEnemyService.TriggerPlayerDeath();
+                }
             }
-            currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
             currentNodeID = nodeID;
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             if (n == -1)
             {
-                currentEnemyView.GetGameObject().transform.Rotate(new Vector3(0, 180, 0));
+                currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
             }
         }
+
+        
 
     }
 }

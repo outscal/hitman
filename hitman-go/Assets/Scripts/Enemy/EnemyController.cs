@@ -17,6 +17,7 @@ namespace Enemy
         protected Vector3 spawnLocation;
         protected GameObject enemyInstance;
         protected Directions spawnDirection;
+        protected EnemyStateMachine stateMachine;
         protected int currentNodeID;
         protected int enemyID;
 
@@ -29,6 +30,7 @@ namespace Enemy
             spawnDirection = _spawnDirection;
             currentNodeID = _currentNodeID;
             gameService = _gameService;
+            stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
         }
     
@@ -36,9 +38,9 @@ namespace Enemy
         {
             //SPAWN ENEMY VIEW
             enemyInstance=GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
-            enemyInstance.transform.localPosition = spawnLocation;                     
+            currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
+            currentEnemyView.SetPosition(spawnLocation);
             
-
             switch(spawnDirection)
             {
                 case Directions.DOWN:               
@@ -86,8 +88,7 @@ namespace Enemy
         public void Move()
         {
             if(gameService.GetCurrentState()== GameStatesType.ENEMYSTATE)
-            {
-                
+            {                
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID,spawnDirection);
                 MoveToNextNode(nextNodeID);           
             }
@@ -124,5 +125,10 @@ namespace Enemy
 
             }
         }
+        protected virtual void AlertInRangeEnemies()
+        {
+
+        }
+
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -16,14 +16,27 @@ namespace Enemy
             return this.gameObject;
         }
 
+        async public void MoveToLocation(Vector3 location)
+        {
+            iTween.MoveTo(gameObject, location, 0.5f);
+            await new WaitForSeconds(0.5f);
+        }
+
         public void Reset()
         {
             Destroy(this.gameObject);
         }
+
+        async public void RotateEnemy(Vector3 newRotation)
+        {
+            iTween.RotateTo(gameObject, newRotation, 0.5f);
+            await new WaitForSeconds(0.5f);
+        }
+
         public void SetPosition(Vector3 pos)
         {
             Debug.Log(pos);
-            transform.position=pos;
+            transform.position = pos;
         }
     }
 }
