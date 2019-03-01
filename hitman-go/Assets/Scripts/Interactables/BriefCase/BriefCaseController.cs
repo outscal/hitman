@@ -28,6 +28,7 @@ namespace InteractableSystem
         {
             interactableManager.SendBriefCaseSignal();
             interactableView.gameObject.SetActive(false);
+            interactableManager.RemoveInteractable(this);
         }
 
 

@@ -5,6 +5,7 @@ using InteractableSystem;
 using PathSystem;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -82,10 +83,7 @@ namespace Player
                 Debug.Log("Game finished");
                 _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.LEVELFINISHEDSTATE });
             }
-            else
-            {
-                _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-            }
+            else if (playerStateMachine.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT) { _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE }); }
         }
 
         //interactable perform
@@ -101,20 +99,10 @@ namespace Player
                     break;
                 case InteractablePickup.BONE:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
-                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
-                    {
-                        nodeID = GetTargetNode();
-                        if (nodeID != -1)
-                        {
-                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-                            if (inRange)
-                            {
-                                playerStateMachine.ChangePlayerState(PlayerStates.THROWING);
-                                _interactableController.TakeAction(nodeID);
-                                break;
-                            }
-                        }
-                    }
+
+                    if (targetNode != -1)
+                    { targetNode = -1; }
+                    NewWaitForTask(_interactableController, PlayerStates.THROWING);
                     break;
                 case InteractablePickup.BREIFCASE:
                     playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
@@ -134,78 +122,78 @@ namespace Player
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
-                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
-                    {
-                        nodeID = GetTargetNode();
-                        if (nodeID != -1)
-                        {
-                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-                            if (inRange)
-                            {
-                                playerStateMachine.ChangePlayerState(PlayerStates.SHOOTING);
-                                _interactableController.TakeAction(nodeID);
-                                break;
-                            }
-                        }
-                    }
+
+                    if (targetNode != -1)
+                    { targetNode = -1; }
+                    NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
                     break;
                 case InteractablePickup.STONE:
                     Debug.Log("Stone found");
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
-                    {
-                        nodeID = GetTargetNode();
-                        Debug.Log("node iD in pickup" + nodeID);
-                        if (nodeID != -1)
-                        {
-                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-
-                            if (inRange)
-                            {
-                                Debug.Log("take action called");
-                                playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
-                                _interactableController.TakeAction(nodeID);
-                                //playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
-                                break;
-                            }
-                        }
-                    }
+                    NewWaitForTask(_interactableController, PlayerStates.THROWING);
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
-                    while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
-                    {
-                        nodeID = GetTargetNode();
-                        if (nodeID != -1)
-                        {
-                            bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-                            if (inRange)
-                            {
-                                playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
-                                _interactableController.TakeAction(nodeID);
-                                break;
-                            }
-                        }
-                    }
+
+                    if (targetNode != -1)
+                    { targetNode = -1; }
+                    NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
+
                     break;
             }
         }
+
+        async private void NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
+        {
+            int nodeID;
+            while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
+            {
+                nodeID = GetTargetNode();
+
+                Debug.Log("node iD in pickup" + nodeID);
+                if (nodeID != -1)
+                {
+                    bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
+
+                    if (inRange)
+                    {
+
+                        Debug.Log("take action called");
+                        playerStateMachine.ChangePlayerState(playerState);
+                        _interactableController.TakeAction(nodeID);
+                        playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
+                        _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+                        break;
+
+
+                    }
+                }
+                else
+                {
+                    await new WaitForEndOfFrame();
+                }
+            }
+        }
+
         //dead trigger
         private void PlayerDead()
         {
             isPlayerDead = true;
             playerNodeID = -1;
+
             _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
         }
         //gameOver trigger
+
         private void GameOver()
         {
             if (playerController == null)
             {
                 return;
             }
+
             ResetEverything();
         }
 
@@ -240,6 +228,7 @@ namespace Player
         }
 
         //Get Tap Input
+
         public void SetTargetNode(int _nodeID)
         {
 

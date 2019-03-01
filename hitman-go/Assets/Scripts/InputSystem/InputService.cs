@@ -24,12 +24,12 @@ namespace InputSystem
 
             swipeDirection = new SwipeDirection();
             tapDetect = new TapDetect();
-            playerInput = new KeyboardInput();
-            //#if UNITY_ANDROID || UNITY_IOS
-            //            playerInput = new TouchInput();
-            //#elif UNITY_EDITOR || UNITY_STANDALONE
-            //            inputComponent = new KeyboardInput();
-            //#endif
+            //playerInput = new KeyboardInput();
+            #if UNITY_ANDROID || UNITY_IOS
+                        playerInput = new TouchInput();
+            #elif UNITY_EDITOR || UNITY_STANDALONE
+                        inputComponent = new KeyboardInput();
+            #endif
             playerInput.OnInitialized(this);
         }
 
