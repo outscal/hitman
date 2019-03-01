@@ -11,5 +11,7 @@ namespace Enemy
         void SetPosition(Vector3 pos);
         void MoveToLocation(Vector3 vector3);
         void RotateEnemy(Vector3 vector3);
+        void AlertEnemyView();
+        void DisableAlertView();
     }
 }

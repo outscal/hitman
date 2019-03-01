@@ -5,10 +5,26 @@ namespace Enemy
 {
     public class EnemyView : MonoBehaviour, IEnemyView
     {
+        [SerializeField]
+        private SpriteRenderer alertSprite;
+
+        public void AlertEnemyView()
+        {
+            alertSprite.enabled = true;
+        }
+        public void DisableAlertView()
+        {
+            alertSprite.enabled = false;
+        }
+
         public void DisableEnemy()
         {
             //gameObject.SetActive(false);
             Destroy(gameObject);
+        }
+        private void Start()
+        {
+            alertSprite.enabled = false;
         }
 
         public GameObject GetGameObject()

@@ -28,8 +28,10 @@ namespace Enemy
             enemyScriptableObjectList = enemyList;
             signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
-            signalBus.Subscribe<ResetSignal>(GameOver);
+            signalBus.Subscribe<ResetSignal>(ResetEnemy);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);
+            signalBus.Subscribe<SignalAlertGuards>(AlertEnemies);
+
         }
 
         private void OnGameStart()
@@ -43,7 +45,7 @@ namespace Enemy
             {
                 return false;
             }
-            if(enemyList.Count==0)
+            if (enemyList.Count == 0)
             {
                 return false;
             }
@@ -58,7 +60,8 @@ namespace Enemy
             }
             return false;
         }
-        private void GameOver()
+
+        private void ResetEnemy()
         {
             ResetEverything();
         }
@@ -85,8 +88,8 @@ namespace Enemy
         }
 
         private void PerformMovement()
-        {           
-            if(enemyList.Count==0)
+        {
+            if (enemyList.Count == 0)
             {
                 if (!playerService.PlayerDeathStatus())
                 {
@@ -109,24 +112,24 @@ namespace Enemy
                 }
             }
             if (!playerService.PlayerDeathStatus())
-            {                
+            {
                 signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
             }
         }
 
         public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
-              Debug.Log(_deathSignal.nodeID);
-             Debug.Log("enemy death");
-            foreach(EnemyController enemyController in enemyList)
+            Debug.Log(_deathSignal.nodeID);
+            Debug.Log("enemy death");
+            foreach (EnemyController enemyController in enemyList)
             {
-                if(enemyController.GetCurrentID()==_deathSignal.nodeID)
-                {                   
+                if (enemyController.GetCurrentID() == _deathSignal.nodeID)
+                {
                     enemyController.DisableEnemy();
                     enemyList.Remove(enemyController);
                     break;
                 }
-            }           
+            }
 
         }
 
@@ -256,9 +259,40 @@ namespace Enemy
             return playerService.CheckForKillablePlayer();
         }
 
-        private void AlertEnemies(int nodeID, InteractablePickup pickupType)
+        private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
         {
+            List<int> alertedNodes = new List<int>();
+            alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
 
+            for (int i = 0; i < alertedNodes.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                   
+                    switch (_signalAlertGuards.interactablePickup)
+                    {
+                        case InteractablePickup.BONE:
+                            if(enemyList[j].GetEnemyType()==EnemyType.DOGS)
+                            {
+                                if (enemyList[j].GetCurrentID() == alertedNodes[i])
+                                {
+                                    enemyList[j].AlertEnemy(_signalAlertGuards.nodeID);
+                                }
+                            }
+                            break;
+                        case InteractablePickup.STONE:
+                            if (enemyList[j].GetEnemyType() != EnemyType.DOGS)
+                            {
+                                if (enemyList[j].GetCurrentID() == alertedNodes[i])
+                                {
+                                    enemyList[j].AlertEnemy(_signalAlertGuards.nodeID);
+                                }
+                            }
+                            break;
+                    }
+                    
+                }
+            }
         }
     }
 }
