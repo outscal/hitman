@@ -1,9 +1,9 @@
-using UnityEngine;
-using System;
 using Common;
-using Player;
-using Zenject;
 using PathSystem.NodesScript;
+using Player;
+using System;
+using UnityEngine;
+using Zenject;
 
 namespace InputSystem
 {
@@ -17,7 +17,7 @@ namespace InputSystem
         private GameObject tapObject;
         private int nodeLayer = 1 << 9;
 
-        public InputService (IPlayerService playerService)
+        public InputService(IPlayerService playerService)
         {
             Debug.Log("<color=red>[InputService] Created:</color>");
             this.playerService = playerService;
@@ -25,12 +25,12 @@ namespace InputSystem
             swipeDirection = new SwipeDirection();
             tapDetect = new TapDetect();
             cameraInput = new CameraInput();
-            //playerInput = new KeyboardInput();
-            #if UNITY_ANDROID || UNITY_IOS
-                        playerInput = new TouchInput();
-            #elif UNITY_EDITOR || UNITY_STANDALONE
-                        inputComponent = new KeyboardInput();
-            #endif
+            playerInput = new KeyboardInput();
+#if UNITY_ANDROID || UNITY_IOS
+            playerInput = new TouchInput();
+#elif UNITY_EDITOR || UNITY_STANDALONE
+                        playerInput = new KeyboardInput();
+#endif
             playerInput.OnInitialized(this);
         }
 
@@ -83,7 +83,7 @@ namespace InputSystem
 
         public ITapDetect GetTapDetect()
         {
-            return tapDetect; 
+            return tapDetect;
         }
     }
 }

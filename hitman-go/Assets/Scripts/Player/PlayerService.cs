@@ -67,18 +67,23 @@ namespace Player
             {
                 return;
             }
-            
-            PerformMovement(nextNodeID);
+
+           
+           await PerformMovement(nextNodeID);
 
 
         }
 
-        async private void PerformMovement(int nextNodeID)
+        async private Task PerformMovement(int nextNodeID)
         {
+            if(gameService.GetCurrentState()!= GameStatesType.PLAYERSTATE)
+            {
+                return;
+            }
+            playerNodeID = nextNodeID;
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             await playerController.MoveToLocation(nextLocation);
             
-            playerNodeID = nextNodeID;
 
             if (CheckForInteractables(nextNodeID))
             {
@@ -94,6 +99,7 @@ namespace Player
             }
             else if (playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
+                await new WaitForEndOfFrame();
                 gameService.ChangeToEnemyState();
                 //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
             }
@@ -109,6 +115,7 @@ namespace Player
                 case InteractablePickup.AMBUSH_PLANT:
                   await  playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    
                     break;
                 case InteractablePickup.BONE:
                     if (targetNode != -1)
@@ -116,9 +123,9 @@ namespace Player
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
                     break;
                 case InteractablePickup.BREIFCASE:
-                  await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
-                    //push test
-                    _interactableController.TakeAction(playerNodeID);
+                  await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);                 
+                   _interactableController.TakeAction(playerNodeID);
+                    
                     break;
                 case InteractablePickup.COLOR_KEY:
                    await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
@@ -149,6 +156,7 @@ namespace Player
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT,PlayerStates.UNLOCK_DOOR,_interactableController);               
                     break;
             }
+            await new WaitForEndOfFrame();
         }
         //dead trigger
         async private void PlayerDead()
@@ -157,7 +165,7 @@ namespace Player
             playerNodeID = -1;
             await new WaitForSeconds(2f);
             gameService.ChangeToGameOverState();
-            //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
+           
         }
         //reset level trigger
         private void ResetLevel()

@@ -87,14 +87,14 @@ namespace Enemy
             }
         }
 
-        private void PerformMovement()
+       async private void PerformMovement()
         {
             if (enemyList.Count == 0)
             {
                 if (!playerService.PlayerDeathStatus())
                 {
                     gameService.ChangeToPlayerState();
-                    //signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                    
                 }
                 return;
             }
@@ -109,13 +109,17 @@ namespace Enemy
                     {
                         signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
                     }
-                    else { controller.Move(); }
+                    else
+                    {
+                        await    controller.Move();
+                    }
                 }
             }
+            await new WaitForEndOfFrame();
             if (!playerService.PlayerDeathStatus())
             {
                 gameService.ChangeToPlayerState();
-                //signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+                
             }
         }
 
