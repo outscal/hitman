@@ -96,7 +96,7 @@ namespace PathSystem
         {
             shortestPath = new List<int>();
             shortestPathLength = graph.Count;
-            Debug.Log("is" + shortestPathLength);
+            //Debug.Log("is" + shortestPathLength);
             printAllPaths(_currentNode, _destinationNode);
             Debug.Log("Shortest Path Length is" + shortestPath.Count);
             return shortestPath;
@@ -151,7 +151,16 @@ namespace PathSystem
         }
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
-            throw new NotImplementedException();
+            Vector3 tnode=graph[_targetNodeID].node.nodePosition;
+            List<int> alerted=new List<int>();
+            for(int i =0;i<graph.Count;i++){
+                Vector3 node=graph[i].node.nodePosition;
+                if(node.x==tnode.x+5 || node.x==tnode.x-5 || node.z==tnode.z+5 || node.z==tnode.z-5)
+                {
+                    alerted.Add(i);
+                }
+            }
+            return alerted;
         }
 
         public Directions GetEnemySpawnDirection(int _nodeID)
