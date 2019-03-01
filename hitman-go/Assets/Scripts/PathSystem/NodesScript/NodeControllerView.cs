@@ -19,7 +19,15 @@ namespace PathSystem.NodesScript
         public async void ShowAlertedNodes()
         {
             GameObject high = Instantiate(highlighter, transform.position, Quaternion.identity, transform);
-            await Task.Delay(TimeSpan.FromSeconds(2));
+            high.transform.localScale = Vector3.zero;
+            iTween.ScaleTo(high, iTween.Hash
+            (
+                "x", 12,
+                "z", 12,
+                "time", 2f,
+                "easetype", iTween.EaseType.easeOutBounce
+            ));
+            await Task.Delay(TimeSpan.FromSeconds(3));
             Destroy(high);
         }
     }

@@ -47,6 +47,7 @@ namespace PathSystem
                 }
             }
             shortestPathLength = graph.Count;
+            
         }
         public void DestroyPath()
         {
