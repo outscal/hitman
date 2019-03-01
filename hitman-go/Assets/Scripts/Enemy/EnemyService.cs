@@ -262,6 +262,7 @@ namespace Enemy
         private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
         {
             List<int> alertedNodes = new List<int>();
+            Debug.Log("node id throw"+_signalAlertGuards.nodeID);
             alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
 
             for (int i = 0; i < alertedNodes.Count; i++)

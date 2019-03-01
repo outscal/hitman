@@ -154,8 +154,10 @@ namespace Enemy
         {
            stateMachine.ChangeEnemyState(EnemyStates.CHASE);
            alertedPathNodes= pathService.GetShortestPath(currentNodeID,_destinationID);
-           alertMoveCalled = 0;
-            currentEnemyView.AlertEnemyView();
+           alertMoveCalled = 0;            
+           currentEnemyView.AlertEnemyView();
+            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
+            currentEnemyView.LookAtNode(_destinationLocation);
         }
     }
 }

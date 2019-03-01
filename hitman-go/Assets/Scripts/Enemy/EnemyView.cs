@@ -11,11 +11,13 @@ namespace Enemy
         public void AlertEnemyView()
         {
             alertSprite.enabled = true;
+
         }
         public void DisableAlertView()
         {
             alertSprite.enabled = false;
         }
+
 
         public void DisableEnemy()
         {
@@ -53,6 +55,11 @@ namespace Enemy
         {
            
             transform.position = pos;
+        }
+
+        public void LookAtNode(Vector3 pos)
+        {
+            this.gameObject.transform.LookAt(pos);
         }
     }
 }
