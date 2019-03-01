@@ -25,6 +25,10 @@ namespace Enemy
 
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             }
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            {               
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+            }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(currentEnemyService.CheckForKillablePlayer())

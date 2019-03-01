@@ -23,6 +23,7 @@ namespace Enemy
             {
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+                spawnDirection= pathService.GetDirections(currentNodeID, nodeID);
             }
             if (CheckForPlayerPresence(nodeID))
             {

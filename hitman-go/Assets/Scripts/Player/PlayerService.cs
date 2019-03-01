@@ -103,6 +103,7 @@ namespace Player
                     _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.BONE:
+                    currentPathService.ShowThrowableNodes(playerNodeID);
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
 
                     if (targetNode != -1)
@@ -133,7 +134,7 @@ namespace Player
                     NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
                     break;
                 case InteractablePickup.STONE:
-                    Debug.Log("Stone found");
+                    currentPathService.ShowThrowableNodes(playerNodeID);                    
                     playerStateMachine.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT);
                     if (targetNode != -1)
                     { targetNode = -1; }

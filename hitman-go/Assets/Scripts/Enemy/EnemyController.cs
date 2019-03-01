@@ -106,11 +106,13 @@ namespace Enemy
                     Debug.Log("next node in chase state: "+ nextNodeID);
                     
                     MoveToNextNode(nextNodeID);
+                  
                     if (alertMoveCalled == alertedPathNodes.Count-1)
                     {
                         stateMachine.ChangeEnemyState(EnemyStates.IDLE);
                         currentEnemyView.DisableAlertView();
                     }
+
 
                 }
             }
