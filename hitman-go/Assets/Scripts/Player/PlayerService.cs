@@ -102,7 +102,7 @@ namespace Player
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                   await NewWaitForTask(_interactableController, PlayerStates.THROWING);
+                    NewWaitForTask(_interactableController, PlayerStates.THROWING);
                     break;
                 case InteractablePickup.BREIFCASE:
                     playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
@@ -125,7 +125,7 @@ namespace Player
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    await NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
+                    NewWaitForTask(_interactableController, PlayerStates.SHOOTING);
                     break;
                 case InteractablePickup.STONE:
                     Debug.Log("Stone found");
@@ -139,7 +139,7 @@ namespace Player
 
                     if (targetNode != -1)
                     { targetNode = -1; }
-                    await NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
+                    NewWaitForTask(_interactableController, PlayerStates.UNLOCK_DOOR);
 
                     break;
             }
@@ -152,7 +152,6 @@ namespace Player
             {
                 nodeID = GetTargetNode();
 
-                Debug.Log("node iD in pickup" + nodeID);
                 if (nodeID != -1)
                 {
                     bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
