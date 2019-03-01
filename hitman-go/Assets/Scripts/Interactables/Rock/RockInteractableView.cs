@@ -8,9 +8,14 @@ namespace InteractableSystem
     {
         private RockInteractableController rockInteractableController;
 
-        public void SetController(RockInteractableController rockInteractableController)
+        public override void SetController(InteractableController interactableController)
         {
-            this.rockInteractableController = rockInteractableController; 
+            this.rockInteractableController = (RockInteractableController)interactableController;
+        }
+
+        void Throw()
+        {
+            rockInteractableController.Throw();
         }
     }
 }
