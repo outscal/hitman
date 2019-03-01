@@ -45,7 +45,7 @@ namespace Player
         }
 
         //swipe input
-        public void SetSwipeDirection(Directions _direction)
+        async public void SetSwipeDirection(Directions _direction)
         {
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
@@ -55,7 +55,11 @@ namespace Player
             {
                 return;
             }
-
+            if (playerStateMachine.GetPlayerState() != PlayerStates.IDLE)
+            {
+                await new WaitForEndOfFrame();
+                return;
+            }
             int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
 
             if (nextNodeID == -1)
