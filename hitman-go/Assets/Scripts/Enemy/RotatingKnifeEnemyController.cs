@@ -18,11 +18,18 @@ namespace Enemy
 
         protected override void MoveToNextNode(int nodeID)
         {
-            ChangeDirection();
-            currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
-      
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            {
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+            }
+            else
+            {
+                ChangeDirection();
+            }
 
-            if(CheckForPlayerPresence(nodeID))
+            currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
+
+            if (CheckForPlayerPresence(nodeID))
             {
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
