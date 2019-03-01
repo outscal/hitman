@@ -21,6 +21,10 @@ namespace Enemy
         {
             if (CheckForPlayerPresence(nodeID))
             {
+                if(!currentEnemyService.CheckForKillablePlayer())
+                {
+                    return;
+                }
                 currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
                 currentEnemyService.TriggerPlayerDeath();
             }

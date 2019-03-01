@@ -250,5 +250,10 @@ namespace Enemy
 
             }
         }
+
+        public bool CheckForKillablePlayer()
+        {
+            return playerService.CheckForKillablePlayer();
+        }
     }
 }

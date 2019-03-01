@@ -17,7 +17,7 @@ namespace Player
 
         void OnGameStart();
         bool PlayerDeathStatus();
-
+        bool CheckForKillablePlayer();
     }
 
 }

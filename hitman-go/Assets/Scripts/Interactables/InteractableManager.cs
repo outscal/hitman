@@ -6,6 +6,7 @@ using PathSystem;
 using Zenject;
 using Enemy;
 using GameState;
+using System.Linq;
 
 namespace InteractableSystem
 {
@@ -57,9 +58,10 @@ namespace InteractableSystem
             {
                 if(interactableController == interactableControllers[i])
                 {
+                    int key=interactableControllers.FirstOrDefault(x=>x.Value==interactableControllers[i]).Key;
+                    interactableControllers.Remove(key);
                     interactableController.Destroy();
                     interactableController = null;
-                    interactableControllers.Remove(i);
                     break; 
                 }
             }

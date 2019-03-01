@@ -75,6 +75,7 @@ namespace Player
         {
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             playerController.MoveToLocation(nextLocation);
+
             playerNodeID = nextNodeID;
 
             if (CheckForInteractables(nextNodeID))
@@ -281,5 +282,16 @@ namespace Player
             return interactableService.CheckForInteractable(_nodeID);
         }
 
+        public bool CheckForKillablePlayer()
+        {
+            if(playerStateMachine.GetPlayerState()==PlayerStates.AMBUSH)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

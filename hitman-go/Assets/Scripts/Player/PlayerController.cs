@@ -1,6 +1,7 @@
 ﻿using Common;
 using GameState;
 using System;
+using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -27,8 +28,11 @@ namespace Player
             return spawnLocation;
         }
 
-        public void MoveToLocation(Vector3 _location)
-        { currentPlayerView.MoveToLocation(_location); }
+        async public void MoveToLocation(Vector3 _location)
+        {
+            currentPlayerView.MoveToLocation(_location);
+            await new WaitForSeconds(0.5f);
+        }
 
         private void SpawnPlayerView()
         {
