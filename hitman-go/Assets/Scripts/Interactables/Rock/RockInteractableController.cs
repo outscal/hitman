@@ -36,6 +36,7 @@ namespace InteractableSystem
             interactableView.transform.position = position;
             interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.STONE);
             await Task.Delay(TimeSpan.FromSeconds(0.25f));
+            Debug.Log("[RockController] Throw Task Done");
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);
         }

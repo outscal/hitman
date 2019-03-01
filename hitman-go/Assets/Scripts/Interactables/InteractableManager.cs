@@ -54,7 +54,7 @@ namespace InteractableSystem
 
         public void RemoveInteractable(InteractableController interactableController)
         {
-            for (int i = 0; i < interactableControllers.Count; i++)
+            foreach(int i in interactableControllers.Keys)
             {
                 if(interactableController == interactableControllers[i])
                 {

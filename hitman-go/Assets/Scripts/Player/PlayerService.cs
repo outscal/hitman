@@ -153,7 +153,6 @@ namespace Player
             {
                 nodeID = GetTargetNode();
 
-                Debug.Log("node iD in pickup" + nodeID);
                 if (nodeID != -1)
                 {
                     bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
