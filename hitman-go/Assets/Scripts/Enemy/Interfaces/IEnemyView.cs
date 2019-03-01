@@ -9,9 +9,10 @@ namespace Enemy
         void DisableEnemy();
         void Reset();
         void SetPosition(Vector3 pos);
-        void MoveToLocation(Vector3 vector3);
-        void RotateEnemy(Vector3 vector3);
+        void MoveToLocation(Vector3 pos);
+        void RotateEnemy(Vector3 pos);
         void AlertEnemyView();
         void DisableAlertView();
+        void LookAtNode(Vector3 pos);
     }
 }

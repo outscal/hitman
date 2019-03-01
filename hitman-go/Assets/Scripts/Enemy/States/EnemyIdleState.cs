@@ -18,7 +18,7 @@ namespace Enemy
 
         public void OnStateExit()
         {
-            throw new System.NotImplementedException();
+           
         }
         public EnemyStates GetCurrentState()
         {

@@ -183,12 +183,12 @@ namespace PathSystem
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
             ShowAlertedNodes(_targetNodeID);
-            Vector3 tnode = graph[_targetNodeID].node.nodePosition;
-            List<int> alerted = new List<int>();
-            for (int i = 0; i < graph.Count; i++)
-            {
-                Vector3 node = graph[i].node.nodePosition;
-                if ((tnode.x + 6 < node.x || node.x == tnode.x - 6) || (tnode.z + 6 < node.z || node.z == tnode.z - 6))
+
+            Vector3 tnode=graph[_targetNodeID].node.nodePosition;
+            List<int> alerted=new List<int>();
+            for(int i =0;i<graph.Count;i++){
+                Vector3 node=graph[i].node.nodePosition;
+                if((tnode.x+6>node.x && node.x>tnode.x-6) && (tnode.z+6>node.z && node.z>tnode.z-6))
                 {
                     alerted.Add(i);
                 }
