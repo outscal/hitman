@@ -1,4 +1,6 @@
 ﻿using Common;
+using InteractableSystem;
+using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -8,26 +10,68 @@ namespace Player
     {
         IPlayerView playerView;
         PlayerStates currentStateType;
+        IPlayerService playerService;
+        PlayerStateMachine stateMachine;
 
-        public PlayerWaitingForInputState(IPlayerView _playerView)
+        public PlayerWaitingForInputState(IPlayerView _playerView,PlayerStateMachine playerStateMachine,IPlayerService _playerService)
         {
             playerView = _playerView;
+            playerService = _playerService;
+            stateMachine = playerStateMachine;
             currentStateType = PlayerStates.WAIT_FOR_INPUT;
 
         }
 
-        public void OnStateEnter()
-        {
+       async public void OnStateEnter(PlayerStates playerStates = PlayerStates.NONE,IInteractableController controller = null )
+        {           
             playerView.PlayAnimation(currentStateType);
+            if(controller!=null && playerStates!= PlayerStates.NONE)
+            {
+             await  NewWaitForTask(controller, playerStates);
+            }
+        }
+        
+        async private Task NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
+        {
+            int nodeID;
+            while (stateMachine.GetPlayerState() == this.currentStateType)
+            {
+                nodeID = playerService.GetTargetNode();
+
+                if (nodeID != -1)
+                {
+                    bool inRange = playerService.CheckForRange(nodeID);                    
+
+                    if (inRange)
+                    {
+
+                        Debug.Log("take action called");
+                        stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
+                        _interactableController.TakeAction(nodeID);
+                        stateMachine.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
+                        playerService.ChangeToEnemyState();
+                    
+                        break;
+
+
+                    }
+                }
+                else
+                {
+                    await new WaitForEndOfFrame();
+                }
+            }
         }
 
         public void OnStateExit()
         {
 
         }
+
         public PlayerStates GetCurrentStateType()
         {
             return currentStateType;
         }
+
     }
 }

@@ -47,7 +47,8 @@ namespace Common
         UNLOCK_DOOR,
         SHOOTING,
         THROWING,
-        WAIT_FOR_INPUT
+        WAIT_FOR_INPUT,
+        NONE
 
     }
     public enum EnemyStates
