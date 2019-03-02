@@ -150,36 +150,6 @@ namespace Player
                     break;
             }
         }
-        async private void NewWaitForTask(IInteractableController _interactableController, PlayerStates playerState)
-        {
-            int nodeID;
-            while (playerStateMachine.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT)
-            {
-                nodeID = GetTargetNode();
-
-                if (nodeID != -1)
-                {
-                    bool inRange = currentPathService.ThrowRange(playerNodeID, nodeID);
-
-                    if (inRange)
-                    {
-                        Debug.Log("take action called");
-                        playerStateMachine.ChangePlayerState(playerState);
-                        _interactableController.TakeAction(nodeID);
-                        playerStateMachine.ChangePlayerState(PlayerStates.IDLE);
-                        gameService.ChangeToEnemyState();
-                        //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
-                        break;
-
-
-                    }
-                }
-                else
-                {
-                    await new WaitForEndOfFrame();
-                }
-            }
-        }
         //dead trigger
         async private void PlayerDead()
         {
