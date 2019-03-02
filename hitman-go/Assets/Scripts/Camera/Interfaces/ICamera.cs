@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace CameraSystem
 {
-    public class CameraView : MonoBehaviour
+    public interface ICamera
     {
-
-
 
     }
 }

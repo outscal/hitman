@@ -3,39 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using Common;
 using Zenject;
-using GameState;
 using ScriptableObjSystem;
-using Player;
-using RTS_Cam;
+using GameState;
 
 namespace CameraSystem
 {
-    public class CameraManager : ICameraManager
+    public class CameraManager : ICamera
     {
-        private CameraController cameraController;
         readonly SignalBus signalBus;
+        private CameraScript cameraScript;
         private GameBasicObjects gameBasicObjects;
-        private RTS_Camera cameraScript;
 
         public CameraManager(SignalBus signalBus, GameBasicObjects gameBasicObjects)
         {
-            this.gameBasicObjects = gameBasicObjects;
             this.signalBus = signalBus;
-            signalBus.Subscribe<GameStartSignal>(GameStart);
+            this.gameBasicObjects = gameBasicObjects;
+            signalBus.Subscribe<GameStartSignal>(GameStarted);
         }
 
-        void GameStart()
+        void GameStarted()
         {
-            //cameraController = new CameraController(gameBasicObjects.cameraPrefab);
-            GameObject gameObject = GameObject.Instantiate<GameObject>(gameBasicObjects.rts_Camera.gameObject);
-            cameraScript = gameObject.GetComponent<RTS_Camera>();
-            //cameraScript.SetTarget()
+            GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
+            cameraScript = cameraObj.GetComponent<CameraScript>();
+            cameraScript.SetCameraSettings();
         }
 
-        public CameraController GetCameraController()
-        {
-            return cameraController;
-        }
     }
-
 }

@@ -2,114 +2,154 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using Zenject;
+using GameState;
+using PathSystem;
+using PathSystem.NodesScript;
+using Player;
 
 namespace CameraSystem
 {
     public class CameraScript : MonoBehaviour
     {
-        public GameObject player; 
-        public bool startCamera;
-        Vector3 StartPosition;
-        Vector2 DragStartPosition;
-        Vector2 DragNewPosition;
-        Vector2 Finger0Position;
-        float DistanceBetweenFingers;
-        bool isZooming, isPanning;
-        private Vector3 difference;
-        private float minDistanceFromPlayer = 2f;
+        public GameObject playerTarget, platformTarget, cameraObj;
+        
+        Vector3 targetPosition;
+        public float smoothFactor = 0.5f, radius = 2f;
+        public bool rotateAroundPoint = true;
+        public float rotationSpeed = 5f;
+        public float perspectiveZoomSpeed;
 
-        public void SetCamera()
+        private Vector3 cameraOffsetDistance, centerPoint;
+
+        private Vector3 startPos, currentPos;
+
+        private Touch touchOne, touchZero;
+
+        private float fieldOfViewRatio;
+        private bool zooming = false;
+        private bool startCamera;
+        GameObject gameObject;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            difference = player.transform.position - transform.position;
-            startCamera = true;
-            Vector3 targetPos = player.transform.position - difference;
-            targetPos.x = player.transform.position.x;
-            targetPos.z = player.transform.position.z + 1f;
-            transform.position = targetPos;
-            iTween.MoveTo(this.gameObject, targetPos, 0.5f);
+            //SetCameraSettings();
         }
 
-        private void LateUpdate()
+        public void SetCameraSettings()
         {
-            if(player == null)
+            playerTarget = FindObjectOfType<PlayerView>().gameObject;
+            platformTarget = GameObject.FindWithTag("Platform").gameObject;
+
+            if(playerTarget != null && platformTarget != null)
             {
-                player = FindObjectOfType<PlayerView>().gameObject;
-                SetCamera();
+                centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
+                //transform.position = playerTarget.transform.position - new Vector3()
+                cameraOffsetDistance = cameraObj.transform.position - centerPoint;
+                fieldOfViewRatio = cameraObj.GetComponent<Camera>().fieldOfView /
+                                   Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+                startCamera = true;
             }
 
-            if (player != null)
-            {
-                if (isPanning == false)
-                {
-                    Vector3 targetPos = player.transform.position - difference;
-                    if (Vector3.Distance(player.transform.position - difference, transform.position) >= minDistanceFromPlayer)
-                    {
-                        targetPos.x = player.transform.position.x;
-                        targetPos.z = player.transform.position.z + 1f;
-                        transform.position = targetPos;
-                        iTween.MoveTo(this.gameObject, targetPos, 0.5f);
-                    }
-                }
-            }
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             if (startCamera == false) return;
 
+            centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
+            if (zooming == false)
+            {
+                float fov = fieldOfViewRatio *
+                    Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+                cameraObj.GetComponent<Camera>().fieldOfView = iTween.FloatUpdate(cameraObj.GetComponent<Camera>().fieldOfView,
+                fov, 0.5f);
+            }
+
             if (Input.touchCount == 0)
             {
-                if (isZooming == true)
-                    isZooming = false;
-                if (isPanning == true)
-                    isPanning = false;
+                if (zooming == true)
+                    zooming = false;
+
+                if (gameObject != null)
+                    gameObject = null;
             }
 
-            if (Input.touchCount == 1)
+            if (Input.touchCount >= 1)
             {
-                if (!isZooming)
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                    gameObject = ReturnObject(touch.position);
+
+                    startPos = touch.deltaPosition;
+                    currentPos = startPos;
+                }
+
+                if (gameObject.GetComponent<NodeControllerView>() == null &&
+                   gameObject.GetComponent<PlayerView>() == null)
+                {
+                    if (Input.touchCount == 1)
                     {
-                        if (isPanning == false) isPanning = true;
-                        Vector3 NewPosition = GetWorldPosition();
-                        Vector3 PositionDifference = NewPosition - StartPosition;
-                        gameObject.transform.Translate(PositionDifference);
+                        if (touch.phase == TouchPhase.Moved)
+                        {
+                            currentPos = touch.deltaPosition;
+                            float x = currentPos.x - startPos.x;
+                            Quaternion camAngle = Quaternion.AngleAxis(x * rotationSpeed, Vector3.up);
+                            cameraOffsetDistance = camAngle * cameraOffsetDistance;
+                        }
+
+                        Vector3 newPos = centerPoint + cameraOffsetDistance;
+
+                        cameraObj.transform.position = Vector3.Slerp(cameraObj.transform.position, newPos, smoothFactor);
                     }
-                    StartPosition = GetWorldPosition();
+                    else if (Input.touchCount > 1)
+                    {
+                        if (zooming == false) zooming = true;
+                        touchOne = Input.GetTouch(1);
+                        touchZero = Input.GetTouch(0);
+
+                        Vector2 touchZeroPreviousPosition = touchZero.position - touchZero.deltaPosition;
+
+                        Vector2 touchOnePreviousPosition = touchOne.position - touchOne.deltaPosition;
+
+                        float prevTouchDeltaMag = (touchZeroPreviousPosition - touchOnePreviousPosition).magnitude;
+                        float TouchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+                        float deltaMagDiff = prevTouchDeltaMag - TouchDeltaMag;
+
+                        cameraObj.GetComponent<Camera>().fieldOfView += deltaMagDiff * perspectiveZoomSpeed * Time.deltaTime;
+                        cameraObj.GetComponent<Camera>().fieldOfView = Mathf.Clamp(cameraObj.GetComponent<Camera>().fieldOfView, .1f, 179.9f);
+                    }
                 }
             }
-            else if (Input.touchCount == 2)
+
+            cameraObj.transform.LookAt(centerPoint);
+        }
+
+        public GameObject ReturnObject(Vector2 position)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(position);
+            RaycastHit raycast;
+            if (Physics.Raycast(ray, out raycast, Mathf.Infinity))
             {
-                if (Input.GetTouch(1).phase == TouchPhase.Moved)
-                {
-                    isZooming = true;
-
-                    DragNewPosition = GetWorldPositionOfFinger(1);
-                    Vector2 PositionDifference = DragNewPosition - DragStartPosition;
-
-                    if (Vector2.Distance(DragNewPosition, Finger0Position) < DistanceBetweenFingers)
-                        gameObject.GetComponent<Camera>().orthographicSize += (PositionDifference.magnitude);
-
-                    if (Vector2.Distance(DragNewPosition, Finger0Position) >= DistanceBetweenFingers)
-                        gameObject.GetComponent<Camera>().orthographicSize -= (PositionDifference.magnitude);
-
-                    DistanceBetweenFingers = Vector2.Distance(DragNewPosition, Finger0Position);
-                }
-                DragStartPosition = GetWorldPositionOfFinger(1);
-                Finger0Position = GetWorldPositionOfFinger(0);
+                gameObject = raycast.collider.gameObject;
+                if (gameObject != null)
+                    Debug.Log("[TapDetect] GameObject:" + gameObject.name);
             }
+
+            return gameObject;
         }
 
-        Vector2 GetWorldPosition()
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
         {
-            return gameObject.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(centerPoint, radius);
         }
+#endif
 
-        Vector2 GetWorldPositionOfFinger(int FingerIndex)
-        {
-            return gameObject.GetComponent<Camera>().ScreenToWorldPoint(Input.GetTouch(FingerIndex).position);
-        }
     }
 }

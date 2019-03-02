@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9193a57fd4a51438db2f5a48a2208269, type: 3}
   m_Name: GameBasicObj
   m_EditorClassIdentifier: 
-  cameraPrefab: {fileID: 6300679542151869608, guid: dac88e91f55ee564b8cd08a382de8aee,
+  CameraScript: {fileID: 6300679542151869608, guid: dac88e91f55ee564b8cd08a382de8aee,
     type: 3}
-  rts_Camera: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
