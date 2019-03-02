@@ -28,14 +28,14 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {               
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
-             await   currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+              await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
 
             }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(currentEnemyService.CheckForKillablePlayer())
                 {                   
-                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                    currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                     currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                     currentEnemyService.TriggerPlayerDeath();
                 }

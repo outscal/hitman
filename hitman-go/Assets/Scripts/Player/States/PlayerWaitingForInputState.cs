@@ -48,7 +48,7 @@ namespace Player
                         Debug.Log("take action called");
                         stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
-                        stateMachine.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
+                        stateMachine.ChangePlayerState(PlayerStates.END_TURN,PlayerStates.NONE);
                         playerService.ChangeToEnemyState();
                     
                         break;
