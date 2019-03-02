@@ -31,7 +31,7 @@ MonoBehaviour:
   - node:
       uniqueID: 1
       property: 0
-      spawnPickups: 0
+      spawnPickups: 4
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 5}
     up: -1

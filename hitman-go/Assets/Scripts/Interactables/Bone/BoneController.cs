@@ -23,7 +23,7 @@ namespace InteractableSystem
 
         protected override void OnInitialized()
         {
-            interactablePickup = InteractablePickup.STONE;
+            interactablePickup = InteractablePickup.BONE;
             hashtable.Add("oncomplete", "Throw");
             hashtable.Add("time", 1f);
             //hashtable.Add("easetype", iTween.EaseType.easeOutCubic);

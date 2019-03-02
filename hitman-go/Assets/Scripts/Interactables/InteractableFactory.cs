@@ -79,8 +79,33 @@ namespace InteractableSystem
                     break;
 
                 case InteractablePickup.SNIPER_GUN:
+                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.SNIPER_GUN);
+
+                    for (int i = 0; i < nodeID.Count; i++)
+                    {
+                        InteractableView sniperView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
+                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        InteractableController sniperController = new SniperController(position
+                        , interactableManager
+                        , sniperView);
+                        interactableManager.AddInteractable(nodeID[i], sniperController);
+                    }
                     break;
+
                 case InteractablePickup.DUAL_GUN:
+                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.DUAL_GUN);
+
+                    for (int i = 0; i < nodeID.Count; i++)
+                    {
+                        InteractableView dualGunView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
+                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        InteractableController dualGunController = new DualGunInteractableController(position
+                        , interactableManager
+                        , dualGunView);
+                        interactableManager.AddInteractable(nodeID[i], dualGunController);
+                    }
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     break;

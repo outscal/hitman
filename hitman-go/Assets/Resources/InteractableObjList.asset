@@ -26,13 +26,16 @@ MonoBehaviour:
       type: 3}
   - name: Bone
     interactablePickup: 3
-    interactableView: {fileID: 0}
+    interactableView: {fileID: 8179980625334902081, guid: cf1e3def29b494756a18406080f90d48,
+      type: 3}
   - name: SniperGun
     interactablePickup: 4
-    interactableView: {fileID: 0}
+    interactableView: {fileID: 8350863200400509222, guid: 65ce4ca67756042bbbc767c7bed430db,
+      type: 3}
   - name: DualGun
     interactablePickup: 5
-    interactableView: {fileID: 0}
+    interactableView: {fileID: 2896918865722667041, guid: 5a83e1f415bb64307a316ff36f611ea5,
+      type: 3}
   - name: TrapDoor
     interactablePickup: 6
     interactableView: {fileID: 0}
