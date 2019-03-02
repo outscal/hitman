@@ -19,13 +19,14 @@ namespace InputSystem
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
-                if (gameObject != null)
+                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition);//, nodeLayer);
+                if(gameObject==null)
                 {
-                    if (gameObject.GetComponent<NodeControllerView>() != null)
-                    {
-                        inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
-                    }
+                    return;
+                }
+                if (gameObject.GetComponent<NodeControllerView>() != null)
+                {
+                    inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
                 }
             }
         }

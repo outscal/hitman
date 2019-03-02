@@ -12,7 +12,9 @@ namespace Enemy
         void SetPosition(Vector3 pos);
         void MoveToLocation(Vector3 pos);
         Task RotateEnemy(Vector3 pos);
+        void RotateInOppositeDirection();
         void AlertEnemyView();
-        void DisableAlertView();      
+        void DisableAlertView();
+        void PerformRaycast();
     }
 }

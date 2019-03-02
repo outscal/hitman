@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Threading.Tasks;
 using Common;
 using Zenject;
 using System.Collections;
@@ -20,7 +21,7 @@ namespace Player
         bool CheckForKillablePlayer();
         bool CheckForRange( int _nodeID);
         void ChangeToEnemyState();
-        int GetTargetNode();
+        Task<int> GetTargetNode();
     }
 
 }

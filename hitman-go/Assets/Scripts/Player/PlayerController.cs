@@ -33,7 +33,6 @@ namespace Player
         async public Task MoveToLocation(Vector3 _location)
         {
             await currentPlayerView.MoveToLocation(_location);
-
         }
 
         private void SpawnPlayerView()

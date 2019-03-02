@@ -36,7 +36,7 @@ namespace Player
             int nodeID;
             while (stateMachine.GetPlayerState() == this.currentStateType)
             {
-                nodeID = playerService.GetTargetNode();
+              nodeID =await playerService.GetTargetNode();
 
                 if (nodeID != -1)
                 {
@@ -48,12 +48,9 @@ namespace Player
                         Debug.Log("take action called");
                         stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
-                        stateMachine.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
-                        playerService.ChangeToEnemyState();
-                    
+                        stateMachine.ChangePlayerState(PlayerStates.END_TURN,PlayerStates.NONE);
+                        playerService.ChangeToEnemyState();                    
                         break;
-
-
                     }
                 }
                 else

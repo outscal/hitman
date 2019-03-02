@@ -29,20 +29,19 @@ namespace InputSystem
 #if UNITY_ANDROID || UNITY_IOS 
             playerInput = new KeyboardInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
-                        playerInput = new KeyboardInput();
+            playerInput = new KeyboardInput();
 #endif
             playerInput.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
         {
-            Debug.Log("[InputService] Setting Direction:" + direction);
+         //   Debug.Log("[InputService] Setting Direction:" + direction);
             playerService.SetSwipeDirection(direction);
         }
 
         public void PassNodeID(int nodeID)
         {
-            Debug.Log("[InputService] Setting NodeID:" + nodeID);
             playerService.SetTargetNode(nodeID);
         }
 

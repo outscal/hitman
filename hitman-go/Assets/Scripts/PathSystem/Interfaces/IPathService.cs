@@ -1,6 +1,7 @@
 using Common;
 using System.Collections.Generic;
 using UnityEngine;
+using CameraSystem;
 
 namespace PathSystem
 {
@@ -21,5 +22,6 @@ namespace PathSystem
         bool CheckForTargetNode(int _NodeID);
         void DestroyPath();
         void DrawGraph(ScriptableGraph Graph);
+        //CameraScriptableObj GetCameraData();
     }
 }

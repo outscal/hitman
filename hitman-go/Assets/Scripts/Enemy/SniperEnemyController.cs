@@ -3,6 +3,7 @@ using GameState;
 using Common;
 using PathSystem;
 using System.Collections;
+using System;
 
 namespace Enemy
 {
@@ -13,8 +14,12 @@ namespace Enemy
         public SniperEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
             enemyType = EnemyType.SNIPER;
-
+            PerformRaycast();
         }
 
+        private void PerformRaycast()
+        {
+            currentEnemyView.PerformRaycast();
+        }
     }
 }
