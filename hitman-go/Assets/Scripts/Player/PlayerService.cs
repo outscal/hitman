@@ -208,7 +208,6 @@ namespace Player
         public void SpawnPlayer()
         {
             playerNodeID = currentPathService.GetPlayerNodeID();
-            Debug.Log("player node spawn" + playerNodeID);
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
             signalBus.TryFire(new PlayerSpawnSignal());
@@ -222,11 +221,11 @@ namespace Player
         //Get Tap Input
         async public void SetTargetNode(int _nodeID)
         {
-            Debug.Log("inside tap detect");
+            
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
-                Debug.Log("target" + targetNode);
+                
                 return;
             }
 

@@ -81,7 +81,7 @@ namespace Enemy
             transform.position = pos;
         }
 
-        async public void RotateInOppositeDirection()
+        async public Task RotateInOppositeDirection()
         {
             if (this.transform.localEulerAngles.y == 0)
             {

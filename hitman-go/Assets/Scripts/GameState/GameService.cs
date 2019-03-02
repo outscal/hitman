@@ -40,7 +40,7 @@ namespace GameState
         }
         public void ChangeToLoadLevelState()
         {
-            Debug.Log(currentLevel);
+
             ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
         }
         public void ChangeToLevelFinishedState()

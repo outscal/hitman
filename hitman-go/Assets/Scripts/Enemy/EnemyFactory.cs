@@ -64,7 +64,7 @@ namespace Enemy
 
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);                       
                         IEnemyController newEnemy = new PatrollingEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        Debug.Log(spawnNodeID[i]);
+
                         enemyList.Add(newEnemy);
                     }
                     break;

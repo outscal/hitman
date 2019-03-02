@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using PathSystem;
-using System.Threading.Tasks;
-using Common;
+﻿using Common;
 using GameState;
+using PathSystem;
 using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -22,22 +22,21 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
-            }
-            else
-            {
-                ChangeDirection();
+
             }
 
+
+            ChangeDirection();
+          await currentEnemyView.RotateInOppositeDirection();
 
             if (CheckForPlayerPresence(nodeID))
             {
+               
+                //await new WaitForEndOfFrame();
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
             }
-            else
-            {
-                currentEnemyView.RotateInOppositeDirection();
-            }
+
         }
         protected override void SetController()
         {
