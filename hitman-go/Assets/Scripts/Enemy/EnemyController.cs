@@ -113,9 +113,11 @@ namespace Enemy
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
+                
                 return true;
             }
             else
+                
                 return false;
         }
 

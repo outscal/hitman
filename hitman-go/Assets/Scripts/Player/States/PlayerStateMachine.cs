@@ -46,8 +46,7 @@ namespace Player
                     currentState = new PlayerShootingState(playerView,this,playerService);               
                     break;
                 case PlayerStates.UNLOCK_DOOR:
-                    currentState = new PlayerDoorUnlock(playerView,this,playerService);
-                    currentState.OnStateEnter();
+                    currentState = new PlayerDoorUnlock(playerView,this,playerService);                   
                     break;
 
                 case PlayerStates.WAIT_FOR_INPUT:
@@ -55,6 +54,12 @@ namespace Player
                     break;
                 case PlayerStates.THROWING:
                     currentState = new PlayerThrowingState(playerView,this,playerService);                  
+                    break;
+                case PlayerStates.END_TURN:
+                    currentState = new PlayerEndTurnState(playerView,this,playerService);                  
+                    break;
+                case PlayerStates.INTERMEDIATE_MOVE:
+                    currentState = new PlayerIntermediateMoveState(playerView,this,playerService);                  
                     break;
 
                 default:

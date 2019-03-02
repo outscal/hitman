@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +21,8 @@ namespace Enemy
         private IEnemyFactory enemyFactory;
         private IGameService gameService;
         private EnemyScriptableObjectList enemyScriptableObjectList;
+        private IEnumerable<Task> moveTasks;
+        private List<Task> moveTaskList = new List<Task>();
 
         public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
@@ -40,19 +43,21 @@ namespace Enemy
 
         private void OnGameStart()
         {
-            enemyFactory = new EnemyFactory(this,pathService,gameService);
+            enemyFactory = new EnemyFactory(this, pathService, gameService);
             SpawnEnemy(enemyScriptableObjectList);
-            enemyList=enemyFactory.GetEnemyList();
+            enemyList = enemyFactory.GetEnemyList();
         }
 
-        public bool CheckForEnemyPresence(int nodeID)
+        private bool CheckForEnemyPresence(int nodeID)
         {
             if (nodeID == -1)
             {
+                
                 return false;
             }
             if (enemyList.Count == 0)
             {
+                
                 return false;
             }
 
@@ -60,10 +65,11 @@ namespace Enemy
             {
                 if (enemy.GetCurrentID() == nodeID)
                 {
-                   
+                    
                     return true;
                 }
             }
+            
             return false;
         }
 
@@ -85,22 +91,22 @@ namespace Enemy
         {
             return playerService.GetPlayerNodeID();
         }
-        private void OnTurnStateChange()
+        async private void OnTurnStateChange()
         {
             if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
-                PerformMovement();
+                await PerformMovement();
             }
         }
 
-       async private void PerformMovement()
+        async private Task PerformMovement()
         {
             if (enemyList.Count == 0)
             {
                 if (!playerService.PlayerDeathStatus())
                 {
                     gameService.ChangeToPlayerState();
-                    
+
                 }
                 return;
             }
@@ -111,21 +117,26 @@ namespace Enemy
                 controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
+
                     if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
                     {
                         signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
                     }
                     else
                     {
-                        await  controller.Move();
+                        Task moveTask = controller.Move();
+                        await moveTask;
+                        moveTaskList.Add(moveTask);
                     }
                 }
             }
-            await new WaitForEndOfFrame();
+            await Task.WhenAll(moveTaskList.ToArray());
+
             if (!playerService.PlayerDeathStatus())
             {
+                await new WaitForSeconds(1f);
                 gameService.ChangeToPlayerState();
-                
+
             }
         }
 
@@ -139,6 +150,10 @@ namespace Enemy
                     enemyList.Remove(enemyController);
                     break;
                 }
+            }
+            if(enemyList.Count==0)
+            {
+                gameService.ChangeToPlayerState();
             }
 
         }
@@ -160,10 +175,7 @@ namespace Enemy
         private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
         {
             List<int> alertedNodes = new List<int>();
-           
             alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
-           
-
             for (int i = 0; i < alertedNodes.Count; i++)
             {
                 for (int j = 0; j < enemyList.Count; j++)

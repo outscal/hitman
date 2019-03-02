@@ -48,6 +48,8 @@ namespace Common
         SHOOTING,
         THROWING,
         WAIT_FOR_INPUT,
+        END_TURN,
+        INTERMEDIATE_MOVE,
         NONE
 
     }

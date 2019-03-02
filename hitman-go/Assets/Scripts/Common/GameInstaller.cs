@@ -31,6 +31,7 @@ public class GameInstaller : MonoInstaller
             .To<EnemyService>()
             .AsSingle()
             .NonLazy();
+
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
             .AsSingle()
