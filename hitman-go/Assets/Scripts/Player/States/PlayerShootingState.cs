@@ -1,5 +1,7 @@
 ﻿using Common;
+using InteractableSystem;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Player
@@ -9,16 +11,25 @@ namespace Player
         IPlayerView playerView;
         PlayerStates currentStateType;
 
-        public PlayerShootingState(IPlayerView _playerView)
+        IPlayerService playerService;
+        PlayerStateMachine stateMachine;
+
+        public PlayerShootingState(IPlayerView _playerView, PlayerStateMachine playerStateMachine, IPlayerService _playerService)
         {
             playerView = _playerView;
+            playerService = _playerService;
+            stateMachine = playerStateMachine;
             currentStateType = PlayerStates.SHOOTING;
 
         }
 
-        public void OnStateEnter()
+        async public Task OnStateEnter(PlayerStates playerStates = PlayerStates.NONE, IInteractableController controller = null)
         {
             playerView.PlayAnimation(currentStateType);
+            if (controller != null && playerStates != PlayerStates.NONE)
+            {
+                await new WaitForEndOfFrame();
+            }
         }
 
         public void OnStateExit()

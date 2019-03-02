@@ -12,11 +12,7 @@ namespace Player
         {
             gameObject.SetActive(false);
         }
-
-        public GameObject GetGameObject()
-        {
-            return this.gameObject;
-        }
+      
 
        async public Task MoveToLocation(Vector3 _location)
         {

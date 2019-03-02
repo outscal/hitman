@@ -23,34 +23,45 @@ namespace GameState
             this.pathService = pathService;
             this.levels = levels;
             this.signalBus = signalBus;
-            signalBus.Subscribe<StateChangeSignal>(ChangeState);
+            signalBus.Subscribe<LevelFinishedSignal>(ChangeToLevelFinishedState);
             //pathService.DrawGraph(levels.levelsList[currentLevel]);
         }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
         }
-        public void ChangeState(StateChangeSignal signal)
+        public void ChangeToPlayerState()
         {
-            Debug.Log(signal.newGameState);
+            ChangeState(new GamePlayerState(signalBus));
+        }
+        public void ChangeToGameOverState()
+        {
+            ChangeState(new GameOverState(signalBus, this));
+        }
+        public void ChangeToLoadLevelState()
+        {
+            Debug.Log(currentLevel);
+            ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
+        }
+        public void ChangeToLevelFinishedState()
+        {
+             if (levels.levelsList.Count > currentLevel) { currentLevel=currentLevel+1; }
+            ChangeState(new LevelFinishedState(signalBus, this));
+        }
+        public void ChangeToEnemyState()
+        {
+            ChangeState(new GameEnemyState(signalBus));
+        }
+        public void ChangeState(IGameStates newGameState)
+        {
             previousGameState = currentGameState;
-            if (previousGameState != null){previousGameState.OnStateExit();}
-            switch (signal.newGameState)
-            {
-                case GameStatesType.PLAYERSTATE: currentGameState = new GamePlayerState(); break;
-                case GameStatesType.ENEMYSTATE: currentGameState = new GameEnemyState(); break;
-                case GameStatesType.GAMEOVERSTATE: currentGameState = new GameOverState(signalBus); break;
-                case GameStatesType.LOADLEVELSTATE: currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService); break;
-                case GameStatesType.LEVELFINISHEDSTATE:
-                    if(levels.levelsList.Count>currentLevel){++currentLevel;} 
-                    currentGameState = new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService);
-                    break;
-            }
+            if (previousGameState != null) { previousGameState.OnStateExit(); }
+            currentGameState = newGameState;
             currentGameState.OnStateEnter();
         }
         public void Initialize()
         {
-            ChangeState(new StateChangeSignal() { newGameState = GameStatesType.LOADLEVELSTATE });
+            ChangeToLoadLevelState();
             //signalBus.TryFire(new GameStartSignal());
         }
     }

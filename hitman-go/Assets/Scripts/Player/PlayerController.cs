@@ -1,8 +1,9 @@
 ﻿using Common;
 using GameState;
+using InteractableSystem;
 using System;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Player
@@ -20,6 +21,7 @@ namespace Player
             currentPlayerService = _playerService;
             spawnLocation = _spawnLocation;
             scriptableObject = _playerScriptableObject;
+
             SpawnPlayerView();
         }
 
@@ -30,8 +32,8 @@ namespace Player
 
         async public Task MoveToLocation(Vector3 _location)
         {
-           await currentPlayerView.MoveToLocation(_location);
-           
+            await currentPlayerView.MoveToLocation(_location);
+
         }
 
         private void SpawnPlayerView()
@@ -39,7 +41,7 @@ namespace Player
             // currentPlayerView=scriptableObject.playerView;
             playerInstance = GameObject.Instantiate(scriptableObject.playerView.gameObject);
             currentPlayerView = playerInstance.GetComponent<PlayerView>();
-            playerStateMachine = new PlayerStateMachine(currentPlayerView);
+            playerStateMachine = new PlayerStateMachine(currentPlayerView, currentPlayerService);
 
             playerInstance.transform.localPosition = spawnLocation;
 
@@ -55,10 +57,19 @@ namespace Player
             currentPlayerView.Reset();
         }
 
-        public PlayerStateMachine GetCurrentStateMachine()
+        private PlayerStateMachine GetCurrentStateMachine()
         {
             return playerStateMachine;
         }
-       
+
+        async public Task ChangePlayerState(PlayerStates _state, PlayerStates stateToChange, IInteractableController interactableController = null)
+        {
+            await playerStateMachine.ChangePlayerState(_state, stateToChange, interactableController);
+
+        }
+        public PlayerStates GetPlayerState()
+        {
+            return playerStateMachine.GetPlayerState();
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace PathSystem
         NodeControllerView nodeprefab, targetNode;
         int shortestPathLength;
         [SerializeField] List<Node> graph = new List<Node>();
+
         public void DrawGraph(ScriptableGraph Graph)
         {
             nodeprefab = Graph.nodeprefab;
@@ -213,7 +214,6 @@ namespace PathSystem
             {
                 return false;
             }
-
         }
         public bool ThrowRange(int playerNode, int destinationNode)
         {
@@ -229,16 +229,25 @@ namespace PathSystem
             }
             return false;
         }
-        public Directions GetDirections(int sourceNode, int nextNode){
-            
-            if(graph[sourceNode].connections[0]==nextNode){
+        public Directions GetDirections(int sourceNode, int nextNode)
+        {
+
+            if (graph[sourceNode].connections[0] == nextNode)
+            {
                 return Directions.UP;
-            }else if(graph[sourceNode].connections[1]==nextNode){
+            }
+            else if (graph[sourceNode].connections[1] == nextNode)
+            {
                 return Directions.DOWN;
-            }else if(graph[sourceNode].connections[2]==nextNode){
+            }
+            else if (graph[sourceNode].connections[2] == nextNode)
+            {
                 return Directions.LEFT;
             }
+            else
+            {
                 return Directions.RIGHT;
+            }
         }
     }
 }
