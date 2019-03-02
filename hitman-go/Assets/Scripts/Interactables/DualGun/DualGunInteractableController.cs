@@ -15,8 +15,8 @@ namespace InteractableSystem
                                             , InteractableView dualGunPrefab)
         {
             this.interactableManager = interactableManager;
-            GameObject rock = GameObject.Instantiate<GameObject>(dualGunPrefab.gameObject);
-            interactableView = rock.GetComponent<RockInteractableView>();
+            GameObject dualGun = GameObject.Instantiate<GameObject>(dualGunPrefab.gameObject);
+            interactableView = dualGun.GetComponent<DualGunInteractableView>();
             interactableView.transform.position = nodePos;
         }
 
