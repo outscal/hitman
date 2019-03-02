@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1811ff29bda79474eb56bd282d40c39b, type: 3}
-  m_Name: CameraDataLevel1
+  m_Name: CameraDataLevel7
   m_EditorClassIdentifier: 
   cameraData:
-    position: {x: -2.3, y: 9.7, z: 8.6}
-    rotation: {x: 50, y: 180, z: 0}
-    fieldOfView: 60
+    position: {x: 1.1, y: 11.8, z: 13.5}
+    rotation: {x: 52.4, y: 180, z: 0}
+    fieldOfView: 55
