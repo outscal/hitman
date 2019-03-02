@@ -180,7 +180,7 @@ namespace Enemy
             {
                 for (int j = 0; j < enemyList.Count; j++)
                 {
-
+                   
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:

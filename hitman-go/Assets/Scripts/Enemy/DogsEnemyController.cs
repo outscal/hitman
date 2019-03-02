@@ -18,6 +18,10 @@ namespace Enemy
 
         async protected override Task MoveToNextNode(int nodeID)
         {
+            if(nodeID==-1)
+            {
+                return;
+            }
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 oldDirection = spawnDirection;
@@ -30,7 +34,6 @@ namespace Enemy
 
 
             }
-
             if (CheckForPlayerPresence(nodeID))
             {
                 if (!currentEnemyService.CheckForKillablePlayer())
@@ -46,7 +49,10 @@ namespace Enemy
             else
             {
                 int nextNodeCheck = pathService.GetNextNodeID(nodeID, oldDirection);
-
+                if(nextNodeCheck==-1)
+                {
+                    return;
+                }
                 if (CheckForPlayerPresence(nextNodeCheck))
                 {
                     if (!currentEnemyService.CheckForKillablePlayer())
