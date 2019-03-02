@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using Common;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Player
 {
-    public interface IPlayerView 
-    {
-        GameObject GetGameObject();
+    public interface IPlayerView
+    { 
 
-        void MoveToLocation(Vector3 location);
+       Task MoveToLocation(Vector3 location);
         void DisablePlayer();
         void Reset();
         void PlayAnimation(PlayerStates state);

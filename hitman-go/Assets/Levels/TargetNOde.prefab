@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1838143807061197760}
   - component: {fileID: 1838143807061197823}
   - component: {fileID: 716432328203489091}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TargetNOde
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1838143807061197822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.002, z: 0.7}
+  m_LocalScale: {x: 1.5, y: 0.002, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -104,4 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83dc5d0660f18cf46a20820cfe2d081b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlighter: {fileID: 275334524242529465, guid: 039df986186a4ae46ba8fe43095d19ef,
+    type: 3}
   nodeID: 0

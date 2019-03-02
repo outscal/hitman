@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using PathSystem;
+using System.Threading.Tasks;
 using Common;
 using GameState;
 using System.Collections;
@@ -12,20 +13,29 @@ namespace Enemy
 
         public RotatingKnifeEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
-
+            enemyType = EnemyType.ROTATING_KNIFE;
 
         }
 
-        protected override void MoveToNextNode(int nodeID)
+        async protected override Task MoveToNextNode(int nodeID)
         {
-            ChangeDirection();
-            currentEnemyView.GetGameObject().transform.Rotate(new Vector3(0,180,0));
-
-            if(CheckForPlayerPresence(nodeID))
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
-                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+            }
+            else
+            {
+                ChangeDirection();
+            }
+
+           await currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
+
+            if (CheckForPlayerPresence(nodeID))
+            {
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
             }
+          
         }
     }
 }

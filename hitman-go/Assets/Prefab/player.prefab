@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5242674404450974525}
   - component: {fileID: 2542239306942723039}
   - component: {fileID: 1881671400886634831}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,8 +88,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 4436287758632192732}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
+  m_Enabled: 1
+  m_Radius: 1
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

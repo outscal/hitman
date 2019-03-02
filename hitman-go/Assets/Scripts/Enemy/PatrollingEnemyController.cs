@@ -1,7 +1,7 @@
 using GameState;
 using PathSystem;
 using Common;
-
+using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
 
@@ -13,32 +13,47 @@ namespace Enemy
 
         public PatrollingEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
-
+            enemyType = EnemyType.PATROLLING;
 
         }
 
-        protected override void MoveToNextNode(int nodeID)
-        {
+       async protected override Task MoveToNextNode(int nodeID)
+        {    
             if (nodeID == -1)
             {
                 ChangeDirection();
-
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+               await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+            }
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            {               
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+             await   currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+
             }
             if (CheckForPlayerPresence(nodeID))
             {
-                currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
-                currentEnemyService.TriggerPlayerDeath();
+                if(currentEnemyService.CheckForKillablePlayer())
+                {                   
+                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                    currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                    currentEnemyService.TriggerPlayerDeath();
+                }
             }
-            currentEnemyView.GetGameObject().transform.localPosition = pathService.GetNodeLocation(nodeID);
-
+            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
             currentNodeID = nodeID;
+
+           
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             if (n == -1)
             {
-                currentEnemyView.GetGameObject().transform.Rotate(new Vector3(0, 180, 0));
+                ChangeDirection();
+               
+              await  currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
         }
+
+        
 
     }
 }

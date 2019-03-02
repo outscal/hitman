@@ -17,7 +17,10 @@ namespace Player
 
         void OnGameStart();
         bool PlayerDeathStatus();
-
+        bool CheckForKillablePlayer();
+        bool CheckForRange( int _nodeID);
+        void ChangeToEnemyState();
+        int GetTargetNode();
     }
 
 }

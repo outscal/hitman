@@ -6,10 +6,9 @@ namespace InteractableSystem
 {
     public class InteractableView : MonoBehaviour
     {
-
-        protected virtual void OnTriggerEnter(Collider other)
+        public virtual void SetController(InteractableController interactableController)
         {
-            
+
         }
     }
 }

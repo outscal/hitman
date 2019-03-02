@@ -9,8 +9,10 @@ namespace GameState
         SignalBus signalBus;
         ScriptableGraph Graph;
         IPathService pathService;
-        public LoadLevelState(SignalBus signalBus, ScriptableGraph Graph, IPathService pathService)
+        GameService service;
+        public LoadLevelState(SignalBus signalBus, ScriptableGraph Graph, IPathService pathService,GameService service)
         {
+            this.service=service;
             this.signalBus = signalBus;
             this.Graph = Graph;
             this.pathService = pathService;
@@ -21,10 +23,11 @@ namespace GameState
         }
         public void OnStateEnter()
         {
-            signalBus.TryFire(new NewLevelLoadedSignal()); 
+            signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType()});
             pathService.DestroyPath();
             pathService.DrawGraph(Graph);
-            signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.PLAYERSTATE });
+            service.ChangeToPlayerState();
+           
         }
         public void OnStateExit()
         {

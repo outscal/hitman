@@ -54,7 +54,14 @@ namespace Common
         DISGUISE,
         UNLOCK_DOOR,
         SHOOTING,
-        WAIT_FOR_INPUT
+        THROWING,
+        WAIT_FOR_INPUT,
+        NONE
 
+    }
+    public enum EnemyStates
+    {
+        IDLE,
+        CHASE
     }
 }

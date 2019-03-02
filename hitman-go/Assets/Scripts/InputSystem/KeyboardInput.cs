@@ -8,6 +8,7 @@ namespace InputSystem
     public class KeyboardInput : IInputComponent
     {
         private IInputService inputService;
+        private int nodeLayer = 1 << 9;
 
         public KeyboardInput()
         {
@@ -16,12 +17,15 @@ namespace InputSystem
 
         void DetectTap()
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
-                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition);
-                if(gameObject.GetComponent<NodeControllerView>() != null)
+                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
+                if (gameObject != null)
                 {
-                    inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID); 
+                    if (gameObject.GetComponent<NodeControllerView>() != null)
+                    {
+                        inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
+                    }
                 }
             }
         }
@@ -60,6 +64,11 @@ namespace InputSystem
                 Debug.Log("[InputComponent] Up");
                 inputService.PassDirection(Directions.UP);
             }
+        }
+
+        public void StartPosition(Vector3 pos)
+        {
+
         }
     }
 }

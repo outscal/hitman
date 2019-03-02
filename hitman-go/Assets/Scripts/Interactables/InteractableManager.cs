@@ -6,6 +6,7 @@ using PathSystem;
 using Zenject;
 using Enemy;
 using GameState;
+using System.Linq;
 
 namespace InteractableSystem
 {
@@ -24,24 +25,48 @@ namespace InteractableSystem
             interactableScriptableObj=interactableScriptableObjList;
             interactableControllers = new Dictionary<int, InteractableController>();
             signalBus.Subscribe<GameStartSignal>(GameStart);
-            signalBus.Subscribe<NewLevelLoadedSignal>(ResetInteractableDictionary);
+            signalBus.Subscribe<ResetSignal>(ResetInteractableDictionary);
 
         }
 
         void GameStart()
         {
+            Debug.Log("[InteractableManager] Interactable Count" + interactableControllers.Count);
             SpawnPickups(interactableScriptableObj);
+            Debug.Log("[InteractableManager] Interactable Count2" + interactableControllers.Count);
         }
 
         void ResetInteractableDictionary()
         {
             for (int i = 0; i < interactableControllers.Count; i++)
             {
-                interactableControllers[i].Destroy();
-                interactableControllers[i] = null;
+                if (interactableControllers[i] != null)
+                {
+                    interactableControllers[i].Destroy();
+                    interactableControllers[i] = null;
+                }
+                else
+                {
+                    Debug.Log("[InteractableManager] Item not in List"); 
+                }
             }
 
             interactableControllers = new Dictionary<int, InteractableController>();
+        }
+
+        public void RemoveInteractable(InteractableController interactableController)
+        {
+            foreach(int i in interactableControllers.Keys)
+            {
+                if(interactableController == interactableControllers[i])
+                {
+                    int key=interactableControllers.FirstOrDefault(x=>x.Value==interactableControllers[i]).Key;
+                    interactableControllers.Remove(key);
+                    interactableController.Destroy();
+                    interactableController = null;
+                    break; 
+                }
+            }
         }
 
         public void OnGameStart()
@@ -60,19 +85,17 @@ namespace InteractableSystem
         public void SpawnInteractables(InteractablePickup interactablePickup)
         {
             List<int> nodeID = new List<int>();
-
+            nodeID.Clear();
+            int k = (int)interactablePickup;
             switch (interactablePickup)
             {
                 case InteractablePickup.NONE:
                     break;
                 case InteractablePickup.BREIFCASE:
-                    nodeID.Clear();
-
                     nodeID = pathService.GetPickupSpawnLocation(InteractablePickup.BREIFCASE);
 
                     for (int i = 0; i < nodeID.Count; i++)
                     {
-                        int k = (int)InteractablePickup.BREIFCASE;
                         InteractableView briefCaseView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
                         Vector3 position = pathService.GetNodeLocation(nodeID[i]);
@@ -83,13 +106,10 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.STONE:
-                    nodeID.Clear();
-
                     nodeID = pathService.GetPickupSpawnLocation(InteractablePickup.STONE);
 
                     for (int i = 0; i < nodeID.Count; i++)
                     {
-                        int k = (int)InteractablePickup.STONE;
                         InteractableView stoneView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
                         Vector3 position = pathService.GetNodeLocation(nodeID[i]);

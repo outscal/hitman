@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Common;
+using System.Threading.Tasks;
+using InteractableSystem;
 using System.Collections;
 
 namespace Player
@@ -7,7 +9,7 @@ namespace Player
     public interface IPlayerState 
     {
         
-        void OnStateEnter();
+        Task OnStateEnter(PlayerStates playerStates = PlayerStates.NONE,IInteractableController controller=null);        
         void OnStateExit();
         PlayerStates GetCurrentStateType();
     }

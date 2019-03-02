@@ -10,10 +10,13 @@ namespace PathSystem
     {
         List<int> shortestPath;
         GameObject line;
+        List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
+        List<GameObject> physicalNode = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode;
         int shortestPathLength;
         [SerializeField] List<Node> graph = new List<Node>();
+
         public void DrawGraph(ScriptableGraph Graph)
         {
             nodeprefab = Graph.nodeprefab;
@@ -25,14 +28,16 @@ namespace PathSystem
                 node.node = Graph.Graph[i].node;
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
-                nodeprefab.SetNodeID(i);
+
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
-                    physicalPath.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    targetNode.SetNodeID(i);
+                    physicalNode.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else
                 {
-                    physicalPath.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    nodeprefab.SetNodeID(i);
+                    physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 if (node.connections[0] != -1)
                 {
@@ -44,7 +49,7 @@ namespace PathSystem
                 }
             }
             shortestPathLength = graph.Count;
-            GetShortestPath(0, 3);
+
         }
         public void DestroyPath()
         {
@@ -53,6 +58,12 @@ namespace PathSystem
             {
                 GameObject.Destroy(physicalPath[i]);
             }
+            for (int i = 0; i < physicalNode.Count; i++)
+            {
+                GameObject.Destroy(physicalNode[i]);
+            }
+            physicalPath = new List<GameObject>();
+            physicalNode = new List<GameObject>();
         }
         private void printAllPaths(int s, int d)
         {
@@ -68,10 +79,10 @@ namespace PathSystem
             {
                 if (localPathList.Count < shortestPathLength)
                 {
-                    int[] shortest=new int[localPathList.Count];
+                    int[] shortest = new int[localPathList.Count];
                     localPathList.CopyTo(shortest);
-                    shortestPath=new List<int>(shortest);
-                    shortestPathLength=localPathList.Count;
+                    shortestPath = new List<int>(shortest);
+                    shortestPathLength = localPathList.Count;
                 }
                 isVisited[u] = false;
                 return;
@@ -90,11 +101,37 @@ namespace PathSystem
             }
             isVisited[u] = false;
         }
+        private void ShowAlertedNodes(int nodeId)
+        {
+            for(int i =0 ;i<physicalHighlightedNodes.Count;i++){
+                physicalHighlightedNodes[i].GetComponent<NodeControllerView>().UnHighlightNode();
+            }
+            physicalHighlightedNodes = new List<GameObject>();
+            physicalNode[nodeId].GetComponent<NodeControllerView>().ShowAlertedNodes();
+        }
+        public void ShowThrowableNodes(int nodeId)
+        {
+            Vector3 playerpos = graph[nodeId].node.nodePosition;
+            for (int i = 0; i < graph.Count; i++)
+            {
+                Vector3 testpos = graph[i].node.nodePosition;
+                if ((playerpos.x + 5 == testpos.x || playerpos.x - 5 == testpos.x) && playerpos.z == testpos.z)
+                {
+                    physicalHighlightedNodes.Add(physicalNode[i]);
+                    physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                }
+                if ((playerpos.z + 5 == testpos.z || playerpos.z - 5 == testpos.z) && playerpos.x == testpos.x)
+                {
+                    physicalHighlightedNodes.Add(physicalNode[i]);
+                    physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                }
+            }
+        }
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
             shortestPath = new List<int>();
             shortestPathLength = graph.Count;
-            Debug.Log("is" + shortestPathLength);
+            //Debug.Log("is" + shortestPathLength);
             printAllPaths(_currentNode, _destinationNode);
             Debug.Log("Shortest Path Length is" + shortestPath.Count);
             return shortestPath;
@@ -103,12 +140,10 @@ namespace PathSystem
         {
             return graph[_nodeId].connections[(int)_dir];
         }
-
         public Vector3 GetNodeLocation(int _nodeID)
         {
             return graph[_nodeID].node.nodePosition;
         }
-
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
             List<int> pickableNodeList = new List<int>();
@@ -121,7 +156,6 @@ namespace PathSystem
             }
             return pickableNodeList;
         }
-
         public int GetPlayerNodeID()
         {
             int playerNode = -1;
@@ -149,9 +183,19 @@ namespace PathSystem
         }
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
-            throw new NotImplementedException();
-        }
+            ShowAlertedNodes(_targetNodeID);
 
+            Vector3 tnode=graph[_targetNodeID].node.nodePosition;
+            List<int> alerted=new List<int>();
+            for(int i =0;i<graph.Count;i++){
+                Vector3 node=graph[i].node.nodePosition;
+                if((tnode.x+6>node.x && node.x>tnode.x-6) && (tnode.z+6>node.z && node.z>tnode.z-6))
+                {
+                    alerted.Add(i);
+                }
+            }
+            return alerted;
+        }
         public Directions GetEnemySpawnDirection(int _nodeID)
         {
             return graph[_nodeID].node.spawnEnemies[0].dir;
@@ -184,6 +228,26 @@ namespace PathSystem
                 return true;
             }
             return false;
+        }
+        public Directions GetDirections(int sourceNode, int nextNode)
+        {
+            Debug.Log("source is"+sourceNode+" dest is"+nextNode);
+            if (graph[sourceNode].connections[0] == nextNode)
+            {
+                return Directions.UP;
+            }
+            else if (graph[sourceNode].connections[1] == nextNode)
+            {
+                return Directions.DOWN;
+            }
+            else if (graph[sourceNode].connections[2] == nextNode)
+            {
+                return Directions.LEFT;
+            }
+            else
+            {
+                return Directions.RIGHT;
+            }
         }
     }
 }

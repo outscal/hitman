@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Common;
 using PathSystem.NodesScript;
+using Player;
 
 namespace InputSystem
 {
@@ -9,6 +10,8 @@ namespace InputSystem
         private IInputService inputService;
         private Vector2 startPos, endPos;
         private Directions direction;
+        private int nodeLayer = 1 << 9;
+        GameObject gameObject;
 
         public TouchInput()
         {
@@ -22,33 +25,47 @@ namespace InputSystem
 
         public void OnTick()
         {
-
             if (Input.touchCount >= 1)
             {
                 Touch touch = Input.GetTouch(0);
 
-                GameObject gameObject = inputService.GetTapDetect().ReturnObject(touch.position);
-                if (gameObject.GetComponent<NodeControllerView>() != null)
-                {
-                    inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
-                }
-                else
-                {
-                    if (touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began)
+                {   
+                    gameObject = inputService.GetTapDetect().ReturnObject(touch.position, nodeLayer);
+                    if (gameObject != null)
                     {
-                        startPos = touch.position;
-                        endPos = touch.position;
+                        if (gameObject.GetComponent<NodeControllerView>() != null)
+                        {
+                            inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
+                        }
+                        else if (gameObject.GetComponent<PlayerView>() != null)
+                        {
+                            startPos = touch.position;
+                            endPos = touch.position;
+                        }
                     }
-                    else if (touch.phase == TouchPhase.Ended)
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    if (gameObject != null)
                     {
-                        endPos = touch.position;
+                        if (gameObject.GetComponent<PlayerView>() != null)
+                        {
+                            endPos = touch.position;
 
-                        inputService.PassDirection(inputService.GetSwipeDirection()
-                        .GetDirection(startPos, endPos));
+                            inputService.PassDirection(inputService.GetSwipeDirection()
+                            .GetDirection(startPos, endPos));
+                            gameObject = null;
+                        }
                     }
                 }
+
             }
         }
 
+        public void StartPosition(Vector3 pos)
+        {
+            //startPos = pos;
+        }
     }
 }
