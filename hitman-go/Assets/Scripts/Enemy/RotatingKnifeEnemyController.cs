@@ -28,14 +28,16 @@ namespace Enemy
                 ChangeDirection();
             }
 
-           await currentEnemyView.RotateEnemy(new Vector3(0, 180, 0));
 
             if (CheckForPlayerPresence(nodeID))
             {
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
             }
-          
+            else
+            {
+                currentEnemyView.RotateInOppositeDirection();
+            }
         }
     }
 }

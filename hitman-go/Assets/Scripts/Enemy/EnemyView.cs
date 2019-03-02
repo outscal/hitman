@@ -57,6 +57,16 @@ namespace Enemy
             transform.position = pos;
         }
 
-      
+       async public void RotateInOppositeDirection()
+        {
+           if(this.transform.localEulerAngles.y==0)
+            {
+              await  RotateEnemy(new Vector3(0,180,0));
+            }
+            else
+            {
+                await RotateEnemy(new Vector3(0,-this.transform.localEulerAngles.y,0));
+            }
+        }
     }
 }
