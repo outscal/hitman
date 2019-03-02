@@ -22,6 +22,6 @@ namespace PathSystem
         bool CheckForTargetNode(int _NodeID);
         void DestroyPath();
         void DrawGraph(ScriptableGraph Graph);
-        CameraScriptableObj GetCameraData();
+        //CameraScriptableObj GetCameraData();
     }
 }

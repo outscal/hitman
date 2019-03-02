@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CameraDataLevel4
   m_EditorClassIdentifier: 
   cameraData:
-    position: {x: -2.2, y: 10.2, z: 9.7}
-    rotation: {x: 50, y: 180, z: 0}
-    fieldOfView: 56
+    position: {x: -3.7, y: 15, z: 9}
+    rotation: {x: 57, y: 180, z: 0}
+    fieldOfView: 49
