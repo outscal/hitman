@@ -9,6 +9,7 @@ using Common;
 using GameState;
 using InteractableSystem;
 using StarSystem;
+using UIservice;
 
 public class GameInstaller : MonoInstaller
 {
@@ -27,6 +28,10 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<SignalAlertGuards>();
         Container.DeclareSignal<BriefCaseSignal>();
 
+        Container.Bind<IUIService>()
+                   .To<UIService>()
+                   .AsSingle()
+                   .NonLazy();
         Container.Bind<IEnemyService>()
             .To<EnemyService>()
             .AsSingle()
@@ -35,12 +40,11 @@ public class GameInstaller : MonoInstaller
             .To<PlayerService>()
             .AsSingle()
             .NonLazy();
-            Container.Bind<IStarService>()
-            .To<StarSystemService>()
-            .AsSingle()
-            .NonLazy();
-
-        Container.Bind(typeof(IInputService),typeof(ITickable))
+        Container.Bind<IStarService>()
+        .To<StarSystemService>()
+        .AsSingle()
+        .NonLazy();
+        Container.Bind(typeof(IInputService), typeof(ITickable))
             .To<InputService>()
             .AsSingle()
             .NonLazy();

@@ -7,5 +7,7 @@ namespace GameState
          void ChangeToPlayerState();
          void ChangeToEnemyState();
          void ChangeToGameOverState();
+         void ChangeToLoadLevelState();
+         void IncrimentLevel();
     }
 }

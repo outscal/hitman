@@ -38,18 +38,19 @@ namespace InteractableSystem
 
         void ResetInteractableDictionary()
         {
-            for (int i = 0; i < interactableControllers.Count; i++)
+            foreach (int i in interactableControllers.Keys)
             {
                 if (interactableControllers[i] != null)
                 {
                     interactableControllers[i].Destroy();
-                    interactableControllers[i] = null;
+                    //interactableControllers.Remove(i);
                 }
                 else
                 {
                     Debug.Log("[InteractableManager] Item not in List"); 
                 }
             }
+            interactableControllers.Clear();
 
             interactableControllers = new Dictionary<int, InteractableController>();
         }

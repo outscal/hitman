@@ -43,9 +43,12 @@ namespace GameState
             Debug.Log(currentLevel);
             ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
         }
+        public void IncrimentLevel()
+        {
+            if (levels.levelsList.Count > currentLevel) { currentLevel = currentLevel + 1; }
+        }
         public void ChangeToLevelFinishedState()
         {
-             if (levels.levelsList.Count > currentLevel) { currentLevel=currentLevel+1; }
             ChangeState(new LevelFinishedState(signalBus, this));
         }
         public void ChangeToEnemyState()
