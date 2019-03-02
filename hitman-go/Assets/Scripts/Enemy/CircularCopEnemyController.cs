@@ -12,5 +12,9 @@ namespace Enemy
         {
             enemyType = EnemyType.CIRCULAR_COP;
         }
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
+        }
     }
 }

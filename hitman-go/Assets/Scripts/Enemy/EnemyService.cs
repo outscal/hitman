@@ -132,8 +132,7 @@ namespace Enemy
             await Task.WhenAll(moveTaskList.ToArray());
 
             if (!playerService.PlayerDeathStatus())
-            {
-                
+            {                
                 gameService.ChangeToPlayerState();
 
             }

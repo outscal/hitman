@@ -39,5 +39,9 @@ namespace Enemy
                 currentEnemyView.RotateInOppositeDirection();
             }
         }
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
+        }
     }
 }

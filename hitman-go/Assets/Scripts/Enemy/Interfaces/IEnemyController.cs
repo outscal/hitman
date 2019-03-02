@@ -14,5 +14,6 @@ namespace Enemy
         Task Move();
         EnemyType GetEnemyType();
         void AlertEnemy(int _destinationID);
+        void KillPlayer();
     }
 }

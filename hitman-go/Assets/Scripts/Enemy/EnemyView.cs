@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using Player;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,6 +10,11 @@ namespace Enemy
     {
         [SerializeField]
         private SpriteRenderer alertSprite;
+
+        private IEnemyController enemyController;
+        private bool isRayCastStart = false;
+        private Ray ray;
+        private RaycastHit raycastHit;
 
         public void AlertEnemyView()
         {
@@ -26,6 +33,25 @@ namespace Enemy
         private void Start()
         {
             alertSprite.enabled = false;
+            ray.direction = this.transform.forward;
+        }
+        private void FixedUpdate()
+        {
+            if (isRayCastStart)
+            {
+                PerformSniperRaycast();
+            }
+        }
+
+        private void PerformSniperRaycast()
+        {
+            if (Physics.Raycast(ray, out raycastHit, 100f))
+            {
+                if(raycastHit.collider.GetComponent<IPlayerView>()!=null)
+                {
+                    enemyController.KillPlayer();
+                }
+            }
         }
 
         public GameObject GetGameObject()
@@ -51,25 +77,30 @@ namespace Enemy
         }
 
         public void SetPosition(Vector3 pos)
-        {           
+        {
             transform.position = pos;
         }
 
-       async public void RotateInOppositeDirection()
+        async public void RotateInOppositeDirection()
         {
-           if(this.transform.localEulerAngles.y==0)
+            if (this.transform.localEulerAngles.y == 0)
             {
-              await  RotateEnemy(new Vector3(0,180,0));
+                await RotateEnemy(new Vector3(0, 180, 0));
             }
             else
             {
-                await RotateEnemy(new Vector3(0,-this.transform.localEulerAngles.y,0));
+                await RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
             }
         }
 
         public void PerformRaycast()
         {
-           
+            isRayCastStart = true;
+        }
+
+        public void SetCurrentController(IEnemyController controller)
+        {
+            enemyController = controller;
         }
     }
 }

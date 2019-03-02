@@ -16,5 +16,7 @@ namespace Enemy
         void AlertEnemyView();
         void DisableAlertView();
         void PerformRaycast();
+        void SetCurrentController(IEnemyController controller);
+
     }
 }

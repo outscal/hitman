@@ -45,7 +45,11 @@ namespace Enemy
             }
           
         }
-        
+
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
+        }
 
     }
 }

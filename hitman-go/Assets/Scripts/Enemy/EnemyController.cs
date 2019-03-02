@@ -50,7 +50,13 @@ namespace Enemy
             currentEnemyView.SetPosition(spawnLocation);
 
             enemyInstance.transform.Rotate(GetRotation(spawnDirection), Space.World);
+            SetController();
 
+        }
+
+        protected virtual void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
         }
 
         public void Reset()
@@ -113,12 +119,12 @@ namespace Enemy
         {
             if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
             {
-                
                 return true;
             }
             else
-                
+            {
                 return false;
+            }
         }
 
         protected virtual void ChangeDirection()
@@ -174,6 +180,11 @@ namespace Enemy
                     return Vector3.zero;
 
             }
+        }
+
+        public void KillPlayer()
+        {
+            currentEnemyService.TriggerPlayerDeath();
         }
     }
 }
