@@ -13,8 +13,8 @@ namespace Player
 {
     public class PlayerService : IPlayerService
     {
-        readonly SignalBus _signalBus;
-        private PlayerController playerController;
+        readonly SignalBus signalBus;
+        private IPlayerController playerController;
         private IPathService currentPathService;
         private PlayerDeathSignal playerDeathSignal;
         private PlayerScriptableObject playerScriptableObject;
@@ -26,16 +26,16 @@ namespace Player
         private int playerNodeID;
         private int targetNode;
 
-        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus _signalBus)
         {
-            _signalBus = signalBus;
+            this.signalBus = _signalBus;
             gameService = _gameService;
             interactableService = _interactableService;
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<ResetSignal>(ResetLevel);
-            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
+            this.signalBus.Subscribe<PlayerDeathSignal>(this.PlayerDead);
+            this.signalBus.Subscribe<ResetSignal>(this.ResetLevel);
+            this.signalBus.Subscribe<GameStartSignal>(this.OnGameStart);
 
         }
 
@@ -67,18 +67,25 @@ namespace Player
             {
                 return;
             }
-            
-            PerformMovement(nextNodeID);
+
+           
+           await PerformMovement(nextNodeID);
 
 
         }
 
-        async private void PerformMovement(int nextNodeID)
+        async private Task PerformMovement(int nextNodeID)
         {
+            if(gameService.GetCurrentState()!= GameStatesType.PLAYERSTATE)
+            {
+                return;
+            }
+
+            playerNodeID = nextNodeID;
+            
             Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
             await playerController.MoveToLocation(nextLocation);
             
-            playerNodeID = nextNodeID;
 
             if (CheckForInteractables(nextNodeID))
             {
@@ -88,12 +95,13 @@ namespace Player
             if (IsGameFinished())
             {
                 Debug.Log("Game finished");
-                _signalBus.TryFire(new LevelFinishedSignal());
+                signalBus.TryFire(new LevelFinishedSignal());
                 //trigger level finished signal
 
             }
             else if (playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
+                await new WaitForEndOfFrame();
                 gameService.ChangeToEnemyState();
                 //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
             }
@@ -109,6 +117,7 @@ namespace Player
                 case InteractablePickup.AMBUSH_PLANT:
                   await  playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    
                     break;
                 case InteractablePickup.BONE:
                     if (targetNode != -1)
@@ -116,9 +125,9 @@ namespace Player
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
                     break;
                 case InteractablePickup.BREIFCASE:
-                  await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
-                    //push test
-                    _interactableController.TakeAction(playerNodeID);
+                  await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);                 
+                   _interactableController.TakeAction(playerNodeID);
+                    
                     break;
                 case InteractablePickup.COLOR_KEY:
                    await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
@@ -149,6 +158,7 @@ namespace Player
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT,PlayerStates.UNLOCK_DOOR,_interactableController);               
                     break;
             }
+            await new WaitForEndOfFrame();
         }
         //dead trigger
         async private void PlayerDead()
@@ -157,7 +167,7 @@ namespace Player
             playerNodeID = -1;
             await new WaitForSeconds(2f);
             gameService.ChangeToGameOverState();
-            //_signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.GAMEOVERSTATE });
+           
         }
         //reset level trigger
         private void ResetLevel()
@@ -189,13 +199,13 @@ namespace Player
             Debug.Log("player node spawn" + playerNodeID);
             spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
             playerController = new PlayerController(this, spawnLocation, playerScriptableObject);            
-            _signalBus.TryFire(new PlayerSpawnSignal());
+            signalBus.TryFire(new PlayerSpawnSignal());
         }
 
         //increase score on enemyKill etc 
         public void IncreaseScore()
         {
-            _signalBus.TryFire(new PlayerKillSignal());
+            signalBus.TryFire(new PlayerKillSignal());
         }
         //Get Tap Input
         public void SetTargetNode(int _nodeID)
@@ -268,7 +278,7 @@ namespace Player
 
         public void ChangeToEnemyState()
         {
-            _signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
         }
 
 
