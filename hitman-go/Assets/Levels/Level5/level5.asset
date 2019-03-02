@@ -118,8 +118,8 @@ MonoBehaviour:
       nodePosition: {x: -5, y: 0, z: -5}
     up: -1
     down: -1
-    left: 8
-    right: 10
+    left: 10
+    right: 8
   - node:
       uniqueID: 10
       property: 0

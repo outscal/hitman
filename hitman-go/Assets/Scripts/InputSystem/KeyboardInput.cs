@@ -17,12 +17,15 @@ namespace InputSystem
 
         void DetectTap()
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
-                if(gameObject.GetComponent<NodeControllerView>() != null)
+                if (gameObject != null)
                 {
-                    inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID); 
+                    if (gameObject.GetComponent<NodeControllerView>() != null)
+                    {
+                        inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
+                    }
                 }
             }
         }
