@@ -117,10 +117,10 @@ namespace Enemy
                     }
                     else
                     {
-                        await  controller.Move();
+                        controller.Move();
                     }
                 }
-            }
+            }  //await new WaitForEndOfFrame();
             await new WaitForEndOfFrame();
             if (!playerService.PlayerDeathStatus())
             {
@@ -159,11 +159,8 @@ namespace Enemy
 
         private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
         {
-            List<int> alertedNodes = new List<int>();
-           
-            alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
-           
-
+            List<int> alertedNodes = new List<int>();           
+            alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);          
             for (int i = 0; i < alertedNodes.Count; i++)
             {
                 for (int j = 0; j < enemyList.Count; j++)

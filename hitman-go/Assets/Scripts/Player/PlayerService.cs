@@ -117,16 +117,17 @@ namespace Player
                 case InteractablePickup.AMBUSH_PLANT:
                   await  playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    
                     break;
                 case InteractablePickup.BONE:
                     if (targetNode != -1)
                     { targetNode = -1; }
                    await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
+                    
                     break;
                 case InteractablePickup.BREIFCASE:
                   await  playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);                 
                    _interactableController.TakeAction(playerNodeID);
+                    
                     
                     break;
                 case InteractablePickup.COLOR_KEY:
@@ -159,6 +160,7 @@ namespace Player
                     break;
             }
             await new WaitForEndOfFrame();
+            gameService.ChangeToEnemyState();
         }
         //dead trigger
         async private void PlayerDead()
@@ -176,7 +178,6 @@ namespace Player
             {
                 return;
             }
-
             ResetEverything();
         }
 
@@ -278,7 +279,7 @@ namespace Player
 
         public void ChangeToEnemyState()
         {
-            signalBus.TryFire(new StateChangeSignal() { newGameState = GameStatesType.ENEMYSTATE });
+            gameService.ChangeToEnemyState();
         }
 
 
