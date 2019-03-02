@@ -49,7 +49,7 @@ namespace Player
                         stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
                         stateMachine.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
-                        playerService.ChangeToEnemyState();
+                        //playerService.ChangeToEnemyState();
                     
                         break;
 

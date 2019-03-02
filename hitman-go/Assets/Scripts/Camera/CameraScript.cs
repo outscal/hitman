@@ -4,16 +4,14 @@ using UnityEngine;
 using Player;
 using Zenject;
 using GameState;
-using PathSystem;
 using PathSystem.NodesScript;
-using Player;
 
 namespace CameraSystem
 {
     public class CameraScript : MonoBehaviour
     {
         public GameObject playerTarget, platformTarget, cameraObj;
-        
+        public List<Transform> targets;
         Vector3 targetPosition;
         public float smoothFactor = 0.5f, radius = 2f;
         public bool rotateAroundPoint = true;
@@ -34,41 +32,63 @@ namespace CameraSystem
         // Start is called before the first frame update
         void Start()
         {
-            SetCameraSettings();
+            //targets = new List<Transform>();
+            //SetCameraSettings();
+            //SetCameraCentre();
         }
 
-        public void SetCameraSettings()
+        public void SetCameraSettings(CameraScriptableObj cameraData)
         {
-            playerTarget = FindObjectOfType<PlayerView>().gameObject;
-            platformTarget = GameObject.FindWithTag("Platform").gameObject;
+            //playerTarget = FindObjectOfType<PlayerView>().gameObject;
+            //platformTarget = GameObject.FindWithTag("Platform").gameObject;
 
-            if(playerTarget != null && platformTarget != null)
+            //if(playerTarget != null && platformTarget != null)
+            //{
+            //    centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
+            //    cameraOffsetDistance = cameraObj.transform.position - centerPoint;
+            //    fieldOfViewRatio = cameraObj.GetComponent<Camera>().fieldOfView /
+            //                       Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+            //    startCamera = true;
+            //}
+
+            transform.position = cameraData.cameraData.position;
+            transform.rotation = Quaternion.Euler(cameraData.cameraData.rotation);
+            cameraObj.GetComponent<Camera>().fieldOfView = cameraData.cameraData.fieldOfView;
+
+        }
+
+        void SetCameraCentre()
+        {
+            targets = new List<Transform>();
+            foreach (NodeControllerView target in FindObjectsOfType<NodeControllerView>())
             {
-                centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
-                //transform.position = playerTarget.transform.position - new Vector3()
-                cameraOffsetDistance = cameraObj.transform.position - centerPoint;
-                fieldOfViewRatio = cameraObj.GetComponent<Camera>().fieldOfView /
-                                   Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
-                startCamera = true;
+                Transform node = target.gameObject.transform;
+                targets.Add(node);
             }
 
+            centerPoint = GetCenterPoint();
+
+            cameraOffsetDistance = cameraObj.transform.position - centerPoint;
+            //fieldOfViewRatio = cameraObj.GetComponent<Camera>().fieldOfView /
+                               //Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+            startCamera = true;
         }
 
         // Update is called once per frame
         void LateUpdate()
         {
-            if (startCamera == false) return;
+            //if (startCamera == false) return;
 
-            centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
-            if (zooming == false)
-            {
-                float fov = fieldOfViewRatio *
-                    Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
-                if (fov < 35)
-                    fov = 35;
-                cameraObj.GetComponent<Camera>().fieldOfView = iTween.FloatUpdate(cameraObj.GetComponent<Camera>().fieldOfView,
-                fov, 0.5f);
-            }
+            //centerPoint = (playerTarget.transform.position + platformTarget.transform.position) / 2;
+            //if (zooming == false)
+            //{
+            //    float fov = fieldOfViewRatio *
+            //        Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+            //    if (fov < 35)
+            //        fov = 35;
+            //    cameraObj.GetComponent<Camera>().fieldOfView = iTween.FloatUpdate(cameraObj.GetComponent<Camera>().fieldOfView,
+            //    fov, 0.5f);
+            //}
 
             if (Input.touchCount == 0)
             {
@@ -98,17 +118,17 @@ namespace CameraSystem
                     {
                         if (Input.touchCount == 1)
                         {
-                            if (touch.phase == TouchPhase.Moved)
-                            {
-                                currentPos = touch.deltaPosition;
-                                float x = currentPos.x - startPos.x;
-                                Quaternion camAngle = Quaternion.AngleAxis(x * rotationSpeed, Vector3.up);
-                                cameraOffsetDistance = camAngle * cameraOffsetDistance;
-                            }
+                            //if (touch.phase == TouchPhase.Moved)
+                            //{
+                            //    currentPos = touch.deltaPosition;
+                            //    float x = currentPos.x - startPos.x;
+                            //    Quaternion camAngle = Quaternion.AngleAxis(x * rotationSpeed, Vector3.up);
+                            //    cameraOffsetDistance = camAngle * cameraOffsetDistance;
+                            //}
 
-                            Vector3 newPos = centerPoint + cameraOffsetDistance;
+                            //Vector3 newPos = centerPoint + cameraOffsetDistance;
 
-                            cameraObj.transform.position = Vector3.Slerp(cameraObj.transform.position, newPos, smoothFactor);
+                            //cameraObj.transform.position = Vector3.Slerp(cameraObj.transform.position, newPos, smoothFactor);
                         }
                         else if (Input.touchCount > 1)
                         {
@@ -131,7 +151,7 @@ namespace CameraSystem
                 }
             }
 
-            cameraObj.transform.LookAt(centerPoint);
+            //cameraObj.transform.LookAt(centerPoint);
         }
 
         public GameObject ReturnObject(Vector2 position)
@@ -146,6 +166,24 @@ namespace CameraSystem
             }
 
             return gameObject;
+        }
+
+        Vector3 GetCenterPoint()
+        {
+            if(targets.Count == 1)
+            {
+                return targets[0].position;
+            }
+
+            var bounds = new Bounds(targets[0].position, Vector3.zero);
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                bounds.Encapsulate(targets[i].position);
+            }
+
+            return bounds.center;
+
         }
 
 #if UNITY_EDITOR

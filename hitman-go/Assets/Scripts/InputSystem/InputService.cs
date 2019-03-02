@@ -29,7 +29,7 @@ namespace InputSystem
 #if UNITY_ANDROID || UNITY_IOS
             playerInput = new TouchInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
-                        playerInput = new KeyboardInput();
+            playerInput = new KeyboardInput();
 #endif
             playerInput.OnInitialized(this);
         }

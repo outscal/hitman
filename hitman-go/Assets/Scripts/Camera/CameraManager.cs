@@ -5,6 +5,7 @@ using Common;
 using Zenject;
 using ScriptableObjSystem;
 using GameState;
+using PathSystem;
 
 namespace CameraSystem
 {
@@ -13,24 +14,30 @@ namespace CameraSystem
         readonly SignalBus signalBus;
         private CameraScript cameraScript;
         private GameBasicObjects gameBasicObjects;
+        private CameraScriptableObj cameraData;
+        private IPathService pathService;
 
-        public CameraManager(SignalBus signalBus, GameBasicObjects gameBasicObjects)
+        public CameraManager(SignalBus signalBus, GameBasicObjects gameBasicObjects, IPathService pathService)
         {
             this.signalBus = signalBus;
+            this.pathService = pathService;
             this.gameBasicObjects = gameBasicObjects;
             signalBus.Subscribe<GameStartSignal>(GameStarted);
         }
 
         void GameStarted()
         {
+            cameraData = pathService.GetCameraData();
             if (cameraScript == null)
             {
                 GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
                 cameraScript = cameraObj.GetComponent<CameraScript>();
-                //cameraScript.SetCameraSettings();
+                //cameraObj.transform.position = cameraData.cameraData.position;
+
+                cameraScript.SetCameraSettings(cameraData);
             }
             else if (cameraScript != null)
-                cameraScript.SetCameraSettings();
+                cameraScript.SetCameraSettings(cameraData);
         }
 
     }
