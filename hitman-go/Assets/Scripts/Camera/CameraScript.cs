@@ -34,7 +34,7 @@ namespace CameraSystem
         // Start is called before the first frame update
         void Start()
         {
-            //SetCameraSettings();
+            SetCameraSettings();
         }
 
         public void SetCameraSettings()
@@ -64,6 +64,8 @@ namespace CameraSystem
             {
                 float fov = fieldOfViewRatio *
                     Vector3.Distance(playerTarget.transform.position, platformTarget.transform.position);
+                if (fov < 35)
+                    fov = 35;
                 cameraObj.GetComponent<Camera>().fieldOfView = iTween.FloatUpdate(cameraObj.GetComponent<Camera>().fieldOfView,
                 fov, 0.5f);
             }
@@ -89,39 +91,42 @@ namespace CameraSystem
                     currentPos = startPos;
                 }
 
-                if (gameObject.GetComponent<NodeControllerView>() == null &&
-                   gameObject.GetComponent<PlayerView>() == null)
+                if (gameObject != null)
                 {
-                    if (Input.touchCount == 1)
+                    if (gameObject.GetComponent<NodeControllerView>() == null &&
+                       gameObject.GetComponent<PlayerView>() == null)
                     {
-                        if (touch.phase == TouchPhase.Moved)
+                        if (Input.touchCount == 1)
                         {
-                            currentPos = touch.deltaPosition;
-                            float x = currentPos.x - startPos.x;
-                            Quaternion camAngle = Quaternion.AngleAxis(x * rotationSpeed, Vector3.up);
-                            cameraOffsetDistance = camAngle * cameraOffsetDistance;
+                            if (touch.phase == TouchPhase.Moved)
+                            {
+                                currentPos = touch.deltaPosition;
+                                float x = currentPos.x - startPos.x;
+                                Quaternion camAngle = Quaternion.AngleAxis(x * rotationSpeed, Vector3.up);
+                                cameraOffsetDistance = camAngle * cameraOffsetDistance;
+                            }
+
+                            Vector3 newPos = centerPoint + cameraOffsetDistance;
+
+                            cameraObj.transform.position = Vector3.Slerp(cameraObj.transform.position, newPos, smoothFactor);
                         }
+                        else if (Input.touchCount > 1)
+                        {
+                            if (zooming == false) zooming = true;
+                            touchOne = Input.GetTouch(1);
+                            touchZero = Input.GetTouch(0);
 
-                        Vector3 newPos = centerPoint + cameraOffsetDistance;
+                            Vector2 touchZeroPreviousPosition = touchZero.position - touchZero.deltaPosition;
 
-                        cameraObj.transform.position = Vector3.Slerp(cameraObj.transform.position, newPos, smoothFactor);
-                    }
-                    else if (Input.touchCount > 1)
-                    {
-                        if (zooming == false) zooming = true;
-                        touchOne = Input.GetTouch(1);
-                        touchZero = Input.GetTouch(0);
+                            Vector2 touchOnePreviousPosition = touchOne.position - touchOne.deltaPosition;
 
-                        Vector2 touchZeroPreviousPosition = touchZero.position - touchZero.deltaPosition;
+                            float prevTouchDeltaMag = (touchZeroPreviousPosition - touchOnePreviousPosition).magnitude;
+                            float TouchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+                            float deltaMagDiff = prevTouchDeltaMag - TouchDeltaMag;
 
-                        Vector2 touchOnePreviousPosition = touchOne.position - touchOne.deltaPosition;
-
-                        float prevTouchDeltaMag = (touchZeroPreviousPosition - touchOnePreviousPosition).magnitude;
-                        float TouchDeltaMag = (touchZero.position - touchOne.position).magnitude;
-                        float deltaMagDiff = prevTouchDeltaMag - TouchDeltaMag;
-
-                        cameraObj.GetComponent<Camera>().fieldOfView += deltaMagDiff * perspectiveZoomSpeed * Time.deltaTime;
-                        cameraObj.GetComponent<Camera>().fieldOfView = Mathf.Clamp(cameraObj.GetComponent<Camera>().fieldOfView, .1f, 179.9f);
+                            cameraObj.GetComponent<Camera>().fieldOfView += deltaMagDiff * perspectiveZoomSpeed * Time.deltaTime;
+                            cameraObj.GetComponent<Camera>().fieldOfView = Mathf.Clamp(cameraObj.GetComponent<Camera>().fieldOfView, 35f, 100f);
+                        }
                     }
                 }
             }

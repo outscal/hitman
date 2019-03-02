@@ -23,9 +23,14 @@ namespace CameraSystem
 
         void GameStarted()
         {
-            GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
-            cameraScript = cameraObj.GetComponent<CameraScript>();
-            cameraScript.SetCameraSettings();
+            if (cameraScript == null)
+            {
+                GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
+                cameraScript = cameraObj.GetComponent<CameraScript>();
+                //cameraScript.SetCameraSettings();
+            }
+            else if (cameraScript != null)
+                cameraScript.SetCameraSettings();
         }
 
     }
