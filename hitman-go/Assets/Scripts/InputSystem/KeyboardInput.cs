@@ -17,17 +17,14 @@ namespace InputSystem
 
         void DetectTap()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
-                if (gameObject != null)
-                {
-                    if (gameObject.GetComponent<NodeControllerView>() != null)
-                    {
-                        inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID);
-                    }
-                }
-            }
+            //if(Input.GetMouseButtonDown(0))
+            //{
+            //    GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
+            //    if(gameObject.GetComponent<NodeControllerView>() != null)
+            //    {
+            //        inputService.PassNodeID(gameObject.GetComponent<NodeControllerView>().nodeID); 
+            //    }
+            //}
         }
 
         public void OnInitialized(IInputService inputService)
@@ -37,7 +34,7 @@ namespace InputSystem
 
         public void OnTick()
         {
-            DetectTap();
+            //DetectTap();
             DecideDirection();
         }
 

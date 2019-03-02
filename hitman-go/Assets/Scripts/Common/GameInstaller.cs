@@ -8,6 +8,7 @@ using System.Collections;
 using Common;
 using GameState;
 using InteractableSystem;
+using CameraSystem;
 
 public class GameInstaller : MonoInstaller
 {
@@ -50,6 +51,11 @@ public class GameInstaller : MonoInstaller
             .To<PathService>()
             .AsSingle()
             .NonLazy();
+
+        Container.Bind<ICamera>()
+        .To<CameraManager>()
+        .AsSingle()
+        .NonLazy();
 
         Container.BindInterfacesAndSelfTo<GameService>()
             .AsSingle()

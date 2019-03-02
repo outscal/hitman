@@ -42,6 +42,7 @@ namespace InteractableSystem
         {
             interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.STONE);
             Debug.Log("[RockController] Throw Task Done");
+
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);
         }

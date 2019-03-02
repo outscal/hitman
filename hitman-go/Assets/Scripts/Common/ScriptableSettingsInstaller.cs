@@ -5,6 +5,7 @@ using Enemy;
 using System.Collections;
 using PathSystem;
 using InteractableSystem;
+using ScriptableObjSystem;
 
 namespace Common
 {
@@ -15,7 +16,8 @@ namespace Common
         public ScriptableLevels scriptableLevels;
         public PlayerScriptableObject playerScriptableObject;
         public InteractableScriptableObj interactableScriptableObj;
-        public EnemyScriptableObjectList enemyScriptableObjectList;      
+        public EnemyScriptableObjectList enemyScriptableObjectList;
+        public GameBasicObjects gameBasicObjects;
 
         public override void InstallBindings()
         {
@@ -23,6 +25,7 @@ namespace Common
             Container.BindInstance(playerScriptableObject);
             Container.BindInstance(enemyScriptableObjectList);
             Container.BindInstance(scriptableLevels);
+            Container.BindInstances(gameBasicObjects);
         }
     }
 }
