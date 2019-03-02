@@ -27,7 +27,8 @@ namespace CameraSystem
 
         void GameStarted()
         {
-            //cameraData = pathService.GetCameraData();
+           // cameraData = pathService.GetCameraData();
+         
             if (cameraScript == null)
             {
                 GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
@@ -37,6 +38,7 @@ namespace CameraSystem
                 cameraScript.SetCameraSettings(cameraData);
             }
             //else if (cameraScript != null)
+          
                 cameraScript.SetCameraSettings(cameraData);
         }
 

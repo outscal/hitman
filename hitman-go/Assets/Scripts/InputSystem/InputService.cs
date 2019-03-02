@@ -36,13 +36,12 @@ namespace InputSystem
 
         public void PassDirection(Directions direction)
         {
-            Debug.Log("[InputService] Setting Direction:" + direction);
+         //   Debug.Log("[InputService] Setting Direction:" + direction);
             playerService.SetSwipeDirection(direction);
         }
 
         public void PassNodeID(int nodeID)
         {
-            Debug.Log("[InputService] Setting NodeID:" + nodeID);
             playerService.SetTargetNode(nodeID);
         }
 

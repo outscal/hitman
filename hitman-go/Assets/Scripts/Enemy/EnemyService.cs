@@ -117,7 +117,6 @@ namespace Enemy
                 controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
-
                     if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
                     {
                         signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
@@ -125,7 +124,7 @@ namespace Enemy
                     else
                     {
                         Task moveTask = controller.Move();
-                        await moveTask;
+                        //await moveTask;
                         moveTaskList.Add(moveTask);
                     }
                 }
@@ -134,7 +133,7 @@ namespace Enemy
 
             if (!playerService.PlayerDeathStatus())
             {
-                await new WaitForSeconds(1f);
+                
                 gameService.ChangeToPlayerState();
 
             }
@@ -180,7 +179,7 @@ namespace Enemy
             {
                 for (int j = 0; j < enemyList.Count; j++)
                 {
-
+                   
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:

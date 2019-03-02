@@ -14,6 +14,7 @@ namespace Enemy
         Task RotateEnemy(Vector3 pos);
         void RotateInOppositeDirection();
         void AlertEnemyView();
-        void DisableAlertView();      
+        void DisableAlertView();
+        void PerformRaycast();
     }
 }

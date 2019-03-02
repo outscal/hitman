@@ -1,3 +1,4 @@
+using CameraSystem;
 using Common;
 using PathSystem.NodesScript;
 using System;
@@ -249,5 +250,7 @@ namespace PathSystem
                 return Directions.RIGHT;
             }
         }
+
+        
     }
 }

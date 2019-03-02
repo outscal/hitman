@@ -53,7 +53,7 @@ MonoBehaviour:
       property: 0
       spawnPickups: 0
       spawnEnemies:
-      - enemy: 2
+      - enemy: 5
         dir: 3
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4

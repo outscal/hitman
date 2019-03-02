@@ -46,7 +46,7 @@ namespace Player
         }
         public void OnStateChange()
         {
-            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState()!=PlayerStates.WAIT_FOR_INPUT)
             {
                 playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
             }
@@ -68,7 +68,6 @@ namespace Player
             }
             if (playerController.GetPlayerState() != PlayerStates.IDLE)
             {
-
                 return;
             }
 
@@ -80,10 +79,7 @@ namespace Player
                 playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                 return;
             }
-            await PerformMovement(nextNodeID);
-            playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
-
-
+            await PerformMovement(nextNodeID);         
             await new WaitForEndOfFrame();
 
 
@@ -122,13 +118,14 @@ namespace Player
         //interactable perform
         async private void PerformInteractableAction(IInteractableController _interactableController)
         {
-            int nodeID = GetTargetNode();
+            int nodeID = await GetTargetNode();
 
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
                     await playerController.ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.BONE:
                     if (targetNode != -1)
@@ -139,20 +136,22 @@ namespace Player
                 case InteractablePickup.BREIFCASE:
                     await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-
-
+                    gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.COLOR_KEY:
                     await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.DUAL_GUN:
                     await playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     await playerController.ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
+                    gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     if (targetNode != -1)
@@ -160,6 +159,7 @@ namespace Player
                     await playerController.ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
                     break;
                 case InteractablePickup.STONE:
+                    Debug.Log("stone aya");
                     currentPathService.ShowThrowableNodes(playerNodeID);
                     if (targetNode != -1)
                     { targetNode = -1; }
@@ -172,7 +172,7 @@ namespace Player
                     break;
             }
             await new WaitForEndOfFrame();
-            gameService.ChangeToEnemyState();
+
         }
         //dead trigger
         async private void PlayerDead()
@@ -222,16 +222,14 @@ namespace Player
         //Get Tap Input
         async public void SetTargetNode(int _nodeID)
         {
-            if (playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
+            Debug.Log("inside tap detect");
+            if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
+                targetNode = _nodeID;
+                Debug.Log("target" + targetNode);
                 return;
             }
 
-            if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING)
-            {
-                targetNode = _nodeID;
-                return;
-            }
             else if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 return;
@@ -249,12 +247,12 @@ namespace Player
                 await PerformMovement(_nodeID);
             }
             await new WaitForEndOfFrame();
-            playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+           
 
         }
 
         //get the node after tap
-        public int GetTargetNode()
+        async public Task<int> GetTargetNode()
         {
             return targetNode;
         }
