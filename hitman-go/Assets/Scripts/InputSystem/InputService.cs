@@ -26,8 +26,8 @@ namespace InputSystem
             tapDetect = new TapDetect();
             //playerInput = new KeyboardInput();
 
-#if UNITY_ANDROID || UNITY_IOS
-            playerInput = new TouchInput();
+#if UNITY_ANDROID || UNITY_IOS 
+            playerInput = new KeyboardInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
                         playerInput = new KeyboardInput();
 #endif
