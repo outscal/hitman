@@ -18,8 +18,6 @@ namespace Enemy
         {
             alertSprite.enabled = false;
         }
-
-
         public void DisableEnemy()
         {
             //gameObject.SetActive(false);
@@ -67,6 +65,11 @@ namespace Enemy
             {
                 await RotateEnemy(new Vector3(0,-this.transform.localEulerAngles.y,0));
             }
+        }
+
+        public void PerformRaycast()
+        {
+           
         }
     }
 }
