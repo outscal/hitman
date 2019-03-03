@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3695513053780403642}
   - component: {fileID: 6815029139593124883}
   - component: {fileID: 7826291041779409312}
-  - component: {fileID: 4126106033669793196}
+  - component: {fileID: 2420192616190554478}
   m_Layer: 0
   m_Name: SniperEnemy
   m_TagString: Untagged
@@ -95,7 +95,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4126106033669793196
+--- !u!114 &2420192616190554478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1592349540199163854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc686f2e2f3d834fa7b5c6ebc876817, type: 3}
+  m_Script: {fileID: 11500000, guid: 97020c50b14436e4b9f2cd524ae166b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   alertSprite: {fileID: 6119389335661002703}

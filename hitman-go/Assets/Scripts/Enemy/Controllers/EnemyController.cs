@@ -83,7 +83,7 @@ namespace Enemy
 
         async protected virtual Task MoveToNextNode(int nodeID)
         {
-            await new WaitForEndOfFrame();
+           
         }
 
         async public Task Move()
@@ -94,6 +94,8 @@ namespace Enemy
                 if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
                 {
                     int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                    Debug.Log("nextNOde id " + nextNodeID);
+                    Debug.Log("current spawn direction " + spawnDirection.ToString());
                     await MoveToNextNode(nextNodeID);
                 }
                 else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
@@ -117,14 +119,8 @@ namespace Enemy
 
         protected virtual bool CheckForPlayerPresence(int _nextNodeID)
         {
-            if (currentEnemyService.GetPlayerNodeID() == _nextNodeID)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (currentEnemyService.GetPlayerNodeID() == _nextNodeID);
+            
         }
 
         protected virtual void ChangeDirection()
@@ -141,7 +137,7 @@ namespace Enemy
             {
                 spawnDirection = Directions.UP;
             }
-            else
+            else if(spawnDirection== Directions.RIGHT)
             {
                 spawnDirection = Directions.LEFT;
 
@@ -159,7 +155,8 @@ namespace Enemy
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-            Vector3 _destinationLocation = pathService.GetNodeLocation(_destinationID);
+            int nextNodeToLook = pathService.GetNextNodeID(currentNodeID,spawnDirection);
+            Vector3 _destinationLocation = pathService.GetNodeLocation(nextNodeToLook);
             currentEnemyView.RotateEnemy(_destinationLocation);
 
         }

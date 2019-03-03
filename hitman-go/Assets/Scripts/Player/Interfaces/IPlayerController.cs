@@ -14,5 +14,8 @@ namespace Player
         void Reset();
         Task ChangePlayerState(PlayerStates _state, PlayerStates stateToChange, IInteractableController interactableController = null);
         PlayerStates GetPlayerState();
+        int GetID();
+
+        Task PerformMovement(int _nodeID);
     }
 }

@@ -18,25 +18,34 @@ namespace Enemy
         }
 
         async protected override Task MoveToNextNode(int nodeID)
-        {
+        {            
+             currentEnemyView.RotateInOppositeDirection();
+
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
-
+                await currentEnemyView.RotateInOppositeDirection();
             }
 
-
-            ChangeDirection();
-          await currentEnemyView.RotateInOppositeDirection();
+            if (nodeID==-1)
+            {
+                Debug.Log("Node is -1 , direction is "+spawnDirection);
+                ChangeDirection();
+                return;
+            }
 
             if (CheckForPlayerPresence(nodeID))
             {
-               
-                //await new WaitForEndOfFrame();
+                if (!currentEnemyService.CheckForKillablePlayer())
+                {
+                    return;
+                }               
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();
-            }
 
+            }
+            ChangeDirection();               
         }
         protected override void SetController()
         {

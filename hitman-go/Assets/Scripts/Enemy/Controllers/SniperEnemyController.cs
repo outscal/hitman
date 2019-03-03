@@ -4,6 +4,7 @@ using Common;
 using PathSystem;
 using System.Collections;
 using System;
+using System.Threading.Tasks;
 
 namespace Enemy
 {
@@ -19,11 +20,16 @@ namespace Enemy
         protected override void SetController()
         {
             currentEnemyView.SetCurrentController(this);
-            PerformRaycast();
+           
         }
         private void PerformRaycast()
         {
             currentEnemyView.PerformRaycast();
+        }
+       async protected override Task MoveToNextNode(int nodeID)
+        {
+            PerformRaycast();
+            await new WaitForEndOfFrame();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Enemy
 {
     public interface IEnemyFactory
     {
-        void SpawnEnemies(EnemyScriptableObjectList _list);
-        List<IEnemyController> GetEnemyList();
+        List<IEnemyController> SpawnEnemies(EnemyScriptableObjectList _list);
+        
     }
 }

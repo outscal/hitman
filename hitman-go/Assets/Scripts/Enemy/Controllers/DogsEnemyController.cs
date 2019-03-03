@@ -62,11 +62,13 @@ namespace Enemy
                     {
                         return;
                     }
-                    Vector3 rot = GetRotation(oldDirection);
+                    AlertEnemy(nextNodeCheck);
 
-                    currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nextNodeCheck));
-                    currentNodeID = nextNodeCheck;
-                    currentEnemyService.TriggerPlayerDeath();
+                    //Vector3 rot = GetRotation(oldDirection);
+
+                    //currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nextNodeCheck));
+                    //currentNodeID = nextNodeCheck;
+                    //currentEnemyService.TriggerPlayerDeath();
                 }
                 else
                 {

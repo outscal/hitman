@@ -9,12 +9,9 @@ namespace Enemy
     public class EnemyView : MonoBehaviour, IEnemyView
     {
         [SerializeField]
-        private SpriteRenderer alertSprite;
+        public SpriteRenderer alertSprite;
 
-        private IEnemyController enemyController;
-        private bool isRayCastStart = false;
-        private Ray ray;
-        private RaycastHit raycastHit;
+        protected IEnemyController enemyController;      
 
         public void AlertEnemyView()
         {
@@ -33,26 +30,9 @@ namespace Enemy
         private void Start()
         {
             alertSprite.enabled = false;
-            ray.direction = this.transform.forward;
-        }
-        private void FixedUpdate()
-        {
-            if (isRayCastStart)
-            {
-                PerformSniperRaycast();
-            }
-        }
-
-        private void PerformSniperRaycast()
-        {
-            if (Physics.Raycast(ray, out raycastHit, 100f))
-            {
-                if(raycastHit.collider.GetComponent<IPlayerView>()!=null)
-                {
-                    enemyController.KillPlayer();
-                }
-            }
-        }
+           
+        }    
+      
 
         public GameObject GetGameObject()
         {
@@ -72,8 +52,8 @@ namespace Enemy
 
         async public Task RotateEnemy(Vector3 newRotation)
         {
-            iTween.RotateTo(gameObject, newRotation, 0.5f);
-            await new WaitForSeconds(0.5f);
+            iTween.RotateTo(gameObject, newRotation, 0.2f);
+            await new WaitForSeconds(0.2f);
         }
 
         public void SetPosition(Vector3 pos)
@@ -92,15 +72,15 @@ namespace Enemy
                 await RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
             }
         }
-
-        public void PerformRaycast()
-        {
-            isRayCastStart = true;
-        }
+      
 
         public void SetCurrentController(IEnemyController controller)
         {
             enemyController = controller;
+        }
+        public virtual void PerformRaycast()
+        {
+
         }
     }
 }
