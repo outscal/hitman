@@ -87,14 +87,13 @@ namespace Enemy
         }
 
         async public Task Move()
-        {
-            
+        {            
             alertMoveCalled++;
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                Debug.Log("nextNode id " + nextNodeID);
-                Debug.Log("current spawn direction " + spawnDirection.ToString());
+
+               
 
               await MoveToNextNode(nextNodeID);
             }

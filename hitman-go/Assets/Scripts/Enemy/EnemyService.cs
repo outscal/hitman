@@ -96,7 +96,6 @@ namespace Enemy
         {
             if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
-                
                 PerformMovement();
             }
 
@@ -131,7 +130,6 @@ namespace Enemy
                     else
                     {                        
                        await controller.Move();
-                        Debug.Log("controller move called[enemy service]" + Time.time);
                     }
                 }
              

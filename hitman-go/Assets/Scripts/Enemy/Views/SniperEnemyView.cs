@@ -14,7 +14,13 @@ namespace Enemy
 
         public override void PerformRaycast()
         {
-            PerformSniperRaycast();
+            isRayCastStart = true;
+        }
+        private void FixedUpdate()
+        {
+            if (isRayCastStart)
+            { PerformSniperRaycast(); }
+            
         }
 
         // Use this for initialization
@@ -23,18 +29,11 @@ namespace Enemy
             alertSprite.enabled = false;
             ray.direction = this.transform.forward;
         }
-
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-            //if(isRayCastStart)
-            //{
-            //    PerformSniperRaycast();
-            //}
-        }
-
+     
         private void PerformSniperRaycast()
         {
+                Debug.DrawRay(this.gameObject.transform.localPosition,this.transform.forward*100f,Color.red);
+
             if (Physics.Raycast(ray, out raycastHit, 100f))
             {
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)

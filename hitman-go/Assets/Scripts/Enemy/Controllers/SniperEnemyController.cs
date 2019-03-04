@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using Common;
 using GameState;
-using Common;
 using PathSystem;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -20,16 +20,24 @@ namespace Enemy
         protected override void SetController()
         {
             currentEnemyView.SetCurrentController(this);
-           
+
         }
         private void PerformRaycast()
         {
             currentEnemyView.PerformRaycast();
         }
-       async protected override Task MoveToNextNode(int nodeID)
+        async protected override Task MoveToNextNode(int nodeID)
         {
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            {
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
+            }
             PerformRaycast();
             await new WaitForEndOfFrame();
+
         }
     }
 }
