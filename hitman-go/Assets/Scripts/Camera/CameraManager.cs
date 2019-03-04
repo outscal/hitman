@@ -14,7 +14,7 @@ namespace CameraSystem
         readonly SignalBus signalBus;
         private CameraScript cameraScript;
         private GameBasicObjects gameBasicObjects;
-        private CameraScriptableObj cameraData;
+        private List<CameraScriptableObj> cameraDataList;
         private IPathService pathService;
 
         public CameraManager(SignalBus signalBus, GameBasicObjects gameBasicObjects, IPathService pathService)
@@ -25,20 +25,33 @@ namespace CameraSystem
             signalBus.Subscribe<GameStartSignal>(GameStarted);
         }
 
+        public void SetNodeID(int nodeID)
+        {
+            for (int i = 0; i < cameraDataList.Count; i++)
+            {
+                if(cameraDataList[i].cameraData.nodeID == nodeID)
+                {
+                    Debug.Log("[CameraManager] NodeID:" + nodeID);
+                    cameraScript.MoveToNode(cameraDataList[i].cameraData);
+                }
+            }
+        }
+
         void GameStarted()
         {
-           cameraData = pathService.GetCameraData();
-         
+            cameraDataList = pathService.GetCameraDataList();
+            Debug.Log("[CameraManager] Total Camera Positions:" + cameraDataList.Count);
+
             if (cameraScript == null)
             {
                 GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
                 cameraScript = cameraObj.GetComponent<CameraScript>();
                 //cameraObj.transform.position = cameraData.cameraData.position;
                 //cameraData = Resources.Load("Camera/CameraDataLevel2") as CameraScriptableObj;
-                cameraScript.SetCameraSettings(cameraData);
+                cameraScript.SetCameraSettings(cameraDataList[0]);
             }
             else if (cameraScript != null)
-                cameraScript.SetCameraSettings(cameraData);
+                cameraScript.SetCameraSettings(cameraDataList[0]);
         }
 
     }
