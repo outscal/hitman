@@ -22,7 +22,11 @@ MonoBehaviour:
     type: 3}
   cameraScriptableList:
   - {fileID: 11400000, guid: bb1dd246efd4844a2b0cd9cef05a40bf, type: 2}
+  - {fileID: 11400000, guid: 8a0147fb17d5f47338c741ac36575ab0, type: 2}
+  - {fileID: 11400000, guid: 228e32db3e44741efa7e05b5deb8b488, type: 2}
   - {fileID: 11400000, guid: f42a73f1fefc34c8a980cffd7bc90730, type: 2}
+  - {fileID: 11400000, guid: 7027944f8b54b4f65901c729dce6a791, type: 2}
+  - {fileID: 11400000, guid: aa970c472387148a4a31e0702b1da651, type: 2}
   Graph:
   - node:
       uniqueID: 0
