@@ -67,6 +67,10 @@ public class GameInstaller : MonoInstaller
         .To<InteractableManager>()
         .AsSingle()
         .NonLazy();
+        Container.Bind<ICamera>()
+        .To<CameraManager>()
+        .AsSingle()
+        .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()
