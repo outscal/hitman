@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using Player;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -7,7 +9,9 @@ namespace Enemy
     public class EnemyView : MonoBehaviour, IEnemyView
     {
         [SerializeField]
-        private SpriteRenderer alertSprite;
+        public SpriteRenderer alertSprite;
+
+        protected IEnemyController enemyController;      
 
         public void AlertEnemyView()
         {
@@ -26,7 +30,9 @@ namespace Enemy
         private void Start()
         {
             alertSprite.enabled = false;
-        }
+           
+        }    
+      
 
         public GameObject GetGameObject()
         {
@@ -46,30 +52,35 @@ namespace Enemy
 
         async public Task RotateEnemy(Vector3 newRotation)
         {
-            iTween.RotateTo(gameObject, newRotation, 0.5f);
-            await new WaitForSeconds(0.5f);
+            iTween.RotateTo(gameObject, newRotation, 0.2f);
+            await new WaitForSeconds(0.2f);
         }
 
         public void SetPosition(Vector3 pos)
-        {           
+        {
             transform.position = pos;
         }
 
-       async public void RotateInOppositeDirection()
+        async public Task RotateInOppositeDirection()
         {
-           if(this.transform.localEulerAngles.y==0)
+            if (this.transform.localEulerAngles.y == 0)
             {
-              await  RotateEnemy(new Vector3(0,180,0));
+                await RotateEnemy(new Vector3(0, 180, 0));
             }
             else
             {
-                await RotateEnemy(new Vector3(0,-this.transform.localEulerAngles.y,0));
+                await RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
             }
         }
+      
 
-        public void PerformRaycast()
+        public void SetCurrentController(IEnemyController controller)
         {
-           
+            enemyController = controller;
+        }
+        public virtual void PerformRaycast()
+        {
+
         }
     }
 }

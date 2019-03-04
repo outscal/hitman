@@ -13,7 +13,7 @@ namespace Enemy
         }
         public void OnStateEnter()
         {
-            Debug.Log("in idle state enemy");
+
         }
 
         public void OnStateExit()

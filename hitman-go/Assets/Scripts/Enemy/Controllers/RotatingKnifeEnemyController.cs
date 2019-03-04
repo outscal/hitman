@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using PathSystem;
-using System.Threading.Tasks;
-using Common;
+﻿using Common;
 using GameState;
+using PathSystem;
 using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -18,26 +18,38 @@ namespace Enemy
         }
 
         async protected override Task MoveToNextNode(int nodeID)
-        {
+        {            
+             currentEnemyView.RotateInOppositeDirection();
+
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
-            }
-            else
-            {
-                ChangeDirection();
+                await currentEnemyView.RotateInOppositeDirection();
             }
 
+            if (nodeID==-1)
+            {
+                Debug.Log("Node is -1 , direction is "+spawnDirection);
+                ChangeDirection();
+                return;
+            }
 
             if (CheckForPlayerPresence(nodeID))
             {
+                if (!currentEnemyService.CheckForKillablePlayer())
+                {
+                    return;
+                }               
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();
+
             }
-            else
-            {
-                currentEnemyView.RotateInOppositeDirection();
-            }
+            ChangeDirection();               
+        }
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
         }
     }
 }

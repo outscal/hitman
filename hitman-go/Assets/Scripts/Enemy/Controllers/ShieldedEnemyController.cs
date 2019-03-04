@@ -15,5 +15,9 @@ namespace Enemy
             enemyType = EnemyType.SHIELDED;
         }
 
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
+        }
     }
 }

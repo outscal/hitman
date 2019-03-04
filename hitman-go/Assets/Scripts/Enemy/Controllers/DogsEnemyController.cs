@@ -14,6 +14,7 @@ namespace Enemy
         public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
             enemyType = EnemyType.DOGS;
+            oldDirection = spawnDirection;
         }
 
         async protected override Task MoveToNextNode(int nodeID)
@@ -25,13 +26,13 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 oldDirection = spawnDirection;
+                
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
 
                 Vector3 rot = GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
                 currentNodeID = nodeID;
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
 
             }
             if (CheckForPlayerPresence(nodeID))
@@ -49,6 +50,8 @@ namespace Enemy
             else
             {
                 int nextNodeCheck = pathService.GetNextNodeID(nodeID, oldDirection);
+                Debug.Log("old direction: "+oldDirection);
+                Debug.Log("2nd node check"+nextNodeCheck);
                 if(nextNodeCheck==-1)
                 {
                     return;
@@ -59,11 +62,13 @@ namespace Enemy
                     {
                         return;
                     }
-                    Vector3 rot = GetRotation(oldDirection);
+                    AlertEnemy(nextNodeCheck);
 
-                    currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                    currentNodeID = nodeID;
-                    currentEnemyService.TriggerPlayerDeath();
+                    //Vector3 rot = GetRotation(oldDirection);
+
+                    //currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nextNodeCheck));
+                    //currentNodeID = nextNodeCheck;
+                    //currentEnemyService.TriggerPlayerDeath();
                 }
                 else
                 {
@@ -71,6 +76,10 @@ namespace Enemy
                 }
             }
 
+        }
+        protected override void SetController()
+        {
+            currentEnemyView.SetCurrentController(this);
         }
     }
 }

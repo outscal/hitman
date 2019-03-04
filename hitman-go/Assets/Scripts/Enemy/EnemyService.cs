@@ -45,7 +45,7 @@ namespace Enemy
         {
             enemyFactory = new EnemyFactory(this, pathService, gameService);
             SpawnEnemy(enemyScriptableObjectList);
-            enemyList = enemyFactory.GetEnemyList();
+             
         }
 
         private bool CheckForEnemyPresence(int nodeID)
@@ -123,17 +123,16 @@ namespace Enemy
                     }
                     else
                     {
-                        Task moveTask = controller.Move();
-                        //await moveTask;
-                        moveTaskList.Add(moveTask);
+                        //Task moveTask = controller.Move();
+                          controller.Move();
+                        // moveTaskList.Add(moveTask);
                     }
                 }
             }
-            await Task.WhenAll(moveTaskList.ToArray());
+           // await Task.WhenAll(moveTaskList.ToArray());
 
             if (!playerService.PlayerDeathStatus())
-            {
-                
+            {                
                 gameService.ChangeToPlayerState();
 
             }
@@ -163,7 +162,8 @@ namespace Enemy
         }
         private void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObjectList)
         {
-            enemyFactory.SpawnEnemies(enemyScriptableObjectList);
+            enemyList = enemyFactory.SpawnEnemies(enemyScriptableObjectList);
+            Debug.Log("Enemy list count: "+ enemyList.Count);
         }
 
         public bool CheckForKillablePlayer()
@@ -175,28 +175,29 @@ namespace Enemy
         {
             List<int> alertedNodes = new List<int>();
             alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
-            for (int i = 0; i < alertedNodes.Count; i++)
+
+            for (int i = 0; i < enemyList.Count; i++)
             {
-                for (int j = 0; j < enemyList.Count; j++)
+                for (int j = 0; j < alertedNodes.Count; j++)
                 {
                    
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:
-                            if (enemyList[j].GetEnemyType() == EnemyType.DOGS)
+                            if (enemyList[i].GetEnemyType() == EnemyType.DOGS)
                             {
-                                if (enemyList[j].GetCurrentID() == alertedNodes[i])
+                                if (enemyList[i].GetCurrentID() == alertedNodes[j])
                                 {
-                                    enemyList[j].AlertEnemy(_signalAlertGuards.nodeID);
+                                    enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }
                             }
                             break;
                         case InteractablePickup.STONE:
-                            if (enemyList[j].GetEnemyType() != EnemyType.DOGS)
+                            if (enemyList[i].GetEnemyType() != EnemyType.DOGS)
                             {
-                                if (enemyList[j].GetCurrentID() == alertedNodes[i])
+                                if (enemyList[i].GetCurrentID() == alertedNodes[j])
                                 {
-                                    enemyList[j].AlertEnemy(_signalAlertGuards.nodeID);
+                                    enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }
                             }
                             break;
