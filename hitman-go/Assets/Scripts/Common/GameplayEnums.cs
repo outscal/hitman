@@ -64,6 +64,7 @@ namespace Common
     public enum EnemyStates
     {
         IDLE,
+        MOVING,
         CHASE
     }
 }

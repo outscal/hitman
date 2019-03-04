@@ -15,13 +15,16 @@ namespace Player
         void SetTargetNode(int _nodeID);
 
         int GetPlayerNodeID();
-
+        
+        
         void OnGameStart();
         bool PlayerDeathStatus();
         bool CheckForKillablePlayer();
         bool CheckForRange( int _nodeID);
         void ChangeToEnemyState();
-        Task<int> GetTargetNode();
+        int GetTargetNode();
+        void FireLevelFinishedSignal();
+        void SetTargetTap(int v);
     }
 
 }

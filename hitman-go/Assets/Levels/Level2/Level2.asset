@@ -20,6 +20,10 @@ MonoBehaviour:
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  cameraScriptableList:
+  - {fileID: 11400000, guid: b52121318ef3a474a877e59ea6534d2f, type: 2}
+  - {fileID: 11400000, guid: a4bbd5a4b297549a6bd05eede4f05674, type: 2}
+  - {fileID: 11400000, guid: a108955fbb8684346abb1f27425d675c, type: 2}
   Graph:
   - node:
       uniqueID: 0
@@ -58,8 +62,8 @@ MonoBehaviour:
       property: 0
       spawnPickups: 0
       spawnEnemies:
-      - enemy: 5
-        dir: 3
+      - enemy: 2
+        dir: 2
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4
     down: -1

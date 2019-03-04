@@ -26,11 +26,14 @@ namespace InteractableSystem
 
         public override void TakeAction(int nodeID)
         {
-            interactableManager.SendBriefCaseSignal();
+            interactableManager.ReturnSignalBus().Fire<BriefCaseSignal>();
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);
         }
 
-
+        public override void InteractablePickedUp()
+        {
+            base.InteractablePickedUp();
+        }
     }
 }

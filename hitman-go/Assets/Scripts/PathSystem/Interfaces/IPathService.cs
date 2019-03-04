@@ -22,7 +22,7 @@ namespace PathSystem
         Directions GetEnemySpawnDirection(int _nodeID);
         bool CheckForTargetNode(int _NodeID);
         void DestroyPath();
+        List<CameraScriptableObj> GetCameraDataList();
         void DrawGraph(ScriptableGraph Graph);
-        //CameraScriptableObj GetCameraData();
     }
 }

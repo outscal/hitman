@@ -6,6 +6,6 @@ namespace CameraSystem
 {
     public interface ICamera
     {
-
+        void SetNodeID(int nodeID);
     }
 }
