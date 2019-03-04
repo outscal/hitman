@@ -2,40 +2,69 @@
 using System.Collections;
 using System.Threading.Tasks;
 using Player;
+using Common;
 
 namespace Enemy
 {
     public class SniperEnemyView : EnemyView
     {
         private bool isRayCastStart = false;
-        private Ray ray;
+        private Ray ray;        
         private RaycastHit raycastHit;
-        [SerializeField]private LineRenderer lineRenderer;
-        
 
-        public override void PerformRaycast()
+        [SerializeField]private LineRenderer lineRenderer;
+
+        
+        void Start()
         {
-            isRayCastStart = true;
+           
+            
+            SetRayDirection(this.enemyController.GetDirection());
+            alertSprite.enabled = false;           
+
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, ray.direction);
+          
         }
-        private void FixedUpdate()
+        public override void SetRayDirection(Directions directions)
         {
-            if (isRayCastStart)
-            { PerformSniperRaycast(); }
+            switch(directions)
+            {
+                case Directions.RIGHT:
+                    ray.direction = this.transform.right;
+                    break;
+                case Directions.UP:
+                    ray.direction = this.transform.forward;
+                    break;
+                case Directions.LEFT:
+                    ray.direction = - this.transform.right;
+                    break;
+                case Directions.DOWN:
+                    ray.direction = -this.transform.forward;
+                    break;
+            }
+        }
+     
+        private void Update()
+        {
+          
+
+           //if (isRayCastStart)
+           // { PerformSniperRaycast(); }
             
         }
 
-        // Use this for initialization
-        void Start()
+        public override void PerformRaycast()
         {
-            alertSprite.enabled = false;
-            ray.direction = this.transform.forward;
-            lineRenderer.SetPosition(0, this.transform.localPosition);
-        }
-     
-        private void PerformSniperRaycast()
-        {              
+            //  isRayCastStart = true;
+            PerformSniperRaycast();
 
-            if (Physics.Raycast(ray, out raycastHit, 100f))
+        }
+        private void PerformSniperRaycast()
+        {
+            lineRenderer.SetPosition(1, ray.direction*500f);
+
+            if (Physics.Raycast(ray.origin,ray.direction, out raycastHit, Mathf.Infinity))
             {
                    lineRenderer.SetPosition(1,raycastHit.point);
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
@@ -43,6 +72,7 @@ namespace Enemy
                     enemyController.KillPlayer();
                 }
             }
+            
         }
     }
 }

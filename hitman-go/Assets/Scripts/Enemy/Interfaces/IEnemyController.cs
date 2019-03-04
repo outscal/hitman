@@ -17,5 +17,6 @@ namespace Enemy
         void KillPlayer();
         void ChangeState(EnemyStates _state);
         EnemyStates GetEnemyState();
+        Directions GetDirection();
     }
 }

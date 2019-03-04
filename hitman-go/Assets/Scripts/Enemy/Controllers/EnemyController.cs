@@ -191,5 +191,10 @@ namespace Enemy
         {
             return stateMachine.GetEnemyState();
         }
+
+        public Directions GetDirection()
+        {
+            return spawnDirection;
+        }
     }
 }

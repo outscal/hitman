@@ -19,7 +19,10 @@ MonoBehaviour:
     type: 3}
   cameraScriptableList:
   - {fileID: 11400000, guid: b52121318ef3a474a877e59ea6534d2f, type: 2}
+  - {fileID: 11400000, guid: b52121318ef3a474a877e59ea6534d2f, type: 2}
   - {fileID: 11400000, guid: a4bbd5a4b297549a6bd05eede4f05674, type: 2}
+  - {fileID: 11400000, guid: a4bbd5a4b297549a6bd05eede4f05674, type: 2}
+  - {fileID: 11400000, guid: a108955fbb8684346abb1f27425d675c, type: 2}
   - {fileID: 11400000, guid: a108955fbb8684346abb1f27425d675c, type: 2}
   Graph:
   - node:
