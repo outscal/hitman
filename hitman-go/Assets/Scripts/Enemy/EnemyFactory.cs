@@ -31,7 +31,7 @@ namespace Enemy
             {
               enemyList= enemyList.Concat(SpawnSingleEnemyLocations(_list.enemyList[i])).ToList();
             }
-            Debug.Log("enemy list [Factory ]" + enemyList.Count) ;
+
             return enemyList;
         }
 
@@ -130,7 +130,7 @@ namespace Enemy
                     Debug.Log("No Enemy Controller of this type");
                     break;                    
             }
-            Debug.Log("enemy list [Factory single enemy ]" + newEnemyControllers.Count);
+
             return newEnemyControllers;
         }
     }

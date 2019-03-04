@@ -3,6 +3,7 @@ using Player;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using Common;
 
 namespace Enemy
 {
@@ -80,6 +81,10 @@ namespace Enemy
             enemyController = controller;
         }
         public virtual void PerformRaycast()
+        {
+
+        }
+        public virtual void SetRayDirection(Directions directions)
         {
 
         }

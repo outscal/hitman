@@ -75,13 +75,13 @@ namespace Player
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
             playerController.PerformAction(_direction);
-               
+
             await new WaitForEndOfFrame();
 
             camera.SetNodeID(GetPlayerNodeID());
         }
 
-     
+
         //dead trigger
         async private void PlayerDead()
         {
@@ -114,8 +114,9 @@ namespace Player
         }
 
         public void SpawnPlayer()
-        {              
-            playerController = new PlayerController(this,gameService,currentPathService, interactableService, playerScriptableObject);
+        {
+
+            playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject);
             signalBus.TryFire(new PlayerSpawnSignal());
             playerNodeID = playerController.GetID();
         }
@@ -127,7 +128,8 @@ namespace Player
         }
         //Get Tap Input
         async public void SetTargetNode(int _nodeID)
-        {   
+        {
+
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
@@ -145,14 +147,16 @@ namespace Player
 
             targetNode = _nodeID;
 
-            if (currentPathService.CanMoveToNode(playerNodeID, _nodeID))
+            if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-               var _direction= currentPathService.GetDirections(playerNodeID,_nodeID);
+                var _direction = currentPathService.GetDirections(GetPlayerNodeID(), _nodeID);
                 playerController.PerformAction(_direction);
+
             }
-            await new WaitForEndOfFrame();
-           
+
+            await new WaitForEndOfFrame();        
+
 
         }
 
@@ -176,12 +180,12 @@ namespace Player
         {
             return isPlayerDead;
         }
-       
+
 
         public bool CheckForKillablePlayer()
         {
-            return playerController.GetPlayerState() == PlayerStates.AMBUSH;
-            
+            return playerController.GetPlayerState() != PlayerStates.AMBUSH;
+             
         }
 
         public bool CheckForRange(int _nodeID)

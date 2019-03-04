@@ -103,20 +103,16 @@ namespace PathSystem
         }
         public Directions GetEnemySpawnDirection(int _nodeID) { return graph[_nodeID].node.spawnEnemies[0].dir; }
         public bool CheckForTargetNode(int _NodeID) { return graph[_NodeID].node.property == NodeProperty.TARGETNODE; }
-        bool CheckTeleportable(int playerNode, int destinationNode)
-        {
-            
-            if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
-            {
-                view.Unhighlightnodes();
-                view.ShowTeleportableNodes(graph[destinationNode].teleport);
-            }
-            return graph[playerNode].teleport.Contains(destinationNode);
-        }
+        bool CheckTeleportable(int playerNode, int destinationNode) { return graph[playerNode].teleport.Contains(destinationNode); }
         public bool CanMoveToNode(int playerNode, int destinationNode)
-        {
+        {  
             if ((graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode))
             {
+                view.Unhighlightnodes();
+                if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
+                {
+                    view.ShowTeleportableNodes(graph[destinationNode].teleport);
+                }
                 return true;
             }
             else
@@ -141,8 +137,15 @@ namespace PathSystem
         public void ShowThrowableNodes(int nodeId) { view.ShowThrowableNodes(nodeId); }
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
+            Debug.Log("Should Not Work 111111111111111111111111111111111111111111111111111111111");
             int nextnode = graph[_nodeId].connections[(int)_dir];
-            CheckTeleportable(_nodeId,nextnode);
+           // CheckTeleportable(_nodeId, nextnode);
+            view.Unhighlightnodes();
+            if (nextnode != -1 && graph[nextnode].node.property == NodeProperty.TELEPORT)
+            {
+                view.ShowTeleportableNodes(graph[nextnode].teleport);
+            }
+
             return nextnode;
         }
         public Vector3 GetNodeLocation(int _nodeID) { return graph[_nodeID].node.nodePosition; }

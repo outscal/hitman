@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections;
+using Common;
 
 namespace Enemy
 {
@@ -16,6 +17,7 @@ namespace Enemy
         void AlertEnemyView();
         void DisableAlertView();
         void PerformRaycast();
+        void SetRayDirection(Directions directions);
         void SetCurrentController(IEnemyController controller);
 
     }
