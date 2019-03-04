@@ -126,22 +126,22 @@ namespace Player
                 case InteractablePickup.BREIFCASE:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   // gameService.ChangeToEnemyState();
+                   
                     break;
                 case InteractablePickup.COLOR_KEY:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   // gameService.ChangeToEnemyState();
+                   
                     break;
                 case InteractablePickup.DUAL_GUN:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   // gameService.ChangeToEnemyState();
+                   
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     await  ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                  //  gameService.ChangeToEnemyState();
+                  
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerService.SetTargetTap(-1);
