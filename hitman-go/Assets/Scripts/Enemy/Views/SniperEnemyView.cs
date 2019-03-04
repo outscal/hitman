@@ -10,6 +10,7 @@ namespace Enemy
         private bool isRayCastStart = false;
         private Ray ray;
         private RaycastHit raycastHit;
+        [SerializeField]private LineRenderer lineRenderer;
         
 
         public override void PerformRaycast()
@@ -28,16 +29,17 @@ namespace Enemy
         {
             alertSprite.enabled = false;
             ray.direction = this.transform.forward;
+            lineRenderer.SetPosition(0, this.transform.localPosition);
         }
      
         private void PerformSniperRaycast()
-        {
-                Debug.DrawRay(this.gameObject.transform.localPosition,this.transform.forward*100f,Color.red);
+        {              
 
             if (Physics.Raycast(ray, out raycastHit, 100f))
             {
+                   lineRenderer.SetPosition(1,raycastHit.point);
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
-                {
+                {                   
                     enemyController.KillPlayer();
                 }
             }
