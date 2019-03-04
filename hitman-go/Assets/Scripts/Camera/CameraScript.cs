@@ -52,7 +52,7 @@ namespace CameraSystem
             //}
 
             transform.position = cameraData.cameraData.position;
-            transform.rotation = Quaternion.Euler(cameraData.cameraData.rotation);
+            transform.rotation = cameraData.cameraData.rotation;
             cameraObj.GetComponent<Camera>().fieldOfView = cameraData.cameraData.fieldOfView;
 
         }
@@ -184,6 +184,19 @@ namespace CameraSystem
 
             return bounds.center;
 
+        }
+
+        public CameraData GetCameraData()
+        {
+            CameraData cameraData = new CameraData();
+
+            if (cameraObj != null)
+            {
+                cameraData.fieldOfView = cameraObj.GetComponent<Camera>().fieldOfView;
+                cameraData.position = cameraObj.transform.position;
+                cameraData.rotation = cameraObj.transform.rotation;
+            }
+            return cameraData;
         }
 
 #if UNITY_EDITOR

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26ab38938eb9edc4da97810675ae8c9f, type: 3}
-  m_Name: SniperEnemyAsset
+  m_Script: {fileID: 11500000, guid: 1811ff29bda79474eb56bd282d40c39b, type: 3}
+  m_Name: CameraData1
   m_EditorClassIdentifier: 
-  enemyType: 0
-  enemyPrefab: {fileID: 4126106033669793196, guid: 8946f103ec1406248b241dab5075e2e4,
-    type: 3}
-  enemyRotation: {x: 0, y: 0, z: 0, w: 0}
+  cameraData:
+    position: {x: -7.27, y: 6.21, z: 8.43}
+    rotation: {x: -0.0022128117, y: 0.9062954, z: -0.42261246, w: -0.0047453903}
+    fieldOfView: 60

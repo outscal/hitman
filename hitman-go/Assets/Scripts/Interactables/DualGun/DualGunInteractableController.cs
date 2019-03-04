@@ -8,6 +8,7 @@ namespace InteractableSystem
     public class DualGunInteractableController : InteractableController
     {
         private InteractableManager interactableManager;
+        int enemyNodeID;
 
         public DualGunInteractableController(Vector3 nodePos, InteractableManager interactableManager
                                             , InteractableView dualGunPrefab)
@@ -25,7 +26,10 @@ namespace InteractableSystem
 
         public override void TakeAction(int nodeID)
         {
-            Shoot(nodeID);
+            Shoot(nodeID, Directions.UP);
+            Shoot(nodeID, Directions.DOWN);
+            Shoot(nodeID, Directions.LEFT);
+            Shoot(nodeID, Directions.RIGHT);
         }
 
         public override void InteractablePickedUp()
@@ -33,52 +37,21 @@ namespace InteractableSystem
             base.InteractablePickedUp();
         }
 
-        void Shoot(int targetNodeID)
+        void Shoot(int targetNodeID, Directions direction)
         {
             Vector3 position = interactableManager.ReturnPathService()
                                 .GetNodeLocation(targetNodeID);
 
-            //enemy forward
-            if(EnemyPresent(position,Vector3.forward) == true)
+            if (EnemyPresent(position, GetDiectionInVector3(direction)) == true)
             {
-                int enemyNodeID = interactableManager.ReturnPathService()
-                                .GetNextNodeID(targetNodeID, Directions.UP);
+                enemyNodeID = interactableManager.ReturnPathService()
+                                .GetNextNodeID(targetNodeID, direction);
+
                 interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
                 { nodeID = enemyNodeID });
             }
-
-            //enemy back
-            if (EnemyPresent(position, Vector3.back) == true)
-            {
-                int enemyNodeID = interactableManager.ReturnPathService()
-                                .GetNextNodeID(targetNodeID, Directions.DOWN);
-                interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
-                { nodeID = enemyNodeID });
-            }
-
-            //enemy left
-            if (EnemyPresent(position, Vector3.left) == true)
-            {
-                int enemyNodeID = interactableManager.ReturnPathService()
-                                .GetNextNodeID(targetNodeID, Directions.LEFT);
-                interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
-                { nodeID = enemyNodeID });
-            }
-
-            //enemy right
-            if (EnemyPresent(position, Vector3.right) == true)
-            {
-                int enemyNodeID = interactableManager.ReturnPathService()
-                                .GetNextNodeID(targetNodeID, Directions.RIGHT);
-                interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
-                { nodeID = enemyNodeID });
-            }
-
-            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot() 
-            { soundName = SoundName.dualGun });
 
             interactableManager.RemoveInteractable(this);
-
         }
 
         bool EnemyPresent(Vector3 origin, Vector3 direction)
@@ -99,6 +72,16 @@ namespace InteractableSystem
             }
 
             return false;
+        }
+
+        Vector3 GetDiectionInVector3(Directions directions)
+        {
+            Vector3 direction = Vector3.zero;
+            if (directions == Directions.UP) return direction = Vector3.up;
+            if (directions == Directions.DOWN) return direction = Vector3.down;
+            if (directions == Directions.LEFT) return direction = Vector3.left;
+            if (directions == Directions.RIGHT) return direction = Vector3.right;
+            return direction;
         }
 
     }

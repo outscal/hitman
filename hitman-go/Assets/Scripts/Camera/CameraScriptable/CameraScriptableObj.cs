@@ -7,7 +7,8 @@ namespace CameraSystem
     [System.Serializable]
     public struct CameraData
     {
-        public Vector3 position, rotation;
+        public Vector3 position;
+        public Quaternion rotation;
         public float fieldOfView;
     }
 
