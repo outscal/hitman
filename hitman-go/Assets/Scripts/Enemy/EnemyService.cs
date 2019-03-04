@@ -91,12 +91,14 @@ namespace Enemy
         {
             return playerService.GetPlayerNodeID();
         }
+
         async private void OnTurnStateChange()
         {
             if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
-                await PerformMovement();
+                PerformMovement();
             }
+                await new WaitForEndOfFrame();
         }
 
         async private Task PerformMovement()
@@ -123,13 +125,14 @@ namespace Enemy
                     }
                     else
                     {
-                        //Task moveTask = controller.Move();
-                          controller.Move();
-                        // moveTaskList.Add(moveTask);
+                        //Task moveTask = controller.Move();                      
+                        controller.Move();
+                        Debug.Log("controller move called[enemy service]"+ Time.time);
+                      //   moveTaskList.Add(moveTask);
                     }
                 }
             }
-           // await Task.WhenAll(moveTaskList.ToArray());
+            await Task.WhenAll(moveTaskList.ToArray());
 
             if (!playerService.PlayerDeathStatus())
             {                

@@ -175,5 +175,17 @@ namespace Player
         {
             return pathService.CheckForTargetNode(playerNodeID);
         }
+
+      async  public void PerformAction(Directions _direction )
+        {
+            int nextNodeID = pathService.GetNextNodeID(playerNodeID, _direction);
+            if (nextNodeID == -1)
+            {
+                //ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                return;
+            }
+            await PerformMovement(nextNodeID);
+            
+        }
     }
 }

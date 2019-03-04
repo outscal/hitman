@@ -17,5 +17,6 @@ namespace Player
         int GetID();
 
         Task PerformMovement(int _nodeID);
+        void PerformAction(Directions direction);
     }
 }
