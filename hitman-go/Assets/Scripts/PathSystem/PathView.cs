@@ -37,7 +37,7 @@ namespace PathSystem
                 }
                 else if (graph[i].node.property == NodeProperty.TELEPORT)
                 {
-                    nodeprefab.SetNodeID(i);
+                    teleportNode.SetNodeID(i);
                     physicalNode.Add(GameObject.Instantiate(teleportNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else

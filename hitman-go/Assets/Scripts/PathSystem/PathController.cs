@@ -103,7 +103,14 @@ namespace PathSystem
         }
         public Directions GetEnemySpawnDirection(int _nodeID) { return graph[_nodeID].node.spawnEnemies[0].dir; }
         public bool CheckForTargetNode(int _NodeID) { return graph[_NodeID].node.property == NodeProperty.TARGETNODE; }
-        bool CheckTeleportable(int playerNode,int destinationNode){
+        bool CheckTeleportable(int playerNode, int destinationNode)
+        {
+            
+            if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
+            {
+                view.Unhighlightnodes();
+                view.ShowTeleportableNodes(graph[destinationNode].teleport);
+            }
             return graph[playerNode].teleport.Contains(destinationNode);
         }
         public bool CanMoveToNode(int playerNode, int destinationNode)
@@ -111,8 +118,10 @@ namespace PathSystem
             if ((graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode))
             {
                 return true;
-            }else{
-                return CheckTeleportable(playerNode,destinationNode);
+            }
+            else
+            {
+                return CheckTeleportable(playerNode, destinationNode);
             }
         }
         public bool ThrowRange(int playerNode, int destinationNode)
@@ -130,7 +139,12 @@ namespace PathSystem
             return false;
         }
         public void ShowThrowableNodes(int nodeId) { view.ShowThrowableNodes(nodeId); }
-        public int GetNextNodeID(int _nodeId, Directions _dir) { return graph[_nodeId].connections[(int)_dir]; }
+        public int GetNextNodeID(int _nodeId, Directions _dir)
+        {
+            int nextnode = graph[_nodeId].connections[(int)_dir];
+            CheckTeleportable(_nodeId,nextnode);
+            return nextnode;
+        }
         public Vector3 GetNodeLocation(int _nodeID) { return graph[_nodeID].node.nodePosition; }
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
