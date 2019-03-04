@@ -11,9 +11,14 @@ using InteractableSystem;
 using StarSystem;
 using UIservice;
 using SavingSystem;
+using CameraSystem;
+using SoundSystem;
+
 
 public class GameInstaller : MonoInstaller
 {
+    public AudioSource musicSource, fxSource;
+
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
@@ -28,6 +33,14 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<StateChangeSignal>();
         Container.DeclareSignal<SignalAlertGuards>();
         Container.DeclareSignal<BriefCaseSignal>();
+        Container.DeclareSignal<SignalPlayAudio>();
+        Container.DeclareSignal<SignalPlayOneShot>();
+        Container.DeclareSignal<SignalStopAudio>();
+
+        Container.Bind<ISound>()
+            .To<SoundManager>()
+            .AsSingle()
+            .NonLazy();
 
         Container.Bind<IUIService>()
                    .To<UIService>()

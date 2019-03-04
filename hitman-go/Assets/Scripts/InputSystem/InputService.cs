@@ -27,7 +27,7 @@ namespace InputSystem
             //playerInput = new KeyboardInput();
 
 #if UNITY_ANDROID || UNITY_IOS 
-            playerInput = new KeyboardInput();
+            playerInput = new TouchInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
             playerInput = new KeyboardInput();
 #endif

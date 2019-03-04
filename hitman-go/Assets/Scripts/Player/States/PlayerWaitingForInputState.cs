@@ -36,7 +36,7 @@ namespace Player
             int nodeID;
             while (stateMachine.GetPlayerState() == this.currentStateType)
             {
-              nodeID =await playerService.GetTargetNode();
+              nodeID = playerService.GetTargetNode();
 
                 if (nodeID != -1)
                 {

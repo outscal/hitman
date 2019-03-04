@@ -2,6 +2,8 @@ using Common;
 using PathSystem.NodesScript;
 using System.Collections.Generic;
 using UnityEngine;
+using CameraSystem;
+
 namespace PathSystem
 {
     [CreateAssetMenu(fileName = "ScriptableGraph", menuName = "Custom Objects/Graph/ScriptableGraph", order = 0)]
@@ -12,6 +14,7 @@ namespace PathSystem
         public StarTypes[] stars=new StarTypes[0];
         public int maxPlayerMoves=10,noOfEnemies=1;
         public NodeControllerView nodeprefab, targetNode;
+        public List<CameraScriptableObj> cameraScriptableList;
         public List<ScriptableNode> Graph = new List<ScriptableNode>();
         public List<Node> GetGraph()
         {

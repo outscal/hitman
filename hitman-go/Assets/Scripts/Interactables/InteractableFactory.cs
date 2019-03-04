@@ -6,24 +6,23 @@ namespace InteractableSystem
 {
     public class InteractableFactory
     {
-        private InteractableScriptableObj interactableScriptableObj;
         private InteractableManager interactableManager;
 
-        public InteractableFactory(InteractableManager interactableManager, InteractableScriptableObj interactableScriptableObj)
+        public InteractableFactory(InteractableManager interactableManager)
         {
             this.interactableManager = interactableManager;
-            this.interactableScriptableObj = interactableScriptableObj;
         }
 
-        public void SpawnPickups()
+        public void SpawnPickups(InteractableScriptableObj interactableScriptableObj)
         {
             for (int i = 0; i < interactableScriptableObj.interactableItems.Count; i++)
             {
-                SpawnInteractables(interactableScriptableObj.interactableItems[i].interactablePickup);
+                SpawnInteractables(interactableScriptableObj.interactableItems[i].interactablePickup
+                                 , interactableScriptableObj);
             }
         }
 
-        void SpawnInteractables(InteractablePickup interactablePickup)
+        void SpawnInteractables(InteractablePickup interactablePickup, InteractableScriptableObj interactableScriptableObj)
         {
             List<int> nodeID = new List<int>();
             nodeID.Clear();
@@ -40,7 +39,8 @@ namespace InteractableSystem
                     {
                         InteractableView briefCaseView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
-                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
                         InteractableController briefCaseController = new BriefCaseController(position
                         , interactableManager
                         , briefCaseView);
@@ -55,7 +55,8 @@ namespace InteractableSystem
                     {
                         InteractableView stoneView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
-                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
                         InteractableController rockController = new RockInteractableController(position
                         , interactableManager
                         , stoneView);
@@ -70,7 +71,8 @@ namespace InteractableSystem
                     {
                         InteractableView boneView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
-                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
                         InteractableController boneController = new BoneController(position
                         , interactableManager
                         , boneView);
@@ -85,7 +87,8 @@ namespace InteractableSystem
                     {
                         InteractableView sniperView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
-                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
                         InteractableController sniperController = new SniperController(position
                         , interactableManager
                         , sniperView);
@@ -100,7 +103,8 @@ namespace InteractableSystem
                     {
                         InteractableView dualGunView = interactableScriptableObj.interactableItems[k]
                                                        .interactableView;
-                        Vector3 position = interactableManager.GetNodeLocation(nodeID[i]);
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
                         InteractableController dualGunController = new DualGunInteractableController(position
                         , interactableManager
                         , dualGunView);
@@ -112,6 +116,19 @@ namespace InteractableSystem
                 case InteractablePickup.COLOR_KEY:
                     break;
                 case InteractablePickup.AMBUSH_PLANT:
+                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.AMBUSH_PLANT);
+
+                    for (int i = 0; i < nodeID.Count; i++)
+                    {
+                        InteractableView ambushPlantView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
+                        InteractableController ambushPlantController = new AmbushPlantController(position
+                        , interactableManager
+                        , ambushPlantView);
+                        interactableManager.AddInteractable(nodeID[i], ambushPlantController);
+                    }
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     break;

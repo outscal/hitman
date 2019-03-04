@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Common;
 using PathSystem.NodesScript;
 using UnityEngine;
-
+using CameraSystem;
 namespace PathSystem
 {
     public class PathController
@@ -11,9 +11,11 @@ namespace PathSystem
         List<int> shortestPath;
         int shortestPathLength;
         List<StarTypes> Stars;
+        List<CameraScriptableObj> cameraList;
         [SerializeField] List<Node> graph = new List<Node>();
         public PathController(ScriptableGraph Graph){
             view = new PathView();
+            cameraList=Graph.cameraScriptableList;
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
@@ -142,6 +144,9 @@ namespace PathSystem
             }
            
             return playerNode;
+        }
+        public List<CameraScriptableObj> GetCameraScriptableObject(){
+            return cameraList;
         }
         public List<int> GetEnemySpawnLocation(EnemyType type)
         {

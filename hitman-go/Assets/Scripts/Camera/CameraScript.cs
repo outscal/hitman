@@ -29,14 +29,6 @@ namespace CameraSystem
         private bool startCamera;
         GameObject gameObject;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            //targets = new List<Transform>();
-            //SetCameraSettings();
-            //SetCameraCentre();
-        }
-
         public void SetCameraSettings(CameraScriptableObj cameraData)
         {
             //playerTarget = FindObjectOfType<PlayerView>().gameObject;
@@ -52,7 +44,7 @@ namespace CameraSystem
             //}
 
             transform.position = cameraData.cameraData.position;
-            transform.rotation = Quaternion.Euler(cameraData.cameraData.rotation);
+            transform.rotation = cameraData.cameraData.rotation;
             cameraObj.GetComponent<Camera>().fieldOfView = cameraData.cameraData.fieldOfView;
 
         }
@@ -186,13 +178,33 @@ namespace CameraSystem
 
         }
 
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
+        public void MoveToNode(CameraData cameraData)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(centerPoint, radius);
+            iTween.MoveTo(cameraObj, cameraData.position, 0.5f);
+            iTween.RotateTo(cameraObj, cameraData.rotation.eulerAngles, 0.5f);
         }
-#endif
+
+        //Script used by Editor
+        public CameraData GetCameraData()
+        {
+            CameraData cameraData = new CameraData();
+
+            if (cameraObj != null)
+            {
+                cameraData.fieldOfView = cameraObj.GetComponent<Camera>().fieldOfView;
+                cameraData.position = cameraObj.transform.position;
+                cameraData.rotation = cameraObj.transform.rotation;
+            }
+            return cameraData;
+        }
+
+        //#if UNITY_EDITOR
+        //        private void OnDrawGizmos()
+        //        {
+        //            Gizmos.color = Color.red;
+        //            Gizmos.DrawSphere(centerPoint, radius);
+        //        }
+        //#endif
 
     }
 }

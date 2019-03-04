@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Common;
+using Enemy;
 
 namespace InteractableSystem
 {
@@ -33,18 +34,29 @@ namespace InteractableSystem
         {
             targetNodeID = nodeID;
             interactableView.gameObject.SetActive(true);
-            Vector3 position = interactableManager.GetNodeLocation(nodeID);
+            Vector3 position = interactableManager.ReturnPathService()
+                                .GetNodeLocation(nodeID);
             hashtable.Add("position", position);
             iTween.MoveTo(interactableView.gameObject, hashtable);
         }
 
         public void Throw()
         {
-            interactableManager.SendEnemyAlertSignal(targetNodeID, InteractablePickup.BONE);
+            interactableManager.ReturnSignalBus().TryFire(new SignalAlertGuards()
+            {
+                nodeID = targetNodeID,
+                interactablePickup = interactablePickup
+            });
+
             Debug.Log("[BoneController] Throw Task Done");
 
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);
+        }
+
+        public override void InteractablePickedUp()
+        {
+            base.InteractablePickedUp();
         }
     }
 }
