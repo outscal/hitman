@@ -23,6 +23,7 @@ namespace Enemy
             {
                 return;
             }
+
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 oldDirection = spawnDirection;
@@ -34,7 +35,8 @@ namespace Enemy
                 currentNodeID = nodeID;
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
-            }
+            }          
+
             if (CheckForPlayerPresence(nodeID))
             {
                 if (!currentEnemyService.CheckForKillablePlayer())
@@ -42,16 +44,13 @@ namespace Enemy
                     return;
                 }
                 Vector3 rot = GetRotation(spawnDirection);
-
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();
             }
             else
             {
-                int nextNodeCheck = pathService.GetNextNodeID(nodeID, oldDirection);
-                Debug.Log("old direction: "+oldDirection);
-                Debug.Log("2nd node check"+nextNodeCheck);
+                int nextNodeCheck = pathService.GetNextNodeID(nodeID, oldDirection);      
                 if(nextNodeCheck==-1)
                 {
                     return;
@@ -63,12 +62,7 @@ namespace Enemy
                         return;
                     }
                     AlertEnemy(nextNodeCheck);
-
-                    //Vector3 rot = GetRotation(oldDirection);
-
-                    //currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nextNodeCheck));
-                    //currentNodeID = nextNodeCheck;
-                    //currentEnemyService.TriggerPlayerDeath();
+                
                 }
                 else
                 {

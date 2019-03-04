@@ -26,14 +26,19 @@ namespace Enemy
             {
                 case EnemyStates.IDLE:
                     currentState = new EnemyIdleState();
-                    currentState.OnStateEnter();
+                    
                     break;
 
                 case EnemyStates.CHASE:
                     currentState = new EnemyChaseState();
-                    currentState.OnStateEnter();
+                    
                     break;
+                case EnemyStates.MOVING:
+                    currentState = new EnemyMovingState();
+                    break;
+
             }
+                    currentState.OnStateEnter();
         }
         public EnemyStates GetEnemyState()
         {
