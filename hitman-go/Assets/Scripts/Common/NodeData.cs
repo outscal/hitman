@@ -8,7 +8,8 @@ namespace Common
     {
         NONE,
         SPAWNPLAYER,
-        TARGETNODE
+        TARGETNODE,
+        TELEPORT
 
     }
     [Serializable]

@@ -12,7 +12,7 @@ namespace PathSystem
         List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
-        NodeControllerView nodeprefab, targetNode;
+        NodeControllerView nodeprefab, targetNode, teleportNode;
         // int shortestPathLength;
         //List<StarTypes> Stars;
         [SerializeField] List<Node> graph = new List<Node>();
@@ -20,6 +20,7 @@ namespace PathSystem
         {
             nodeprefab = Graph.nodeprefab;
             targetNode = Graph.targetNode;
+            teleportNode=Graph.teleportNode; 
             line = Graph.line;
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
@@ -33,6 +34,11 @@ namespace PathSystem
                 {
                     targetNode.SetNodeID(i);
                     physicalNode.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                }
+                else if (graph[i].node.property == NodeProperty.TELEPORT)
+                {
+                    nodeprefab.SetNodeID(i);
+                    physicalNode.Add(GameObject.Instantiate(teleportNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
                 else
                 {

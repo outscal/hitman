@@ -20,6 +20,8 @@ MonoBehaviour:
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
+    type: 3}
   cameraScriptableList: []
   Graph:
   - node:
@@ -68,7 +70,7 @@ MonoBehaviour:
     teleport: 
   - node:
       uniqueID: 4
-      property: 0
+      property: 3
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 10, y: 0, z: 5}
@@ -90,7 +92,7 @@ MonoBehaviour:
     teleport: 
   - node:
       uniqueID: 6
-      property: 0
+      property: 3
       spawnPickups: 1
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 0}
@@ -123,7 +125,7 @@ MonoBehaviour:
     teleport: 
   - node:
       uniqueID: 9
-      property: 0
+      property: 3
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -10}
