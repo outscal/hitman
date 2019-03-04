@@ -114,7 +114,7 @@ namespace Player
         }
         async public void PerformInteractableAction(IInteractableController _interactableController)
         {
-            int nodeID = await playerService.GetTargetNode();
+            int nodeID =  playerService.GetTargetNode();
 
             switch (_interactableController.GetInteractablePickup())
             {

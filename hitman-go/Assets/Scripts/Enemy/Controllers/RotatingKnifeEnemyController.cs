@@ -20,7 +20,7 @@ namespace Enemy
         async protected override Task MoveToNextNode(int nodeID)
         {
             Debug.Log("move to next node called [enemy controller]");
-            currentEnemyView.RotateInOppositeDirection();
+           currentEnemyView.RotateInOppositeDirection();
 
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {

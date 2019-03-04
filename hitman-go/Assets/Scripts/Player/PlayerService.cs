@@ -159,7 +159,7 @@ namespace Player
         }
 
         //get the node after tap
-        async public Task<int> GetTargetNode()
+        public int GetTargetNode()
         {
             return targetNode;
         }

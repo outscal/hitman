@@ -22,7 +22,7 @@ namespace Player
         bool CheckForKillablePlayer();
         bool CheckForRange( int _nodeID);
         void ChangeToEnemyState();
-        Task<int> GetTargetNode();
+        int GetTargetNode();
         void FireLevelFinishedSignal();
         void SetTargetTap(int v);
     }

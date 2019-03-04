@@ -94,14 +94,14 @@ namespace Enemy
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
                 Debug.Log("nextNOde id " + nextNodeID);
                 Debug.Log("current spawn direction " + spawnDirection.ToString());
-                await MoveToNextNode(nextNodeID);
+                MoveToNextNode(nextNodeID);
             }
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
 
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
 
-               await MoveToNextNode(nextNodeID);
+                MoveToNextNode(nextNodeID);
 
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
