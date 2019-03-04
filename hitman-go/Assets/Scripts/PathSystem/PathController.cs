@@ -140,7 +140,7 @@ namespace PathSystem
                     break;
                 }
             }
-            Debug.Log(playerNode);
+           
             return playerNode;
         }
         public List<int> GetEnemySpawnLocation(EnemyType type)

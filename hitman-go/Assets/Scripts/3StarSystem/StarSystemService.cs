@@ -8,10 +8,11 @@ namespace StarSystem
     public class StarSystemService:IStarService
     {
         bool noKill = true, briefCase = false;
-        int totalEnemyInLevel, killCount, playerMoves = 0,maxPlayerMoves;
+        int totalEnemyInLevel, killCount=0, playerMoves = 0,maxPlayerMoves;
         SignalBus signalBus;
         StarSystemService(SignalBus signalBus)
         {
+            PlayerPrefs.DeleteAll();
             this.signalBus = signalBus;
             signalBus.Subscribe<EnemyDeathSignal>(IncreaseKillCount);
             signalBus.Subscribe<StateChangeSignal>(StateChanged);
@@ -23,8 +24,10 @@ namespace StarSystem
         }
         void IncreaseKillCount()
         {
+            
             noKill = false;
             killCount++;
+            
         }
         void BriefCasePicked()
         {
@@ -50,7 +53,7 @@ namespace StarSystem
         public bool CheckForStar(StarTypes starType){
             bool result=false;
             switch(starType){
-                case StarTypes.ALLKILL:result=killCount==totalEnemyInLevel;  break;
+                case StarTypes.ALLKILL:result=(killCount==totalEnemyInLevel);  break;
                 case StarTypes.NOKILL:result=noKill; break;
                 case StarTypes.PICKBRIEFCASE:result=briefCase; break;
                 case StarTypes.PLAYERMOVES:result= playerMoves<maxPlayerMoves; break;

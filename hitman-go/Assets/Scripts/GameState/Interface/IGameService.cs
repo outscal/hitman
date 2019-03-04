@@ -5,6 +5,7 @@ namespace GameState
     {
          GameStatesType GetCurrentState();
          void ChangeToPlayerState();
+         int GetCurrentLevel();
          void ChangeToEnemyState();
          void ChangeToGameOverState();
          void ChangeToLoadLevelState();

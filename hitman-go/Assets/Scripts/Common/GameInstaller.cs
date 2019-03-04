@@ -10,6 +10,7 @@ using GameState;
 using InteractableSystem;
 using StarSystem;
 using UIservice;
+using SavingSystem;
 
 public class GameInstaller : MonoInstaller
 {
@@ -56,6 +57,10 @@ public class GameInstaller : MonoInstaller
 
         Container.Bind<IPathService>()
             .To<PathService>()
+            .AsSingle()
+            .NonLazy();
+            Container.Bind<ISaveService>()
+            .To<SaveService>()
             .AsSingle()
             .NonLazy();
 

@@ -7,6 +7,7 @@ using Zenject;
 using PathSystem;
 using Common;
 using StarSystem;
+using SavingSystem;
 
 namespace UIservice
 {
@@ -15,6 +16,7 @@ namespace UIservice
 
         [Inject] IGameService gameService;
         [Inject] IPathService pathService;
+        [Inject] ISaveService saveService;
         bool levelComplete;
         [Inject] IStarService starService;
         List<CardControllerView> cards = new List<CardControllerView>();
@@ -78,7 +80,7 @@ namespace UIservice
                 
                 cardview = Instantiate(card, starPanalTransform).GetComponent<CardControllerView>();
                 cardview.setCardName(stars[i].ToString());
-                cardview.SetAchievement(starService.CheckForStar(stars[i]));
+                cardview.SetAchievement(saveService.ReadStarTypeForLevel(gameService.GetCurrentLevel(),stars[i]));
                 cards.Add(cardview);
             }
         }

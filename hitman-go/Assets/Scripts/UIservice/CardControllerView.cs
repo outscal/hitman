@@ -8,10 +8,10 @@ namespace UIservice
         public Text cardName;
         public GameObject showTrue, showFalse;
         private void OnEnable() {
-          Debug.Log("card Enabled");  
+          //Debug.Log("card Enabled");  
         }
         private void OnDestroy() {
-            Debug.Log("card Destroyed");
+            //Debug.Log("card Destroyed");
         }
 
         public void setCardName(string name)

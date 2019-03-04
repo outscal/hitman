@@ -1,11 +1,10 @@
+using Common;
+
 namespace SavingSystem
 {
     public interface ISave
     {
-        void SaveAchievementsData();
-        void SaveRewardsData();
-        void ReadRewardData();
-        void ReadAchievementData();
-         
+        bool ReadStarTypeForLevel(int level, StarTypes type);
+        void SaveStarTypeForLevel(int level, StarTypes type, bool completed);
     }
 }
