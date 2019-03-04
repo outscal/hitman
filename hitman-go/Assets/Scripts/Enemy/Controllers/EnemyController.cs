@@ -92,7 +92,6 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-
                
 
               await MoveToNextNode(nextNodeID);

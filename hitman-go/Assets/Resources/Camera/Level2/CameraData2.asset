@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraData:
     nodeID: 2
-    position: {x: 0.16, y: 6.21, z: 8.43}
-    rotation: {x: 0.015486323, y: -0.90569913, z: 0.4223344, w: 0.03321053}
-    fieldOfView: 60
+    position: {x: -2.86, y: 8.74, z: 8.07}
+    rotation: {x: -0.010047425, y: -0.8361458, z: 0.5482011, w: -0.015324873}
+    fieldOfView: 62.4

@@ -10,7 +10,10 @@ namespace PathSystem
     public class ScriptableGraph : ScriptableObject
     {
         public GameObject line;
-        public NodeControllerView nodeprefab, targetNode;
+
+        public StarTypes[] stars=new StarTypes[0];
+        public int maxPlayerMoves=10,noOfEnemies=1;
+        public NodeControllerView nodeprefab, targetNode,teleportNode;
         public List<CameraScriptableObj> cameraScriptableList;
         public List<ScriptableNode> Graph = new List<ScriptableNode>();
         public List<Node> GetGraph()

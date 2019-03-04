@@ -13,7 +13,6 @@ namespace Enemy
         }
         public void OnStateEnter()
         {
-
         }
 
         public void OnStateExit()

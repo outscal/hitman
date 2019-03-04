@@ -8,8 +8,12 @@ using System.Collections;
 using Common;
 using GameState;
 using InteractableSystem;
+using StarSystem;
+using UIservice;
+using SavingSystem;
 using CameraSystem;
 using SoundSystem;
+
 
 public class GameInstaller : MonoInstaller
 {
@@ -38,17 +42,23 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
+        Container.Bind<IUIService>()
+                   .To<UIService>()
+                   .AsSingle()
+                   .NonLazy();
         Container.Bind<IEnemyService>()
             .To<EnemyService>()
             .AsSingle()
             .NonLazy();
-
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
             .AsSingle()
             .NonLazy();
-
-        Container.Bind(typeof(IInputService),typeof(ITickable))
+        Container.Bind<IStarService>()
+        .To<StarSystemService>()
+        .AsSingle()
+        .NonLazy();
+        Container.Bind(typeof(IInputService), typeof(ITickable))
             .To<InputService>()
             .AsSingle()
             .NonLazy();
@@ -57,16 +67,19 @@ public class GameInstaller : MonoInstaller
         .To<InteractableManager>()
         .AsSingle()
         .NonLazy();
+        Container.Bind<ICamera>()
+        .To<CameraManager>()
+        .AsSingle()
+        .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()
             .AsSingle()
             .NonLazy();
-
-        Container.Bind<ICamera>()
-        .To<CameraManager>()
-        .AsSingle()
-        .NonLazy();
+            Container.Bind<ISaveService>()
+            .To<SaveService>()
+            .AsSingle()
+            .NonLazy();
 
         Container.BindInterfacesAndSelfTo<GameService>()
             .AsSingle()

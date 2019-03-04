@@ -13,12 +13,22 @@ MonoBehaviour:
   m_Name: level3
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  stars: 02000000
+  maxPlayerMoves: 10
+  noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
   cameraScriptableList:
-  - {fileID: 11400000, guid: 129349841c082415fb12bcb2bcf4508e, type: 2}
+  - {fileID: 11400000, guid: b4444333d0e814f1f9e722e3e63f20ff, type: 2}
+  - {fileID: 11400000, guid: fd15f4de924704af481f0066912ce305, type: 2}
+  - {fileID: 11400000, guid: 2e9e9456227004e7bbaccf22d4798c72, type: 2}
+  - {fileID: 11400000, guid: d264d9c7d58d5402db8211037ce508c6, type: 2}
+  - {fileID: 11400000, guid: 65cc128e132494f6ca6cc2d14e9ced4d, type: 2}
+  - {fileID: 11400000, guid: dbc8e0a8d79724505842fabdc32d7709, type: 2}
+  - {fileID: 11400000, guid: 757ffc515928e42548ac81acfb2e5a95, type: 2}
+  - {fileID: 11400000, guid: da5561893cb394ee283108d0f992b66f, type: 2}
   Graph:
   - node:
       uniqueID: 0

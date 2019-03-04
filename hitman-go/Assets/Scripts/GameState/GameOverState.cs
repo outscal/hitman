@@ -1,5 +1,5 @@
-
-
+using System;
+using System.Threading.Tasks;
 using Common;
 using GameState;
 using Zenject;
@@ -19,10 +19,11 @@ namespace GameState
         {
             return GameStatesType.GAMEOVERSTATE;
         }
-        public void OnStateEnter()
+        public async void OnStateEnter()
         {
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType()});
             signalBus.TryFire(new ResetSignal());
+            await Task.Delay(TimeSpan.FromSeconds(2));
             service.ChangeToLoadLevelState();
         }
 

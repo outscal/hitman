@@ -15,6 +15,14 @@ namespace Common
         LEVELFINISHEDSTATE,
         LOADLEVELSTATE
     }
+    public enum StarTypes{
+        PLAYERMOVES,
+        NOKILL,
+        ALLKILL,
+        PICKBRIEFCASE,
+        KILLDOGS,
+        NOKILLDOGS
+    }
     public enum EnemyType
     {
         STATIC,

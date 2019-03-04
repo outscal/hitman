@@ -20,7 +20,6 @@ namespace GameState
         {
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType() });
             signalBus.TryFire(new ResetSignal());
-            service.ChangeToLoadLevelState();
         }
         public void OnStateExit()
         {

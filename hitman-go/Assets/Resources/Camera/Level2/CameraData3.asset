@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CameraData3
   m_EditorClassIdentifier: 
   cameraData:
-    nodeID: 2
-    position: {x: 0.16, y: 6.21, z: 8.43}
-    rotation: {x: 0.015486323, y: -0.90569913, z: 0.4223344, w: 0.03321053}
-    fieldOfView: 60
+    nodeID: 3
+    position: {x: 4, y: 7.95, z: 5.53}
+    rotation: {x: -0.0036268285, y: -0.85443807, z: 0.51950634, w: -0.005965087}
+    fieldOfView: 62.4
