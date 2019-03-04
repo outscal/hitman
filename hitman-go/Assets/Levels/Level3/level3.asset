@@ -21,7 +21,8 @@ MonoBehaviour:
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
   cameraScriptableList:
-  - {fileID: 11400000, guid: 129349841c082415fb12bcb2bcf4508e, type: 2}
+  - {fileID: 11400000, guid: b4444333d0e814f1f9e722e3e63f20ff, type: 2}
+  - {fileID: 11400000, guid: 757ffc515928e42548ac81acfb2e5a95, type: 2}
   Graph:
   - node:
       uniqueID: 0

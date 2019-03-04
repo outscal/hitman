@@ -180,8 +180,8 @@ namespace CameraSystem
 
         public void MoveToNode(CameraData cameraData)
         {
-            iTween.MoveTo(cameraObj, cameraData.position, 0.5f);
-            iTween.RotateTo(cameraObj, cameraData.rotation.eulerAngles, 0.5f);
+            iTween.MoveTo(cameraObj, cameraData.position, 0.8f);
+            iTween.RotateTo(cameraObj, cameraData.rotation.eulerAngles, 0.8f);
         }
 
         //Script used by Editor
