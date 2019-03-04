@@ -45,6 +45,7 @@ namespace StarSystem
         }
         void Reset()
         {
+            
             briefCase=false;
             killCount = 0;
             noKill = true;
