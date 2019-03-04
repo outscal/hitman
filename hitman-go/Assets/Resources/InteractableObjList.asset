@@ -48,4 +48,5 @@ MonoBehaviour:
       type: 3}
   - name: GuardDisguise
     interactablePickup: 9
-    interactableView: {fileID: 0}
+    interactableView: {fileID: 5288938282634419054, guid: 57e99021b68ec4b3ba0a31301a6d9eda,
+      type: 3}
