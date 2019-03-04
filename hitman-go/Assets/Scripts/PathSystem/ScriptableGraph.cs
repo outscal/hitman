@@ -9,7 +9,7 @@ namespace PathSystem
     {
         public GameObject line;
 
-        public StarTypes[] stars=new StarTypes[2];
+        public StarTypes[] stars=new StarTypes[0];
         public int maxPlayerMoves=10,noOfEnemies=1;
         public NodeControllerView nodeprefab, targetNode;
         public List<ScriptableNode> Graph = new List<ScriptableNode>();

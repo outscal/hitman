@@ -7,7 +7,7 @@ namespace UIservice
     public class PlayUIView : MonoBehaviour, IUIView
     {
 
-        [Inject]IGameService gameService;
+        [Inject] IGameService gameService;
         public Button retry, menu;
         public MenuUIControllerView menuView;
         public void DestroyUI()
@@ -23,13 +23,19 @@ namespace UIservice
             menu.onClick.AddListener(Menu);
             retry.onClick.AddListener(Retry);
             gameObject.SetActive(true);
+             retry.gameObject.SetActive(true);
+            menu.gameObject.SetActive(true);
         }
-        void Retry(){
+        void Retry()
+        {
             gameService.ChangeToGameOverState();
         }
-        void Menu(){
+        void Menu()
+        {
             menuView.gameObject.SetActive(true);
             menuView.SetLevelPausedMenu();
+            retry.gameObject.SetActive(false);
+            menu.gameObject.SetActive(false);            
         }
     }
 }

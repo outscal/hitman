@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26ab38938eb9edc4da97810675ae8c9f, type: 3}
-  m_Name: StaticEnemyAsset
+  m_Name: DogEnemyAsset
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyPrefab: {fileID: 4126106033669793196, guid: 8946f103ec1406248b241dab5075e2e4,

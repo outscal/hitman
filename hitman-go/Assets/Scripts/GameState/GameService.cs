@@ -40,7 +40,7 @@ namespace GameState
         }
         public void ChangeToLoadLevelState()
         {
-            Debug.Log(currentLevel);
+//            Debug.Log(currentLevel);
             ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
         }
         public void IncrimentLevel()
@@ -61,6 +61,7 @@ namespace GameState
             if (previousGameState != null) { previousGameState.OnStateExit(); }
             currentGameState = newGameState;
             currentGameState.OnStateEnter();
+//            Debug.Log("CurrentGame State is "+newGameState.GetStatesType());
         }
         public void Initialize()
         {

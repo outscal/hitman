@@ -11,12 +11,10 @@ namespace UIservice
             this.view=view;
             view.DisplayUI();
         }
-        
         public void DestroyUI()
         {
             view.DestroyUI();
         }
-
         public GameStatesType GetUIState()
         {
             return state;

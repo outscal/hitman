@@ -11,11 +11,12 @@ namespace UIservice
         public void DestroyUI()
         {
             view.gameObject.SetActive(false);
-            view.SetLevelFinishedMenu();
+            
         }
         public void DisplayUI()
         {
             view.gameObject.SetActive(true);
+            view.SetLevelFinishedMenu();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace GameState
         {
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType()});
             signalBus.TryFire(new ResetSignal());
-             await Task.Delay(TimeSpan.FromSeconds(3));
+            await Task.Delay(TimeSpan.FromSeconds(2));
             service.ChangeToLoadLevelState();
         }
 

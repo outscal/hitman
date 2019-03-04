@@ -59,8 +59,8 @@ namespace UIservice
                     currentUI = new LevelFinishedUIController(finishedUIView);
                     break;
             }
-            if (currentUI != null && previousUI != null)
-                Debug.Log("previous state is " + previousUI.GetUIState() + "current UI state is " + currentUI.GetUIState());
+                //if (currentUI != null && previousUI != null)
+                //Debug.Log( "current UI state is " + currentUI.GetUIState());
         }
     }
 }

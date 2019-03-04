@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using GameState;
 using Zenject;
+using PathSystem;
+using Common;
+using StarSystem;
 
 namespace UIservice
 {
@@ -11,18 +14,36 @@ namespace UIservice
     {
 
         [Inject] IGameService gameService;
+        [Inject] IPathService pathService;
+        bool levelComplete;
+        [Inject] IStarService starService;
+        List<CardControllerView> cards = new List<CardControllerView>();
         public Button nextButton, retryButton, LobyButton;
         public RectTransform starPanalTransform;
         public GameObject card;
         public void SetLevelFinishedMenu()
         {
+            ClearCards();
             nextButton.gameObject.SetActive(true);
             retryButton.gameObject.SetActive(false);
+            levelComplete = true;
+            SetCards();
+        }
+        void ClearCards()
+        {
+            for (int i = 0; i < cards.Count; i++)
+            {
+                Destroy(cards[i].gameObject);
+            }
+            cards.Clear();
         }
         public void SetLevelPausedMenu()
         {
+            ClearCards();
+            levelComplete = false;
             nextButton.gameObject.SetActive(false);
             retryButton.gameObject.SetActive(true);
+            SetCards();
         }
         // Start is called before the first frame update
         private void OnEnable()
@@ -44,11 +65,23 @@ namespace UIservice
         {
             gameService.ChangeToGameOverState();
         }
-
-        // Update is called once per frame
-        void Update()
+        public void SetCards()
         {
-
+            List<StarTypes> stars = pathService.GetStarsForLevel();
+            CardControllerView cardview;
+            cardview = Instantiate(card, starPanalTransform).GetComponent<CardControllerView>();
+            cards.Add(cardview);
+            cardview.setCardName("Level Complete");
+            cardview.SetAchievement(levelComplete);
+            for (int i = 0; i < stars.Count; i++)
+            {
+                
+                cardview = Instantiate(card, starPanalTransform).GetComponent<CardControllerView>();
+                cardview.setCardName(stars[i].ToString());
+                cardview.SetAchievement(starService.CheckForStar(stars[i]));
+                cards.Add(cardview);
+            }
         }
+        // Update is called once per frame
     }
 }
