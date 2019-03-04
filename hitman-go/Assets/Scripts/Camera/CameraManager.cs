@@ -16,6 +16,7 @@ namespace CameraSystem
         private GameBasicObjects gameBasicObjects;
         private List<CameraScriptableObj> cameraDataList;
         private IPathService pathService;
+        private IGameService gameService;
 
         public CameraManager(SignalBus signalBus, GameBasicObjects gameBasicObjects, IPathService pathService)
         {
@@ -23,6 +24,7 @@ namespace CameraSystem
             this.pathService = pathService;
             this.gameBasicObjects = gameBasicObjects;
             signalBus.Subscribe<GameStartSignal>(GameStarted);
+            //signalBus.Subscribe<StateChangeSignal>()
         }
 
         public void SetNodeID(int nodeID)

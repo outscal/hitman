@@ -49,7 +49,7 @@ namespace Player
         }
         public void OnStateChange()
         {
-            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState()!=PlayerStates.WAIT_FOR_INPUT)
+            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
                 playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
             }
@@ -58,8 +58,6 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
-
-
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -167,6 +165,9 @@ namespace Player
         //return player node id
         public int GetPlayerNodeID()
         {
+            if (playerController == null)
+                return 0;
+
             return playerController.GetID();
         }
         //is player dead?
