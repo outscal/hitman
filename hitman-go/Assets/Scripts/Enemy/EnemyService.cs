@@ -45,19 +45,19 @@ namespace Enemy
         {
             enemyFactory = new EnemyFactory(this, pathService, gameService);
             SpawnEnemy(enemyScriptableObjectList);
-             
+
         }
 
         private bool CheckForEnemyPresence(int nodeID)
         {
             if (nodeID == -1)
             {
-                
+
                 return false;
             }
             if (enemyList.Count == 0)
             {
-                
+
                 return false;
             }
 
@@ -65,11 +65,11 @@ namespace Enemy
             {
                 if (enemy.GetCurrentID() == nodeID)
                 {
-                    
+
                     return true;
                 }
             }
-            
+
             return false;
         }
 
@@ -96,13 +96,15 @@ namespace Enemy
         {
             if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
+                
                 PerformMovement();
             }
-             
+
         }
 
         async private Task PerformMovement()
         {
+
             if (enemyList.Count == 0)
             {
                 if (!playerService.PlayerDeathStatus())
@@ -112,12 +114,14 @@ namespace Enemy
                 }
                 return;
             }
+
             IEnemyController controller;
-            
             for (int i = 0; i < enemyList.Count; i++)
             {
 
                 controller = enemyList[i];
+               // controller.ChangeState(EnemyStates.MOVING);
+             
                 if (!playerService.PlayerDeathStatus())
                 {
                     if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
@@ -125,17 +129,18 @@ namespace Enemy
                         signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
                     }
                     else
-                    {
-                        controller.Move();
-                        Debug.Log("controller move called[enemy service]"+ Time.time);
-                        
+                    {                        
+                       await controller.Move();
+                        Debug.Log("controller move called[enemy service]" + Time.time);
                     }
                 }
+             
+
             }
-            
+          // await Task.WhenAll(moveTaskList);
 
             if (!playerService.PlayerDeathStatus())
-            {                
+            {
                 gameService.ChangeToPlayerState();
 
             }
@@ -152,7 +157,7 @@ namespace Enemy
                     break;
                 }
             }
-            if(enemyList.Count==0)
+            if (enemyList.Count == 0)
             {
                 gameService.ChangeToPlayerState();
             }
@@ -166,7 +171,7 @@ namespace Enemy
         private void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObjectList)
         {
             enemyList = enemyFactory.SpawnEnemies(enemyScriptableObjectList);
-            Debug.Log("Enemy list count: "+ enemyList.Count);
+
         }
 
         public bool CheckForKillablePlayer()
@@ -183,7 +188,7 @@ namespace Enemy
             {
                 for (int j = 0; j < alertedNodes.Count; j++)
                 {
-                   
+
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:

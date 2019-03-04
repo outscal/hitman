@@ -88,20 +88,22 @@ namespace Enemy
 
         async public Task Move()
         {
+            
             alertMoveCalled++;
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                Debug.Log("nextNOde id " + nextNodeID);
+                Debug.Log("nextNode id " + nextNodeID);
                 Debug.Log("current spawn direction " + spawnDirection.ToString());
-                MoveToNextNode(nextNodeID);
+
+              await MoveToNextNode(nextNodeID);
             }
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
 
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
 
-                MoveToNextNode(nextNodeID);
+              await  MoveToNextNode(nextNodeID);
 
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
@@ -109,7 +111,7 @@ namespace Enemy
                     currentEnemyView.DisableAlertView();
                 }
             }
-            await new WaitForEndOfFrame();
+           
 
         }
 
@@ -151,8 +153,9 @@ namespace Enemy
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-            int nextNodeToLook = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-            Vector3 _destinationLocation = pathService.GetNodeLocation(nextNodeToLook);
+
+            
+            Vector3 _destinationLocation = pathService.GetNodeLocation(alertedPathNodes[0]);
             currentEnemyView.RotateEnemy(_destinationLocation);
 
         }
@@ -178,6 +181,16 @@ namespace Enemy
         public void KillPlayer()
         {
             currentEnemyService.TriggerPlayerDeath();
+        }
+
+        public void ChangeState(EnemyStates _state)
+        {
+            stateMachine.ChangeEnemyState(_state);
+        }
+
+        public EnemyStates GetEnemyState()
+        {
+            return stateMachine.GetEnemyState();
         }
     }
 }

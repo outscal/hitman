@@ -23,6 +23,7 @@ namespace Enemy
             {
                 return;
             }
+
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 oldDirection = spawnDirection;
@@ -63,12 +64,7 @@ namespace Enemy
                         return;
                     }
                     AlertEnemy(nextNodeCheck);
-
-                    //Vector3 rot = GetRotation(oldDirection);
-
-                    //currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nextNodeCheck));
-                    //currentNodeID = nextNodeCheck;
-                    //currentEnemyService.TriggerPlayerDeath();
+                
                 }
                 else
                 {

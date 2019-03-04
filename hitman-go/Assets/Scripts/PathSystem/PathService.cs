@@ -235,7 +235,7 @@ namespace PathSystem
         }
         public Directions GetDirections(int sourceNode, int nextNode)
         {
-            Debug.Log("source is"+sourceNode+" dest is"+nextNode);
+
             if (graph[sourceNode].connections[0] == nextNode)
             {
                 return Directions.UP;
