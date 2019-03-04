@@ -61,8 +61,8 @@ namespace PathSystem
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                physicalHighlightedNodes.Add(physicalNode[i]);
-                physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                physicalHighlightedNodes.Add(physicalNode[nodes[i]]);
+                physicalNode[nodes[i]].GetComponent<NodeControllerView>().HighlightNode();
             }
         }
         public void DestroyPath()
