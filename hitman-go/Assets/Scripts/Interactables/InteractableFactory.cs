@@ -131,19 +131,6 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.GUARD_DISGUISE);
-
-                    for (int i = 0; i < nodeID.Count; i++)
-                    {
-                        InteractableView guardView = interactableScriptableObj.interactableItems[k]
-                                                       .interactableView;
-                        Vector3 position = interactableManager.ReturnPathService()
-                                 .GetNodeLocation(nodeID[i]);
-                        InteractableController guardController = new GuardUniformController(position
-                        , interactableManager
-                        , guardView);
-                        interactableManager.AddInteractable(nodeID[i], guardController);
-                    }
                     break;
                 default:
                     break;
