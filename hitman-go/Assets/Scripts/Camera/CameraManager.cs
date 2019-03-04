@@ -27,18 +27,17 @@ namespace CameraSystem
 
         void GameStarted()
         {
-           // cameraData = pathService.GetCameraData();
+           cameraData = pathService.GetCameraData();
          
             if (cameraScript == null)
             {
                 GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
                 cameraScript = cameraObj.GetComponent<CameraScript>();
                 //cameraObj.transform.position = cameraData.cameraData.position;
-                cameraData = Resources.Load("Camera/CameraDataLevel2") as CameraScriptableObj;
+                //cameraData = Resources.Load("Camera/CameraDataLevel2") as CameraScriptableObj;
                 cameraScript.SetCameraSettings(cameraData);
             }
-            //else if (cameraScript != null)
-          
+            else if (cameraScript != null)
                 cameraScript.SetCameraSettings(cameraData);
         }
 

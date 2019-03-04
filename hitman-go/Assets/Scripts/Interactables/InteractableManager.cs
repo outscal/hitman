@@ -3,7 +3,6 @@ using UnityEngine;
 using Common;
 using PathSystem;
 using Zenject;
-using Enemy;
 using GameState;
 using System.Linq;
 
@@ -15,20 +14,23 @@ namespace InteractableSystem
         private IPathService pathService;
         private Dictionary<int, InteractableController> interactableControllers;
         private InteractableFactory interactableFactory;
+        private InteractableScriptableObj interactableScriptableObjList;
 
-        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList, SignalBus signalBus)
+        public InteractableManager(IPathService pathService, InteractableScriptableObj interactableScriptableObjList
+        , SignalBus signalBus)
         {
             this.signalBus = signalBus;
             this.pathService = pathService;
+            this.interactableScriptableObjList = interactableScriptableObjList;
             interactableControllers = new Dictionary<int, InteractableController>();
-            interactableFactory = new InteractableFactory(this, interactableScriptableObjList);
+            interactableFactory = new InteractableFactory(this);
             signalBus.Subscribe<GameStartSignal>(GameStart);
             signalBus.Subscribe<ResetSignal>(ResetInteractableDictionary);
         }
 
         void GameStart()
         {
-            interactableFactory.SpawnPickups();
+            interactableFactory.SpawnPickups(interactableScriptableObjList);
         }
 
         void ResetInteractableDictionary()
@@ -58,7 +60,12 @@ namespace InteractableSystem
             {
                 if(interactableController == interactableControllers[i])
                 {
-                    int key=interactableControllers.FirstOrDefault(x=>x.Value==interactableControllers[i]).Key;
+                    int key = interactableControllers
+                             .FirstOrDefault
+                                (
+                                    x => x.Value == interactableControllers[i]
+                                ).Key;
+
                     interactableControllers.Remove(key);
                     interactableController.Destroy();
                     interactableController = null;
@@ -67,20 +74,14 @@ namespace InteractableSystem
             }
         }
 
-        public void SendEnemyAlertSignal(int nodeID, InteractablePickup interactablePickup)
+        public SignalBus ReturnSignalBus()
         {
-            signalBus.TryFire(new SignalAlertGuards() { nodeID = nodeID , 
-            interactablePickup = interactablePickup});
+            return signalBus; 
         }
 
-        public void SendBriefCaseSignal()
+        public IPathService ReturnPathService()
         {
-            signalBus.TryFire<BriefCaseSignal>();
-        }
-
-        public Vector3 GetNodeLocation(int nodeID)
-        {
-            return pathService.GetNodeLocation(nodeID);
+            return pathService;
         }
 
         public IInteractableController ReturnInteractableController(int nodeID)
@@ -88,7 +89,7 @@ namespace InteractableSystem
             InteractableController interactableController;
             if (interactableControllers.TryGetValue(nodeID, out interactableController))
             {
-                interactableController.DeactivateView();
+                interactableController.InteractablePickedUp();
                 return interactableController;
             }
             return interactableController;

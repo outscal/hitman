@@ -6,6 +6,7 @@ using System.Collections;
 using PathSystem;
 using InteractableSystem;
 using ScriptableObjSystem;
+using SoundSystem;
 
 namespace Common
 {
@@ -18,6 +19,7 @@ namespace Common
         public InteractableScriptableObj interactableScriptableObj;
         public EnemyScriptableObjectList enemyScriptableObjectList;
         public GameBasicObjects gameBasicObjects;
+        public SoundScriptable soundScriptable;
 
         public override void InstallBindings()
         {
@@ -26,6 +28,7 @@ namespace Common
             Container.BindInstance(enemyScriptableObjectList);
             Container.BindInstance(scriptableLevels);
             Container.BindInstances(gameBasicObjects);
+            Container.BindInstances(soundScriptable);
         }
     }
 }
