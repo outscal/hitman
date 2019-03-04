@@ -11,7 +11,7 @@ namespace PathSystem
     {
         public GameObject line;
         public NodeControllerView nodeprefab, targetNode;
-        public CameraScriptableObj cameraScriptable;
+        public List<CameraScriptableObj> cameraScriptableList;
         public List<ScriptableNode> Graph = new List<ScriptableNode>();
         public List<Node> GetGraph()
         {

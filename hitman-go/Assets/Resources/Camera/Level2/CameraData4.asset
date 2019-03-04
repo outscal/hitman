@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1811ff29bda79474eb56bd282d40c39b, type: 3}
-  m_Name: CameraData1
+  m_Name: CameraData4
   m_EditorClassIdentifier: 
   cameraData:
-    position: {x: -7.27, y: 6.21, z: 8.43}
-    rotation: {x: -0.0022128117, y: 0.9062954, z: -0.42261246, w: -0.0047453903}
+    nodeID: 4
+    position: {x: 4.53, y: 6.65, z: 2.92}
+    rotation: {x: 0.01834957, y: -0.8650074, z: 0.50041926, w: 0.03171843}
     fieldOfView: 60

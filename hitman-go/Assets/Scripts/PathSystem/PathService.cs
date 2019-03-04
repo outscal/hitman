@@ -12,7 +12,7 @@ namespace PathSystem
     {
         List<int> shortestPath;
         GameObject line;
-        CameraScriptableObj cameraScriptable;
+        List<CameraScriptableObj> cameraScriptableList;
         List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
@@ -22,7 +22,7 @@ namespace PathSystem
 
         public void DrawGraph(ScriptableGraph Graph)
         {
-            cameraScriptable = Graph.cameraScriptable;
+            cameraScriptableList = Graph.cameraScriptableList;
             nodeprefab = Graph.nodeprefab;
             targetNode = Graph.targetNode;
             line = Graph.line;
@@ -254,9 +254,9 @@ namespace PathSystem
             }
         }
 
-        public CameraScriptableObj GetCameraData()
+        List<CameraScriptableObj> IPathService.GetCameraDataList()
         {
-            return cameraScriptable;
+            return cameraScriptableList;
         }
     }
 }

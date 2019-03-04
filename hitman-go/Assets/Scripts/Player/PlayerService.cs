@@ -8,6 +8,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+using CameraSystem; //
 
 namespace Player
 {
@@ -21,14 +22,16 @@ namespace Player
         private Vector3 spawnLocation;
         private IGameService gameService;
         private IInteractable interactableService;
+        private ICamera camera; //
 
         private bool isPlayerDead = false;
         private int playerNodeID;
         private int targetNode;
 
-        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus _signalBus)
+        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus _signalBus, ICamera camera) //
         {
             this.signalBus = _signalBus;
+            this.camera = camera;
             gameService = _gameService;
             interactableService = _interactableService;
             currentPathService = _pathService;
@@ -77,7 +80,7 @@ namespace Player
                
             await new WaitForEndOfFrame();
 
-
+            camera.SetNodeID(GetPlayerNodeID());
         }
 
      

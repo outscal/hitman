@@ -29,14 +29,6 @@ namespace CameraSystem
         private bool startCamera;
         GameObject gameObject;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            //targets = new List<Transform>();
-            //SetCameraSettings();
-            //SetCameraCentre();
-        }
-
         public void SetCameraSettings(CameraScriptableObj cameraData)
         {
             //playerTarget = FindObjectOfType<PlayerView>().gameObject;
@@ -186,6 +178,13 @@ namespace CameraSystem
 
         }
 
+        public void MoveToNode(CameraData cameraData)
+        {
+            iTween.MoveTo(cameraObj, cameraData.position, 0.5f);
+            iTween.RotateTo(cameraObj, cameraData.rotation.eulerAngles, 0.5f);
+        }
+
+        //Script used by Editor
         public CameraData GetCameraData()
         {
             CameraData cameraData = new CameraData();
@@ -199,13 +198,13 @@ namespace CameraSystem
             return cameraData;
         }
 
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(centerPoint, radius);
-        }
-#endif
+        //#if UNITY_EDITOR
+        //        private void OnDrawGizmos()
+        //        {
+        //            Gizmos.color = Color.red;
+        //            Gizmos.DrawSphere(centerPoint, radius);
+        //        }
+        //#endif
 
     }
 }
