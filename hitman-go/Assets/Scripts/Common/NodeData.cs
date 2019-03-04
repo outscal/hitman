@@ -37,7 +37,7 @@ namespace Common
     public class LevelData
     {
         public StarTypes type;
-        public int bound ;
+        public int bound;
     }
 
     [Serializable]
@@ -45,6 +45,7 @@ namespace Common
     {
         public NodeData node;
         public int[] connections = new int[4];
+        public List<int> teleport = new List<int>();
         public bool ContainsEnemyType(EnemyType type)
         {
             for (int i = 0; i < node.spawnEnemies.Count; i++)
@@ -62,6 +63,7 @@ namespace Common
     {
         public NodeData node;
         public int up = -1, down = -1, left = -1, right = -1;
+        public List<int> teleport = new List<int>();
         public ScriptableNode()
         {
             up = -1; down = -1; left = -1; right = -1;

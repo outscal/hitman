@@ -13,13 +13,15 @@ namespace PathSystem
         List<StarTypes> Stars;
         List<CameraScriptableObj> cameraList;
         [SerializeField] List<Node> graph = new List<Node>();
-        public PathController(ScriptableGraph Graph){
+        public PathController(ScriptableGraph Graph)
+        {
             view = new PathView();
-            cameraList=Graph.cameraScriptableList;
+            cameraList = Graph.cameraScriptableList;
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
                 node.node = Graph.Graph[i].node;
+                node.teleport = Graph.Graph[i].teleport;
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
             }
@@ -30,7 +32,7 @@ namespace PathSystem
             Stars = new List<StarTypes>(Graph.stars);
             shortestPathLength = view.DrawGraph(Graph);
         }
-        public List<StarTypes> GetStarsForLevel(){return Stars;}
+        public List<StarTypes> GetStarsForLevel() { return Stars; }
         public void DestroyPath()
         {
             view.DestroyPath();
@@ -82,7 +84,7 @@ namespace PathSystem
             isVisited[u] = false;
         }
 
-        public void ShowAlertedNodes(int nodeId){view.ShowAlertedNodes(nodeId);}
+        public void ShowAlertedNodes(int nodeId) { view.ShowAlertedNodes(nodeId); }
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
             ShowAlertedNodes(_targetNodeID);
@@ -99,9 +101,20 @@ namespace PathSystem
             }
             return alerted;
         }
-        public Directions GetEnemySpawnDirection(int _nodeID){return graph[_nodeID].node.spawnEnemies[0].dir;}
-        public bool CheckForTargetNode(int _NodeID){return graph[_NodeID].node.property == NodeProperty.TARGETNODE;}
-        public bool CanMoveToNode(int playerNode, int destinationNode){return (graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode);}
+        public Directions GetEnemySpawnDirection(int _nodeID) { return graph[_nodeID].node.spawnEnemies[0].dir; }
+        public bool CheckForTargetNode(int _NodeID) { return graph[_NodeID].node.property == NodeProperty.TARGETNODE; }
+        bool CheckTeleportable(int playerNode,int destinationNode){
+            return graph[playerNode].teleport.Contains(destinationNode);
+        }
+        public bool CanMoveToNode(int playerNode, int destinationNode)
+        {
+            if ((graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode))
+            {
+                return true;
+            }else{
+                return CheckTeleportable(playerNode,destinationNode);
+            }
+        }
         public bool ThrowRange(int playerNode, int destinationNode)
         {
             Vector3 playerpos = graph[playerNode].node.nodePosition;
@@ -116,9 +129,9 @@ namespace PathSystem
             }
             return false;
         }
-        public void ShowThrowableNodes(int nodeId){view.ShowThrowableNodes(nodeId);}
-        public int GetNextNodeID(int _nodeId, Directions _dir){return graph[_nodeId].connections[(int)_dir];}
-        public Vector3 GetNodeLocation(int _nodeID){return graph[_nodeID].node.nodePosition;}
+        public void ShowThrowableNodes(int nodeId) { view.ShowThrowableNodes(nodeId); }
+        public int GetNextNodeID(int _nodeId, Directions _dir) { return graph[_nodeId].connections[(int)_dir]; }
+        public Vector3 GetNodeLocation(int _nodeID) { return graph[_nodeID].node.nodePosition; }
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
             List<int> pickableNodeList = new List<int>();
@@ -133,19 +146,10 @@ namespace PathSystem
         }
         public int GetPlayerNodeID()
         {
-            int playerNode = -1;
-            for (int i = 0; i < graph.Count; i++)
-            {
-                if (graph[i].node.property == NodeProperty.SPAWNPLAYER)
-                {
-                    playerNode = graph[i].node.uniqueID;
-                    break;
-                }
-            }
-           
-            return playerNode;
+            return 0;
         }
-        public List<CameraScriptableObj> GetCameraScriptableObject(){
+        public List<CameraScriptableObj> GetCameraScriptableObject()
+        {
             return cameraList;
         }
         public List<int> GetEnemySpawnLocation(EnemyType type)
@@ -163,10 +167,10 @@ namespace PathSystem
         public Directions GetDirections(int sourceNode, int nextNode)
         {
             Debug.Log("source is" + sourceNode + " dest is" + nextNode);
-            if (graph[sourceNode].connections[0] == nextNode){return Directions.UP;}
-            else if (graph[sourceNode].connections[1] == nextNode){return Directions.DOWN;}
-            else if (graph[sourceNode].connections[2] == nextNode){return Directions.LEFT;}
-            else{return Directions.RIGHT;}
+            if (graph[sourceNode].connections[0] == nextNode) { return Directions.UP; }
+            else if (graph[sourceNode].connections[1] == nextNode) { return Directions.DOWN; }
+            else if (graph[sourceNode].connections[2] == nextNode) { return Directions.LEFT; }
+            else { return Directions.RIGHT; }
         }
     }
 }

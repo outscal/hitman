@@ -81,11 +81,6 @@ public class GameInstaller : MonoInstaller
             .AsSingle()
             .NonLazy();
 
-        Container.Bind<ICamera>()
-            .To<CameraManager>()
-            .AsSingle()
-            .NonLazy();
-
         Container.BindInterfacesAndSelfTo<GameService>()
             .AsSingle()
             .NonLazy();

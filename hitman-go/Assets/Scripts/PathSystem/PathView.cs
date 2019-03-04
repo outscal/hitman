@@ -25,6 +25,7 @@ namespace PathSystem
             {
                 Node node = new Node();
                 node.node = Graph.Graph[i].node;
+                node.teleport = Graph.Graph[i].teleport;
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
 
@@ -50,7 +51,15 @@ namespace PathSystem
             return graph.Count;
 
         }
-         public void DestroyPath()
+        public void ShowTeleportableNodes(List<int> nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                physicalHighlightedNodes.Add(physicalNode[i]);
+                physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+            }
+        }
+        public void DestroyPath()
         {
             graph = new List<Node>();
             for (int i = 0; i < physicalPath.Count; i++)
@@ -64,16 +73,20 @@ namespace PathSystem
             physicalPath = new List<GameObject>();
             physicalNode = new List<GameObject>();
         }
-        public void ShowAlertedNodes(int nodeId)
+        public void Unhighlightnodes()
         {
             for (int i = 0; i < physicalHighlightedNodes.Count; i++)
             {
                 physicalHighlightedNodes[i].GetComponent<NodeControllerView>().UnHighlightNode();
             }
             physicalHighlightedNodes = new List<GameObject>();
+        }
+        public void ShowAlertedNodes(int nodeId)
+        {
+            Unhighlightnodes();
             physicalNode[nodeId].GetComponent<NodeControllerView>().ShowAlertedNodes();
         }
-         public void ShowThrowableNodes(int nodeId)
+        public void ShowThrowableNodes(int nodeId)
         {
             Vector3 playerpos = graph[nodeId].node.nodePosition;
             for (int i = 0; i < graph.Count; i++)
