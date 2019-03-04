@@ -137,7 +137,7 @@ namespace PathSystem
         public void ShowThrowableNodes(int nodeId) { view.ShowThrowableNodes(nodeId); }
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
-            Debug.Log("Should Not Work 111111111111111111111111111111111111111111111111111111111");
+            
             int nextnode = graph[_nodeId].connections[(int)_dir];
            // CheckTeleportable(_nodeId, nextnode);
             view.Unhighlightnodes();

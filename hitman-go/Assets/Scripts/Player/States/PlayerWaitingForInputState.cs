@@ -40,17 +40,19 @@ namespace Player
 
                 if (nodeID != -1)
                 {
-                    bool inRange = playerService.CheckForRange(nodeID);                    
-
+                    bool inRange = playerService.CheckForRange(nodeID);                  
                     if (inRange)
                     {
-
                         Debug.Log("take action called");
                         stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
                         stateMachine.ChangePlayerState(PlayerStates.END_TURN,PlayerStates.NONE);
-                        playerService.ChangeToEnemyState();                    
+                        playerService.ChangeToEnemyState();          
                         break;
+                    }
+                    else
+                    {
+                        Debug.Log("NOT IN RANGE");
                     }
                 }
                 else

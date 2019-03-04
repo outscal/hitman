@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using CameraSystem; //
+using Common;
 using Enemy;
 using GameState;
 using InteractableSystem;
@@ -8,7 +9,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using CameraSystem; //
 
 namespace Player
 {
@@ -150,12 +150,13 @@ namespace Player
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-                var _direction = currentPathService.GetDirections(GetPlayerNodeID(), _nodeID);
-                playerController.PerformAction(_direction);
+                //var _direction = currentPathService.GetDirections(GetPlayerNodeID(), _nodeID);
+                //playerController.PerformAction(_direction);
+                playerController.PerformMovement(_nodeID);
 
             }
 
-            await new WaitForEndOfFrame();        
+            await new WaitForEndOfFrame();
 
 
         }
@@ -185,12 +186,12 @@ namespace Player
         public bool CheckForKillablePlayer()
         {
             return playerController.GetPlayerState() != PlayerStates.AMBUSH;
-             
+
         }
 
         public bool CheckForRange(int _nodeID)
         {
-            return currentPathService.ThrowRange(playerNodeID, _nodeID);
+            return currentPathService.ThrowRange(GetPlayerNodeID(), _nodeID);
         }
 
         public void ChangeToEnemyState()
