@@ -5,12 +5,30 @@ using Enemy;
 using InputSystem;
 using PathSystem;
 using System.Collections;
+using Common;
+using GameState.Interface;
+using GameState;
+using GameState.Signals;
 
 public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        SignalBusInstaller.Install(Container);
+        Container.DeclareSignal<PlayerMoveSignal>();
+        Container.DeclareSignal<PlayerSpawnSignal>();
+        Container.DeclareSignal<PlayerDeathSignal>();
+        Container.DeclareSignal<PlayerKillSignal>();
+        Container.DeclareSignal<EnemyDeathSignal>();
+        Container.DeclareSignal<GameStartSignal>();
+        Container.DeclareSignal<GameOverSignal>();
+        Container.DeclareSignal<StateChangeSignal>();
         
+
+        Container.Bind<IEnemyService>()
+            .To<EnemyService>()
+            .AsSingle()
+            .NonLazy();
         Container.Bind<IPlayerService>()
             .To<PlayerService>()
             .AsSingle()
@@ -20,25 +38,23 @@ public class GameInstaller : MonoInstaller
             .To<InputService>()
             .AsSingle()
             .NonLazy();
+        
 
-        Container.Bind<IEnemyService>()
-            .To<EnemyService>()
-            .AsSingle()
-            .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()
             .AsSingle()
             .NonLazy();
 
-        //Container.Bind<IPickupService>()
-        //  .To<PickupService>()
-        //.AsSingle()
-        //.NonLazy();
+        Container.BindInterfacesAndSelfTo<GameService>()
+            .AsSingle()
+            .NonLazy();
 
-        Container.BindSignal<EnemyDeathSignal>().ToMethod<PlayerService>(x => x.IncreaseScore).FromResolve();
-      
+        Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
+
+     
+        
+
 
     }
-
 }

@@ -7,10 +7,20 @@ namespace PathSystem
     public interface IPathService
     {
         int GetNextNodeID(int _nodeID, Directions _dir);
+
         Vector3 GetNodeLocation(int _nodeID);
 
-        List<Vector3> GetSpawnLocation(EnemyType type);
+        List<int> GetPickupSpawnLocation(InteractablePickup type);
 
-        List<Vector3> GetShortestPath(int _currentNodeID, int _destinationNodeID);
+        int GetPlayerNodeID();
+
+        List<int> GetEnemySpawnLocation(EnemyType type);
+
+
+        List<int> GetShortestPath(int _currentNodeID, int _destinationNodeID);
+
+        List<int> GetAlertedNodes(int _targetNodeID);
+        Directions GetEnemySpawnDirection(int _nodeID);
+        bool CheckForTargetNode(int _NodeID);
     }
 }
