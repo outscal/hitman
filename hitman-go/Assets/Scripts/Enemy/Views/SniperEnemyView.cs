@@ -71,8 +71,7 @@ namespace Enemy
                 {                   
                     enemyController.KillPlayer();
                 }
-            }
-            
+            }            
         }
     }
 }
