@@ -75,6 +75,7 @@ namespace PathSystem
         public Directions GetDirections(int sourceNode, int nextNode)
         {
             return controller.GetDirections(sourceNode, nextNode);
+
         }
         public List<CameraScriptableObj> GetCameraDataList()
         {

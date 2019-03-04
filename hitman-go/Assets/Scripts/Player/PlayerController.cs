@@ -84,11 +84,7 @@ namespace Player
         }
 
         async public Task PerformMovement(int nextNodeID)
-        {
-            if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
-            {
-                return;
-            }
+        {            
 
             playerNodeID = nextNodeID;
             Vector3 nextLocation = pathService.GetNodeLocation(nextNodeID);
@@ -101,14 +97,13 @@ namespace Player
             }
             if (IsGameFinished())
             {
-                Debug.Log("Game finished");
+                
                 playerService.FireLevelFinishedSignal();                
 
             }
             else if (GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
                 gameService.ChangeToEnemyState();
-                Debug.Log("change to enemy state called");
             }
 
         }
@@ -121,7 +116,7 @@ namespace Player
                 case InteractablePickup.AMBUSH_PLANT:
                     await  ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    gameService.ChangeToEnemyState();
+                   // gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.BONE:
                     playerService.SetTargetTap(-1);
@@ -131,22 +126,22 @@ namespace Player
                 case InteractablePickup.BREIFCASE:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    gameService.ChangeToEnemyState();
+                   // gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.COLOR_KEY:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    gameService.ChangeToEnemyState();
+                   // gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.DUAL_GUN:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    gameService.ChangeToEnemyState();
+                   // gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     await  ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                    gameService.ChangeToEnemyState();
+                  //  gameService.ChangeToEnemyState();
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerService.SetTargetTap(-1);
@@ -185,7 +180,9 @@ namespace Player
                 return;
             }
             await PerformMovement(nextNodeID);
-            
+
+           
+
         }
     }
 }

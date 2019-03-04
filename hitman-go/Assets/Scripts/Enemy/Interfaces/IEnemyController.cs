@@ -15,5 +15,8 @@ namespace Enemy
         EnemyType GetEnemyType();
         void AlertEnemy(int _destinationID);
         void KillPlayer();
+        void ChangeState(EnemyStates _state);
+        EnemyStates GetEnemyState();
+        Directions GetDirection();
     }
 }
