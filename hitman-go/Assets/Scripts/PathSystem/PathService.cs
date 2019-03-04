@@ -26,7 +26,7 @@ namespace PathSystem
         }
         public void ShowThrowableNodes(int nodeId)
         {
-            controller.ShowAlertedNodes(nodeId);
+            controller.ShowThrowableNodes(nodeId);
         }
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
