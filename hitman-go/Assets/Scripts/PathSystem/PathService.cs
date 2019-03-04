@@ -4,6 +4,7 @@ using PathSystem.NodesScript;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CameraSystem;
 
 namespace PathSystem
 {
@@ -11,6 +12,7 @@ namespace PathSystem
     {
         List<int> shortestPath;
         GameObject line;
+        CameraScriptableObj cameraScriptable;
         List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
@@ -20,6 +22,7 @@ namespace PathSystem
 
         public void DrawGraph(ScriptableGraph Graph)
         {
+            cameraScriptable = Graph.cameraScriptable;
             nodeprefab = Graph.nodeprefab;
             targetNode = Graph.targetNode;
             line = Graph.line;
@@ -251,6 +254,9 @@ namespace PathSystem
             }
         }
 
-        
+        public CameraScriptableObj GetCameraData()
+        {
+            return cameraScriptable;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace InteractableSystem
             return interactablePickup;
         }
 
-        public void DeactivateView()
+        public virtual void InteractablePickedUp()
         {
             interactableView.gameObject.SetActive(false); 
         }

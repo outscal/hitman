@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Common;
+using SoundSystem;
 
 namespace InteractableSystem
 {
@@ -29,7 +26,16 @@ namespace InteractableSystem
 
         public override void TakeAction(int nodeID)
         {
+            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.sniper });
+            interactableManager.RemoveInteractable(this);
+        }
 
+        public override void InteractablePickedUp()
+        {
+            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.pickUpGun });
+            base.InteractablePickedUp();
         }
     }
 }
