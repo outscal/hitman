@@ -114,7 +114,7 @@ namespace Player
         }
         async public void PerformInteractableAction(IInteractableController _interactableController)
         {
-            int nodeID = await playerService.GetTargetNode();
+            int nodeID =  playerService.GetTargetNode();
 
             switch (_interactableController.GetInteractablePickup())
             {
@@ -174,6 +174,18 @@ namespace Player
         private bool IsGameFinished()
         {
             return pathService.CheckForTargetNode(playerNodeID);
+        }
+
+      async  public void PerformAction(Directions _direction )
+        {
+            int nextNodeID = pathService.GetNextNodeID(playerNodeID, _direction);
+            if (nextNodeID == -1)
+            {
+                //ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                return;
+            }
+            await PerformMovement(nextNodeID);
+            
         }
     }
 }

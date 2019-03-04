@@ -65,12 +65,13 @@ namespace Enemy
         {
             if (this.transform.localEulerAngles.y == 0)
             {
-                await RotateEnemy(new Vector3(0, 180, 0));
+                 RotateEnemy(new Vector3(0, 180, 0));
             }
             else
             {
-                await RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
+                 RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
             }
+             new WaitForEndOfFrame();
         }
       
 

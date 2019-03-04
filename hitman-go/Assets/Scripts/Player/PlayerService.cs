@@ -71,15 +71,10 @@ namespace Player
                 return;
             }
 
-            playerController.ChangePlayerState(PlayerStates.END_TURN, PlayerStates.NONE);
+            playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
-            int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
-            if (nextNodeID == -1)
-            {
-                playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
-                return;
-            }
-            await playerController.PerformMovement(nextNodeID);         
+            playerController.PerformAction(_direction);
+               
             await new WaitForEndOfFrame();
 
 
@@ -155,7 +150,8 @@ namespace Player
             if (currentPathService.CanMoveToNode(playerNodeID, _nodeID))
             {
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-                await playerController.PerformMovement(_nodeID);
+               var _direction= currentPathService.GetDirections(playerNodeID,_nodeID);
+                playerController.PerformAction(_direction);
             }
             await new WaitForEndOfFrame();
            
@@ -163,7 +159,7 @@ namespace Player
         }
 
         //get the node after tap
-        async public Task<int> GetTargetNode()
+        public int GetTargetNode()
         {
             return targetNode;
         }
