@@ -61,7 +61,7 @@ namespace Enemy
 
         }
         private void PerformSniperRaycast()
-        {
+        { 
             lineRenderer.SetPosition(1, ray.direction*500f);
 
             if (Physics.Raycast(ray.origin,ray.direction, out raycastHit, Mathf.Infinity))
