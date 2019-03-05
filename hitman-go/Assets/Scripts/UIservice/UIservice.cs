@@ -58,6 +58,12 @@ namespace UIservice
                     previousUI.DestroyUI();
                     currentUI = new LevelFinishedUIController(finishedUIView);
                     break;
+                case GameStatesType.LOBBYSTATE:
+                    previousUI = currentUI;
+                    previousUI.DestroyUI();
+                    currentUI = new LevelFinishedUIController(finishedUIView);
+                    break;
+
             }
                 //if (currentUI != null && previousUI != null)
                 //Debug.Log( "current UI state is " + currentUI.GetUIState());

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2502410e40141643a43764fe0085833, type: 3}
   m_Name: settings
   m_EditorClassIdentifier: 
-  scriptableLevels: {fileID: 11400000, guid: d307f489d021d294eaa6074d54ccb21f, type: 2}
+  scriptableLevels: {fileID: 11400000, guid: 50dadc439eee347968251c89d71f2183, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: ac7736c84c3c56642914122b5bcf1ba5,
     type: 2}
   interactableScriptableObj: {fileID: 11400000, guid: 14ce751b0cdf94f64bd71a848cbc7bf4,

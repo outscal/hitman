@@ -34,12 +34,14 @@ namespace InteractableSystem
 
         public override void InteractablePickedUp()
         {
+            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.dualGun });
+
             base.InteractablePickedUp();
         }
 
         void Shoot(int targetNodeID, Directions direction)
         {
-            Debug.Log("[DualGun] Direction:" + direction);
             Vector3 position = interactableManager.ReturnPathService()
                                 .GetNodeLocation(targetNodeID);
 
@@ -48,8 +50,15 @@ namespace InteractableSystem
                 enemyNodeID = interactableManager.ReturnPathService()
                                 .GetNextNodeID(targetNodeID, direction);
 
+                //Debug.Log("[DualGun] Enemy Found Node:" + enemyNodeID + " Direction:" + direction);
                 interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
                 { nodeID = enemyNodeID });
+            }
+            else
+            {
+                enemyNodeID = interactableManager.ReturnPathService()
+                                .GetNextNodeID(targetNodeID, direction);
+                //Debug.Log("[DualGun] Enemy Not Found Node:" + enemyNodeID + " Direction:" + direction);
             }
 
             interactableManager.RemoveInteractable(this);
@@ -78,10 +87,14 @@ namespace InteractableSystem
         Vector3 GetDiectionInVector3(Directions directions)
         {
             Vector3 direction = Vector3.zero;
-            if (directions == Directions.UP) return direction = Vector3.up;
-            if (directions == Directions.DOWN) return direction = Vector3.down;
-            if (directions == Directions.LEFT) return direction = Vector3.left;
-            if (directions == Directions.RIGHT) return direction = Vector3.right;
+            if (directions == Directions.UP)
+                return direction = interactableView.transform.TransformDirection(Vector3.back);
+            if (directions == Directions.DOWN)
+                return direction = interactableView.transform.TransformDirection(Vector3.forward);
+            if (directions == Directions.LEFT)
+                return direction = interactableView.transform.TransformDirection(Vector3.right);
+            if (directions == Directions.RIGHT)
+                return direction = interactableView.transform.TransformDirection(Vector3.left);
             return direction;
         }
 

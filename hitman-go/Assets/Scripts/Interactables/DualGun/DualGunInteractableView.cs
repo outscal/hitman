@@ -13,5 +13,20 @@ namespace InteractableSystem
         {
             this.dualGunInteractableController = dualGunInteractableController;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            //up
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.back * 6f);
+            //down
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * 6f);
+            //right
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 6f);
+            //left
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 6f);
+        }
+#endif
     }
 }

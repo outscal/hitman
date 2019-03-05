@@ -14,6 +14,7 @@ namespace StarSystem
         {
             PlayerPrefs.DeleteAll();
             this.signalBus = signalBus;
+            signalBus.Subscribe<BriefCaseSignal>(BriefCasePicked);
             signalBus.Subscribe<EnemyDeathSignal>(IncreaseKillCount);
             signalBus.Subscribe<StateChangeSignal>(StateChanged);
         }
