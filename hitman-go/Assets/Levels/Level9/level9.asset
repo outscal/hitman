@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: level9
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 
+  stars: []
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -135,8 +135,8 @@ MonoBehaviour:
       - enemy: 2
         dir: 1
       nodePosition: {x: -10, y: 0, z: -5}
-    up: 9
-    down: 4
+    up: 14
+    down: 8
     left: -1
     right: -1
     teleport: 04000000
@@ -173,7 +173,7 @@ MonoBehaviour:
         dir: 1
       nodePosition: {x: 5, y: 0, z: -5}
     up: 17
-    down: -2
+    down: 2
     left: -1
     right: -1
     teleport: 

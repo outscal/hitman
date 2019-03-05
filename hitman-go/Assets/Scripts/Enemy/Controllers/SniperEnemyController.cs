@@ -41,7 +41,6 @@ namespace Enemy
 
             await new WaitForFixedUpdate();
            
-
         }
     }
 }
