@@ -33,6 +33,9 @@ namespace GameState
             signalBus.Subscribe<LevelFinishedSignal>(ChangeToLevelFinishedState);
             //pathService.DrawGraph(levels.levelsList[currentLevel]);
         }
+        public void SetCurrentLevel(int level){
+            currentLevel=level;
+        }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
@@ -40,6 +43,9 @@ namespace GameState
         public void ChangeToPlayerState()
         {
             ChangeState(new GamePlayerState(signalBus));
+        }
+        public void ChangeToLobbyState(){
+            ChangeState(new GameLobbyState(signalBus));
         }
         public void ChangeToGameOverState()
         {
@@ -81,7 +87,7 @@ namespace GameState
 
         public void Initialize()
         {
-            ChangeToLoadLevelState();
+            ChangeToLobbyState();
             //signalBus.TryFire(new GameStartSignal());
         }
 
