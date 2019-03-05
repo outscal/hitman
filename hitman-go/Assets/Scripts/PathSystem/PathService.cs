@@ -20,7 +20,7 @@ namespace PathSystem
                 controller = null;
             }
         }
-        public List<StarTypes> GetStarsForLevel()
+        public List<StarData> GetStarsForLevel()
         {
             return controller.GetStarsForLevel();
         }

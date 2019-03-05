@@ -11,7 +11,7 @@ namespace PathSystem
     {
         public GameObject line;
 
-        public StarTypes[] stars=new StarTypes[0];
+        public StarData[] stars=new StarData[0];
         public int maxPlayerMoves=10,noOfEnemies=1;
         public NodeControllerView nodeprefab, targetNode,teleportNode;
         public List<CameraScriptableObj> cameraScriptableList;

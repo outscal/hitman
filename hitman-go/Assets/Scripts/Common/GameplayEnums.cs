@@ -35,6 +35,14 @@ namespace Common
         CIRCULAR_COP,
         TARGET
     }
+     public enum NodeProperty
+    {
+        NONE,
+        SPAWNPLAYER,
+        TARGETNODE,
+        TELEPORT
+
+    }
     public enum InteractablePickup
     {
         NONE,

@@ -7,7 +7,7 @@ namespace PathSystem
 {
     public interface IPathService
     {
-        List<StarTypes> GetStarsForLevel();
+        List<StarData> GetStarsForLevel();
         Directions GetDirections(int sourceNode, int nextNode);
         void ShowThrowableNodes(int nodeId);
         bool ThrowRange(int playerNode,int destinationNode);
