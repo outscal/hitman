@@ -49,7 +49,7 @@ namespace Enemy
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
             currentEnemyView.SetPosition(spawnLocation);
 
-            enemyInstance.transform.Rotate(GetRotation(spawnDirection), Space.World);
+            enemyInstance.transform.Rotate(GetRotation(spawnDirection));
             SetController();
 
         }
@@ -65,7 +65,7 @@ namespace Enemy
             currentEnemyView.Reset();
         }
 
-        public int GetCurrentID()
+        public int GetCurrentNodeID()
         {
             return currentNodeID;
         }
@@ -91,8 +91,7 @@ namespace Enemy
             alertMoveCalled++;
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
-                int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-               
+                int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);              
 
               await MoveToNextNode(nextNodeID);
             }
@@ -101,7 +100,7 @@ namespace Enemy
 
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
                 currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
-              await  MoveToNextNode(nextNodeID);
+                 await  MoveToNextNode(nextNodeID);
 
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {

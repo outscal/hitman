@@ -25,8 +25,8 @@ namespace Enemy
         }
         public void DisableEnemy()
         {
-            //gameObject.SetActive(false);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
         private void Start()
         {
@@ -48,13 +48,15 @@ namespace Enemy
 
         public void Reset()
         {
+            //DisableEnemy();
             Destroy(this.gameObject);
         }
 
         async public Task RotateEnemy(Vector3 newRotation)
         {
-            iTween.RotateTo(gameObject, newRotation, 0.2f);
-            await new WaitForSeconds(0.2f);
+            iTween.RotateTo(this.gameObject, newRotation, 0.5f);
+
+            await new WaitForSeconds(0.5f);
         }
 
         public void SetPosition(Vector3 pos)
@@ -64,15 +66,8 @@ namespace Enemy
 
         async public Task RotateInOppositeDirection()
         {
-            if (this.transform.localEulerAngles.y == 0)
-            {
-                 RotateEnemy(new Vector3(0, 180, 0));
-            }
-            else
-            {
-                 RotateEnemy(new Vector3(0, -this.transform.localEulerAngles.y, 0));
-            }
-             new WaitForEndOfFrame();
+            RotateEnemy(new Vector3(0, 180+Mathf.Abs(this.transform.localEulerAngles.y), 0));
+             
         }
       
 

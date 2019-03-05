@@ -33,7 +33,6 @@ namespace CameraSystem
             {
                 if(cameraDataList[i].cameraData.nodeID == nodeID)
                 {
-                    Debug.Log("[CameraManager] NodeID:" + nodeID);
                     cameraScript.MoveToNode(cameraDataList[i].cameraData);
                 }
             }
@@ -42,7 +41,7 @@ namespace CameraSystem
         void GameStarted()
         {
             cameraDataList = pathService.GetCameraDataList();
-            Debug.Log("[CameraManager] Total Camera Positions:" + cameraDataList.Count);
+            
 
             if (cameraScript == null)
             {

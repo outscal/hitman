@@ -21,7 +21,7 @@ namespace Enemy
         private IEnemyFactory enemyFactory;
         private IGameService gameService;
         private EnemyScriptableObjectList enemyScriptableObjectList;
-       // private IEnumerable<Task> moveTasks;
+        private IEnumerable<Task> moveTasks;
         private List<Task> moveTaskList = new List<Task>();
 
         public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
@@ -33,7 +33,7 @@ namespace Enemy
             signalBus = _signalBus;
             enemyScriptableObjectList = enemyList;
 
-            signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+            //signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
             signalBus.Subscribe<ResetSignal>(ResetEnemy);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);
@@ -48,11 +48,10 @@ namespace Enemy
 
         }
 
-        private bool CheckForEnemyPresence(int nodeID)
+        private bool CheckForEnemyPresence(IEnemyController enemyController,int nodeID)
         {
             if (nodeID == -1)
             {
-
                 return false;
             }
             if (enemyList.Count == 0)
@@ -60,17 +59,7 @@ namespace Enemy
 
                 return false;
             }
-
-            foreach (var enemy in enemyList)
-            {
-                if (enemy.GetCurrentID() == nodeID)
-                {
-
-                    return true;
-                }
-            }
-
-            return false;
+            return enemyController.GetCurrentNodeID() == nodeID;
         }
 
         private void ResetEnemy()
@@ -114,30 +103,36 @@ namespace Enemy
                 return;
             }
 
-            IEnemyController controller;
+            List<IEnemyController> KillableEnemies = new List<IEnemyController>();
             for (int i = 0; i < enemyList.Count; i++)
             {
-
-                controller = enemyList[i];
-               // controller.ChangeState(EnemyStates.MOVING);
-             
+                IEnemyController controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
-                    if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
+                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()))
                     {
-                        signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
+                        KillableEnemies.Add(controller);
+                        continue;
                     }
                     else
-                    {                        
-                       Task moveTask= controller.Move();
+                    {
+                        Task moveTask = controller.Move();
                         moveTaskList.Add(moveTask);
+
                     }
                 }
-             
+
 
             }
-           await Task.WhenAll(moveTaskList);
+            await Task.WhenAll(moveTaskList.ToArray());
 
+            IEnemyController controllerToKill;
+            for (int i = 0; i < KillableEnemies.Count; i++)
+            {
+                controllerToKill = KillableEnemies[i];               
+                KillEnemy(controllerToKill);
+
+            }
             if (!playerService.PlayerDeathStatus())
             {
                 gameService.ChangeToPlayerState();
@@ -145,23 +140,34 @@ namespace Enemy
             }
         }
 
-        public void EnemyDead(EnemyDeathSignal _deathSignal)
+        private void KillEnemy(IEnemyController controllerToKill)
         {
-            foreach (EnemyController enemyController in enemyList)
+            
+           enemyList.Remove(controllerToKill);
+           controllerToKill.Reset();
+           signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
+        }
+
+
+        async public void EnemyDead(EnemyKillSignal _deathSignal)
+        {
+            var tempList = enemyList;
+
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (enemyController.GetCurrentID() == _deathSignal.nodeID)
+                IEnemyController enemyController = tempList[i];
+                if (enemyController.GetCurrentNodeID() == _deathSignal.nodeID)
                 {
-                    enemyController.DisableEnemy();
                     enemyList.Remove(enemyController);
-                    break;
+                    enemyController.Reset();                    
                 }
             }
             if (enemyList.Count == 0)
             {
                 gameService.ChangeToPlayerState();
             }
-
         }
+
 
         public void TriggerPlayerDeath()
         {
@@ -193,7 +199,7 @@ namespace Enemy
                         case InteractablePickup.BONE:
                             if (enemyList[i].GetEnemyType() == EnemyType.DOGS)
                             {
-                                if (enemyList[i].GetCurrentID() == alertedNodes[j])
+                                if (enemyList[i].GetCurrentNodeID() == alertedNodes[j])
                                 {
                                     enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }
@@ -202,7 +208,7 @@ namespace Enemy
                         case InteractablePickup.STONE:
                             if (enemyList[i].GetEnemyType() != EnemyType.DOGS)
                             {
-                                if (enemyList[i].GetCurrentID() == alertedNodes[j])
+                                if (enemyList[i].GetCurrentNodeID() == alertedNodes[j])
                                 {
                                     enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }

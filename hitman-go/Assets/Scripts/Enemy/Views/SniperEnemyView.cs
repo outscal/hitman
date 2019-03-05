@@ -1,77 +1,78 @@
-﻿using UnityEngine;
+﻿using Common;
+using Player;
 using System.Collections;
 using System.Threading.Tasks;
-using Player;
-using Common;
+using UnityEngine;
 
 namespace Enemy
 {
     public class SniperEnemyView : EnemyView
     {
         private bool isRayCastStart = false;
-        private Ray ray;        
+        private Ray ray;
         private RaycastHit raycastHit;
 
-        [SerializeField]private LineRenderer lineRenderer;
+        [SerializeField] private LineRenderer lineRenderer;
 
-        
+
         void Start()
         {
-           
-            
-            SetRayDirection(this.enemyController.GetDirection());
-            alertSprite.enabled = false;           
+
+            Debug.Log(enemyController.GetDirection());
+            ray.origin = new Vector3(this.transform.localPosition.x,1f,this.transform.localPosition.z);
+            ray.direction = transform.forward;
+            alertSprite.enabled = false;
 
             lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, ray.direction);
-          
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, transform.position + ray.direction * 500f);
+
         }
-        public override void SetRayDirection(Directions directions)
-        {
-            switch(directions)
-            {
-                case Directions.RIGHT:
-                    ray.direction = this.transform.right;
-                    break;
-                case Directions.UP:
-                    ray.direction = this.transform.forward;
-                    break;
-                case Directions.LEFT:
-                    ray.direction = - this.transform.right;
-                    break;
-                case Directions.DOWN:
-                    ray.direction = -this.transform.forward;
-                    break;
-            }
-        }
-     
+       
+       
+
         private void Update()
         {
-          
 
-           //if (isRayCastStart)
-           // { PerformSniperRaycast(); }
-            
         }
 
         public override void PerformRaycast()
-        {
-            //  isRayCastStart = true;
+        {            
             PerformSniperRaycast();
 
         }
         private void PerformSniperRaycast()
-        { 
-            lineRenderer.SetPosition(1, ray.direction*500f);
+        {
+            Debug.Log("ray direction"+ray.direction);           
 
             if (Physics.Raycast(ray.origin,ray.direction, out raycastHit, Mathf.Infinity))
             {
-                   lineRenderer.SetPosition(1,raycastHit.point);
+                Debug.Log("hit regis");
+                lineRenderer.SetPosition(1, raycastHit.point);
+                
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
-                {                   
+                {
                     enemyController.KillPlayer();
                 }
-            }            
+            }
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            //up
+            Gizmos.DrawLine(transform.position, transform.position + ray.direction * 6f);
+            //down
+            //Gizmos.color = Color.green;
+            //Gizmos.DrawLine(transform.position, transform.position + Vector3.forward * 6f);
+            ////right
+            //Gizmos.color = Color.black;
+            //Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 6f);
+            ////left
+            //Gizmos.color = Color.blue;
+            //Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 6f);
+        }
+#endif
     }
 }

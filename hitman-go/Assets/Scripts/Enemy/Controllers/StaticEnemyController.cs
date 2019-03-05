@@ -26,8 +26,8 @@ namespace Enemy
                 Debug.Log("spawnDirection after chase state"+ spawnDirection.ToString());
                 Vector3 rot=GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
-                currentNodeID = nodeID;
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
               
 
             }

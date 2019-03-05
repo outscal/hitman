@@ -19,8 +19,6 @@ namespace Enemy
 
         async protected override Task MoveToNextNode(int nodeID)
         {
-
-
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
@@ -28,9 +26,9 @@ namespace Enemy
             }
             if (nodeID == -1)
             {
-                Debug.Log("Node is -1 , direction is " + spawnDirection);
-                await currentEnemyView.RotateInOppositeDirection();
-                ChangeDirection();
+                //Debug.Log("Node is -1 , direction is " + spawnDirection);
+                //await currentEnemyView.RotateInOppositeDirection();
+                //ChangeDirection();
                 return;
             }
 
@@ -47,10 +45,11 @@ namespace Enemy
             }
             else
             {
+              await currentEnemyView.RotateInOppositeDirection();
                 ChangeDirection();
-                await currentEnemyView.RotateInOppositeDirection();
-                await new WaitForEndOfFrame();
+                
             }
+           
         }
         protected override void SetController()
         {

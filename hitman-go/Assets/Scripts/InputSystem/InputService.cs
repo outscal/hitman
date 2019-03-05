@@ -41,7 +41,7 @@ namespace InputSystem
 
         public void PassNodeID(int nodeID)
         {
-            Debug.Log("[InputService] Setting Node:" + nodeID);
+
             playerService.SetTargetNode(nodeID);
         }
 

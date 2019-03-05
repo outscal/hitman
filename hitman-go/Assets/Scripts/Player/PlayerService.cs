@@ -58,7 +58,7 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
-            Debug.Log("[PlayerService] Setting Direction:" + _direction);
+           
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -73,6 +73,8 @@ namespace Player
                 return;
             }
 
+          
+
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
             playerController.PerformAction(_direction);
@@ -80,6 +82,7 @@ namespace Player
             await new WaitForEndOfFrame();
 
             camera.SetNodeID(GetPlayerNodeID());
+           
         }
 
 
@@ -120,6 +123,7 @@ namespace Player
             playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject);
             signalBus.TryFire(new PlayerSpawnSignal());
             playerNodeID = playerController.GetID();
+            playerController.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
         }
 
         //increase score on enemyKill etc 
@@ -131,7 +135,7 @@ namespace Player
         async public void SetTargetNode(int _nodeID)
         {
 
-            Debug.Log("[PlayerService] Setting Node:" + _nodeID);
+
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
@@ -151,6 +155,8 @@ namespace Player
 
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
+                
+               
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
              
                 playerController.PerformMovement(_nodeID);
@@ -159,6 +165,7 @@ namespace Player
 
             await new WaitForEndOfFrame();
             camera.SetNodeID(GetPlayerNodeID());
+
 
         }
 

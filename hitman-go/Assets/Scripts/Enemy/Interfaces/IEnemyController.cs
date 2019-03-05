@@ -8,7 +8,7 @@ namespace Enemy
     public interface IEnemyController
     {
         void Reset();
-        int GetCurrentID();
+        int GetCurrentNodeID();
         void DisableEnemy();
         void SetID(int _id);
         Task Move();
