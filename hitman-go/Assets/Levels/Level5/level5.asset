@@ -13,12 +13,21 @@ MonoBehaviour:
   m_Name: level5
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  stars: 
+  maxPlayerMoves: 10
+  noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  teleportNode: {fileID: 0}
   cameraScriptableList:
-  - {fileID: 11400000, guid: dfc45fb228d7a4391a10a8398659fb23, type: 2}
+  - {fileID: 11400000, guid: bb1dd246efd4844a2b0cd9cef05a40bf, type: 2}
+  - {fileID: 11400000, guid: 8a0147fb17d5f47338c741ac36575ab0, type: 2}
+  - {fileID: 11400000, guid: 228e32db3e44741efa7e05b5deb8b488, type: 2}
+  - {fileID: 11400000, guid: f42a73f1fefc34c8a980cffd7bc90730, type: 2}
+  - {fileID: 11400000, guid: 7027944f8b54b4f65901c729dce6a791, type: 2}
+  - {fileID: 11400000, guid: aa970c472387148a4a31e0702b1da651, type: 2}
   Graph:
   - node:
       uniqueID: 0
@@ -30,6 +39,7 @@ MonoBehaviour:
     down: -1
     left: 3
     right: 1
+    teleport: 
   - node:
       uniqueID: 1
       property: 0
@@ -40,6 +50,7 @@ MonoBehaviour:
     down: -1
     left: 0
     right: -1
+    teleport: 
   - node:
       uniqueID: 2
       property: 0
@@ -50,6 +61,7 @@ MonoBehaviour:
     down: 0
     left: -1
     right: 7
+    teleport: 
   - node:
       uniqueID: 3
       property: 0
@@ -60,6 +72,7 @@ MonoBehaviour:
     down: -1
     left: 4
     right: 0
+    teleport: 
   - node:
       uniqueID: 4
       property: 0
@@ -70,6 +83,7 @@ MonoBehaviour:
     down: -1
     left: -1
     right: 3
+    teleport: 
   - node:
       uniqueID: 5
       property: 0
@@ -80,6 +94,7 @@ MonoBehaviour:
     down: 4
     left: -1
     right: 6
+    teleport: 
   - node:
       uniqueID: 6
       property: 0
@@ -90,6 +105,7 @@ MonoBehaviour:
     down: -1
     left: 5
     right: -1
+    teleport: 
   - node:
       uniqueID: 7
       property: 0
@@ -100,6 +116,7 @@ MonoBehaviour:
     down: 1
     left: 2
     right: -1
+    teleport: 
   - node:
       uniqueID: 8
       property: 0
@@ -110,6 +127,7 @@ MonoBehaviour:
     down: 7
     left: 9
     right: -1
+    teleport: 
   - node:
       uniqueID: 9
       property: 0
@@ -122,6 +140,7 @@ MonoBehaviour:
     down: -1
     left: 10
     right: 8
+    teleport: 
   - node:
       uniqueID: 10
       property: 0
@@ -132,6 +151,7 @@ MonoBehaviour:
     down: -1
     left: -1
     right: 9
+    teleport: 
   - node:
       uniqueID: 11
       property: 2
@@ -142,3 +162,4 @@ MonoBehaviour:
     down: 10
     left: -1
     right: -1
+    teleport: 
