@@ -84,8 +84,8 @@ namespace Player
         }
 
         async public Task PerformMovement(int nextNodeID)
-        {            
-
+        {
+            Debug.Log("[PlayerController] Setting Node:" + nextNodeID);
             playerNodeID = nextNodeID;
             Vector3 nextLocation = pathService.GetNodeLocation(nextNodeID);
             await MoveToLocation(nextLocation);
@@ -171,8 +171,9 @@ namespace Player
             return pathService.CheckForTargetNode(playerNodeID);
         }
 
-      async  public void PerformAction(Directions _direction )
+        async  public void PerformAction(Directions _direction )
         {
+            Debug.Log("[PlayerController] Setting Direction:" + _direction);
             int nextNodeID = pathService.GetNextNodeID(playerNodeID, _direction);
             if (nextNodeID == -1)
             {

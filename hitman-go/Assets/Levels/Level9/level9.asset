@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level9
   m_EditorClassIdentifier: 
-  line: {fileID: 0}
+  line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   stars: 
   maxPlayerMoves: 10
   noOfEnemies: 1
@@ -22,7 +22,9 @@ MonoBehaviour:
     type: 3}
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
-  cameraScriptableList: []
+  cameraScriptableList:
+  - {fileID: 11400000, guid: eb4db10fe0205490e92b392000ce6719, type: 2}
+  - {fileID: 11400000, guid: 154a3f393514f41c2af353d0c3a6b3e6, type: 2}
   Graph:
   - node:
       uniqueID: 0
