@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Common;
 using SoundSystem;
+using Enemy;
 
 namespace InteractableSystem
 {
@@ -24,10 +25,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.SNIPER_GUN;
         }
 
-        public override void TakeAction(int nodeID)
+        public override void TakeAction(int targetNodeID)
         {
             interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
             { soundName = SoundName.sniper });
+            interactableManager.ReturnSignalBus().TryFire(new EnemyDeathSignal() { nodeID = targetNodeID });
             interactableManager.RemoveInteractable(this);
         }
 

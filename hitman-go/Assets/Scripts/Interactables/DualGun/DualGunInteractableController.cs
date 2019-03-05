@@ -39,6 +39,7 @@ namespace InteractableSystem
 
         void Shoot(int targetNodeID, Directions direction)
         {
+            Debug.Log("[DualGun] Direction:" + direction);
             Vector3 position = interactableManager.ReturnPathService()
                                 .GetNodeLocation(targetNodeID);
 
