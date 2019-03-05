@@ -42,6 +42,7 @@ namespace Enemy
             List<IEnemyController> newEnemyControllers = new List<IEnemyController>();
             spawnNodeID.Clear();
             spawnNodeID = pathService.GetEnemySpawnLocation(_enemyScriptableObject.enemyType);
+
             switch (_enemyScriptableObject.enemyType)
             {
                 case EnemyType.STATIC:

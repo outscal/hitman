@@ -53,7 +53,7 @@ namespace Player
             playerInstance = GameObject.Instantiate(scriptableObject.playerView.gameObject);
             currentPlayerView = playerInstance.GetComponent<PlayerView>();
             playerStateMachine = new PlayerStateMachine(currentPlayerView, playerService);
-
+            playerNodeID = 0;
             playerInstance.transform.localPosition = spawnLocation;
 
         }
@@ -174,7 +174,7 @@ namespace Player
         async  public void PerformAction(Directions _direction )
         {
             Debug.Log("[PlayerController] Setting Direction:" + _direction);
-            int nextNodeID = pathService.GetNextNodeID(playerNodeID, _direction);
+            int nextNodeID = pathService.GetNextNodeID(GetID(), _direction);
             if (nextNodeID == -1)
             {
                 //ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);

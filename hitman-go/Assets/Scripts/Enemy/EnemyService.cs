@@ -145,7 +145,7 @@ namespace Enemy
             }
         }
 
-        public void EnemyDead(EnemyDeathSignal _deathSignal)
+      async  public void EnemyDead(EnemyDeathSignal _deathSignal)
         {
             foreach (EnemyController enemyController in enemyList)
             {
@@ -160,7 +160,7 @@ namespace Enemy
             {
                 gameService.ChangeToPlayerState();
             }
-
+            await new WaitForEndOfFrame();
         }
 
         public void TriggerPlayerDeath()

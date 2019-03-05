@@ -73,6 +73,8 @@ namespace Player
                 return;
             }
 
+            Debug.Log("[player service] swipe moving to node");
+
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
             playerController.PerformAction(_direction);
@@ -80,6 +82,7 @@ namespace Player
             await new WaitForEndOfFrame();
 
             camera.SetNodeID(GetPlayerNodeID());
+            Debug.Log("[player service] swipe movement done");
         }
 
 
@@ -120,6 +123,7 @@ namespace Player
             playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject);
             signalBus.TryFire(new PlayerSpawnSignal());
             playerNodeID = playerController.GetID();
+            playerController.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
         }
 
         //increase score on enemyKill etc 
@@ -151,6 +155,8 @@ namespace Player
 
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
+                
+                Debug.Log("[player service] tap moving to node");
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
              
                 playerController.PerformMovement(_nodeID);
@@ -159,6 +165,7 @@ namespace Player
 
             await new WaitForEndOfFrame();
             camera.SetNodeID(GetPlayerNodeID());
+                Debug.Log("[player service] tap movement done ");
 
         }
 
