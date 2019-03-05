@@ -58,7 +58,7 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
-            Debug.Log("[PlayerService] Setting Direction:" + _direction);
+           
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -73,7 +73,7 @@ namespace Player
                 return;
             }
 
-            Debug.Log("[player service] swipe moving to node");
+          
 
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
@@ -82,7 +82,7 @@ namespace Player
             await new WaitForEndOfFrame();
 
             camera.SetNodeID(GetPlayerNodeID());
-            Debug.Log("[player service] swipe movement done");
+           
         }
 
 

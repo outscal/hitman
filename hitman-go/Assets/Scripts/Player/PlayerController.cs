@@ -172,7 +172,7 @@ namespace Player
 
         async  public void PerformAction(Directions _direction )
         {
-            Debug.Log("[PlayerController] Setting Direction:" + _direction);
+           
             int nextNodeID = pathService.GetNextNodeID(GetID(), _direction);
             if (nextNodeID == -1)
             {
