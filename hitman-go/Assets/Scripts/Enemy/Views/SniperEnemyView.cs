@@ -9,8 +9,8 @@ namespace Enemy
     public class SniperEnemyView : EnemyView
     {
         private bool isRayCastStart = false;
-        private Ray ray;
-       
+        private Ray ray = new Ray();
+        RaycastHit raycastHit;
 
         [SerializeField] private LineRenderer lineRenderer;
 
@@ -19,37 +19,38 @@ namespace Enemy
         {
 
             Debug.Log(enemyController.GetDirection());
-            //ray.origin = new Vector3(this.transform.position.x,1f,this.transform.position.z);
+            //ray.origin = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
             //ray.direction = this.transform.forward;
             alertSprite.enabled = false;
 
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position + ray.direction * 500f);
+            lineRenderer.SetPosition(1, transform.position);
+     
 
-        }
-        //private void Update()
-        //{
-        //    if (isRayCastStart)
-        //    { PerformSniperRaycast(); }
-        //}
-
-        public override void PerformRaycast()
-        {
-           PerformSniperRaycast();
-           // isRayCastStart = true;
-
-        }
-        private void PerformSniperRaycast()
-        {
-            RaycastHit raycastHit;
-                   
-
-            if(Physics.Raycast(transform.position,transform.forward,out raycastHit,50f))
+            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 50f))
             {
                 Debug.Log("hit regis");
                 lineRenderer.SetPosition(1, raycastHit.point);
-                
+            }
+
+        }
+       
+
+        public override void PerformRaycast()
+        {
+            PerformSniperRaycast();
+            // isRayCastStart = true;
+
+        }
+        private void PerformSniperRaycast()
+        {           
+            // if(Physics.Raycast(ray.origin,ray.direction,out raycastHit,50f))
+            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 50f))
+            {
+                Debug.Log("hit regis");
+                lineRenderer.SetPosition(1, raycastHit.point);
+
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
                     enemyController.KillPlayer();
