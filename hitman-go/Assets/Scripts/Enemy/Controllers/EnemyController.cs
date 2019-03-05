@@ -65,7 +65,7 @@ namespace Enemy
             currentEnemyView.Reset();
         }
 
-        public int GetCurrentID()
+        public int GetCurrentNodeID()
         {
             return currentNodeID;
         }

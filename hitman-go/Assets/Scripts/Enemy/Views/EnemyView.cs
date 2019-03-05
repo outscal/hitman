@@ -25,8 +25,8 @@ namespace Enemy
         }
         public void DisableEnemy()
         {
-            //gameObject.SetActive(false);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
         private void Start()
         {
@@ -48,6 +48,7 @@ namespace Enemy
 
         public void Reset()
         {
+            //DisableEnemy();
             Destroy(this.gameObject);
         }
 

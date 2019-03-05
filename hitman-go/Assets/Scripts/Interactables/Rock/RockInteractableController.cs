@@ -47,7 +47,7 @@ namespace InteractableSystem
                 nodeID = targetNodeID,
                 interactablePickup = interactablePickup
             });
-            Debug.Log("[RockController] Throw Task Done");
+
 
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);

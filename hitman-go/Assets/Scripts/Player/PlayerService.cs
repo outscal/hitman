@@ -135,7 +135,7 @@ namespace Player
         async public void SetTargetNode(int _nodeID)
         {
 
-            Debug.Log("[PlayerService] Setting Node:" + _nodeID);
+
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
@@ -156,7 +156,7 @@ namespace Player
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
                 
-                Debug.Log("[player service] tap moving to node");
+               
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
              
                 playerController.PerformMovement(_nodeID);
@@ -165,7 +165,7 @@ namespace Player
 
             await new WaitForEndOfFrame();
             camera.SetNodeID(GetPlayerNodeID());
-                Debug.Log("[player service] tap movement done ");
+
 
         }
 
