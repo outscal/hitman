@@ -13,12 +13,29 @@ MonoBehaviour:
   m_Name: level6
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  stars: 
+  maxPlayerMoves: 10
+  noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  teleportNode: {fileID: 0}
   cameraScriptableList:
-  - {fileID: 11400000, guid: 6ae39abe24a074a2b90af443b3b7f2ad, type: 2}
+  - {fileID: 11400000, guid: 23008a43ec049493db38dc6145ca4997, type: 2}
+  - {fileID: 11400000, guid: 87c04c8ac103a45859daf083b6db9de2, type: 2}
+  - {fileID: 11400000, guid: 53c796c11f6b24f8598e4000e548dfbe, type: 2}
+  - {fileID: 11400000, guid: 46f6225a06127468e946be1e0e8be350, type: 2}
+  - {fileID: 11400000, guid: f6034d121c73347248096b22d548e862, type: 2}
+  - {fileID: 11400000, guid: d951524cbc41546299abaf7d8d8f2f8f, type: 2}
+  - {fileID: 11400000, guid: 080bdaf73a5f942c08dbfe993c732f38, type: 2}
+  - {fileID: 11400000, guid: d19ed68e113ba481ca87b78d886992c2, type: 2}
+  - {fileID: 11400000, guid: 32814be5306ff4897b8426125a585abd, type: 2}
+  - {fileID: 11400000, guid: ee7ad5f25e728486690a22829930bad0, type: 2}
+  - {fileID: 11400000, guid: ab0985613c707457eb4e56db316d3446, type: 2}
+  - {fileID: 11400000, guid: a3e6663a9af704029a04ef3e9299793f, type: 2}
+  - {fileID: 11400000, guid: fbdf045387271415580727ae5946080f, type: 2}
+  - {fileID: 11400000, guid: e664138ba78d0475092c05b1c2701823, type: 2}
   Graph:
   - node:
       uniqueID: 0
@@ -30,6 +47,7 @@ MonoBehaviour:
     down: -1
     left: 1
     right: -1
+    teleport: 
   - node:
       uniqueID: 1
       property: 0
@@ -40,6 +58,7 @@ MonoBehaviour:
     down: -1
     left: 4
     right: 0
+    teleport: 
   - node:
       uniqueID: 2
       property: 0
@@ -50,6 +69,7 @@ MonoBehaviour:
     down: 0
     left: 3
     right: -1
+    teleport: 
   - node:
       uniqueID: 3
       property: 0
@@ -60,6 +80,7 @@ MonoBehaviour:
     down: -1
     left: 5
     right: 2
+    teleport: 
   - node:
       uniqueID: 4
       property: 0
@@ -70,6 +91,7 @@ MonoBehaviour:
     down: -1
     left: -1
     right: 1
+    teleport: 
   - node:
       uniqueID: 5
       property: 0
@@ -80,6 +102,7 @@ MonoBehaviour:
     down: 4
     left: -1
     right: 3
+    teleport: 
   - node:
       uniqueID: 6
       property: 0
@@ -90,6 +113,7 @@ MonoBehaviour:
     down: 5
     left: -1
     right: 7
+    teleport: 
   - node:
       uniqueID: 7
       property: 0
@@ -102,6 +126,7 @@ MonoBehaviour:
     down: -1
     left: 6
     right: 8
+    teleport: 
   - node:
       uniqueID: 8
       property: 0
@@ -112,6 +137,7 @@ MonoBehaviour:
     down: -1
     left: 7
     right: 10
+    teleport: 
   - node:
       uniqueID: 9
       property: 0
@@ -124,6 +150,7 @@ MonoBehaviour:
     down: 7
     left: -1
     right: -1
+    teleport: 
   - node:
       uniqueID: 10
       property: 0
@@ -136,6 +163,7 @@ MonoBehaviour:
     down: 11
     left: 8
     right: -1
+    teleport: 
   - node:
       uniqueID: 11
       property: 0
@@ -146,6 +174,7 @@ MonoBehaviour:
     down: 12
     left: -1
     right: -1
+    teleport: 
   - node:
       uniqueID: 12
       property: 0
@@ -158,6 +187,7 @@ MonoBehaviour:
     down: -1
     left: -1
     right: -1
+    teleport: 
   - node:
       uniqueID: 13
       property: 2
@@ -168,3 +198,4 @@ MonoBehaviour:
     down: 10
     left: -1
     right: -1
+    teleport: 

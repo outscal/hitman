@@ -157,7 +157,7 @@ namespace Player
             }
 
             await new WaitForEndOfFrame();
-
+            camera.SetNodeID(GetPlayerNodeID());
 
         }
 
