@@ -19,7 +19,7 @@ namespace InputSystem
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition);//, nodeLayer);
+                GameObject gameObject = inputService.GetTapDetect().ReturnObject(Input.mousePosition, nodeLayer);
                 if(gameObject==null)
                 {
                     return;
