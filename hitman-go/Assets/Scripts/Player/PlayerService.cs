@@ -58,6 +58,7 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
+            Debug.Log("[PlayerService] Setting Direction:" + _direction);
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -130,6 +131,7 @@ namespace Player
         async public void SetTargetNode(int _nodeID)
         {
 
+            Debug.Log("[PlayerService] Setting Node:" + _nodeID);
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
