@@ -65,7 +65,6 @@ namespace Enemy
             {
                 if (enemy.GetCurrentID() == nodeID)
                 {
-
                     return true;
                 }
             }
@@ -124,7 +123,8 @@ namespace Enemy
                 {
                     if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
                     {
-                        signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
+                        signalBus.TryFire(new EnemyDeathSignal() { nodeID = controller.GetCurrentID() });
+                        continue;
                     }
                     else
                     {                        
@@ -146,21 +146,24 @@ namespace Enemy
         }
 
       async  public void EnemyDead(EnemyDeathSignal _deathSignal)
-        {
-            foreach (EnemyController enemyController in enemyList)
+       {
+            for (int i = 0; i <enemyList.Count; i++)
             {
+                IEnemyController enemyController= enemyList[i];
                 if (enemyController.GetCurrentID() == _deathSignal.nodeID)
                 {
-                    enemyController.DisableEnemy();
+                    //enemyController.DisableEnemy();
+                    enemyController.Reset();
                     enemyList.Remove(enemyController);
                     break;
                 }
             }
+
             if (enemyList.Count == 0)
             {
                 gameService.ChangeToPlayerState();
             }
-            await new WaitForEndOfFrame();
+           // await new WaitForEndOfFrame();
         }
 
         public void TriggerPlayerDeath()
