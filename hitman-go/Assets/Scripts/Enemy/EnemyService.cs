@@ -33,7 +33,7 @@ namespace Enemy
             signalBus = _signalBus;
             enemyScriptableObjectList = enemyList;
 
-            //signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+            signalBus.Subscribe<EnemyKillSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
             signalBus.Subscribe<ResetSignal>(ResetEnemy);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);

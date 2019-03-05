@@ -10,7 +10,7 @@ namespace Enemy
     {
         private bool isRayCastStart = false;
         private Ray ray;
-        private RaycastHit raycastHit;
+       
 
         [SerializeField] private LineRenderer lineRenderer;
 
@@ -19,8 +19,8 @@ namespace Enemy
         {
 
             Debug.Log(enemyController.GetDirection());
-            ray.origin = new Vector3(this.transform.localPosition.x,1f,this.transform.localPosition.z);
-            ray.direction = transform.forward;
+            //ray.origin = new Vector3(this.transform.position.x,1f,this.transform.position.z);
+            //ray.direction = this.transform.forward;
             alertSprite.enabled = false;
 
             lineRenderer.positionCount = 2;
@@ -28,24 +28,24 @@ namespace Enemy
             lineRenderer.SetPosition(1, transform.position + ray.direction * 500f);
 
         }
-       
-       
-
-        private void Update()
-        {
-
-        }
+        //private void Update()
+        //{
+        //    if (isRayCastStart)
+        //    { PerformSniperRaycast(); }
+        //}
 
         public override void PerformRaycast()
-        {            
-            PerformSniperRaycast();
+        {
+           PerformSniperRaycast();
+           // isRayCastStart = true;
 
         }
         private void PerformSniperRaycast()
         {
-            Debug.Log("ray direction"+ray.direction);           
+            RaycastHit raycastHit;
+                   
 
-            if (Physics.Raycast(ray.origin,ray.direction, out raycastHit, Mathf.Infinity))
+            if(Physics.Raycast(transform.position,transform.forward,out raycastHit,50f))
             {
                 Debug.Log("hit regis");
                 lineRenderer.SetPosition(1, raycastHit.point);
