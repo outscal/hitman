@@ -10,7 +10,7 @@ namespace PathSystem
         PathView view;
         List<int> shortestPath;
         int shortestPathLength;
-        List<StarTypes> Stars;
+        List<StarData> Stars;
         List<CameraScriptableObj> cameraList;
         [SerializeField] List<Node> graph = new List<Node>();
         public PathController(ScriptableGraph Graph)
@@ -29,10 +29,10 @@ namespace PathSystem
         }
         public void DrawGraph(ScriptableGraph Graph)
         {
-            Stars = new List<StarTypes>(Graph.stars);
+            Stars = new List<StarData>(Graph.stars);
             shortestPathLength = view.DrawGraph(Graph);
         }
-        public List<StarTypes> GetStarsForLevel() { return Stars; }
+        public List<StarData> GetStarsForLevel() { return Stars; }
         public void DestroyPath()
         {
             view.DestroyPath();
