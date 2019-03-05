@@ -182,6 +182,11 @@ namespace CameraSystem
         {
             iTween.MoveTo(cameraObj, cameraData.position, 0.8f);
             iTween.RotateTo(cameraObj, cameraData.rotation.eulerAngles, 0.8f);
+            float fov;
+            float currentFOV = cameraObj.GetComponent<Camera>().fieldOfView;
+            float targetFOV = cameraData.fieldOfView;
+            fov = iTween.FloatUpdate(currentFOV, targetFOV, 2f);
+            cameraObj.GetComponent<Camera>().fieldOfView = fov;
         }
 
         //Script used by Editor
