@@ -53,6 +53,7 @@ namespace Enemy
                 int nextNodeCheck = pathService.GetNextNodeID(nodeID, oldDirection);      
                 if(nextNodeCheck==-1)
                 {
+                   // stateMachine.ChangeEnemyState(EnemyStates.IDLE);
                     return;
                 }
                 if (CheckForPlayerPresence(nextNodeCheck))

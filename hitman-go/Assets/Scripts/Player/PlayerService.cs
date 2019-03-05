@@ -150,8 +150,7 @@ namespace Player
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-                //var _direction = currentPathService.GetDirections(GetPlayerNodeID(), _nodeID);
-                //playerController.PerformAction(_direction);
+             
                 playerController.PerformMovement(_nodeID);
 
             }

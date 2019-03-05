@@ -100,7 +100,7 @@ namespace Enemy
             {
 
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
-
+                currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
               await  MoveToNextNode(nextNodeID);
 
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
@@ -150,11 +150,9 @@ namespace Enemy
             stateMachine.ChangeEnemyState(EnemyStates.CHASE);
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
-            currentEnemyView.AlertEnemyView();
-
-            
-            Vector3 _destinationLocation = pathService.GetNodeLocation(alertedPathNodes[0]);
-            currentEnemyView.RotateEnemy(_destinationLocation);
+            currentEnemyView.AlertEnemyView();            
+            //Vector3 _destinationLocation = pathService.GetNodeLocation(alertedPathNodes[0]);
+            //currentEnemyView.RotateEnemy(_destinationLocation);
 
         }
 
