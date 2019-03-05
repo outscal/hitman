@@ -54,6 +54,7 @@ namespace GameState
         public void IncrimentLevel()
         {
             if (levels.levelsList.Count > currentLevel) { currentLevel = currentLevel + 1; }
+            saveService.SaveMaxLevel(currentLevel);
             
         }
         public void ChangeToLevelFinishedState()

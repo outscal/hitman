@@ -15,5 +15,15 @@ namespace SavingSystem
         public bool ReadStarTypeForLevel(int level,StarTypes type){
             return saveController.ReadStarTypeForLevel(level,type);
         }
+
+        public void SaveMaxLevel(int level)
+        {
+            saveController.SaveMaxLevel(level);
+        }
+
+        public int ReadMaxLevel()
+        {
+           return saveController.ReadMaxLevel();
+        }
     }
 }
