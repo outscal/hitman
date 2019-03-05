@@ -13,6 +13,7 @@ namespace Common
         ENEMYSTATE,
         GAMEOVERSTATE,
         LEVELFINISHEDSTATE,
+        LOBBYSTATE,
         LOADLEVELSTATE
     }
     public enum StarTypes{
