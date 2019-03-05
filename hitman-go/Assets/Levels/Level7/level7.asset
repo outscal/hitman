@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: level7
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 
-  maxPlayerMoves: 10
+  stars: 0000000003000000
+  maxPlayerMoves: 14
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e6ce82eb4cac44a08e6a49767a0ef6c, type: 2}
   - {fileID: 11400000, guid: 1deeef2a056224a6d85180e3ec025e98, type: 2}
   - {fileID: 11400000, guid: d27d5b36bf6fd4d3aab1655d3264944b, type: 2}
-  - {fileID: 11400000, guid: 68090da8f1204482984e067467f7e280, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: cc9f70490e9e64314959da7e9f6c74f8, type: 2}
   - {fileID: 11400000, guid: 2c33e681341174ee6bd061c76015d4a1, type: 2}
   - {fileID: 11400000, guid: 690372c6b6dc3411797ee6d5683b3aee, type: 2}
