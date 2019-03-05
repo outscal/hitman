@@ -10,7 +10,11 @@ namespace PathSystem
         PathController controller;
         public void DrawGraph(ScriptableGraph Graph)
         {
-            controller = new PathController(Graph);
+            controller = new PathController(Graph,this);
+            controller.DrawGraph(Graph);
+        }
+        public void KeyCollected(KeyTypes key){
+            controller.KeyCollected(key);
         }
         public void DestroyPath()
         {

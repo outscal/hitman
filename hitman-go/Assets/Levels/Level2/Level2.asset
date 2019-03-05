@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 
+  GatesEdge:
+  - key: 1
+    node1: 4
+    node2: 5
+    position: {x: 5, y: 0, z: -2.5}
+    gatePrefab: {fileID: 5434262468552243766, guid: b7936756e14d54f47b94b55948a8b7fb,
+      type: 3}
+  stars: []
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -81,7 +88,7 @@ MonoBehaviour:
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 0}
-    up: 5
+    up: -1
     down: 3
     left: -1
     right: -1
@@ -93,7 +100,7 @@ MonoBehaviour:
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -5}
     up: -1
-    down: 4
+    down: -1
     left: -1
     right: -1
     teleport: 

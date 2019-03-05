@@ -35,6 +35,11 @@ namespace Common
         CIRCULAR_COP,
         TARGET
     }
+    public enum KeyTypes{
+        RED,
+        BLUE,
+        YELLOW
+    }
      public enum NodeProperty
     {
         NONE,
