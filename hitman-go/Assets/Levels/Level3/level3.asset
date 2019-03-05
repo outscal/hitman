@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: level3
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 02000000
+  stars: 
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  teleportNode: {fileID: 0}
   cameraScriptableList:
   - {fileID: 11400000, guid: b4444333d0e814f1f9e722e3e63f20ff, type: 2}
   - {fileID: 11400000, guid: fd15f4de924704af481f0066912ce305, type: 2}
@@ -40,26 +41,31 @@ MonoBehaviour:
     down: -1
     left: 1
     right: -1
+    teleport: 
   - node:
       uniqueID: 1
       property: 0
-      spawnPickups: 0
+      spawnPickups: 5
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 0}
     up: -1
     down: 7
     left: 2
     right: 0
+    teleport: 
   - node:
       uniqueID: 2
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
       nodePosition: {x: 0, y: 0, z: 0}
     up: 3
     down: 6
     left: 4
     right: 1
+    teleport: 
   - node:
       uniqueID: 3
       property: 2
@@ -70,6 +76,7 @@ MonoBehaviour:
     down: 2
     left: -1
     right: -1
+    teleport: 
   - node:
       uniqueID: 4
       property: 0
@@ -82,6 +89,7 @@ MonoBehaviour:
     down: 5
     left: -1
     right: 2
+    teleport: 
   - node:
       uniqueID: 5
       property: 0
@@ -92,6 +100,7 @@ MonoBehaviour:
     down: -1
     left: -1
     right: 6
+    teleport: 
   - node:
       uniqueID: 6
       property: 0
@@ -102,13 +111,17 @@ MonoBehaviour:
     down: -1
     left: 5
     right: 7
+    teleport: 
   - node:
       uniqueID: 7
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 0
+        dir: 2
       nodePosition: {x: -5, y: 0, z: 5}
     up: 1
     down: -1
     left: 6
     right: -1
+    teleport: 

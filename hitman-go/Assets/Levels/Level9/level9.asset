@@ -32,10 +32,10 @@ MonoBehaviour:
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
-    up: 0
-    down: 2
+    up: 2
+    down: -1
     left: -1
-    right: -1
+    right: 1
     teleport: 
   - node:
       uniqueID: 1
