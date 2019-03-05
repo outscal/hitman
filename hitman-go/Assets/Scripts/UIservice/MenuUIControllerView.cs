@@ -47,9 +47,11 @@ namespace UIservice
             retryButton.gameObject.SetActive(true);
             SetCards();
         }
+       
         // Start is called before the first frame update
         private void OnEnable()
         {
+            
             nextButton.onClick.AddListener(LoadNext);
             retryButton.onClick.AddListener(Retry);
         }
