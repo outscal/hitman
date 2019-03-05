@@ -21,7 +21,7 @@ namespace Enemy
         private IEnemyFactory enemyFactory;
         private IGameService gameService;
         private EnemyScriptableObjectList enemyScriptableObjectList;
-       // private IEnumerable<Task> moveTasks;
+        private IEnumerable<Task> moveTasks;
         private List<Task> moveTaskList = new List<Task>();
 
         public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
@@ -118,8 +118,7 @@ namespace Enemy
             for (int i = 0; i < enemyList.Count; i++)
             {
 
-                controller = enemyList[i];
-               // controller.ChangeState(EnemyStates.MOVING);
+                controller = enemyList[i];             
              
                 if (!playerService.PlayerDeathStatus())
                 {
@@ -131,12 +130,13 @@ namespace Enemy
                     {                        
                        Task moveTask= controller.Move();
                         moveTaskList.Add(moveTask);
+                    
                     }
                 }
              
 
             }
-           await Task.WhenAll(moveTaskList);
+            await Task.WhenAll(moveTaskList.ToArray());
 
             if (!playerService.PlayerDeathStatus())
             {
