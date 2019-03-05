@@ -34,6 +34,7 @@ namespace Enemy
             enemyScriptableObjectList = enemyList;
 
             //signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+            signalBus.Subscribe<EnemyKillSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
             signalBus.Subscribe<ResetSignal>(ResetEnemy);
             signalBus.Subscribe<GameStartSignal>(OnGameStart);
@@ -135,6 +136,7 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
+                Debug.Log("Changeing to player state bitches");
                 gameService.ChangeToPlayerState();
 
             }

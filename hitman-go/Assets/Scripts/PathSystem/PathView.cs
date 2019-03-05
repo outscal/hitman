@@ -152,6 +152,9 @@ namespace PathSystem
                 if (physicalGates[i].GetKey() == key)
                 {
                     physicalGates[i].Disable();
+                    physicalGates.RemoveAt(i);
+                    break;
+                
                 }
             }
         }
