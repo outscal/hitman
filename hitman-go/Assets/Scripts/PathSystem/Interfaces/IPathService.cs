@@ -8,6 +8,7 @@ namespace PathSystem
     public interface IPathService
     {
         void KeyCollected(KeyTypes key);
+        KeyTypes GetKeyType(int node);
         List<StarData> GetStarsForLevel();
         Directions GetDirections(int sourceNode, int nextNode);
         void ShowThrowableNodes(int nodeId);

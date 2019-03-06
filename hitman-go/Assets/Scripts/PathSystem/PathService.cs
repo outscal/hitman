@@ -16,6 +16,9 @@ namespace PathSystem
         public void KeyCollected(KeyTypes key){
             controller.KeyCollected(key);
         }
+        public KeyTypes GetKeyType(int node){
+            return controller.GetKeyType(node);
+        }
         public void DestroyPath()
         {
             if (controller != null)

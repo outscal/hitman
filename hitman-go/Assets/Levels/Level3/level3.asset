@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: level3
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 
+  GatesEdge: []
+  stars: []
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -32,6 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da5561893cb394ee283108d0f992b66f, type: 2}
   Graph:
   - node:
+      keyType: 0
       uniqueID: 0
       property: 1
       spawnPickups: 0
@@ -43,9 +45,10 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 1
       property: 0
-      spawnPickups: 5
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 0}
     up: -1
@@ -54,6 +57,7 @@ MonoBehaviour:
     right: 0
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 2
       property: 0
       spawnPickups: 0
@@ -67,6 +71,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 3
       property: 2
       spawnPickups: 0
@@ -78,6 +83,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 4
       property: 0
       spawnPickups: 0
@@ -91,6 +97,7 @@ MonoBehaviour:
     right: 2
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 5
       property: 0
       spawnPickups: 0
@@ -102,6 +109,7 @@ MonoBehaviour:
     right: 6
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 6
       property: 0
       spawnPickups: 0
@@ -113,6 +121,7 @@ MonoBehaviour:
     right: 7
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 7
       property: 0
       spawnPickups: 0

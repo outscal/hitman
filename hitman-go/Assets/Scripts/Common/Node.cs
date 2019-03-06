@@ -7,6 +7,7 @@ namespace Common
     public class Node
 
     {
+        
         public NodeData node;
         public int[] connections = new int[4];
         public List<int> teleport = new List<int>();

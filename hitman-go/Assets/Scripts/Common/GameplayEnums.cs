@@ -36,6 +36,7 @@ namespace Common
         TARGET
     }
     public enum KeyTypes{
+        NONE,
         RED,
         BLUE,
         YELLOW

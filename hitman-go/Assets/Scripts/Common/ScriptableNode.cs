@@ -6,6 +6,7 @@ namespace Common
     [Serializable]
     public class ScriptableNode
     {
+        
         public NodeData node;
         public int up = -1, down = -1, left = -1, right = -1;
         public List<int> teleport = new List<int>();

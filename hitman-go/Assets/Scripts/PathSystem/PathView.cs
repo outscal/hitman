@@ -66,7 +66,6 @@ namespace PathSystem
         }
         public void DrawPath(int dir, Vector3 nodePosition)
         {
-            Debug.Log("qqqqqqqqqqqqqq"+dir);
             if (dir == 0)
             {
                 physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x, nodePosition.y - 0.195f, nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));

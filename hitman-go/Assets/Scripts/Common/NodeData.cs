@@ -7,6 +7,7 @@ namespace Common
     [Serializable]
     public struct NodeData
     {
+        public KeyTypes keyType;
         public int uniqueID;
         public NodeProperty property;
         public InteractablePickup spawnPickups;

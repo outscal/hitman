@@ -177,7 +177,6 @@ namespace PathSystem
         public void ShowThrowableNodes(int nodeId) { view.ShowThrowableNodes(nodeId); }
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
-            KeyCollected(KeyTypes.BLUE);
             int nextnode = graph[_nodeId].connections[(int)_dir];
             // CheckTeleportable(_nodeId, nextnode);
             view.Unhighlightnodes();
@@ -187,6 +186,9 @@ namespace PathSystem
             }
 
             return nextnode;
+        }
+        public KeyTypes GetKeyType(int node){
+            return graph[node].node.keyType;
         }
         public Vector3 GetNodeLocation(int _nodeID) { return graph[_nodeID].node.nodePosition; }
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
