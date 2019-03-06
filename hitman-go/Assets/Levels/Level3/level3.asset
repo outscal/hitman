@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
-  stars: []
+  stars:
+  - type: 5
+    name: Completed
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -61,9 +63,7 @@ MonoBehaviour:
       uniqueID: 2
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 0
-        dir: 0
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 0}
     up: 3
     down: 6
@@ -125,9 +125,7 @@ MonoBehaviour:
       uniqueID: 7
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 0
-        dir: 2
+      spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 5}
     up: 1
     down: -1
