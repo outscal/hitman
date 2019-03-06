@@ -55,7 +55,7 @@ namespace PathSystem
         {
             return controller.GetPlayerNodeID();
         }
-        public List<int> GetEnemySpawnLocation(EnemyType type)
+        public List<EnemySpawnData> GetEnemySpawnLocation(EnemyType type)
         {
             return controller.GetEnemySpawnLocation(type);
         }

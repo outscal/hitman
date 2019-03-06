@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Common;
 using PathSystem.NodesScript;
 using UnityEngine;
+using System.Linq;
 using CameraSystem;
 namespace PathSystem
 {
@@ -45,35 +46,40 @@ namespace PathSystem
             {
                 if (gates[i].key == key)
                 {
-                    
-                    int dir=-1,node=-1,setdir1=-1,setdir2=-1;
-                    if(GetNodeLocation(gates[i].node1).x<GetNodeLocation(gates[i].node2).x){
-                        dir=2;
-                        setdir1=2;
-                        setdir2=3;
-                        node=gates[i].node1;
-                    }
-                    if(GetNodeLocation(gates[i].node1).z>GetNodeLocation(gates[i].node2).z){
-                        dir=0;
-                        setdir2=1;
-                        setdir1=0;
-                        node=gates[i].node1;
-                    }if(GetNodeLocation(gates[i].node2).z>GetNodeLocation(gates[i].node1).z){
-                        dir=0;
-                        setdir2=0;
-                        setdir1=1;
-                        node=gates[i].node2;
-                    }if(GetNodeLocation(gates[i].node2).x < GetNodeLocation(gates[i].node1).x)
+
+                    int dir = -1, node = -1, setdir1 = -1, setdir2 = -1;
+                    if (GetNodeLocation(gates[i].node1).x < GetNodeLocation(gates[i].node2).x)
                     {
-                        dir=2;
-                        setdir2=2;
-                        setdir1=3;
-                        node=node=gates[i].node2;
+                        dir = 2;
+                        setdir1 = 2;
+                        setdir2 = 3;
+                        node = gates[i].node1;
+                    }
+                    if (GetNodeLocation(gates[i].node1).z > GetNodeLocation(gates[i].node2).z)
+                    {
+                        dir = 0;
+                        setdir2 = 1;
+                        setdir1 = 0;
+                        node = gates[i].node1;
+                    }
+                    if (GetNodeLocation(gates[i].node2).z > GetNodeLocation(gates[i].node1).z)
+                    {
+                        dir = 0;
+                        setdir2 = 0;
+                        setdir1 = 1;
+                        node = gates[i].node2;
+                    }
+                    if (GetNodeLocation(gates[i].node2).x < GetNodeLocation(gates[i].node1).x)
+                    {
+                        dir = 2;
+                        setdir2 = 2;
+                        setdir1 = 3;
+                        node = node = gates[i].node2;
                     }
                     //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
                     graph[gates[i].node1].connections[setdir1] = gates[i].node2;
                     graph[gates[i].node2].connections[setdir2] = gates[i].node1;
-                    view.DrawPath(dir,GetNodeLocation(node));
+                    view.DrawPath(dir, GetNodeLocation(node));
                     //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
 
                 }
@@ -158,7 +164,7 @@ namespace PathSystem
                 if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
                 {
                     view.ShowTeleportableNodes(graph[destinationNode].teleport);
-                }                
+                }
                 return true;
             }
             else
@@ -193,7 +199,8 @@ namespace PathSystem
 
             return nextnode;
         }
-        public KeyTypes GetKeyType(int node){
+        public KeyTypes GetKeyType(int node)
+        {
             return graph[node].node.keyType;
         }
         public Vector3 GetNodeLocation(int _nodeID) { return graph[_nodeID].node.nodePosition; }
@@ -217,14 +224,19 @@ namespace PathSystem
         {
             return cameraList;
         }
-        public List<int> GetEnemySpawnLocation(EnemyType type)
+        public List<EnemySpawnData> GetEnemySpawnLocation(EnemyType type)
         {
-            List<int> enemySpawnNode = new List<int>();
+            List<EnemySpawnData> enemySpawnNode = new List<EnemySpawnData>();
             for (int i = 0; i < graph.Count; i++)
             {
-                if (graph[i].ContainsEnemyType(type))
+                List<EnemySpawnData> tempEnemyData = new List<EnemySpawnData>();
+                tempEnemyData = graph[i].GetEnemyType(type);
+                if (tempEnemyData.Count > 0)
                 {
-                    enemySpawnNode.Add(graph[i].node.uniqueID);
+                    for (int j = 0; j < tempEnemyData.Count; j++)
+                    {
+                        enemySpawnNode.Add(tempEnemyData[j]);
+                    }
                 }
             }
             return enemySpawnNode;

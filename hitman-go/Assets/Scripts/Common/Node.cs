@@ -10,16 +10,22 @@ namespace Common
         public NodeData node;
         public int[] connections = new int[4];
         public List<int> teleport = new List<int>();
-        public bool ContainsEnemyType(EnemyType type)
+        public List<EnemySpawnData> GetEnemyType(EnemyType type)
         {
+            List<EnemySpawnData> enemy = new List<EnemySpawnData>();
+
             for (int i = 0; i < node.spawnEnemies.Count; i++)
             {
+                
                 if (node.spawnEnemies[i].enemy == type)
                 {
-                    return true;
+                    EnemySpawnData data = new EnemySpawnData();
+                    data.node = node.uniqueID;
+                    data.dir = node.spawnEnemies[i].dir;
+                    enemy.Add(data);
                 }
             }
-            return false;
+            return enemy;
         }
 
     }
