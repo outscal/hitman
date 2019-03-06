@@ -36,6 +36,10 @@ namespace GameState
         public void SetCurrentLevel(int level){
             currentLevel=level;
         }
+        public List<StarData> GetStarsForLevel(int level)
+        {
+            return new List<StarData>(levels.levelsList[level].stars);
+        }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
@@ -94,6 +98,11 @@ namespace GameState
         public int GetCurrentLevel()
         {
             return currentLevel;
+        }
+
+        public int GetNumberOfLevels()
+        {
+            return levels.levelsList.Count;
         }
     }
 }

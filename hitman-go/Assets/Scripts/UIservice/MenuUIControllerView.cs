@@ -73,13 +73,8 @@ namespace UIservice
         {
             List<StarData> stars = pathService.GetStarsForLevel();
             CardControllerView cardview;
-            cardview = Instantiate(card, starPanalTransform).GetComponent<CardControllerView>();
-            cards.Add(cardview);
-            cardview.setCardName("Level Complete");
-            cardview.SetAchievement(levelComplete);
             for (int i = 0; i < stars.Count; i++)
-            {
-                
+            { 
                 cardview = Instantiate(card, starPanalTransform).GetComponent<CardControllerView>();
                 cardview.setCardName(stars[i].name);
                 cardview.SetAchievement(saveService.ReadStarTypeForLevel(gameService.GetCurrentLevel(),stars[i].type));

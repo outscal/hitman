@@ -66,18 +66,15 @@ namespace InteractableSystem
 
         bool EnemyPresent(Vector3 origin, Vector3 direction)
         {
-            GameObject enemy = null;
             RaycastHit hit;
             if (Physics.Raycast(origin, direction, out hit, 6f))
             {
-                enemy = hit.collider.gameObject;
-            }
-
-            if (enemy != null)
-            {
-                if (enemy.GetComponent<IEnemyView>() != null)
+                if(hit.collider.gameObject != null)
                 {
-                    return true;
+                    if (hit.collider.gameObject.GetComponent<IEnemyView>() != null)
+                    {
+                        return true;
+                    }
                 }
             }
 

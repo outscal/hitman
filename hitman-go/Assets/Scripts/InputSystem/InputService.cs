@@ -25,7 +25,7 @@ namespace InputSystem
             swipeDirection = new SwipeDirection();
             tapDetect = new TapDetect();
 
-#if (UNITY_ANDROID || UNITY_IOS) //&& !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             playerInput = new TouchInput();
 #elif UNITY_EDITOR || UNITY_STANDALONE
              playerInput = new KeyboardInput();
