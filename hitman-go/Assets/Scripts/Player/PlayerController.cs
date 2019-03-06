@@ -125,7 +125,7 @@ namespace Player
                 case InteractablePickup.BREIFCASE:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   
+                    await new WaitForEndOfFrame();
                     break;
                 case InteractablePickup.COLOR_KEY:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
@@ -135,7 +135,7 @@ namespace Player
                 case InteractablePickup.DUAL_GUN:
                     await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   
+
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
                     await  ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);

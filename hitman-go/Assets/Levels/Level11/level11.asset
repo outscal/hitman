@@ -29,7 +29,8 @@ MonoBehaviour:
     type: 3}
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
-  cameraScriptableList: []
+  cameraScriptableList:
+  - {fileID: 11400000, guid: ff7e73cf346874b94bb9f1b1418ab2b9, type: 2}
   Graph:
   - node:
       keyType: 0
