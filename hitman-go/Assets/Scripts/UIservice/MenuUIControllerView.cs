@@ -51,14 +51,19 @@ namespace UIservice
         // Start is called before the first frame update
         private void OnEnable()
         {
-            
+            LobyButton.onClick.AddListener(GoToLobby);
             nextButton.onClick.AddListener(LoadNext);
             retryButton.onClick.AddListener(Retry);
         }
         void OnDisable()
         {
+            LobyButton.onClick.RemoveListener(GoToLobby);
             nextButton.onClick.RemoveListener(LoadNext);
             retryButton.onClick.RemoveListener(Retry);
+        }
+        public void GoToLobby()
+        {
+            gameService.ChangeToLobbyState();
         }
         void LoadNext()
         {

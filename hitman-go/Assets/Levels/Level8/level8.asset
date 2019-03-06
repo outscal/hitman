@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: level8
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 0000000003000000
+  GatesEdge: []
+  stars:
+  - type: 0
+    name: 
   maxPlayerMoves: 13
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -37,6 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6563c26eba6ce473a8799a1b8a65b49d, type: 2}
   Graph:
   - node:
+      keyType: 0
       uniqueID: 0
       property: 1
       spawnPickups: 0
@@ -48,6 +52,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 1
       property: 0
       spawnPickups: 0
@@ -59,6 +64,7 @@ MonoBehaviour:
     right: 0
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 2
       property: 0
       spawnPickups: 0
@@ -70,6 +76,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 3
       property: 0
       spawnPickups: 0
@@ -81,6 +88,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 4
       property: 3
       spawnPickups: 0
@@ -92,6 +100,7 @@ MonoBehaviour:
     right: 3
     teleport: 0600000009000000
   - node:
+      keyType: 0
       uniqueID: 5
       property: 0
       spawnPickups: 0
@@ -103,6 +112,7 @@ MonoBehaviour:
     right: 10
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 6
       property: 3
       spawnPickups: 1
@@ -114,6 +124,7 @@ MonoBehaviour:
     right: -1
     teleport: 04000000
   - node:
+      keyType: 0
       uniqueID: 7
       property: 0
       spawnPickups: 2
@@ -125,6 +136,7 @@ MonoBehaviour:
     right: 5
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 8
       property: 0
       spawnPickups: 0
@@ -136,6 +148,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 9
       property: 3
       spawnPickups: 0
@@ -147,6 +160,7 @@ MonoBehaviour:
     right: 8
     teleport: 04000000
   - node:
+      keyType: 0
       uniqueID: 10
       property: 0
       spawnPickups: 0
@@ -160,6 +174,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 11
       property: 2
       spawnPickups: 0

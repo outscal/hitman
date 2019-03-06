@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
-  m_Name: ScriptableGraph
+  m_Name: level10
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge:
@@ -29,9 +29,15 @@ MonoBehaviour:
     node2: 22
     position: {x: 5, y: 0, z: -7.5}
     gatePrefab: {fileID: 0}
-  stars: []
-  maxPlayerMoves: 10
-  noOfEnemies: 1
+  stars:
+  - type: 5
+    name: Level Completed
+  - type: 3
+    name: Collect BriefCase
+  - type: 0
+    name: 23 Turns Max
+  maxPlayerMoves: 23
+  noOfEnemies: 5
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
