@@ -7,6 +7,7 @@ namespace PathSystem
 {
     public interface IPathService
     {
+        bool CheckIfSnipeable(int nodeId);
         void KeyCollected(KeyTypes key);
         KeyTypes GetKeyType(int node);
         List<StarData> GetStarsForLevel();

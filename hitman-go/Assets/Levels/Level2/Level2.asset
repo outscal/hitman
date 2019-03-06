@@ -33,6 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa970c472387148a4a31e0702b1da651, type: 2}
   Graph:
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 0
       property: 1
@@ -45,6 +46,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 1
       property: 0
@@ -57,6 +59,7 @@ MonoBehaviour:
     right: 0
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 2
       property: 0
@@ -69,6 +72,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 3
       property: 0
@@ -83,6 +87,7 @@ MonoBehaviour:
     right: 2
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 4
       property: 0
@@ -95,6 +100,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 5
       property: 2

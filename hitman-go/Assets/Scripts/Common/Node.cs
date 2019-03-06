@@ -5,7 +5,6 @@ namespace Common
 {
     [Serializable]
     public class Node
-
     {
         
         public NodeData node;

@@ -84,7 +84,11 @@ namespace PathSystem
             return controller.GetDirections(sourceNode, nextNode);
 
         }
-        public List<CameraScriptableObj> GetCameraDataList()
+        public bool CheckIfSnipeable(int nodeId)
+        {
+            return controller.CheckIfSnipeable(nodeId);
+        }
+            public List<CameraScriptableObj> GetCameraDataList()
         {
             return controller.GetCameraScriptableObject();
         }

@@ -125,6 +125,10 @@ namespace PathSystem
             }
             isVisited[u] = false;
         }
+        public bool CheckIfSnipeable(int nodeId)
+        {
+            return graph[nodeId].node.snipeable;
+        }
 
         public void ShowAlertedNodes(int nodeId) { view.ShowAlertedNodes(nodeId); }
         public List<int> GetAlertedNodes(int _targetNodeID)
@@ -154,8 +158,7 @@ namespace PathSystem
                 if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
                 {
                     view.ShowTeleportableNodes(graph[destinationNode].teleport);
-                }
-                
+                }                
                 return true;
             }
             else
