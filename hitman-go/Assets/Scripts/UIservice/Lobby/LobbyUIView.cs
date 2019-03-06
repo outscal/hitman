@@ -18,7 +18,12 @@ namespace UIservice
         [Inject] IPathService pathService;
         [Inject] ISaveService saveService;
 
-        //private List<LobbyCardController> lobbyCardControllerList;
+        private List<LobbyCardController> lobbyCardControllerList;
+
+        void Awake()
+        {
+            lobbyCardControllerList = new List<LobbyCardController>();
+        }
 
         public void DestroyUI()
         {
@@ -29,7 +34,12 @@ namespace UIservice
         {
             gameObject.SetActive(true);
 
-            CreateLevelButtons();
+            if (lobbyCardControllerList.Count <= 0)
+                CreateLevelButtons();
+            else
+            {
+                UpdateLobbyUI();
+            }
         }
 
         void CreateLevelButtons()
@@ -39,6 +49,7 @@ namespace UIservice
                 GameObject lobbyCard = Instantiate(lobbyCardPrefab);
                 lobbyCard.transform.SetParent(buttonContainer.transform);
                 LobbyCardController lobbyCardController = lobbyCard.GetComponent<LobbyCardController>();
+
                 if(i <= saveService.ReadMaxLevel())
                 {
                     lobbyCardController.DefaultSettings(true, i, this);
@@ -46,6 +57,23 @@ namespace UIservice
                 else
                 {
                     lobbyCardController.DefaultSettings(false, i, this);
+                }
+
+                lobbyCardControllerList.Add(lobbyCardController);
+            }
+        }
+
+        void UpdateLobbyUI()
+        {
+            for (int i = 0; i < lobbyCardControllerList.Count; i++)
+            {
+                if (i <= saveService.ReadMaxLevel())
+                {
+                    lobbyCardControllerList[i].DefaultSettings(true, i, this);
+                }
+                else
+                {
+                    lobbyCardControllerList[i].DefaultSettings(false, i, this);
                 }
             }
         }
