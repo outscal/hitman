@@ -145,15 +145,15 @@ namespace PathSystem
         }
         public void KeyCollected(KeyTypes key)
         {
-            Debug.Log("key Collected");
+
             for (int i = 0; i < physicalGates.Count; i++)
             {
-                if (physicalGates[i].GetKey() == key)
+                Debug.Log("key Collected");
+                while (i < physicalGates.Count && physicalGates[i].GetKey() == key)
                 {
+                    Debug.Log("destroyed");
                     physicalGates[i].Disable();
                     physicalGates.RemoveAt(i);
-                    break;
-                
                 }
             }
         }

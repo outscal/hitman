@@ -32,6 +32,8 @@ namespace UIservice
                 levelText.gameObject.SetActive(true);
                 lobbyStarHolder.gameObject.SetActive(true);
                 lockObject.SetActive(false);
+                lobbyStarHolder.SetStarEarned(lobbyUIView.ReturnGameService().GetStarsForLevel(levelIndex),
+                lobbyUIView, levelIndex);
             }
             else
             {
@@ -40,8 +42,6 @@ namespace UIservice
                 levelText.gameObject.SetActive(false);
                 lockObject.SetActive(true);
             }
-            lobbyStarHolder.SetStarEarned(lobbyUIView.ReturnGameService().GetStarsForLevel(levelIndex),
-            lobbyUIView, levelIndex);
         }
 
         public void LoadLevel()
