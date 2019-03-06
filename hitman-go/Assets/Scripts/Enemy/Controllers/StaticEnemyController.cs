@@ -37,7 +37,7 @@ namespace Enemy
                 {
                     return;
                 }
-                Vector3 rot = GetRotation(spawnDirection);
+               // Vector3 rot = GetRotation(spawnDirection);
                 //currentEnemyView.RotateEnemy(rot);
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
@@ -52,5 +52,6 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
         }
 
+        
     }
 }

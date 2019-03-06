@@ -104,6 +104,9 @@ namespace Enemy
             }
 
             List<IEnemyController> KillableEnemies = new List<IEnemyController>();
+            List<Task> taskToKill = new List<Task>();
+
+            Task moveTask;
             for (int i = 0; i < enemyList.Count; i++)
             {
                 IEnemyController controller = enemyList[i];
@@ -111,21 +114,24 @@ namespace Enemy
                 {
                     if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()))
                     {
+                        Debug.Log("Killing enemy ");
                         KillableEnemies.Add(controller);
                         continue;
                     }
                     else
                     {
-                        Task moveTask = controller.Move();
-                        moveTaskList.Add(moveTask);
+                        moveTask = controller.Move();
+                        moveTaskList.Add(moveTask);                   
+                        //controller.Move();
 
                     }
                 }
 
 
             }
-            await Task.WhenAll(moveTaskList.ToArray());
-
+             await Task.WhenAll(moveTaskList.ToArray());
+            moveTaskList.Clear();
+            //await new WaitForEndOfFrame();
             IEnemyController controllerToKill;
             for (int i = 0; i < KillableEnemies.Count; i++)
             {
@@ -135,6 +141,7 @@ namespace Enemy
             }
             if (!playerService.PlayerDeathStatus())
             {
+                Debug.Log("changing to player state");
                 gameService.ChangeToPlayerState();
 
             }
@@ -144,19 +151,20 @@ namespace Enemy
         {
             
            enemyList.Remove(controllerToKill);
+          // moveTaskList.Remove(controllerToKill);
            controllerToKill.Reset();
            signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
         }
 
 
-        async public void EnemyDead(EnemyKillSignal _deathSignal)
+        async public void EnemyDead(EnemyKillSignal _killSignal)
         {
             var tempList = enemyList;
 
             for (int i = 0; i < tempList.Count; i++)
             {
                 IEnemyController enemyController = tempList[i];
-                if (enemyController.GetCurrentNodeID() == _deathSignal.nodeID)
+                if (enemyController.GetCurrentNodeID() == _killSignal.nodeID)
                 {
                     enemyList.Remove(enemyController);
                     enemyController.Reset();                    

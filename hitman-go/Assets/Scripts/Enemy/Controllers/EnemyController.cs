@@ -20,9 +20,10 @@ namespace Enemy
         protected Directions spawnDirection;
         protected EnemyStateMachine stateMachine;
         protected List<int> alertedPathNodes = new List<int>();
+        protected List<Directions> directionList = new List<Directions>();
         protected int currentNodeID;
         protected int enemyID;
-        private int alertMoveCalled;
+        protected int alertMoveCalled;
         protected EnemyType enemyType;
 
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
@@ -40,6 +41,15 @@ namespace Enemy
             gameService = _gameService;
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
+            PopulateDirectionList();
+        }
+
+        private void PopulateDirectionList()
+        {
+            directionList.Add(Directions.DOWN);  
+            directionList.Add(Directions.LEFT);  
+            directionList.Add(Directions.RIGHT);  
+            directionList.Add(Directions.UP);  
         }
 
         protected virtual void SpawnEnemyView()
@@ -86,22 +96,23 @@ namespace Enemy
 
         }
 
-        async public Task Move()
+        async public virtual Task Move()
         {            
             alertMoveCalled++;
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);              
 
-              await MoveToNextNode(nextNodeID);
+                await MoveToNextNode(nextNodeID);
             }
+
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
-
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
                 currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
-                 await  MoveToNextNode(nextNodeID);
 
+                await MoveToNextNode(nextNodeID);
+                Debug.Log("[Chase state] Move happened");
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);
@@ -144,14 +155,16 @@ namespace Enemy
             return enemyType;
         }
 
-        public void AlertEnemy(int _destinationID)
+        public virtual void AlertEnemy(int _destinationID)
         {
-            stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+            if (stateMachine.GetEnemyState() != EnemyStates.CHASE)
+            {
+                stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+            }
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
-            currentEnemyView.AlertEnemyView();            
-            //Vector3 _destinationLocation = pathService.GetNodeLocation(alertedPathNodes[0]);
-            //currentEnemyView.RotateEnemy(_destinationLocation);
+            currentEnemyView.AlertEnemyView();
+            Debug.Log("[Alert Enemy] called by dogs controller");
 
         }
 

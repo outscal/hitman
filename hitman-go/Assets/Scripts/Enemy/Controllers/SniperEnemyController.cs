@@ -36,10 +36,24 @@ namespace Enemy
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
-            }
-            PerformRaycast();
 
-            await new WaitForFixedUpdate();
+            }
+            else { PerformRaycast(); }
+            if(CheckForPlayerPresence(nodeID))
+            {
+                if(!currentEnemyService.CheckForKillablePlayer())
+                {
+                    return;
+                }
+                //Vector3 rot = GetRotation(spawnDirection);
+               //currentEnemyView.RotateEnemy(rot);
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+
+                currentNodeID = nodeID;
+                currentEnemyService.TriggerPlayerDeath();
+            }
+
+            await new WaitForEndOfFrame();
            
         }
     }
