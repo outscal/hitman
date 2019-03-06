@@ -9,16 +9,14 @@ namespace SavingSystem
             return PlayerPrefs.GetInt("MaxLevel",0);
         }
 
-        public bool ReadStarTypeForLevel(int level,StarTypes type)
+        public bool ReadStarTypeForLevel(int level, StarTypes type)
         {
-            return PlayerPrefs.GetInt("Level"+level+"Star"+type,0)==1;
+            return PlayerPrefs.GetInt("Level" + level + "Star" + type, 0) == 1;
         }
-
         public void SaveMaxLevel(int level)
         {
-            PlayerPrefs.GetInt("MaxLevel",level);
+            PlayerPrefs.SetInt("MaxLevel", level);
         }
-
         public void SaveStarTypeForLevel(int level,StarTypes type,bool completed)
         {
             int complete=0;

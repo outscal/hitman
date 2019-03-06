@@ -22,6 +22,7 @@ namespace Common
         ALLKILL,
         PICKBRIEFCASE,
         KILLDOGS,
+        COMPLETED,
         NOKILLDOGS
     }
     public enum EnemyType
