@@ -69,12 +69,9 @@ namespace GameState
         }
         public void ChangeToLevelFinishedState()
         {
-            List<StarData> stars = pathService.GetStarsForLevel();
-            for (int i = 0; i < stars.Count; i++)
-            {
-                saveService.SaveStarTypeForLevel(currentLevel, stars[i].type, starService.CheckForStar(stars[i].type));
-            }
-            ChangeState(new LevelFinishedState(signalBus, this));
+            ChangeState(new LevelFinishedState(signalBus, this,saveService,pathService,currentLevel,starService));
+
+
         }
         public void ChangeToEnemyState()
         {

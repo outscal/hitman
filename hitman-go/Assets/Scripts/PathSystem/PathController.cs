@@ -46,33 +46,36 @@ namespace PathSystem
                 if (gates[i].key == key)
                 {
                     
-                    graph[gates[i].node1].connections[(int)GetDirections(gates[i].node1, gates[i].node2)] = gates[i].node2;
-                    graph[gates[i].node2].connections[(int)GetDirections(gates[i].node2, gates[i].node1)] = gates[i].node1;
-                    int dir,node,setdir1,setdir2;
+                    int dir=-1,node=-1,setdir1=-1,setdir2=-1;
                     if(GetNodeLocation(gates[i].node1).x<GetNodeLocation(gates[i].node2).x){
                         dir=2;
                         setdir1=2;
                         setdir2=3;
                         node=gates[i].node1;
-                    }else if(GetNodeLocation(gates[i].node1).z>GetNodeLocation(gates[i].node2).z){
+                    }
+                    if(GetNodeLocation(gates[i].node1).z>GetNodeLocation(gates[i].node2).z){
                         dir=0;
                         setdir2=1;
                         setdir1=0;
                         node=gates[i].node1;
-                    }else if(GetNodeLocation(gates[i].node2).z>GetNodeLocation(gates[i].node1).z){
+                    }if(GetNodeLocation(gates[i].node2).z>GetNodeLocation(gates[i].node1).z){
                         dir=0;
                         setdir2=0;
                         setdir1=1;
                         node=gates[i].node2;
-                    }else{
+                    }if(GetNodeLocation(gates[i].node2).x < GetNodeLocation(gates[i].node1).x)
+                    {
                         dir=2;
                         setdir2=2;
                         setdir1=3;
                         node=node=gates[i].node2;
                     }
+                    //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
                     graph[gates[i].node1].connections[setdir1] = gates[i].node2;
                     graph[gates[i].node2].connections[setdir2] = gates[i].node1;
                     view.DrawPath(dir,GetNodeLocation(node));
+                    //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
+
                 }
             }
             view.KeyCollected(key);
