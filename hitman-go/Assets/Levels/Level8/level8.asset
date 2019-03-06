@@ -15,8 +15,12 @@ MonoBehaviour:
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
   stars:
+  - type: 3
+    name: BriefCase Picked
   - type: 0
-    name: 
+    name: 13 Moves
+  - type: 5
+    name: Completed
   maxPlayerMoves: 13
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
