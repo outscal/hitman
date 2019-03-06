@@ -52,6 +52,11 @@ namespace PathSystem
                     nodeprefab.SetNodeID(i);
                     physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
+                if (graph[i].node.snipeable)
+                {
+                    Debug.Log("snipe Here");
+                    physicalNode[physicalNode.Count - 1].GetComponent<NodeControllerView>().SetShootable();
+                }
                 if (node.connections[0] != -1)
                 {
                     physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));

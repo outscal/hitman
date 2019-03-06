@@ -14,7 +14,22 @@ ModelImporter:
     3300000: default
     4300000: default
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: 41ed7a4bfb6271c4cad3ffd529061e1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_dark
+    second: {fileID: 2100000, guid: c46f04045e5cf364788bd80ea29565f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_light
+    second: {fileID: 2100000, guid: 42d476482806fbf45bd74e57cbb122e0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
