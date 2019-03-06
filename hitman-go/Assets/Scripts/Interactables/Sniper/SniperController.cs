@@ -9,8 +9,6 @@ namespace InteractableSystem
     {
         private InteractableManager interactableManager;
 
-        int targetNodeID;
-
         public SniperController(Vector3 nodePos, InteractableManager interactableManager, InteractableView sniperPrefab)
         {
             this.interactableManager = interactableManager;
@@ -27,9 +25,10 @@ namespace InteractableSystem
 
         public override void TakeAction(int targetNodeID)
         {
-            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
-            { soundName = SoundName.sniper });
-            interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID });
+            //interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            //{ soundName = SoundName.sniper });
+            //interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID });
+            interactableManager.RemoveInteractable(this);
         }
 
         public override void InteractablePickedUp()
