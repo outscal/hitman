@@ -19,7 +19,6 @@ namespace GameState
         public void OnStateEnter()
         {
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType() });
-            signalBus.TryFire(new ResetSignal());
         }
         public void OnStateExit()
         {
