@@ -17,6 +17,7 @@ namespace Enemy
             enemyType = EnemyType.DOGS;
             newDirection = spawnDirection;
 
+
         }
 
         async protected override Task MoveToNextNode(int nodeID)
@@ -36,17 +37,9 @@ namespace Enemy
                 await currentEnemyView.RotateEnemy(rot);
 
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                currentNodeID = nodeID;
-               // nodeToCheck = pathService.GetNextNodeID(nodeID, spawnDirection);
-                //Debug.Log("NODE TO CHECK [move to next node]"+ nodeToCheck);
-                //if (nodeToCheck == -1)
-                //{
-                //Debug.Log("NODE TO CHECK [move to next node 2]"+ nodeID);
-                  // await CheckForNextNodeInAllDirections(nodeID);
-                //}
-                //else {
+                currentNodeID = nodeID;                              
                     AlertEnemy(currentEnemyService.GetPlayerNodeID());
-                //}
+                
             }
 
             if (CheckForPlayerPresence(nodeID))

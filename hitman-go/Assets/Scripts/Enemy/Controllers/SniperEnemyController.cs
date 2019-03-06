@@ -45,10 +45,7 @@ namespace Enemy
                 {
                     return;
                 }
-                //Vector3 rot = GetRotation(spawnDirection);
-               //currentEnemyView.RotateEnemy(rot);
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
                 currentNodeID = nodeID;
                 currentEnemyService.TriggerPlayerDeath();
             }
