@@ -12,8 +12,17 @@ namespace EditorScripts
         public override void OnInspectorGUI()
         {
             ScriptableGraph graph = (ScriptableGraph)target;
+            int multiplier = 5, hzero = graph.maxwidth / 2,vzero=graph.maxhight/2;
             base.OnInspectorGUI();
-            
+            for (int i = 0; i < graph.maxhight; i++)
+            {
+                GUILayout.BeginHorizontal();
+                for (int j = 0; j < graph.maxwidth; j++)
+                {
+                    EditorGUILayout.IntField("", -1, GUILayout.MaxWidth(50f));
+                }
+                GUILayout.EndHorizontal();
+            }
             if (GUILayout.Button("Set NodeId"))
             {
                 if (graph.set)
@@ -41,16 +50,10 @@ namespace EditorScripts
             }
             if (GUILayout.Button("Create Grid"))
             {
-                for (int i = 0; i < graph.maxwidth; i++)
-                {
-                    GUILayout.BeginHorizontal();
-                    for (int j = 0; j < graph.maxwidth; j++)
-                    {
-                        EditorGUILayout.IntField("", -1, GUILayout.MaxWidth(30f));
-                    }
-                    GUILayout.EndHorizontal();
-                }
+                
+                
             }
         }
-    }
+       
+}
 }
