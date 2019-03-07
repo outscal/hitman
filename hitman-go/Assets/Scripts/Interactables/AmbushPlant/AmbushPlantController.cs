@@ -24,16 +24,21 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.AMBUSH_PLANT;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
-            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
-            { soundName = SoundName.ambushPlant });
+
             //interactableManager.RemoveInteractable(this);
         }
 
         public override void InteractablePickedUp()
         {
-            //interactableManager.PlaySoundFX(SoundName.ambushPlant);
+            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.ambushPlant });
             //base.InteractablePickedUp();
         }
     }

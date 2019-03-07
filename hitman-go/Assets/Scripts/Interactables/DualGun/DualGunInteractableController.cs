@@ -24,6 +24,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.DUAL_GUN;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
             Shoot(nodeID, Directions.UP);
@@ -31,6 +36,7 @@ namespace InteractableSystem
             Shoot(nodeID, Directions.LEFT);
             Shoot(nodeID, Directions.RIGHT);
         }
+
 
         public override void InteractablePickedUp()
         {
@@ -50,15 +56,15 @@ namespace InteractableSystem
                 enemyNodeID = interactableManager.ReturnPathService()
                                 .GetNextNodeID(targetNodeID, direction);
 
-                //Debug.Log("[DualGun] Enemy Found Node:" + enemyNodeID + " Direction:" + direction);
-                interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
+                Debug.Log("[DualGun] Enemy Found Node:" + enemyNodeID + " Direction:" + direction);
+                interactableManager.ReturnSignalBus().Fire(new EnemyKillSignal()
                 { nodeID = enemyNodeID });
             }
             else
             {
                 enemyNodeID = interactableManager.ReturnPathService()
                                 .GetNextNodeID(targetNodeID, direction);
-                //Debug.Log("[DualGun] Enemy Not Found Node:" + enemyNodeID + " Direction:" + direction);
+                Debug.Log("[DualGun] Enemy Not Found Node:" + enemyNodeID + " Direction:" + direction);
             }
 
             interactableManager.RemoveInteractable(this);

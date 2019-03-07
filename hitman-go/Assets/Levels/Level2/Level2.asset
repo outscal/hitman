@@ -75,7 +75,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
-      snipeable: 0
+      snipeable: 1
       keyType: 0
       uniqueID: 3
       property: 0

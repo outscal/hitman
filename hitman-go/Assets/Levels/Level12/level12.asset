@@ -50,7 +50,26 @@ MonoBehaviour:
     type: 3}
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
-  cameraScriptableList: []
+  cameraScriptableList:
+  - {fileID: 11400000, guid: a508a17d9f6e2451a9133cdb10934cbb, type: 2}
+  - {fileID: 11400000, guid: d016d408160e74d2cbefba2cbb6bc1c1, type: 2}
+  - {fileID: 11400000, guid: 1c77fc89c5c72434f972cb4d06cf50cc, type: 2}
+  - {fileID: 11400000, guid: f83ffa032a84d4bed9d77a2b3d41e668, type: 2}
+  - {fileID: 11400000, guid: 2aa97d2d0a4214c2cbd99500e0cc0262, type: 2}
+  - {fileID: 11400000, guid: 779721c3b3840465698ba8f51ad1c072, type: 2}
+  - {fileID: 11400000, guid: afac9c4334f6140bfaa66985cb352211, type: 2}
+  - {fileID: 11400000, guid: de84877e9fdce467a819b9199534f0a4, type: 2}
+  - {fileID: 11400000, guid: 165d4c82772bf4cf1958c6a9086f6a3e, type: 2}
+  - {fileID: 11400000, guid: 034a8c0fa05ec4961821f4e701116c93, type: 2}
+  - {fileID: 11400000, guid: ed9fd8bc93ac84b7da580b7db6744ac6, type: 2}
+  - {fileID: 11400000, guid: bd3903015647646c3b2810ea67af7e77, type: 2}
+  - {fileID: 11400000, guid: cf77e08ae45274eff880223b2181aaef, type: 2}
+  - {fileID: 11400000, guid: f3714ea227f1c41b4ad1dda02ed911e0, type: 2}
+  - {fileID: 11400000, guid: 2f2bee88c4eb34d16a2e3b9d69e7e66b, type: 2}
+  - {fileID: 11400000, guid: c98959669c6eb4e77abfaa7b94cef85e, type: 2}
+  - {fileID: 11400000, guid: 47a2da649fcb648c9b9e043f2923fb8d, type: 2}
+  - {fileID: 11400000, guid: cba4cb926ed0f42ccb577afbf6d73fce, type: 2}
+  - {fileID: 11400000, guid: 13e96a66a8e3b4616853375a1cc73c8b, type: 2}
   Graph:
   - node:
       snipeable: 0
@@ -234,7 +253,7 @@ MonoBehaviour:
       keyType: 1
       uniqueID: 13
       property: 0
-      spawnPickups: 0
+      spawnPickups: 7
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -5}
     up: -1
@@ -277,7 +296,7 @@ MonoBehaviour:
       keyType: 3
       uniqueID: 16
       property: 0
-      spawnPickups: 0
+      spawnPickups: 7
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: -10}
     up: -1
