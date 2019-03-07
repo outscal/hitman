@@ -26,6 +26,11 @@ namespace InteractableSystem
 
         }
 
+        public virtual bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return false;
+        }
+
         public InteractablePickup GetInteractablePickup()
         {
             return interactablePickup;

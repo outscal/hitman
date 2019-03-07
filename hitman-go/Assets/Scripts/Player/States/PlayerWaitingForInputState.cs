@@ -37,11 +37,11 @@ namespace Player
             while (stateMachine.GetPlayerState() == this.currentStateType)
             {
               nodeID = playerService.GetTargetNode();
-
                 if (nodeID != -1)
                 {
-                    bool inRange = playerService.CheckForRange(nodeID); 
-                    if (inRange)
+                    //bool inRange = playerService.CheckForRange(nodeID);                  
+   bool inRange = _interactableController.CanTakeAction(playerService.GetPlayerNodeID(),
+                                        nodeID);                     if (inRange)
                     {
                         Debug.Log("take action called");
                         stateMachine.ChangePlayerState(playerState,PlayerStates.NONE);
@@ -52,9 +52,9 @@ namespace Player
                     }
                     else
                     {
-                       // nodeID = playerService.GetTargetNode();
+                     
+                        Debug.Log("NOT IN RANGE");
                         await new WaitForEndOfFrame();
-
                     }
                 }
                 else

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using Common;
 using Enemy;
@@ -28,6 +27,11 @@ namespace InteractableSystem
             hashtable.Add("oncomplete", "Throw");
             hashtable.Add("time", 1f);
             //hashtable.Add("easetype", iTween.EaseType.easeOutCubic);
+        }
+
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return interactableManager.ReturnPathService().ThrowRange(playerNode, nodeID);
         }
 
         public override void TakeAction(int nodeID)

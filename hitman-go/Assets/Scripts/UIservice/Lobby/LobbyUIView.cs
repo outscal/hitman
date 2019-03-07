@@ -5,6 +5,8 @@ using Zenject;
 using GameState;
 using SavingSystem;
 using PathSystem;
+using UnityEngine.UI;
+using System.Threading.Tasks;
 
 namespace UIservice
 {
@@ -35,15 +37,18 @@ namespace UIservice
             gameObject.SetActive(true);
 
             if (lobbyCardControllerList.Count <= 0)
-                CreateLevelButtons();
+                CreateLevelButtonsAsync();
             else
             {
                 UpdateLobbyUI();
             }
         }
 
-        void CreateLevelButtons()
+        async Task CreateLevelButtonsAsync()
         {
+            buttonContainer.GetComponent<GridLayoutGroup>().enabled = true;
+            buttonContainer.GetComponent<ContentSizeFitter>().enabled = true;
+
             for (int i = 0; i < gameService.GetNumberOfLevels(); i++)
             {
                 GameObject lobbyCard = Instantiate(lobbyCardPrefab);
@@ -61,6 +66,16 @@ namespace UIservice
 
                 lobbyCardControllerList.Add(lobbyCardController);
             }
+
+            await DeactivateLayout();
+
+        }
+
+        async Task DeactivateLayout()
+        {
+            await new WaitForSeconds(1f);
+            buttonContainer.GetComponent<ContentSizeFitter>().enabled = false;
+            buttonContainer.GetComponent<GridLayoutGroup>().enabled = false;
         }
 
         void UpdateLobbyUI()

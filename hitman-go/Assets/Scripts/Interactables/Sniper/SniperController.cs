@@ -9,8 +9,6 @@ namespace InteractableSystem
     {
         private InteractableManager interactableManager;
 
-        int targetNodeID;
-
         public SniperController(Vector3 nodePos, InteractableManager interactableManager, InteractableView sniperPrefab)
         {
             this.interactableManager = interactableManager;
@@ -23,6 +21,11 @@ namespace InteractableSystem
         protected override void OnInitialized()
         {
             interactablePickup = InteractablePickup.SNIPER_GUN;
+        }
+
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return interactableManager.ReturnPathService().CheckIfSnipeable(nodeID);
         }
 
         public override void TakeAction(int targetNodeID)
