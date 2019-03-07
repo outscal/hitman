@@ -175,20 +175,7 @@ namespace PathSystem
 
         public bool CanEnemyMoveToNode(int enemyNode, int destinationNode)
         {
-            if ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode))
-            {
-                view.Unhighlightnodes();
-                if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
-                {
-                    view.ShowTeleportableNodes(graph[destinationNode].teleport);
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            return ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode));     
         }
 
         public bool ThrowRange(int playerNode, int destinationNode)
@@ -213,7 +200,7 @@ namespace PathSystem
             view.Unhighlightnodes();
             if (nextnode != -1 && graph[nextnode].node.property == NodeProperty.TELEPORT)
             {
-                view.ShowTeleportableNodes(graph[nextnode].teleport);
+                //view.ShowTeleportableNodes(graph[nextnode].teleport);
             }
 
             return nextnode;
