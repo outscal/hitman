@@ -231,10 +231,10 @@ MonoBehaviour:
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: -5}
-    up: -1
+    up: 15
     down: 6
     left: 12
-    right: 16
+    right: -1
     teleport: 
   - node:
       snipeable: 1
@@ -305,10 +305,10 @@ MonoBehaviour:
       spawnPickups: 7
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: -10}
-    up: 15
-    down: 17
-    left: 11
-    right: -1
+    up: -1
+    down: 12
+    left: 17
+    right: 15
     teleport: 
   - node:
       snipeable: 1
