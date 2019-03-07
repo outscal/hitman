@@ -28,6 +28,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.COLOR_KEY;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
             interactableManager.ReturnPathService().KeyCollected(keyType);

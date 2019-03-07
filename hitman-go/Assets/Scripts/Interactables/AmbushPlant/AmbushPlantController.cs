@@ -24,6 +24,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.AMBUSH_PLANT;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
             interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()

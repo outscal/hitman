@@ -23,11 +23,16 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.SNIPER_GUN;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return interactableManager.ReturnPathService().CheckIfSnipeable(nodeID);
+        }
+
         public override void TakeAction(int targetNodeID)
         {
-            //interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
-            //{ soundName = SoundName.sniper });
-            //interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID });
+            interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.sniper });
+            interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID });
             interactableManager.RemoveInteractable(this);
         }
 

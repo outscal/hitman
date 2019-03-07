@@ -29,6 +29,11 @@ namespace InteractableSystem
             //hashtable.Add("easetype", iTween.EaseType.easeOutCubic);
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return interactableManager.ReturnPathService().ThrowRange(playerNode, nodeID);
+        }
+
         public override void TakeAction(int nodeID)
         {
             targetNodeID = nodeID;

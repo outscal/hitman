@@ -24,6 +24,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.DUAL_GUN;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
             Shoot(nodeID, Directions.UP);
