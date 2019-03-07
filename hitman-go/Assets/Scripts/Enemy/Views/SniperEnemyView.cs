@@ -35,12 +35,19 @@ namespace Enemy
             }
 
         }
-       
 
+        private void FixedUpdate()
+        {
+            if(isRayCastStart)
+            {
+                //PerformRaycast();
+                PerformSniperRaycast();
+            }
+        }
         public override void PerformRaycast()
         {
-            PerformSniperRaycast();
-            // isRayCastStart = true;
+           // PerformSniperRaycast();
+            isRayCastStart = true;
 
         }
         private void PerformSniperRaycast()
@@ -68,6 +75,7 @@ namespace Enemy
 
         public override void StopRaycast()
         {
+            isRayCastStart = false;
             lineRenderer.enabled = false;
         }
 

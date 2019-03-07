@@ -25,8 +25,7 @@ namespace Enemy
             switch (_enemyState)
             {
                 case EnemyStates.IDLE:
-                    currentState = new EnemyIdleState();
-                    
+                    currentState = new EnemyIdleState();                    
                     break;
 
                 case EnemyStates.CHASE:
@@ -35,6 +34,9 @@ namespace Enemy
                     break;
                 case EnemyStates.MOVING:
                     currentState = new EnemyMovingState();
+                    break;
+                case EnemyStates.CONSTANT_CHASE:
+                    currentState = new EnemyConstantChaseState();
                     break;
 
             }

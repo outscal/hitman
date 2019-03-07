@@ -26,7 +26,15 @@ namespace Enemy
         private void ChangeDestination(NewDogDestinationSignal newDogDestinationSignal)
         {
             alertedPathNodes.Clear();
-            alertedPathNodes= pathService.GetAlertedNodes(newDogDestinationSignal.nodeID);
+            //alertedPathNodes = pathService.GetAlertedNodes(newDogDestinationSignal.nodeID);
+            alertedPathNodes = pathService.GetShortestPath(currentNodeID,newDogDestinationSignal.nodeID);
+                Debug.Log(" stone thrown at"+ newDogDestinationSignal.nodeID);
+            
+            for (int i = 0; i < alertedPathNodes.Count; i++)
+            {
+
+                Debug.Log("alerted nodes after stone shit"+alertedPathNodes[i]);
+            }
             alertMoveCalled = 0;
             stateMachine.ChangeEnemyState(EnemyStates.CHASE);
             currentEnemyView.AlertEnemyView();
@@ -40,7 +48,7 @@ namespace Enemy
                 return;
             }
             int nodeToCheck = nodeID;
-            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            if (stateMachine.GetEnemyState() == EnemyStates.CONSTANT_CHASE)
             {
                 Debug.Log("Next node ID [move to next node]"+ nodeID);
                 
@@ -49,9 +57,20 @@ namespace Enemy
                 await currentEnemyView.RotateEnemy(rot);
 
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                currentNodeID = nodeID;                              
-                    AlertEnemy(currentEnemyService.GetPlayerNodeID());
+                currentNodeID = nodeID;
+
+                AlertEnemy(currentEnemyService.GetPlayerNodeID());
                 
+            }
+            else if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
+            {
+
+                spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+                Vector3 rot = GetRotation(spawnDirection);
+                await currentEnemyView.RotateEnemy(rot);
+
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                currentNodeID = nodeID;
             }
 
             if (CheckForPlayerPresence(nodeID))
@@ -125,7 +144,7 @@ namespace Enemy
             }
             alertedPathNodes.Clear();
 
-            stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+            stateMachine.ChangeEnemyState(EnemyStates.CONSTANT_CHASE);
             alertedPathNodes.Add(currentNodeID);            
             alertedPathNodes.Add(middleID);
             alertedPathNodes.Add(_destinationID);

@@ -28,6 +28,7 @@ namespace Enemy
         {
             currentEnemyView.PerformRaycast();
         }
+
         async protected override Task MoveToNextNode(int nodeID)
         {
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
@@ -41,6 +42,7 @@ namespace Enemy
             }
             else {
                 PerformRaycast();
+                Debug.Log("Perform Raycast");
             }           
 
             await new WaitForEndOfFrame();

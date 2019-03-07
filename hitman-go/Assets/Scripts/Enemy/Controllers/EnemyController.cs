@@ -106,19 +106,23 @@ namespace Enemy
                 await MoveToNextNode(nextNodeID);
             }
 
-            else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
             {
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
                 currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
-
-                await MoveToNextNode(nextNodeID);
-                Debug.Log("[Chase state] Move happened");
+                if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
+                {
+                   await MoveToNextNode(nextNodeID);
+                }                
+                
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);
                     currentEnemyView.DisableAlertView();
                 }
             }
+
+            
            
 
         }

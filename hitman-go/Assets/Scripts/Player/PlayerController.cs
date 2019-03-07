@@ -114,10 +114,10 @@ namespace Player
             {
                 case InteractablePickup.AMBUSH_PLANT:
                     await  ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
-                    _interactableController.TakeAction(playerNodeID);
-                   // gameService.ChangeToEnemyState();
+                    _interactableController.TakeAction(playerNodeID);              
                     break;
                 case InteractablePickup.BONE:
+                    pathService.ShowThrowableNodes(playerNodeID);
                     playerService.SetTargetTap(-1);
                     await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
 

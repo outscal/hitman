@@ -120,6 +120,25 @@ namespace PathSystem
                 return CheckTeleportable(playerNode, destinationNode);
             }
         }
+
+        public bool CanEnemyMoveToNode(int enemyNode, int destinationNode)
+        {
+            if ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode))
+            {
+                view.Unhighlightnodes();
+                if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
+                {
+                    view.ShowTeleportableNodes(graph[destinationNode].teleport);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public bool ThrowRange(int playerNode, int destinationNode)
         {
             Vector3 playerpos = graph[playerNode].node.nodePosition;

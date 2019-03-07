@@ -74,6 +74,7 @@ namespace Common
     {
         IDLE,
         MOVING,
-        CHASE
+        CHASE,
+        CONSTANT_CHASE
     }
 }

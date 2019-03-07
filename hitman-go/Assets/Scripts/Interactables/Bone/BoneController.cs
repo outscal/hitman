@@ -42,10 +42,10 @@ namespace InteractableSystem
 
         public void Throw()
         {
-            interactableManager.ReturnSignalBus().TryFire(new SignalAlertGuards()
+            interactableManager.ReturnSignalBus().TryFire(new NewDogDestinationSignal()
             {
-                nodeID = targetNodeID,
-                interactablePickup = interactablePickup
+                nodeID = targetNodeID
+                //interactablePickup = interactablePickup
             });
 
             Debug.Log("[BoneController] Throw Task Done");

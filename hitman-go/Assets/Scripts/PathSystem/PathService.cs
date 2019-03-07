@@ -81,5 +81,10 @@ namespace PathSystem
         {
             return controller.GetCameraScriptableObject();
         }
+
+        public bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID)
+        {
+            return controller.CanEnemyMoveToNode(enemyNodeID, nextNodeID);
+        }
     }
 }

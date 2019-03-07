@@ -24,5 +24,6 @@ namespace PathSystem
         void DestroyPath();
         List<CameraScriptableObj> GetCameraDataList();
         void DrawGraph(ScriptableGraph Graph);
+        bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID);
     }
 }
