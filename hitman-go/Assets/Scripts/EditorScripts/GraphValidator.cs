@@ -5,18 +5,34 @@ using UnityEditor;
 using PathSystem;
 namespace EditorScripts
 {
-    [CustomEditor(typeof(ScriptableGraph)),CanEditMultipleObjects]
+    [CustomEditor(typeof(ScriptableGraph)), CanEditMultipleObjects]
     // Start is called before the first frame update
-  public class GraphValidator : Editor
+    public class GraphValidator : Editor
     {
         public override void OnInspectorGUI()
         {
             ScriptableGraph graph = (ScriptableGraph)target;
+            int nodes;
+            
 
+            
+            
             base.OnInspectorGUI();
-            if(GUILayout.Button("Set NodeId"))
+           if(GUILayout.Button("Create Grid"))
             {
-                if (graph.setAndValidate)
+                for (int i = 0; i < graph.maxwidth; i++)
+                {
+                    GUILayout.BeginHorizontal();
+                    for (int j = 0; j < graph.maxwidth; j++)
+                    {
+                        EditorGUILayout.IntField("", -1);
+                    }
+                    GUILayout.EndHorizontal();
+                }
+            }
+            if (GUILayout.Button("Set NodeId"))
+            {
+                if (graph.set)
                 {
                     for (int i = 0; i < graph.Graph.Count; i++)
                     {
@@ -25,10 +41,19 @@ namespace EditorScripts
                         graph.Graph[i].down = -1;
                         graph.Graph[i].left = -1;
                         graph.Graph[i].right = -1;
-                        graph.setAndValidate = false;
+                        graph.set = false;
                     }
                 }
-
+            }
+            if (GUILayout.Button("Velidate"))
+            {
+                for(int i = 0; i < graph.stars.Length; i++)
+                {
+                    if (graph.stars[i].name == "")
+                    {
+                        Debug.LogError("Star Name Not Set");
+                    }
+                }
             }
         }
     }

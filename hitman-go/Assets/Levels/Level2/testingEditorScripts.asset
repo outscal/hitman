@@ -12,13 +12,150 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: testingEditorScripts
   m_EditorClassIdentifier: 
+  maxwidth: 4
+  maxhight: 3
+  set: 0
   line: {fileID: 0}
   GatesEdge: []
-  stars: []
+  stars:
+  - type: 0
+    name: sdgdg
+  - type: 0
+    name: sdgsdgsd
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 0}
   targetNode: {fileID: 0}
   teleportNode: {fileID: 0}
   cameraScriptableList: []
-  Graph: []
+  Graph:
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 0
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 1
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 2
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 3
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 4
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 5
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 6
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 7
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 8
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      snipeable: 0
+      keyType: 0
+      uniqueID: 9
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
