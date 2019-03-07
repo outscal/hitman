@@ -26,6 +26,7 @@ namespace Enemy
         protected int alertMoveCalled;
         protected EnemyType enemyType;
         protected bool hasShield;
+        
 
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection,bool _hasShield)
         {
