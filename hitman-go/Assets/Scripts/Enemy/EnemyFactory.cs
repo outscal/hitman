@@ -4,6 +4,7 @@ using PathSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Zenject;
 
 namespace Enemy
 {
@@ -12,12 +13,14 @@ namespace Enemy
         IEnemyService enemyService;
         IPathService pathService;
         IGameService gameService;
+        SignalBus signalBus;
 
-        public EnemyFactory(IEnemyService _enemyService, IPathService _pathService,IGameService _gameService)
+        public EnemyFactory(IEnemyService _enemyService, IPathService _pathService,IGameService _gameService,SignalBus _signalBus)
         {
             gameService = _gameService;
             pathService = _pathService;
             enemyService = _enemyService;
+            signalBus = _signalBus;
             
         }
 
@@ -101,7 +104,7 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        IEnemyController newEnemy = new DogsEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
+                        IEnemyController newEnemy = new DogsEnemyController(enemyService, pathService, gameService, signalBus,spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
                         newEnemyControllers.Add(newEnemy);
 
                     }

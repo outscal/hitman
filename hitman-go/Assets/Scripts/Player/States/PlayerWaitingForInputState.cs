@@ -52,7 +52,9 @@ namespace Player
                     }
                     else
                     {
-                        Debug.Log("NOT IN RANGE");
+                       // nodeID = playerService.GetTargetNode();
+                        await new WaitForEndOfFrame();
+
                     }
                 }
                 else

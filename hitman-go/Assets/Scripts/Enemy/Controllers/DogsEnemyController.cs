@@ -1,6 +1,7 @@
 ﻿using Common;
 using GameState;
 using PathSystem;
+using Zenject;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
@@ -12,12 +13,23 @@ namespace Enemy
     {
         int dogVision = 2;
         Directions newDirection;
-        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
+        private SignalBus signalBus;
+        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus,Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
         {
             enemyType = EnemyType.DOGS;
+            signalBus = _signalBus;
             newDirection = spawnDirection;
 
+            signalBus.Subscribe<NewDogDestinationSignal>(ChangeDestination);
+        }
 
+        private void ChangeDestination(NewDogDestinationSignal newDogDestinationSignal)
+        {
+            alertedPathNodes.Clear();
+            alertedPathNodes= pathService.GetAlertedNodes(newDogDestinationSignal.nodeID);
+            alertMoveCalled = 0;
+            stateMachine.ChangeEnemyState(EnemyStates.CHASE);
+            currentEnemyView.AlertEnemyView();
         }
 
         async protected override Task MoveToNextNode(int nodeID)
@@ -122,5 +134,6 @@ namespace Enemy
             currentEnemyView.AlertEnemyView();
 
         }
+
     }
 }

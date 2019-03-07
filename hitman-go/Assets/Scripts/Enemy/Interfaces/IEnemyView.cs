@@ -19,6 +19,6 @@ namespace Enemy
         void PerformRaycast();
         void SetRayDirection(Directions directions);
         void SetCurrentController(IEnemyController controller);
-
+        void StopRaycast();
     }
 }

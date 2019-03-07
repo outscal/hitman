@@ -32,26 +32,24 @@ namespace Enemy
         {
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
+                StopRaycast();
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
 
             }
-            else { PerformRaycast(); }
-            if(CheckForPlayerPresence(nodeID))
-            {
-                if(!currentEnemyService.CheckForKillablePlayer())
-                {
-                    return;
-                }
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                currentNodeID = nodeID;
-                currentEnemyService.TriggerPlayerDeath();
-            }
+            else {
+                PerformRaycast();
+            }           
 
             await new WaitForEndOfFrame();
            
+        }
+
+        private void StopRaycast()
+        {
+            currentEnemyView.StopRaycast();
         }
     }
 }

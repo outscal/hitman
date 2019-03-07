@@ -43,7 +43,7 @@ namespace Enemy
 
         private void OnGameStart()
         {
-            enemyFactory = new EnemyFactory(this, pathService, gameService);
+            enemyFactory = new EnemyFactory(this, pathService, gameService,signalBus);
             SpawnEnemy(enemyScriptableObjectList);
 
         }

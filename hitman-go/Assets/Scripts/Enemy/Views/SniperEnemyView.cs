@@ -45,17 +45,30 @@ namespace Enemy
         }
         private void PerformSniperRaycast()
         {           
-            // if(Physics.Raycast(ray.origin,ray.direction,out raycastHit,50f))
-            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 50f))
+            if(!lineRenderer.enabled)
             {
-                Debug.Log("hit regis");
+                lineRenderer.enabled = true;
+            }
+         
+                lineRenderer.SetPosition(0, transform.position+new Vector3(0,0.5f,0));
+                lineRenderer.SetPosition(1, gameObject.transform.forward*50f);
+
+            if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), transform.forward, out raycastHit, 50f))
+            {
                 lineRenderer.SetPosition(1, raycastHit.point);
+                Debug.Log("Hit point"+ raycastHit.point);
+                Debug.Log("Hitting"+ raycastHit.collider.name);
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
                     enemyController.KillPlayer();
                 }
             }
+        }
+
+        public override void StopRaycast()
+        {
+            lineRenderer.enabled = false;
         }
 
 #if UNITY_EDITOR

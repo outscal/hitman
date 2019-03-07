@@ -83,5 +83,10 @@ namespace Enemy
         {
 
         }
+
+        public virtual void StopRaycast()
+        {
+           
+        }
     }
 }
