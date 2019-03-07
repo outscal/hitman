@@ -8,6 +8,7 @@ namespace CameraSystem
     [CustomEditor(typeof(CameraScript))]
     public class CameraEditor : Editor
     {
+
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
