@@ -32,7 +32,7 @@ namespace InteractableSystem
         {
             interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
             { soundName = SoundName.sniper });
-            interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID });
+            interactableManager.ReturnSignalBus().TryFire(new EnemyKillSignal() { nodeID = targetNodeID, killMode=KillMode.SHOOT });
             interactableManager.RemoveInteractable(this);
         }
 

@@ -13,7 +13,7 @@ namespace Enemy
     {
         
 
-        public StaticEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
+        public StaticEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection,bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection,_hasShield)
         {
             
 
@@ -23,7 +23,7 @@ namespace Enemy
             if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
             {
                 spawnDirection= pathService.GetDirections(currentNodeID, nodeID);
-                Debug.Log("spawnDirection after chase state"+ spawnDirection.ToString());
+                
                 Vector3 rot=GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
@@ -36,9 +36,7 @@ namespace Enemy
                 if(!currentEnemyService.CheckForKillablePlayer())
                 {
                     return;
-                }
-               // Vector3 rot = GetRotation(spawnDirection);
-                //currentEnemyView.RotateEnemy(rot);
+                }           
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
                 currentNodeID = nodeID;

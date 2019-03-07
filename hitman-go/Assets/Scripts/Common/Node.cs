@@ -22,6 +22,7 @@ namespace Common
                     EnemySpawnData data = new EnemySpawnData();
                     data.node = node.uniqueID;
                     data.dir = node.spawnEnemies[i].dir;
+                    data.hasShield = node.spawnEnemies[i].hasShield;
                     enemy.Add(data);
                 }
             }

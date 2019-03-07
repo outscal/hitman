@@ -31,8 +31,7 @@ namespace Common
         PATROLLING,
         ROTATING_KNIFE,
         SNIPER,
-        BIDIRECTIONAL,
-        SHIELDED,
+        BIDIRECTIONAL,        
         DOGS,
         CIRCULAR_COP,
         TARGET
@@ -84,5 +83,12 @@ namespace Common
         MOVING,
         CHASE,
         CONSTANT_CHASE
+    }
+    public enum KillMode
+    {
+        WALK,
+        SHOOT,
+        BOMB
+
     }
 }

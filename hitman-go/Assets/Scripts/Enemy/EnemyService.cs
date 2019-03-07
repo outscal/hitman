@@ -43,12 +43,12 @@ namespace Enemy
 
         private void OnGameStart()
         {
-            enemyFactory = new EnemyFactory(this, pathService, gameService,signalBus);
+            enemyFactory = new EnemyFactory(this, pathService, gameService, signalBus);
             SpawnEnemy(enemyScriptableObjectList);
 
         }
 
-        private bool CheckForEnemyPresence(IEnemyController enemyController,int nodeID)
+        private bool CheckForEnemyPresence(IEnemyController enemyController, int nodeID)
         {
             if (nodeID == -1)
             {
@@ -121,21 +121,18 @@ namespace Enemy
                     else
                     {
                         moveTask = controller.Move();
-                        moveTaskList.Add(moveTask);                   
-                        //controller.Move();
-
+                        moveTaskList.Add(moveTask);
                     }
                 }
 
 
             }
-             await Task.WhenAll(moveTaskList.ToArray());
+            await Task.WhenAll(moveTaskList.ToArray());
             moveTaskList.Clear();
-            //await new WaitForEndOfFrame();
             IEnemyController controllerToKill;
             for (int i = 0; i < KillableEnemies.Count; i++)
             {
-                controllerToKill = KillableEnemies[i];               
+                controllerToKill = KillableEnemies[i];
                 KillEnemy(controllerToKill);
 
             }
@@ -147,13 +144,17 @@ namespace Enemy
             }
         }
 
+        private bool CheckForKillableEnemy(IEnemyController controller, KillMode killMode)
+        {
+            return controller.IsKillable(killMode);
+        }
+
         private void KillEnemy(IEnemyController controllerToKill)
         {
-            
-           enemyList.Remove(controllerToKill);
-          // moveTaskList.Remove(controllerToKill);
-           controllerToKill.Reset();
-           signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
+
+            enemyList.Remove(controllerToKill);
+            controllerToKill.Reset();
+            signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
         }
 
 
@@ -166,8 +167,12 @@ namespace Enemy
                 IEnemyController enemyController = tempList[i];
                 if (enemyController.GetCurrentNodeID() == _killSignal.nodeID)
                 {
-                    enemyList.Remove(enemyController);
-                    enemyController.Reset();                    
+                    if (CheckForKillableEnemy(enemyController, _killSignal.killMode))
+                    {
+                        enemyList.Remove(enemyController);
+                        enemyController.Reset();
+                    }
+
                 }
             }
             if (enemyList.Count == 0)

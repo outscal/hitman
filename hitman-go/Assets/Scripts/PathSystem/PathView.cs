@@ -54,7 +54,7 @@ namespace PathSystem
                 }
                 if (graph[i].node.snipeable)
                 {
-                    Debug.Log("snipe Here");
+
                     physicalNode[physicalNode.Count - 1].GetComponent<NodeControllerView>().SetShootable();
                 }
                 if (node.connections[0] != -1)

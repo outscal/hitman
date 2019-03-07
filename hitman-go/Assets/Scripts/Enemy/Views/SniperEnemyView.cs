@@ -19,48 +19,56 @@ namespace Enemy
         {
 
             Debug.Log(enemyController.GetDirection());
-            //ray.origin = new Vector3(this.transform.position.x, 1f, this.transform.position.z);
-            //ray.direction = this.transform.forward;
+            
             alertSprite.enabled = false;
 
-            lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position);
-     
+            
+            Debug.Log(gameObject.transform.forward);
 
-            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 50f))
+            PerformFirstRaycast();
+
+        }
+
+        //async public override Task RotateEnemy(Vector3 newRotation)
+        //{
+        //  await  base.RotateEnemy(newRotation);
+        //    PerformFirstRaycast();
+        //}
+
+        private void PerformFirstRaycast()
+        {
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, transform.localPosition);
+            lineRenderer.SetPosition(1, transform.forward*500f);
+            if (Physics.Raycast(transform.localPosition, gameObject.transform.forward, out raycastHit, 500f))
             {
-                Debug.Log("hit regis");
                 lineRenderer.SetPosition(1, raycastHit.point);
             }
-
         }
 
         private void FixedUpdate()
         {
             if(isRayCastStart)
             {
-                //PerformRaycast();
+                
                 PerformSniperRaycast();
             }
         }
         public override void PerformRaycast()
-        {
-           // PerformSniperRaycast();
+        {         
             isRayCastStart = true;
 
         }
-        private void PerformSniperRaycast()
+      async  private void PerformSniperRaycast()
         {           
             if(!lineRenderer.enabled)
             {
                 lineRenderer.enabled = true;
             }
          
-                lineRenderer.SetPosition(0, transform.position+new Vector3(0,0.5f,0));
-                lineRenderer.SetPosition(1, gameObject.transform.forward*50f);
+                lineRenderer.SetPosition(0, transform.position);                
 
-            if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), transform.forward, out raycastHit, 50f))
+            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 500f))
             {
                 lineRenderer.SetPosition(1, raycastHit.point);
                 Debug.Log("Hit point"+ raycastHit.point);
@@ -68,7 +76,8 @@ namespace Enemy
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
-                    enemyController.KillPlayer();
+                  await  enemyController.KillPlayer();
+                    isRayCastStart = false;
                 }
             }
         }

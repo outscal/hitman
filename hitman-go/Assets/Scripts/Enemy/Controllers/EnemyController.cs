@@ -25,8 +25,9 @@ namespace Enemy
         protected int enemyID;
         protected int alertMoveCalled;
         protected EnemyType enemyType;
+        protected bool hasShield;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection,bool _hasShield)
         {
             currentEnemyService = _enemyService;
             if (currentEnemyService == null)
@@ -39,6 +40,7 @@ namespace Enemy
             spawnDirection = _spawnDirection;
             currentNodeID = _currentNodeID;
             gameService = _gameService;
+            hasShield = _hasShield;
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
             PopulateDirectionList();
@@ -55,11 +57,11 @@ namespace Enemy
         protected virtual void SpawnEnemyView()
         {
 
-            enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject);
+            enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject,spawnLocation,Quaternion.Euler( GetRotation(spawnDirection)));
             currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
-            currentEnemyView.SetPosition(spawnLocation);
-
-            enemyInstance.transform.Rotate(GetRotation(spawnDirection));
+            //currentEnemyView.SetPosition(spawnLocation);
+            //currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+            //enemyInstance.transform.Rotate(GetRotation(spawnDirection));
             SetController();
 
         }
@@ -109,11 +111,12 @@ namespace Enemy
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
             {
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
-                currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
+                //currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
                 if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
                 {
                    await MoveToNextNode(nextNodeID);
-                }                
+                }              
+               
                 
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
@@ -190,9 +193,10 @@ namespace Enemy
             }
         }
 
-        public void KillPlayer()
+       async public Task KillPlayer()
         {
             currentEnemyService.TriggerPlayerDeath();
+            await new WaitForEndOfFrame();
         }
 
         public void ChangeState(EnemyStates _state)
@@ -208,6 +212,15 @@ namespace Enemy
         public Directions GetDirection()
         {
             return spawnDirection;
+        }
+
+        public virtual bool IsKillable(KillMode killMode)
+        {
+            if (hasShield && killMode == KillMode.SHOOT)
+            {
+                return false;
+            }
+            else { return true; }
         }
     }
 }

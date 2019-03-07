@@ -14,7 +14,7 @@ namespace Enemy
         int dogVision = 2;
         Directions newDirection;
         private SignalBus signalBus;
-        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus,Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
+        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus,Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection, bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection,_hasShield)
         {
             enemyType = EnemyType.DOGS;
             signalBus = _signalBus;
@@ -49,8 +49,7 @@ namespace Enemy
             }
             int nodeToCheck = nodeID;
             if (stateMachine.GetEnemyState() == EnemyStates.CONSTANT_CHASE)
-            {
-                Debug.Log("Next node ID [move to next node]"+ nodeID);
+            {               
                 
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
                 Vector3 rot = GetRotation(spawnDirection);
@@ -58,8 +57,13 @@ namespace Enemy
 
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+                if (currentNodeID == alertedPathNodes[alertedPathNodes.Count - 1])
+                {
+                    stateMachine.ChangeEnemyState(EnemyStates.IDLE);
+                    currentEnemyView.DisableAlertView();
 
-                AlertEnemy(currentEnemyService.GetPlayerNodeID());
+                }
+                else { AlertEnemy(currentEnemyService.GetPlayerNodeID()); }
                 
             }
             else if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
@@ -71,6 +75,12 @@ namespace Enemy
 
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+                if (currentNodeID == alertedPathNodes[alertedPathNodes.Count - 1])
+                {
+                    stateMachine.ChangeEnemyState(EnemyStates.IDLE);
+                    currentEnemyView.DisableAlertView();
+                }
+                
             }
 
             if (CheckForPlayerPresence(nodeID))

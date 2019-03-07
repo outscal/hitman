@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level7DogTestCOPY
   m_EditorClassIdentifier: 
+  maxwidth: 0
+  maxhight: 0
+  set: 1
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  GatesEdge: []
   stars: []
   maxPlayerMoves: 10
   noOfEnemies: 1
@@ -20,11 +24,14 @@ MonoBehaviour:
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
-  teleportNode: {fileID: 0}
+  teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
+    type: 3}
   cameraScriptableList:
   - {fileID: 11400000, guid: fa9966285522645e89adb72b1b02a241, type: 2}
   Graph:
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 0
       property: 1
       spawnPickups: 0
@@ -36,9 +43,11 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 1
       property: 0
-      spawnPickups: 0
+      spawnPickups: 4
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 5}
     up: -1
@@ -47,6 +56,8 @@ MonoBehaviour:
     right: 2
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 2
       property: 0
       spawnPickups: 0
@@ -58,8 +69,10 @@ MonoBehaviour:
     right: 3
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 3
-      property: 0
+      property: 3
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -10, y: 0, z: 5}
@@ -67,12 +80,17 @@ MonoBehaviour:
     down: -1
     left: 2
     right: -1
-    teleport: 
+    teleport: 0f000000
   - node:
+      snipeable: 1
+      keyType: 0
       uniqueID: 4
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 5}
     up: 8
     down: -1
@@ -80,6 +98,8 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 5
       property: 0
       spawnPickups: 0
@@ -91,6 +111,8 @@ MonoBehaviour:
     right: 4
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 6
       property: 0
       spawnPickups: 1
@@ -102,6 +124,8 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 7
       property: 0
       spawnPickups: 0
@@ -113,12 +137,12 @@ MonoBehaviour:
     right: 8
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 8
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 3
-        dir: 2
+      spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 0}
     up: -1
     down: 4
@@ -126,10 +150,15 @@ MonoBehaviour:
     right: 9
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 9
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 5
+        dir: 2
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: 0}
     up: 14
     down: -1
@@ -137,6 +166,8 @@ MonoBehaviour:
     right: 10
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 10
       property: 0
       spawnPickups: 0
@@ -148,6 +179,8 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 11
       property: 0
       spawnPickups: 0
@@ -159,6 +192,8 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 12
       property: 0
       spawnPickups: 0
@@ -170,12 +205,12 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 13
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 1
-        dir: 3
+      spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: -5}
     up: -1
     down: -1
@@ -183,10 +218,15 @@ MonoBehaviour:
     right: 12
     teleport: 
   - node:
+      snipeable: 1
+      keyType: 0
       uniqueID: 14
       property: 0
-      spawnPickups: 2
-      spawnEnemies: []
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 3
+        dir: 3
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: -5}
     up: 17
     down: 9
@@ -194,8 +234,10 @@ MonoBehaviour:
     right: 13
     teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 15
-      property: 0
+      property: 3
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -5}
@@ -203,8 +245,10 @@ MonoBehaviour:
     down: -1
     left: 16
     right: 14
-    teleport: 
+    teleport: 03000000
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 16
       property: 0
       spawnPickups: 0
@@ -214,8 +258,10 @@ MonoBehaviour:
     down: 7
     left: -1
     right: 15
-    teleport: 
+    teleport: 00000000
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 17
       property: 2
       spawnPickups: 0

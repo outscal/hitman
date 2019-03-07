@@ -52,8 +52,8 @@ namespace Enemy
             Destroy(this.gameObject);
         }
 
-        async public Task RotateEnemy(Vector3 newRotation)
-        {
+        async public virtual Task RotateEnemy(Vector3 newRotation)
+        {            
             iTween.RotateTo(this.gameObject, newRotation, 0.5f);
 
             await new WaitForSeconds(0.5f);
