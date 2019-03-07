@@ -223,10 +223,7 @@ MonoBehaviour:
       uniqueID: 14
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 3
-        dir: 3
-        hasShield: 0
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: -5}
     up: 17
     down: 9
@@ -252,20 +249,26 @@ MonoBehaviour:
       uniqueID: 16
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 3
+        dir: 3
+        hasShield: 0
       nodePosition: {x: 10, y: 0, z: -5}
     up: -1
     down: 7
     left: -1
     right: 15
-    teleport: 00000000
+    teleport: 
   - node:
       snipeable: 0
       keyType: 0
       uniqueID: 17
       property: 2
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 1
+        dir: 0
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: -10}
     up: -1
     down: 14

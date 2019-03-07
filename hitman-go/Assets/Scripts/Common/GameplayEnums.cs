@@ -34,6 +34,7 @@ namespace Common
         BIDIRECTIONAL,        
         DOGS,
         CIRCULAR_COP,
+        GUARD_TORCH,
         TARGET
     }
     public enum KeyTypes{

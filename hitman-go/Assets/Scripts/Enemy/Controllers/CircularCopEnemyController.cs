@@ -16,5 +16,7 @@ namespace Enemy
         {
             currentEnemyView.SetCurrentController(this);
         }
+
+
     }
 }

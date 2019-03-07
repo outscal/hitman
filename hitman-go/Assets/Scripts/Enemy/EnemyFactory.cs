@@ -1,9 +1,9 @@
-﻿using GameState;
-using Common;
+﻿using Common;
+using GameState;
 using PathSystem;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using Zenject;
 
 namespace Enemy
@@ -15,24 +15,24 @@ namespace Enemy
         IGameService gameService;
         SignalBus signalBus;
 
-        public EnemyFactory(IEnemyService _enemyService, IPathService _pathService,IGameService _gameService,SignalBus _signalBus)
+        public EnemyFactory(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus)
         {
             gameService = _gameService;
             pathService = _pathService;
             enemyService = _enemyService;
             signalBus = _signalBus;
-            
+
         }
 
-       
+
 
         public List<IEnemyController> SpawnEnemies(EnemyScriptableObjectList _list)
         {
             List<IEnemyController> enemyList = new List<IEnemyController>();
-        
+
             for (int i = 0; i < _list.enemyList.Count; i++)
             {
-              enemyList= enemyList.Concat(SpawnSingleEnemyLocations(_list.enemyList[i])).ToList();
+                enemyList = enemyList.Concat(SpawnSingleEnemyLocations(_list.enemyList[i])).ToList();
             }
 
             return enemyList;
@@ -52,20 +52,20 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
-                        
+
                         IEnemyController newEnemy = new StaticEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
                         newEnemyControllers.Add(newEnemy);
-                        
+
                     }
                     break;
 
                 case EnemyType.PATROLLING:
-                   
+
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
-                        
 
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);                       
+
+                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
                         IEnemyController newEnemy = new PatrollingEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
                         newEnemyControllers.Add(newEnemy);
                     }
@@ -75,13 +75,13 @@ namespace Enemy
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
-                        IEnemyController newEnemy = new RotatingKnifeEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir,spawnNodeID[i].hasShield);
+                        IEnemyController newEnemy = new RotatingKnifeEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
                         newEnemyControllers.Add(newEnemy);
                     }
                     break;
 
                 case EnemyType.CIRCULAR_COP:
-                    
+
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
@@ -89,19 +89,19 @@ namespace Enemy
                         newEnemyControllers.Add(newEnemy);
 
                     }
-                    break;            
+                    break;
 
-                case EnemyType.DOGS:                   
+                case EnemyType.DOGS:
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
-                        IEnemyController newEnemy = new DogsEnemyController(enemyService, pathService, gameService, signalBus,spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
+                        IEnemyController newEnemy = new DogsEnemyController(enemyService, pathService, gameService, signalBus, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
                         newEnemyControllers.Add(newEnemy);
 
                     }
                     break;
 
-                case EnemyType.SNIPER:                   
+                case EnemyType.SNIPER:
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
@@ -111,7 +111,7 @@ namespace Enemy
                     }
                     break;
 
-                case EnemyType.TARGET:                   
+                case EnemyType.TARGET:
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
@@ -120,7 +120,7 @@ namespace Enemy
 
                     }
                     break;
-                case EnemyType.BIDIRECTIONAL:                   
+                case EnemyType.BIDIRECTIONAL:
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
@@ -130,9 +130,20 @@ namespace Enemy
                     }
                     break;
 
+
+                case EnemyType.GUARD_TORCH:
+                    for (int i = 0; i < spawnNodeID.Count; i++)
+                    {
+                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
+                        IEnemyController newEnemy = new GuardWithTorchEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
+                        newEnemyControllers.Add(newEnemy);
+
+                    }
+                    break;
+
                 default:
                     Debug.Log("No Enemy Controller of this type");
-                    break;                    
+                    break;
             }
 
             return newEnemyControllers;
