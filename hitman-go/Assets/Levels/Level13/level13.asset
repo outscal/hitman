@@ -40,6 +40,29 @@ MonoBehaviour:
     type: 3}
   cameraScriptableList:
   - {fileID: 11400000, guid: 32bfbf7007d754d218ac7eaf5b760936, type: 2}
+  - {fileID: 11400000, guid: 8d2428bd9435d46a9a4d1aef9a08a99a, type: 2}
+  - {fileID: 11400000, guid: 846b936b65aa14bcc8362d20391ce612, type: 2}
+  - {fileID: 11400000, guid: 697ae17d9d99d4866886a6b7abfe72a0, type: 2}
+  - {fileID: 11400000, guid: 82d161e7e66454fd790b34978911a15c, type: 2}
+  - {fileID: 11400000, guid: 492af7a72b2a54de3b51f65721308e52, type: 2}
+  - {fileID: 11400000, guid: 8447aef117a754a848a16ae388c07107, type: 2}
+  - {fileID: 11400000, guid: 377a7e9841adc4e9cb060a6cb6b9d776, type: 2}
+  - {fileID: 11400000, guid: fc7b4ce962fa5405caa10c83f5fa8307, type: 2}
+  - {fileID: 11400000, guid: 81f0862f6a8164eda93ed8d1c6c20b5e, type: 2}
+  - {fileID: 11400000, guid: 93a4c467f75a146eb8b76232abaf7bb6, type: 2}
+  - {fileID: 11400000, guid: eb27f8e6151144b42aa4e4526fb85584, type: 2}
+  - {fileID: 11400000, guid: d989e2681fd814bd59591b6aaabb93f1, type: 2}
+  - {fileID: 11400000, guid: a799c6fdab1094dd1b5b061281a296cd, type: 2}
+  - {fileID: 11400000, guid: 32cfaeafa95854d76aedc93d7fe72884, type: 2}
+  - {fileID: 11400000, guid: c34cc341d0bca42ff81c623e2cd2545f, type: 2}
+  - {fileID: 11400000, guid: 99adfb6d6199243609de1078aa76631a, type: 2}
+  - {fileID: 11400000, guid: 1a21307a60e604b609bc95f905e9819e, type: 2}
+  - {fileID: 11400000, guid: f29963bbac71546059b9817a79a818e5, type: 2}
+  - {fileID: 11400000, guid: 10453046fe9ee432f8517fe55519b7e9, type: 2}
+  - {fileID: 11400000, guid: bbcc3501f1db24f8fa3a90c2ba32fe09, type: 2}
+  - {fileID: 11400000, guid: b241527c5062140249a671589805d286, type: 2}
+  - {fileID: 11400000, guid: 98c2989b6860d49dabcf898041237051, type: 2}
+  - {fileID: 11400000, guid: 3a56b6ccdd09d455288a053b44f8c3c4, type: 2}
   Graph:
   - node:
       snipeable: 0
