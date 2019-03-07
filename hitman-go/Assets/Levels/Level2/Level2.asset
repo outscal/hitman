@@ -50,7 +50,7 @@ MonoBehaviour:
       keyType: 0
       uniqueID: 1
       property: 0
-      spawnPickups: 4
+      spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: -5, y: 0, z: 5}
     up: -1
