@@ -17,7 +17,7 @@ namespace EditorScripts
             graph = (ScriptableGraph)target;
             position_values = new int[graph.maxhight, graph.maxwidth];
             int multiplier = 5;
-            hzero = (graph.maxwidth / 2) - 1; vzero = (graph.maxhight / 2) - 1;
+            hzero = ((int)(Mathf.Ceil(((float)graph.maxwidth / 2)))) - 1; vzero = (int)((Mathf.Ceil((graph.maxhight / 2))) - 1);
             for (int i = 0; i < graph.maxhight; i++)
             {
                 for (int j = 0; j < graph.maxwidth; j++)
@@ -46,7 +46,7 @@ namespace EditorScripts
                     {
                         if(position_values[i, j] != -1)
                         {
-                            graph.Graph[position_values[i, j]].node.nodePosition = new Vector3((j-hzero)*5, 0, (i-vzero)*5);
+                            graph.Graph[position_values[i, j]].node.nodePosition = new Vector3(-((j-hzero)*5), 0, (i-vzero)*5);
                         }
                     }
                 }
@@ -78,15 +78,7 @@ namespace EditorScripts
             }
             if (GUILayout.Button("Create Grid"))
             {
-                position_values = new int[graph.maxhight, graph.maxwidth];
-                int multiplier = 5, hzero = graph.maxwidth / 2, vzero = graph.maxhight / 2;
-                for (int i = 0; i < graph.maxhight; i++)
-                {
-                    for (int j = 0; j < graph.maxwidth; j++)
-                    {
-                        position_values[i, j] = -1;
-                    }
-                }
+                OnEnable();
 
             }
         }

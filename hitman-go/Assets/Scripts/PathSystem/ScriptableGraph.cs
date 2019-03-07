@@ -11,6 +11,7 @@ namespace PathSystem
     {
         public int maxwidth, maxhight;
         public bool set = true;
+       // public int NoOfDogs;
         public GameObject line;
         public List<GateData> GatesEdge=new List<GateData>();
         public StarData[] stars=new StarData[0];
