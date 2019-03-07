@@ -80,7 +80,7 @@ MonoBehaviour:
       keyType: 0
       uniqueID: 2
       property: 0
-      spawnPickups: 0
+      spawnPickups: 4
       spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 5}
     up: 7
@@ -106,7 +106,7 @@ MonoBehaviour:
       keyType: 0
       uniqueID: 4
       property: 0
-      spawnPickups: 0
+      spawnPickups: 4
       spawnEnemies: []
       nodePosition: {x: 10, y: 0, z: 5}
     up: 9
