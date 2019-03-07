@@ -38,7 +38,8 @@ MonoBehaviour:
     type: 3}
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
-  cameraScriptableList: []
+  cameraScriptableList:
+  - {fileID: 11400000, guid: 32bfbf7007d754d218ac7eaf5b760936, type: 2}
   Graph:
   - node:
       snipeable: 0
@@ -61,10 +62,10 @@ MonoBehaviour:
       spawnPickups: 0
       spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: 5}
-    up: 3
-    down: 1
-    left: 7
-    right: 11
+    up: 2
+    down: 0
+    left: 8
+    right: 12
     teleport: 
   - node:
       snipeable: 0
@@ -76,10 +77,10 @@ MonoBehaviour:
       - enemy: 1
         dir: 3
       nodePosition: {x: 5, y: 0, z: 0}
-    up: 4
-    down: 2
-    left: 6
-    right: 10
+    up: 3
+    down: 1
+    left: 7
+    right: 11
     teleport: 
   - node:
       snipeable: 0
@@ -251,7 +252,7 @@ MonoBehaviour:
     down: 16
     left: 10
     right: 20
-    teleport: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    teleport: 12000000
   - node:
       snipeable: 0
       keyType: 0
@@ -292,7 +293,7 @@ MonoBehaviour:
     down: -1
     left: 13
     right: -1
-    teleport: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    teleport: 0f000000
   - node:
       snipeable: 0
       keyType: 0
