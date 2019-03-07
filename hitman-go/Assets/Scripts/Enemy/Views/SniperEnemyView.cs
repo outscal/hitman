@@ -35,11 +35,12 @@ namespace Enemy
         //    PerformFirstRaycast();
         //}
 
-        private void PerformFirstRaycast()
+      async  private void PerformFirstRaycast()
         {
             lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, transform.localPosition);
-            lineRenderer.SetPosition(1, transform.forward*500f);
+            lineRenderer.SetPosition(0, transform.position);
+            await new WaitForEndOfFrame();
+            //lineRenderer.SetPosition(1, transform.forward*500f);
             if (Physics.Raycast(transform.localPosition, gameObject.transform.forward, out raycastHit, 500f))
             {
                 lineRenderer.SetPosition(1, raycastHit.point);
@@ -48,15 +49,14 @@ namespace Enemy
 
         private void FixedUpdate()
         {
-            if(isRayCastStart)
-            {
-                
-                PerformSniperRaycast();
-            }
+            //if(isRayCastStart)
+            //{                
+            //}
         }
         public override void PerformRaycast()
         {         
-            isRayCastStart = true;
+           // isRayCastStart = true;
+                PerformSniperRaycast();
 
         }
       async  private void PerformSniperRaycast()
@@ -66,13 +66,11 @@ namespace Enemy
                 lineRenderer.enabled = true;
             }
          
-                lineRenderer.SetPosition(0, transform.position);                
-
+                lineRenderer.SetPosition(0, transform.position);
+            await new WaitForSeconds(0.5f);
             if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 500f))
             {
                 lineRenderer.SetPosition(1, raycastHit.point);
-                Debug.Log("Hit point"+ raycastHit.point);
-                Debug.Log("Hitting"+ raycastHit.collider.name);
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
@@ -80,11 +78,12 @@ namespace Enemy
                     isRayCastStart = false;
                 }
             }
+         
         }
 
         public override void StopRaycast()
         {
-            isRayCastStart = false;
+           // isRayCastStart = false;
             lineRenderer.enabled = false;
         }
 
