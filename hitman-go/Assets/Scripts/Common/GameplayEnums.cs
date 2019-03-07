@@ -22,6 +22,7 @@ namespace Common
         ALLKILL,
         PICKBRIEFCASE,
         KILLDOGS,
+        COMPLETED,
         NOKILLDOGS
     }
     public enum EnemyType
@@ -30,10 +31,17 @@ namespace Common
         PATROLLING,
         ROTATING_KNIFE,
         SNIPER,
+        BIDIRECTIONAL,
         SHIELDED,
         DOGS,
         CIRCULAR_COP,
         TARGET
+    }
+    public enum KeyTypes{
+        NONE,
+        RED,
+        BLUE,
+        YELLOW
     }
      public enum NodeProperty
     {

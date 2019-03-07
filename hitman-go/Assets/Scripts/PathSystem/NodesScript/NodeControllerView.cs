@@ -6,7 +6,7 @@ namespace PathSystem.NodesScript
 {
     public class NodeControllerView : MonoBehaviour, INodeControllerView
     {
-        public GameObject highlighter;
+        public GameObject highlighter, shootable;
         public int nodeID;
         GameObject highlightnode;
         public int GetNodeId()
@@ -30,6 +30,10 @@ namespace PathSystem.NodesScript
             ));
             await Task.Delay(TimeSpan.FromSeconds(3));
             Destroy(high);
+        }
+        public void SetShootable()
+        {
+            shootable.SetActive(true);
         }
         public void HighlightNode()
         {

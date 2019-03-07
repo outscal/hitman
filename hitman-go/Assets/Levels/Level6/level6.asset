@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: level6
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  GatesEdge: []
   stars:
   - type: 2
     name: Kill All Enemies
   - type: 1
     name: Kill No Enemies
+  - type: 5
+    name: Completed
   maxPlayerMoves: 10
   noOfEnemies: 4
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -42,6 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e664138ba78d0475092c05b1c2701823, type: 2}
   Graph:
   - node:
+      keyType: 0
       uniqueID: 0
       property: 1
       spawnPickups: 0
@@ -53,6 +57,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 1
       property: 0
       spawnPickups: 0
@@ -64,6 +69,7 @@ MonoBehaviour:
     right: 0
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 2
       property: 0
       spawnPickups: 2
@@ -75,6 +81,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 3
       property: 0
       spawnPickups: 0
@@ -86,6 +93,7 @@ MonoBehaviour:
     right: 2
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 4
       property: 0
       spawnPickups: 0
@@ -97,6 +105,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 5
       property: 0
       spawnPickups: 2
@@ -108,6 +117,7 @@ MonoBehaviour:
     right: 3
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 6
       property: 0
       spawnPickups: 0
@@ -119,6 +129,7 @@ MonoBehaviour:
     right: 7
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 7
       property: 0
       spawnPickups: 0
@@ -132,6 +143,7 @@ MonoBehaviour:
     right: 8
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 8
       property: 0
       spawnPickups: 0
@@ -143,6 +155,7 @@ MonoBehaviour:
     right: 10
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 9
       property: 0
       spawnPickups: 0
@@ -156,6 +169,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 10
       property: 0
       spawnPickups: 0
@@ -169,6 +183,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 11
       property: 0
       spawnPickups: 0
@@ -180,6 +195,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 12
       property: 0
       spawnPickups: 0
@@ -193,6 +209,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 13
       property: 2
       spawnPickups: 0

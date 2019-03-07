@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: level4
   m_EditorClassIdentifier: 
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
-  stars: 
+  GatesEdge: []
+  stars:
+  - type: 5
+    name: Completed
   maxPlayerMoves: 10
   noOfEnemies: 7
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
@@ -23,7 +26,7 @@ MonoBehaviour:
   teleportNode: {fileID: 0}
   cameraScriptableList:
   - {fileID: 11400000, guid: fa9966285522645e89adb72b1b02a241, type: 2}
-  - {fileID: 11400000, guid: 90b582296022b4ed8a7e1453ec36d353, type: 2}
+  - {fileID: 11400000, guid: de6f41e7acd8a4a678f97ed2c04d92be, type: 2}
   - {fileID: 11400000, guid: bc7156a35029b48f08b856cf4451a9aa, type: 2}
   - {fileID: 11400000, guid: dbaca299b38284bc9971cba453ef0a16, type: 2}
   - {fileID: 11400000, guid: 455027aa4865c47cd899ab23fd3899fa, type: 2}
@@ -42,6 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ae750a7ae9864b0bb784c7244090fd2, type: 2}
   Graph:
   - node:
+      keyType: 0
       uniqueID: 0
       property: 1
       spawnPickups: 0
@@ -53,6 +57,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 1
       property: 0
       spawnPickups: 0
@@ -64,6 +69,7 @@ MonoBehaviour:
     right: 2
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 2
       property: 0
       spawnPickups: 0
@@ -75,6 +81,7 @@ MonoBehaviour:
     right: 3
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 3
       property: 0
       spawnPickups: 0
@@ -88,6 +95,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 4
       property: 0
       spawnPickups: 0
@@ -99,6 +107,7 @@ MonoBehaviour:
     right: 16
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 5
       property: 0
       spawnPickups: 0
@@ -112,6 +121,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 6
       property: 0
       spawnPickups: 0
@@ -125,6 +135,7 @@ MonoBehaviour:
     right: 5
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 7
       property: 0
       spawnPickups: 0
@@ -136,6 +147,7 @@ MonoBehaviour:
     right: 6
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 8
       property: 0
       spawnPickups: 0
@@ -147,6 +159,7 @@ MonoBehaviour:
     right: 9
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 9
       property: 0
       spawnPickups: 0
@@ -160,6 +173,7 @@ MonoBehaviour:
     right: 10
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 10
       property: 0
       spawnPickups: 0
@@ -173,6 +187,7 @@ MonoBehaviour:
     right: 11
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 11
       property: 0
       spawnPickups: 0
@@ -186,6 +201,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 12
       property: 0
       spawnPickups: 0
@@ -197,6 +213,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 13
       property: 0
       spawnPickups: 0
@@ -208,6 +225,7 @@ MonoBehaviour:
     right: 12
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 14
       property: 0
       spawnPickups: 0
@@ -219,6 +237,7 @@ MonoBehaviour:
     right: 13
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 15
       property: 0
       spawnPickups: 0
@@ -232,6 +251,7 @@ MonoBehaviour:
     right: 14
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 16
       property: 0
       spawnPickups: 0
@@ -243,6 +263,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      keyType: 0
       uniqueID: 17
       property: 2
       spawnPickups: 0

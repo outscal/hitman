@@ -22,7 +22,6 @@ namespace GameState
         public async void OnStateEnter()
         {
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType()});
-            signalBus.TryFire(new ResetSignal());
             await Task.Delay(TimeSpan.FromSeconds(2));
             service.ChangeToLoadLevelState();
         }

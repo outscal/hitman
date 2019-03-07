@@ -7,6 +7,9 @@ namespace PathSystem
 {
     public interface IPathService
     {
+        bool CheckIfSnipeable(int nodeId);
+        void KeyCollected(KeyTypes key);
+        KeyTypes GetKeyType(int node);
         List<StarData> GetStarsForLevel();
         Directions GetDirections(int sourceNode, int nextNode);
         void ShowThrowableNodes(int nodeId);
@@ -16,7 +19,7 @@ namespace PathSystem
         Vector3 GetNodeLocation(int _nodeID);
         List<int> GetPickupSpawnLocation(InteractablePickup type);
         int GetPlayerNodeID();
-        List<int> GetEnemySpawnLocation(EnemyType type);
+        List<EnemySpawnData> GetEnemySpawnLocation(EnemyType type);
         List<int> GetShortestPath(int _currentNodeID, int _destinationNodeID);
         List<int> GetAlertedNodes(int _targetNodeID);
         Directions GetEnemySpawnDirection(int _nodeID);

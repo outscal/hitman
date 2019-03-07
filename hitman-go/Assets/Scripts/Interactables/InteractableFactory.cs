@@ -111,9 +111,20 @@ namespace InteractableSystem
                         interactableManager.AddInteractable(nodeID[i], dualGunController);
                     }
                     break;
-                case InteractablePickup.TRAP_DOOR:
-                    break;
                 case InteractablePickup.COLOR_KEY:
+                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.COLOR_KEY);
+
+                    for (int i = 0; i < nodeID.Count; i++)
+                    {
+                        InteractableView keyView = interactableScriptableObj.interactableItems[k]
+                                                       .interactableView;
+                        Vector3 position = interactableManager.ReturnPathService()
+                                 .GetNodeLocation(nodeID[i]);
+                        InteractableController keyController = new KeyController(position
+                        , interactableManager
+                        , keyView, interactableManager.ReturnPathService().GetKeyType(nodeID[i]));
+                        interactableManager.AddInteractable(nodeID[i], keyController);
+                    }
                     break;
                 case InteractablePickup.AMBUSH_PLANT:
                     nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.AMBUSH_PLANT);
