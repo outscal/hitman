@@ -10,6 +10,7 @@ namespace UIservice
         PlayUIView playView;
         GameOverUIView overView;
         LevelFinishedUIView finishedUIView;
+        LobbyUIView lobbyUIView;
 
         IUIController currentUI, previousUI;
 
@@ -20,14 +21,13 @@ namespace UIservice
             playView = GameObject.FindObjectOfType<PlayUIView>();
             overView = GameObject.FindObjectOfType<GameOverUIView>();
             finishedUIView = GameObject.FindObjectOfType<LevelFinishedUIView>();
+            lobbyUIView = GameObject.FindObjectOfType<LobbyUIView>();
             playView.gameObject.SetActive(false);
             overView.gameObject.SetActive(false);
             finishedUIView.gameObject.SetActive(false);
         }
         public void OnGameStateChanged(StateChangeSignal state)
         {
-
-
             switch (state.newGameState)
             {
                 case GameStatesType.PLAYERSTATE:
@@ -60,8 +60,10 @@ namespace UIservice
                     break;
                 case GameStatesType.LOBBYSTATE:
                     previousUI = currentUI;
-                    previousUI.DestroyUI();
-                    currentUI = new LevelFinishedUIController(finishedUIView);
+                    if (previousUI != null)
+                        previousUI.DestroyUI();
+
+                    currentUI = new LobbyUIController(lobbyUIView);
                     break;
 
             }

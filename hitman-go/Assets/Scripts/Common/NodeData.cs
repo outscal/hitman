@@ -7,6 +7,8 @@ namespace Common
     [Serializable]
     public struct NodeData
     {
+        public bool snipeable;
+        public KeyTypes keyType;
         public int uniqueID;
         public NodeProperty property;
         public InteractablePickup spawnPickups;
@@ -19,6 +21,11 @@ namespace Common
     {
         public EnemyType enemy;
         public Directions dir;
+    }
+    public struct EnemySpawnData
+    {
+        public Directions dir;
+        public int node;
     }
 
     [Serializable]

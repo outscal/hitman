@@ -9,13 +9,16 @@ namespace InputSystem
         public GameObject ReturnObject(Vector2 position)
         {
             GameObject gameObject = null;
-            Ray ray = Camera.main.ScreenPointToRay(position);
-            RaycastHit raycast;
-            if (Physics.Raycast(ray, out raycast, Mathf.Infinity))
+            if (Camera.main != null)
             {
-                gameObject = raycast.collider.gameObject;
-                if (gameObject != null)
-                    Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                Ray ray = Camera.main.ScreenPointToRay(position);
+                RaycastHit raycast;
+                if (Physics.Raycast(ray, out raycast, Mathf.Infinity))
+                {
+                    gameObject = raycast.collider.gameObject;
+                    if (gameObject != null)
+                        Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                }
             }
 
             return gameObject;
@@ -24,13 +27,16 @@ namespace InputSystem
         public GameObject ReturnObject(Vector2 position, LayerMask layerMask)
         {
             GameObject gameObject = null;
-            Ray ray = Camera.main.ScreenPointToRay(position);
-            RaycastHit raycast;
-            if (Physics.Raycast(ray, out raycast, Mathf.Infinity, layerMask))
+            if (Camera.main != null)
             {
-                gameObject = raycast.collider.gameObject;
-                if (gameObject != null)
-                    Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                Ray ray = Camera.main.ScreenPointToRay(position);
+                RaycastHit raycast;
+                if (Physics.Raycast(ray, out raycast, Mathf.Infinity, layerMask))
+                {
+                    gameObject = raycast.collider.gameObject;
+                    if (gameObject != null)
+                        Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                }
             }
 
             return gameObject;

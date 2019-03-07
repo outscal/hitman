@@ -1,3 +1,4 @@
+using PathSystem.NodesScript;
 using System.Collections.Generic;
 using UnityEngine;
 namespace PathSystem

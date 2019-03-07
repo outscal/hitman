@@ -33,6 +33,13 @@ namespace GameState
             signalBus.Subscribe<LevelFinishedSignal>(ChangeToLevelFinishedState);
             //pathService.DrawGraph(levels.levelsList[currentLevel]);
         }
+        public void SetCurrentLevel(int level){
+            currentLevel=level;
+        }
+        public List<StarData> GetStarsForLevel(int level)
+        {
+            return new List<StarData>(levels.levelsList[level].stars);
+        }
         public GameStatesType GetCurrentState()
         {
             return currentGameState.GetStatesType();
@@ -40,6 +47,9 @@ namespace GameState
         public void ChangeToPlayerState()
         {
             ChangeState(new GamePlayerState(signalBus));
+        }
+        public void ChangeToLobbyState(){
+            ChangeState(new GameLobbyState(signalBus));
         }
         public void ChangeToGameOverState()
         {
@@ -59,12 +69,9 @@ namespace GameState
         }
         public void ChangeToLevelFinishedState()
         {
-            List<StarData> stars = pathService.GetStarsForLevel();
-            for (int i = 0; i < stars.Count; i++)
-            {
-                saveService.SaveStarTypeForLevel(currentLevel, stars[i].type, starService.CheckForStar(stars[i].type));
-            }
-            ChangeState(new LevelFinishedState(signalBus, this));
+            ChangeState(new LevelFinishedState(signalBus, this,saveService,pathService,currentLevel,starService));
+
+
         }
         public void ChangeToEnemyState()
         {
@@ -81,13 +88,18 @@ namespace GameState
 
         public void Initialize()
         {
-            ChangeToLoadLevelState();
+            ChangeToLobbyState();
             //signalBus.TryFire(new GameStartSignal());
         }
 
         public int GetCurrentLevel()
         {
             return currentLevel;
+        }
+
+        public int GetNumberOfLevels()
+        {
+            return levels.levelsList.Count;
         }
     }
 }

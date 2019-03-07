@@ -10,7 +10,14 @@ namespace PathSystem
         PathController controller;
         public void DrawGraph(ScriptableGraph Graph)
         {
-            controller = new PathController(Graph);
+            controller = new PathController(Graph,this);
+            controller.DrawGraph(Graph);
+        }
+        public void KeyCollected(KeyTypes key){
+            controller.KeyCollected(key);
+        }
+        public KeyTypes GetKeyType(int node){
+            return controller.GetKeyType(node);
         }
         public void DestroyPath()
         {
@@ -48,7 +55,7 @@ namespace PathSystem
         {
             return controller.GetPlayerNodeID();
         }
-        public List<int> GetEnemySpawnLocation(EnemyType type)
+        public List<EnemySpawnData> GetEnemySpawnLocation(EnemyType type)
         {
             return controller.GetEnemySpawnLocation(type);
         }
@@ -77,7 +84,11 @@ namespace PathSystem
             return controller.GetDirections(sourceNode, nextNode);
 
         }
-        public List<CameraScriptableObj> GetCameraDataList()
+        public bool CheckIfSnipeable(int nodeId)
+        {
+            return controller.CheckIfSnipeable(nodeId);
+        }
+            public List<CameraScriptableObj> GetCameraDataList()
         {
             return controller.GetCameraScriptableObject();
         }

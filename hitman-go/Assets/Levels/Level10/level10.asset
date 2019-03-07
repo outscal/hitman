@@ -1,0 +1,373 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
+  m_Name: level10
+  m_EditorClassIdentifier: 
+  line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  GatesEdge:
+  - key: 1
+    node1: 2
+    node2: 5
+    position: {x: 0, y: 0, z: 7.5}
+    gatePrefab: {fileID: 5434262468552243766, guid: a70c9c94687d2024a8b7480f7847dd2a,
+      type: 3}
+  - key: 2
+    node1: 9
+    node2: 10
+    position: {x: -2.5, y: 0, z: 0}
+    gatePrefab: {fileID: 5434262468552243766, guid: b7936756e14d54f47b94b55948a8b7fb,
+      type: 3}
+  - key: 2
+    node1: 20
+    node2: 22
+    position: {x: 5, y: 0, z: -7.5}
+    gatePrefab: {fileID: 5434262468552243766, guid: b7936756e14d54f47b94b55948a8b7fb,
+      type: 3}
+  stars:
+  - type: 5
+    name: Level Completed
+  - type: 3
+    name: Collect BriefCase
+  - type: 0
+    name: 23 Turns Max
+  maxPlayerMoves: 23
+  noOfEnemies: 5
+  nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
+    type: 3}
+  targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
+    type: 3}
+  teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
+    type: 3}
+  cameraScriptableList:
+  - {fileID: 11400000, guid: ff7e73cf346874b94bb9f1b1418ab2b9, type: 2}
+  - {fileID: 11400000, guid: de478952b02034a249aebe423fb10755, type: 2}
+  - {fileID: 11400000, guid: 94c15df8a32bc4e3196238881a950da1, type: 2}
+  - {fileID: 11400000, guid: ec68eba43acda4dc0b77102e2079b54b, type: 2}
+  - {fileID: 11400000, guid: 8f109ef1aebfb401e984ef156d6e9f1a, type: 2}
+  - {fileID: 11400000, guid: 622b5278f36ef4b589cbfe3def771b17, type: 2}
+  - {fileID: 11400000, guid: a3ccbd67793964a6a885543433bf9662, type: 2}
+  - {fileID: 11400000, guid: c98e23f3e931348598b077739bf9768b, type: 2}
+  - {fileID: 11400000, guid: 8aa5ac104c25a4cf48c89cf865f014d3, type: 2}
+  - {fileID: 11400000, guid: 69fa8d4b802f348a4bb46a88a46c1f76, type: 2}
+  - {fileID: 11400000, guid: 6b12f29b286534e85af7ebfafaef6ec2, type: 2}
+  - {fileID: 11400000, guid: 049977bf85ad44874bd565878243ce25, type: 2}
+  - {fileID: 11400000, guid: 07f1b53076e6041acba113add3d53c65, type: 2}
+  - {fileID: 11400000, guid: a6eab8fba95c144898d059c60427e4bc, type: 2}
+  - {fileID: 11400000, guid: e6015bfc65e9f406c9463434e9439137, type: 2}
+  - {fileID: 11400000, guid: 65f89104c46a6460ba6d6245324a1236, type: 2}
+  - {fileID: 11400000, guid: 7e5df320f58db43e6a5b351fbf508431, type: 2}
+  - {fileID: 11400000, guid: 179420ed550244a1ba4076f10f39da57, type: 2}
+  - {fileID: 11400000, guid: 325bec56ab3434447b33aae89354fd7d, type: 2}
+  - {fileID: 11400000, guid: b8881346e719e42d1a79b9185e2f27ba, type: 2}
+  - {fileID: 11400000, guid: de856514c0d5d4dbf82feac3429f32ed, type: 2}
+  - {fileID: 11400000, guid: e114725040c2d43bba7b85117d66a974, type: 2}
+  - {fileID: 11400000, guid: 1fcfcec52b71747b4a1d9fef274bca31, type: 2}
+  - {fileID: 11400000, guid: e9e235f3e250340a4854e3ec6f1e8204, type: 2}
+  Graph:
+  - node:
+      keyType: 0
+      uniqueID: 0
+      property: 1
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -10, y: 0, z: 10}
+    up: -1
+    down: -1
+    left: 1
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 1
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: 10}
+    up: -1
+    down: -1
+    left: 2
+    right: 0
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 2
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 10}
+    up: -1
+    down: -1
+    left: 3
+    right: 1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 3
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: 10}
+    up: -1
+    down: -1
+    left: 4
+    right: 2
+    teleport: 
+  - node:
+      keyType: 1
+      uniqueID: 4
+      property: 0
+      spawnPickups: 7
+      spawnEnemies: []
+      nodePosition: {x: 10, y: 0, z: 10}
+    up: -1
+    down: -1
+    left: -1
+    right: 3
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 5
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 5}
+    up: -1
+    down: -1
+    left: 7
+    right: 6
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 6
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: 5}
+    up: 9
+    down: -1
+    left: 5
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 7
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+      nodePosition: {x: 5, y: 0, z: 5}
+    up: 8
+    down: -1
+    left: -1
+    right: 5
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 8
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 0
+        dir: 1
+      nodePosition: {x: 5, y: 0, z: 0}
+    up: -1
+    down: 7
+    left: 12
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 9
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: 0}
+    up: 15
+    down: 6
+    left: -1
+    right: 11
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 10
+      property: 0
+      spawnPickups: 1
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: 0}
+    up: -1
+    down: -1
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 11
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -10, y: 0, z: 0}
+    up: 16
+    down: -1
+    left: 9
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 12
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 10, y: 0, z: 0}
+    up: 13
+    down: 23
+    left: -1
+    right: 8
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 13
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 10, y: 0, z: -5}
+    up: 21
+    down: 12
+    left: -1
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 14
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: -5}
+    up: 19
+    down: -1
+    left: 22
+    right: 15
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 15
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 1
+        dir: 2
+      nodePosition: {x: -5, y: 0, z: -5}
+    up: 18
+    down: 9
+    left: 14
+    right: 16
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 16
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 1
+        dir: 0
+      nodePosition: {x: -10, y: 0, z: -5}
+    up: 17
+    down: 11
+    left: 15
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 17
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -10, y: 0, z: -10}
+    up: -1
+    down: 16
+    left: 18
+    right: -1
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 18
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: -5, y: 0, z: -10}
+    up: -1
+    down: 15
+    left: 19
+    right: 17
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 19
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 0, y: 0, z: -10}
+    up: -1
+    down: 14
+    left: 20
+    right: 18
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 20
+      property: 0
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: -10}
+    up: -1
+    down: -1
+    left: 21
+    right: 19
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 21
+      property: 0
+      spawnPickups: 0
+      spawnEnemies:
+      - enemy: 1
+        dir: 3
+      nodePosition: {x: 10, y: 0, z: -10}
+    up: -1
+    down: 13
+    left: -1
+    right: 20
+    teleport: 
+  - node:
+      keyType: 2
+      uniqueID: 22
+      property: 0
+      spawnPickups: 7
+      spawnEnemies: []
+      nodePosition: {x: 5, y: 0, z: -5}
+    up: -1
+    down: -1
+    left: -1
+    right: 14
+    teleport: 
+  - node:
+      keyType: 0
+      uniqueID: 23
+      property: 2
+      spawnPickups: 0
+      spawnEnemies: []
+      nodePosition: {x: 10, y: 0, z: 5}
+    up: 12
+    down: -1
+    left: -1
+    right: -1
+    teleport: 

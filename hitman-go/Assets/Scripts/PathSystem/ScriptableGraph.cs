@@ -10,7 +10,7 @@ namespace PathSystem
     public class ScriptableGraph : ScriptableObject
     {
         public GameObject line;
-
+        public List<GateData> GatesEdge=new List<GateData>();
         public StarData[] stars=new StarData[0];
         public int maxPlayerMoves=10,noOfEnemies=1;
         public NodeControllerView nodeprefab, targetNode,teleportNode;

@@ -9,18 +9,25 @@ namespace PathSystem
     {
         //List<int> shortestPath;
         GameObject line;
+        List<GateControllerView> physicalGates = new List<GateControllerView>();
         List<GameObject> physicalHighlightedNodes = new List<GameObject>();
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode, teleportNode;
         // int shortestPathLength;
+        IPathService pathService;
         //List<StarTypes> Stars;
+        public PathView(IPathService pathService)
+        {
+            this.pathService = pathService;
+        }
         [SerializeField] List<Node> graph = new List<Node>();
         public int DrawGraph(ScriptableGraph Graph)
         {
             nodeprefab = Graph.nodeprefab;
             targetNode = Graph.targetNode;
-            teleportNode=Graph.teleportNode; 
+            teleportNode = Graph.teleportNode;
+            SetGates(Graph.GatesEdge);
             line = Graph.line;
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
@@ -45,6 +52,11 @@ namespace PathSystem
                     nodeprefab.SetNodeID(i);
                     physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
                 }
+                if (graph[i].node.snipeable)
+                {
+                    Debug.Log("snipe Here");
+                    physicalNode[physicalNode.Count - 1].GetComponent<NodeControllerView>().SetShootable();
+                }
                 if (node.connections[0] != -1)
                 {
                     physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));
@@ -56,6 +68,17 @@ namespace PathSystem
             }
             return graph.Count;
 
+        }
+        public void DrawPath(int dir, Vector3 nodePosition)
+        {
+            if (dir == 0)
+            {
+                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x, nodePosition.y - 0.195f, nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));
+            }
+            if (dir == 2)
+            {
+                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x + 2.5f, nodePosition.y - 0.195f, nodePosition.z), new Quaternion(0, 0, 0, 0)));
+            }
         }
         public void ShowTeleportableNodes(List<int> nodes)
         {
@@ -76,6 +99,11 @@ namespace PathSystem
             {
                 GameObject.DestroyImmediate(physicalNode[i]);
             }
+            for (int i = 0; i < physicalGates.Count; i++)
+            {
+                GameObject.DestroyImmediate(physicalGates[i].gameObject);
+            }
+            physicalGates = new List<GateControllerView>();
             physicalPath = new List<GameObject>();
             physicalNode = new List<GameObject>();
         }
@@ -107,6 +135,30 @@ namespace PathSystem
                 {
                     physicalHighlightedNodes.Add(physicalNode[i]);
                     physicalNode[i].GetComponent<NodeControllerView>().HighlightNode();
+                }
+            }
+        }
+        void SetGates(List<GateData> gates)
+        {
+            for (int i = 0; i < gates.Count; i++)
+            {
+                GateControllerView gate = GameObject.Instantiate(gates[i].gatePrefab, gates[i].position, Quaternion.identity).GetComponent<GateControllerView>();
+                physicalGates.Add(gate);
+                gate.gameObject.transform.LookAt(new Vector3(pathService.GetNodeLocation(gates[i].node1).x, gate.gameObject.transform.position.y, pathService.GetNodeLocation(gates[i].node1).z));
+                gate.SetGate(gates[i].key, gates[i].node1, gates[i].node2);
+            }
+        }
+        public void KeyCollected(KeyTypes key)
+        {
+
+            for (int i = 0; i < physicalGates.Count; i++)
+            {
+                Debug.Log("key Collected");
+                while (i < physicalGates.Count && physicalGates[i].GetKey() == key)
+                {
+                    Debug.Log("destroyed");
+                    physicalGates[i].Disable();
+                    physicalGates.RemoveAt(i);
                 }
             }
         }
