@@ -51,8 +51,8 @@ namespace InteractableSystem
                                 .GetNextNodeID(targetNodeID, direction);
 
                 //Debug.Log("[DualGun] Enemy Found Node:" + enemyNodeID + " Direction:" + direction);
-                interactableManager.ReturnSignalBus().Fire(new EnemyDeathSignal()
-                { nodeID = enemyNodeID });
+                interactableManager.ReturnSignalBus().Fire(new EnemyKillSignal()
+                { nodeID = enemyNodeID, killMode= KillMode.SHOOT});
             }
             else
             {

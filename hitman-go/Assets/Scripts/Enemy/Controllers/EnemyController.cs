@@ -25,8 +25,9 @@ namespace Enemy
         protected int enemyID;
         protected int alertMoveCalled;
         protected EnemyType enemyType;
+        protected bool hasShield;
 
-        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection)
+        public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection,bool _hasShield)
         {
             currentEnemyService = _enemyService;
             if (currentEnemyService == null)
@@ -39,6 +40,7 @@ namespace Enemy
             spawnDirection = _spawnDirection;
             currentNodeID = _currentNodeID;
             gameService = _gameService;
+            hasShield = _hasShield;
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
             PopulateDirectionList();
@@ -210,9 +212,13 @@ namespace Enemy
             return spawnDirection;
         }
 
-        public bool IsKillable()
+        public virtual bool IsKillable(KillMode killMode)
         {
-           
+            if (hasShield && killMode == KillMode.SHOOT)
+            {
+                return false;
+            }
+            else { return true; }
         }
     }
 }

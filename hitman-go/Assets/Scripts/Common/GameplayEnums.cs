@@ -85,4 +85,11 @@ namespace Common
         CHASE,
         CONSTANT_CHASE
     }
+    public enum KillMode
+    {
+        WALK,
+        SHOOT,
+        BOMB
+
+    }
 }

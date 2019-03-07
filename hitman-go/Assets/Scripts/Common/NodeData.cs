@@ -21,11 +21,13 @@ namespace Common
     {
         public EnemyType enemy;
         public Directions dir;
+        public bool hasShield;
     }
     public struct EnemySpawnData
     {
         public Directions dir;
         public int node;
+        public bool hasShield;
     }
 
     [Serializable]

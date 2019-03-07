@@ -18,6 +18,6 @@ namespace Enemy
         void ChangeState(EnemyStates _state);
         EnemyStates GetEnemyState();
         Directions GetDirection();
-        bool IsKillable();
+        bool IsKillable(KillMode killMode);
     }
 }

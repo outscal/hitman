@@ -14,7 +14,7 @@ namespace Enemy
         int dogVision = 2;
         Directions newDirection;
         private SignalBus signalBus;
-        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus,Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection)
+        public DogsEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus,Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection, bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection,_hasShield)
         {
             enemyType = EnemyType.DOGS;
             signalBus = _signalBus;
