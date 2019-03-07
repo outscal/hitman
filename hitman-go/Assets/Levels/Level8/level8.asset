@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level8
   m_EditorClassIdentifier: 
+  maxwidth: 0
+  maxhight: 0
+  set: 1
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
   stars:
@@ -44,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6563c26eba6ce473a8799a1b8a65b49d, type: 2}
   Graph:
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 0
       property: 1
@@ -56,6 +60,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 1
       property: 0
@@ -68,6 +73,7 @@ MonoBehaviour:
     right: 0
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 2
       property: 0
@@ -80,6 +86,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 3
       property: 0
@@ -92,6 +99,7 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 4
       property: 3
@@ -104,6 +112,7 @@ MonoBehaviour:
     right: 3
     teleport: 0600000009000000
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 5
       property: 0
@@ -116,6 +125,7 @@ MonoBehaviour:
     right: 10
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 6
       property: 3
@@ -128,6 +138,7 @@ MonoBehaviour:
     right: -1
     teleport: 04000000
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 7
       property: 0
@@ -140,6 +151,7 @@ MonoBehaviour:
     right: 5
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 8
       property: 0
@@ -152,6 +164,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 9
       property: 3
@@ -164,6 +177,7 @@ MonoBehaviour:
     right: 8
     teleport: 04000000
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 10
       property: 0
@@ -178,6 +192,7 @@ MonoBehaviour:
     right: -1
     teleport: 
   - node:
+      snipeable: 0
       keyType: 0
       uniqueID: 11
       property: 2

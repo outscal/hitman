@@ -8,6 +8,7 @@ namespace InteractableSystem
     public interface IInteractableController
     {
         InteractablePickup GetInteractablePickup();
+        bool CanTakeAction(int playerNode, int nodeID);
         void TakeAction(int nodeID);
     }
 }

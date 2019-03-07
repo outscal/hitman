@@ -25,6 +25,11 @@ namespace InteractableSystem
             interactablePickup = InteractablePickup.GUARD_DISGUISE;
         }
 
+        public override bool CanTakeAction(int playerNode, int nodeID)
+        {
+            return true;
+        }
+
         public override void TakeAction(int nodeID)
         {
 
