@@ -209,5 +209,10 @@ namespace Enemy
         {
             return spawnDirection;
         }
+
+        public bool IsKillable()
+        {
+           
+        }
     }
 }

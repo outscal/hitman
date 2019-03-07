@@ -88,17 +88,7 @@ namespace Enemy
                         newEnemyControllers.Add(newEnemy);
 
                     }
-                    break;
-
-                case EnemyType.SHIELDED:                   
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        IEnemyController newEnemy = new ShieldedEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-
-                        newEnemyControllers.Add(newEnemy);
-                    }
-                    break;
+                    break;            
 
                 case EnemyType.DOGS:                   
                     for (int i = 0; i < spawnNodeID.Count; i++)

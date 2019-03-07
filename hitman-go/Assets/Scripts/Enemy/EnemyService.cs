@@ -112,8 +112,10 @@ namespace Enemy
                 IEnemyController controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
-                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()))
+                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && (CheckForKillableEnemy(controller))
                     {
+                        
+                        
                         Debug.Log("Killing enemy ");
                         KillableEnemies.Add(controller);
                         continue;
@@ -121,17 +123,14 @@ namespace Enemy
                     else
                     {
                         moveTask = controller.Move();
-                        moveTaskList.Add(moveTask);                   
-                        //controller.Move();
-
+                        moveTaskList.Add(moveTask);                     
                     }
                 }
 
 
             }
              await Task.WhenAll(moveTaskList.ToArray());
-            moveTaskList.Clear();
-            //await new WaitForEndOfFrame();
+            moveTaskList.Clear();        
             IEnemyController controllerToKill;
             for (int i = 0; i < KillableEnemies.Count; i++)
             {
@@ -145,6 +144,11 @@ namespace Enemy
                 gameService.ChangeToPlayerState();
 
             }
+        }
+
+        private bool CheckForKillableEnemy(IEnemyController controller)
+        {
+            return controller.IsKillable();
         }
 
         private void KillEnemy(IEnemyController controllerToKill)
