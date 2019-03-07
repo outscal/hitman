@@ -14,7 +14,7 @@ namespace Enemy
         Task Move();
         EnemyType GetEnemyType();
         void AlertEnemy(int _destinationID);
-        void KillPlayer();
+        Task KillPlayer();
         void ChangeState(EnemyStates _state);
         EnemyStates GetEnemyState();
         Directions GetDirection();

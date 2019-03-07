@@ -34,6 +34,7 @@ namespace UIservice
 
         public void DisplayUI()
         {
+            Debug.Log("[lobby ui]");
             gameObject.SetActive(true);
 
             if (lobbyCardControllerList.Count <= 0)
@@ -44,16 +45,14 @@ namespace UIservice
             }
         }
 
-        async Task CreateLevelButtonsAsync()
+        void CreateLevelButtonsAsync()
         {
-            buttonContainer.GetComponent<GridLayoutGroup>().enabled = true;
-            buttonContainer.GetComponent<ContentSizeFitter>().enabled = true;
-
             for (int i = 0; i < gameService.GetNumberOfLevels(); i++)
             {
                 GameObject lobbyCard = Instantiate(lobbyCardPrefab);
                 lobbyCard.transform.SetParent(buttonContainer.transform);
                 LobbyCardController lobbyCardController = lobbyCard.GetComponent<LobbyCardController>();
+
 
                 if(i <= saveService.ReadMaxLevel())
                 {
@@ -67,15 +66,6 @@ namespace UIservice
                 lobbyCardControllerList.Add(lobbyCardController);
             }
 
-            await DeactivateLayout();
-
-        }
-
-        async Task DeactivateLayout()
-        {
-            await new WaitForSeconds(1f);
-            buttonContainer.GetComponent<ContentSizeFitter>().enabled = false;
-            buttonContainer.GetComponent<GridLayoutGroup>().enabled = false;
         }
 
         void UpdateLobbyUI()

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level7DogTestCOPY
   m_EditorClassIdentifier: 
+  maxwidth: 0
+  maxhight: 0
+  set: 1
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
   stars: []
@@ -223,7 +226,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 3
         dir: 3
-        hasShield: 1
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: -5}
     up: 17
     down: 9

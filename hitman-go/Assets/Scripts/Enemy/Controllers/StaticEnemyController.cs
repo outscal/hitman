@@ -23,7 +23,7 @@ namespace Enemy
             if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
             {
                 spawnDirection= pathService.GetDirections(currentNodeID, nodeID);
-                Debug.Log("spawnDirection after chase state"+ spawnDirection.ToString());
+                
                 Vector3 rot=GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
@@ -36,9 +36,7 @@ namespace Enemy
                 if(!currentEnemyService.CheckForKillablePlayer())
                 {
                     return;
-                }
-               // Vector3 rot = GetRotation(spawnDirection);
-                //currentEnemyView.RotateEnemy(rot);
+                }           
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
                 currentNodeID = nodeID;

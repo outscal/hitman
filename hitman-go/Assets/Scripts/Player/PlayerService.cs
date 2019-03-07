@@ -22,7 +22,7 @@ namespace Player
         private Vector3 spawnLocation;
         private IGameService gameService;
         private IInteractable interactableService;
-        private ICamera camera; //
+        private ICamera camera; 
 
         private bool isPlayerDead = false;
         private int playerNodeID;
