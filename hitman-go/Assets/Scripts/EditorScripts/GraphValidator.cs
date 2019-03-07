@@ -12,24 +12,8 @@ namespace EditorScripts
         public override void OnInspectorGUI()
         {
             ScriptableGraph graph = (ScriptableGraph)target;
-            int nodes;
-            
-
-            
-            
             base.OnInspectorGUI();
-           if(GUILayout.Button("Create Grid"))
-            {
-                for (int i = 0; i < graph.maxwidth; i++)
-                {
-                    GUILayout.BeginHorizontal();
-                    for (int j = 0; j < graph.maxwidth; j++)
-                    {
-                        EditorGUILayout.IntField("", -1);
-                    }
-                    GUILayout.EndHorizontal();
-                }
-            }
+            
             if (GUILayout.Button("Set NodeId"))
             {
                 if (graph.set)
@@ -53,6 +37,18 @@ namespace EditorScripts
                     {
                         Debug.LogError("Star Name Not Set");
                     }
+                }
+            }
+            if (GUILayout.Button("Create Grid"))
+            {
+                for (int i = 0; i < graph.maxwidth; i++)
+                {
+                    GUILayout.BeginHorizontal();
+                    for (int j = 0; j < graph.maxwidth; j++)
+                    {
+                        EditorGUILayout.IntField("", -1, GUILayout.MaxWidth(30f));
+                    }
+                    GUILayout.EndHorizontal();
                 }
             }
         }
