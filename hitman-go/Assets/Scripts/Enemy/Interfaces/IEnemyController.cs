@@ -19,5 +19,6 @@ namespace Enemy
         EnemyStates GetEnemyState();
         Directions GetDirection();
         bool IsKillable(KillMode killMode);
+        bool IsPlayerKillable();
     }
 }

@@ -223,5 +223,10 @@ namespace Enemy
             }
             else { return true; }
         }
+
+        public bool IsPlayerKillable()
+        {
+            return currentEnemyService.CheckForKillablePlayer();
+        }
     }
 }

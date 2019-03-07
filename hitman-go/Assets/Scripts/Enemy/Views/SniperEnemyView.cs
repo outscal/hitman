@@ -74,8 +74,13 @@ namespace Enemy
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
-                  await  enemyController.KillPlayer();
-                    isRayCastStart = false;
+                    if (enemyController.IsPlayerKillable())
+                    { await enemyController.KillPlayer(); }
+                    else
+                    {
+                        return;
+                    }
+                   // isRayCastStart = false;
                 }
             }
          
