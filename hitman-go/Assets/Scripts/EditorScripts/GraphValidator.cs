@@ -12,6 +12,7 @@ namespace EditorScripts
         public override void OnInspectorGUI()
         {
             ScriptableGraph graph = (ScriptableGraph)target;
+            int[,] position_values = new int[graph.maxhight, graph.maxwidth];
             int multiplier = 5, hzero = graph.maxwidth / 2,vzero=graph.maxhight/2;
             base.OnInspectorGUI();
             for (int i = 0; i < graph.maxhight; i++)
@@ -19,7 +20,8 @@ namespace EditorScripts
                 GUILayout.BeginHorizontal();
                 for (int j = 0; j < graph.maxwidth; j++)
                 {
-                    EditorGUILayout.IntField("", -1, GUILayout.MaxWidth(50f));
+                    position_values[i, j] = -1;
+                    position_values[i,j]=EditorGUILayout.IntField("", position_values[i, j], GUILayout.MaxWidth(50f));
                 }
                 GUILayout.EndHorizontal();
             }
