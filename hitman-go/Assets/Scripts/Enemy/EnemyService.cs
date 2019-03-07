@@ -112,7 +112,7 @@ namespace Enemy
                 IEnemyController controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
-                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()))
+                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && CheckForKillablePlayer())
                     {
                         Debug.Log("Killing enemy ");
                         KillableEnemies.Add(controller);
