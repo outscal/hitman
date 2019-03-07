@@ -24,11 +24,11 @@ namespace Enemy
             alertSprite.enabled = false;
 
             lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position);
+            lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0.5f, 0));
+            
      
 
-            if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 50f))
+            if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), transform.forward, out raycastHit, 50f))
             {
                 Debug.Log("hit regis");
                 lineRenderer.SetPosition(1, raycastHit.point);

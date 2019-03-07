@@ -40,7 +40,7 @@ namespace Player
 
                 if (nodeID != -1)
                 {
-                    bool inRange = playerService.CheckForRange(nodeID);                  
+                    bool inRange = playerService.CheckForRange(nodeID); 
                     if (inRange)
                     {
                         Debug.Log("take action called");

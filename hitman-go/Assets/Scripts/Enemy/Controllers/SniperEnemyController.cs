@@ -42,7 +42,7 @@ namespace Enemy
             }
             else {
                 PerformRaycast();
-                Debug.Log("Perform Raycast");
+              
             }           
 
             await new WaitForEndOfFrame();
