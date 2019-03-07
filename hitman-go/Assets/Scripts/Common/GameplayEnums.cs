@@ -31,6 +31,7 @@ namespace Common
         PATROLLING,
         ROTATING_KNIFE,
         SNIPER,
+        BIDIRECTIONAL,
         SHIELDED,
         DOGS,
         CIRCULAR_COP,

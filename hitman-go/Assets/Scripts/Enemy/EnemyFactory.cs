@@ -126,6 +126,15 @@ namespace Enemy
 
                     }
                     break;
+                case EnemyType.BIDIRECTIONAL:                   
+                    for (int i = 0; i < spawnNodeID.Count; i++)
+                    {
+                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
+                        IEnemyController newEnemy = new BiDirectionalEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir);
+                        newEnemyControllers.Add(newEnemy);
+
+                    }
+                    break;
 
                 default:
                     Debug.Log("No Enemy Controller of this type");
