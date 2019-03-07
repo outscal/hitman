@@ -11,10 +11,24 @@ namespace EditorScripts
     {
         public override void OnInspectorGUI()
         {
+            ScriptableGraph graph = (ScriptableGraph)target;
+
             base.OnInspectorGUI();
             if(GUILayout.Button("Set NodeId"))
             {
-                Debug.Log("Setting Id");
+                if (graph.setAndValidate)
+                {
+                    for (int i = 0; i < graph.Graph.Count; i++)
+                    {
+                        graph.Graph[i].node.uniqueID = i;
+                        graph.Graph[i].up = -1;
+                        graph.Graph[i].down = -1;
+                        graph.Graph[i].left = -1;
+                        graph.Graph[i].right = -1;
+                        graph.setAndValidate = false;
+                    }
+                }
+
             }
         }
     }

@@ -9,6 +9,7 @@ namespace PathSystem
     [CreateAssetMenu(fileName = "ScriptableGraph", menuName = "Custom Objects/Graph/ScriptableGraph", order = 0)]
     public class ScriptableGraph : ScriptableObject
     {
+        public bool setAndValidate = true;
         public GameObject line;
         public List<GateData> GatesEdge=new List<GateData>();
         public StarData[] stars=new StarData[0];
