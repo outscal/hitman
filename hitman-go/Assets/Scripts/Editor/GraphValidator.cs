@@ -17,7 +17,7 @@ namespace EditorScripts
             graph = (ScriptableGraph)target;
             position_values = new int[graph.maxhight, graph.maxwidth];
             int multiplier = 5;
-            hzero = ((int)(Mathf.Ceil(((float)graph.maxwidth / 2)))) - 1; vzero = (int)((Mathf.Ceil((graph.maxhight / 2))) - 1);
+            hzero = ((int)(Mathf.Ceil(((float)graph.maxwidth / 2)))) - 1; vzero = (int)((Mathf.Ceil((float)(graph.maxhight / 2))) - 1);
             for (int i = 0; i < graph.maxhight; i++)
             {
                 for (int j = 0; j < graph.maxwidth; j++)
