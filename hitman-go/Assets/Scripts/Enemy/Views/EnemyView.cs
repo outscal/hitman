@@ -40,10 +40,12 @@ namespace Enemy
             return this.gameObject;
         }
 
-        async public void MoveToLocation(Vector3 location)
+        async public Task MoveToLocation(Vector3 location)
         {
-            iTween.MoveTo(gameObject, location, 0.3f);
-            await new WaitForSeconds(0.3f);
+            Debug.Log("Starting move"+gameObject.GetHashCode(),gameObject);
+            iTween.MoveTo(gameObject, location, 1f);
+            await new WaitForSeconds(1f);
+            Debug.Log("end move" + gameObject.GetHashCode(),gameObject);
         }
 
         public void Reset()
@@ -54,9 +56,11 @@ namespace Enemy
 
         async public virtual Task RotateEnemy(Vector3 newRotation)
         {            
-            iTween.RotateTo(this.gameObject, newRotation, 0.1f);
+            Debug.Log("start rotate" + gameObject.GetHashCode(),gameObject);
+            iTween.RotateTo(this.gameObject, newRotation, 0.5f);
 
-            await new WaitForSeconds(0.1f);
+            await new WaitForSeconds(0.5f);
+            Debug.Log("end rotate" + gameObject.GetHashCode(),gameObject);
         }
 
         public void SetPosition(Vector3 pos)
@@ -75,9 +79,9 @@ namespace Enemy
         {
             enemyController = controller;
         }
-        public virtual void PerformRaycast()
+      async  public virtual Task PerformRaycast()
         {
-
+            await new WaitForEndOfFrame();
         }
         public virtual void SetRayDirection(Directions directions)
         {

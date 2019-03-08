@@ -210,7 +210,7 @@ namespace Enemy
 
         }
 
-        public bool CheckForKillablePlayer(EnemyType enemyType)
+       public bool CheckForKillablePlayer(EnemyType enemyType)
         {
             return playerService.CheckForKillablePlayer(enemyType);
         }

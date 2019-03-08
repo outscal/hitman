@@ -11,62 +11,44 @@ namespace Enemy
         private bool isRayCastStart = false;
         private Ray ray = new Ray();
         RaycastHit raycastHit;
-
+        private Vector3 offSet;
         [SerializeField] private LineRenderer lineRenderer;
 
 
         void Start()
         {
-
-            Debug.Log(enemyController.GetDirection());
-            
-            alertSprite.enabled = false;
-
-            
-            Debug.Log(gameObject.transform.forward);
-
+           // offSet = new Vector3(0,0.75f,0);
+            alertSprite.enabled = false;                    
             PerformFirstRaycast();
-
         }
-
-        //async public override Task RotateEnemy(Vector3 newRotation)
-        //{
-        //  await  base.RotateEnemy(newRotation);
-        //    PerformFirstRaycast();
-        //}
+     
 
       async  private void PerformFirstRaycast()
         {
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, transform.position);
             await new WaitForEndOfFrame();
-            //lineRenderer.SetPosition(1, transform.forward*500f);
+           
             if (Physics.Raycast(transform.localPosition, gameObject.transform.forward, out raycastHit, 500f))
             {
                 lineRenderer.SetPosition(1, raycastHit.point);
             }
         }
-
-        private void FixedUpdate()
-        {
-            //if(isRayCastStart)
-            //{                
-            //}
-        }
-        public override void PerformRaycast()
+       
+     async   public override Task PerformRaycast()
         {         
            // isRayCastStart = true;
-                PerformSniperRaycast();
+             await   PerformSniperRaycast();
 
         }
-      async  private void PerformSniperRaycast()
-        {           
+      async  private Task PerformSniperRaycast()
+      {           
             if(!lineRenderer.enabled)
             {
                 lineRenderer.enabled = true;
             }
          
-                lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(0, transform.position);
             await new WaitForSeconds(0.5f);
             if (Physics.Raycast(transform.position, transform.forward, out raycastHit, 500f))
             {
@@ -74,13 +56,14 @@ namespace Enemy
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
+                    Debug.Log("Hitting "+ raycastHit.collider.name);
                     if (enemyController.IsPlayerKillable())
                     { await enemyController.KillPlayer(); }
                     else
                     {
                         return;
                     }
-                   // isRayCastStart = false;
+                  
                 }
             }
          

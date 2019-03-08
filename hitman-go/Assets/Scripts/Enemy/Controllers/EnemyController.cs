@@ -108,8 +108,8 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
 
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
@@ -117,8 +117,8 @@ namespace Enemy
                 int nextNodeID = alertedPathNodes[alertMoveCalled];              
                 if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
                 {
-                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                     await MoveToNextNode(nextNodeID);
+                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
            
                 }              
                                
@@ -175,8 +175,8 @@ namespace Enemy
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-            Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
-           await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
+           // Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
+           //await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
             
 
         }
@@ -220,7 +220,7 @@ namespace Enemy
             return spawnDirection;
         }
 
-        public virtual bool IsKillable(KillMode killMode)
+       public virtual bool IsKillable(KillMode killMode)
         {
             if (hasShield && killMode == KillMode.SHOOT)
             {
@@ -229,9 +229,9 @@ namespace Enemy
             else { return true; }
         }
 
-        public bool IsPlayerKillable()
+       public bool IsPlayerKillable()
         {
-            return currentEnemyService.CheckForKillablePlayer(GetEnemyType());
+            return  currentEnemyService.CheckForKillablePlayer(GetEnemyType());
         }
 
         public virtual void SetCircularCopID(int id)

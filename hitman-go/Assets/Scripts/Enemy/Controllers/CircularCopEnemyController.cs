@@ -55,8 +55,8 @@ namespace Enemy
                 returnToPathCalled++;
                 int nextNodeID = alertedPathNodes[alertedPathNodes.Count-returnToPathCalled];
                 spawnDirection = pathService.GetDirections(currentNodeID, nextNodeID);               
-                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                           
 
                 if (originalPath.Contains(nextNodeID))

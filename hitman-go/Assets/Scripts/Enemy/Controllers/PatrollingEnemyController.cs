@@ -22,7 +22,7 @@ namespace Enemy
             {
                 ChangeDirection();
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+               await currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 
             }

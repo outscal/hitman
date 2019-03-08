@@ -22,7 +22,7 @@ namespace Player
         private Vector3 spawnLocation;
         private IGameService gameService;
         private IInteractable interactableService;
-        private ICamera camera; 
+        private ICamera camera;
 
         private bool isPlayerDead = false;
         private int playerNodeID;
@@ -49,7 +49,7 @@ namespace Player
         }
         public void OnStateChange()
         {
-            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
+            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT )//&& playerController.GetPlayerState() != PlayerStates.AMBUSH)
             {
                 playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
             }
@@ -58,7 +58,7 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
-           
+
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -73,7 +73,7 @@ namespace Player
                 return;
             }
 
-          
+
 
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
 
@@ -82,7 +82,7 @@ namespace Player
             await new WaitForEndOfFrame();
 
             camera.SetNodeID(GetPlayerNodeID());
-           
+
         }
 
 
@@ -123,7 +123,7 @@ namespace Player
             playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject);
             signalBus.TryFire(new PlayerSpawnSignal());
             playerNodeID = playerController.GetID();
-            playerController.ChangePlayerState(PlayerStates.IDLE,PlayerStates.NONE);
+            playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
         }
 
         //increase score on enemyKill etc 
@@ -155,10 +155,10 @@ namespace Player
 
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
-                
-               
+
+
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-             
+
                 playerController.PerformMovement(_nodeID);
 
             }
@@ -196,18 +196,21 @@ namespace Player
             bool killable = true;
 
             if (playerController.GetPlayerState() == PlayerStates.AMBUSH)
-                return killable = false;
+            {
+                return false;
+            }
             else
-            { 
+            {
                 if (playerController.GetDisguiseType() != EnemyType.None)
                 {
                     Debug.Log("[PlayerService] Disguise:" + playerController.GetDisguiseType());
                     if (enemyType == playerController.GetDisguiseType())
-                        return killable = false;
+                    { return false; }
                 }
             }
-
+          
             return killable;
+
 
         }
 
@@ -223,7 +226,7 @@ namespace Player
 
         public void FireLevelFinishedSignal()
         {
-            
+
             signalBus.TryFire(new LevelFinishedSignal());
         }
 

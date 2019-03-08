@@ -24,9 +24,9 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
 
         }
-        private void PerformRaycast()
+        async private Task PerformRaycast()
         {
-            currentEnemyView.PerformRaycast();
+            await currentEnemyView.PerformRaycast();
         }
 
         async protected override Task MoveToNextNode(int nodeID)
@@ -41,7 +41,7 @@ namespace Enemy
 
             }
             else {
-                PerformRaycast();
+               await PerformRaycast();
               
             }           
 
