@@ -27,6 +27,7 @@ namespace Common
     }
     public enum EnemyType
     {
+        None,
         STATIC,
         PATROLLING,
         ROTATING_KNIFE,

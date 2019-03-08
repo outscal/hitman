@@ -191,9 +191,23 @@ namespace Player
         }
 
 
-        public bool CheckForKillablePlayer()
+        public bool CheckForKillablePlayer(EnemyType enemyType)
         {
-            return playerController.GetPlayerState() != PlayerStates.AMBUSH;
+            bool killable = true;
+
+            if (playerController.GetPlayerState() == PlayerStates.AMBUSH)
+                return killable = false;
+            else
+            { 
+                if (playerController.GetDisguiseType() != EnemyType.None)
+                {
+                    Debug.Log("[PlayerService] Disguise:" + playerController.GetDisguiseType());
+                    if (enemyType == playerController.GetDisguiseType())
+                        return killable = false;
+                }
+            }
+
+            return killable;
 
         }
 
@@ -215,6 +229,11 @@ namespace Player
         public void SetTargetTap(int v)
         {
             targetNode = v;
+        }
+
+        public SignalBus GetSignalBus()
+        {
+            return signalBus;
         }
     }
 }

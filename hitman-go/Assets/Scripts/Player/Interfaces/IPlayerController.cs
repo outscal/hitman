@@ -18,5 +18,7 @@ namespace Player
 
         Task PerformMovement(int _nodeID);
         void PerformAction(Directions direction);
+        EnemyType GetDisguiseType();
+        void SetDisguiseType(DisguiseSignal disguiseSignal);
     }
 }

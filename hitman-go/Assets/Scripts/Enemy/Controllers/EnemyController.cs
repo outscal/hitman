@@ -227,7 +227,7 @@ namespace Enemy
 
         public bool IsPlayerKillable()
         {
-            return currentEnemyService.CheckForKillablePlayer();
+            return currentEnemyService.CheckForKillablePlayer(GetEnemyType());
         }
     }
 }

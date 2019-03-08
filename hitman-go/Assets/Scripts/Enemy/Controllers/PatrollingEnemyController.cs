@@ -33,7 +33,7 @@ namespace Enemy
             }
             if (CheckForPlayerPresence(nodeID))
             {
-                if(currentEnemyService.CheckForKillablePlayer())
+                if(currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
                 {                   
                     currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                     currentEnemyView.RotateEnemy(GetRotation(spawnDirection));

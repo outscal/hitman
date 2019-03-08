@@ -11,6 +11,6 @@ namespace Enemy
         int GetPlayerNodeID();
         void TriggerPlayerDeath();
      
-        bool CheckForKillablePlayer();
+        bool CheckForKillablePlayer(EnemyType enemyType);
     }
 }

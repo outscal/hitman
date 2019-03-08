@@ -75,12 +75,15 @@ MonoBehaviour:
     right: 1
     teleport: 
   - node:
-      snipeable: 1
+      snipeable: 0
       keyType: 0
       uniqueID: 3
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 1
+        dir: 3
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4
     down: -1
@@ -93,7 +96,10 @@ MonoBehaviour:
       uniqueID: 4
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 4
+        dir: 0
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 0}
     up: 5
     down: 3
