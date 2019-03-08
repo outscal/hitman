@@ -83,6 +83,7 @@ namespace Common
         IDLE,
         MOVING,
         CHASE,
+        RETURN_TO_PATH,
         CONSTANT_CHASE
     }
     public enum KillMode

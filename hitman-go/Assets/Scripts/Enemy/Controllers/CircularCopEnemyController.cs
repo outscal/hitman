@@ -3,6 +3,7 @@ using Common;
 using PathSystem;
 using GameState;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace Enemy
 {
@@ -17,6 +18,9 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
         }
 
-
+        protected override Task MoveToNextNode(int nodeID)
+        {
+           
+        }
     }
 }
