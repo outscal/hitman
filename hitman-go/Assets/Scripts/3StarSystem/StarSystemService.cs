@@ -3,6 +3,7 @@ using UnityEngine;
 using Enemy;
 using GameState;
 using Common;
+using InteractableSystem;
 namespace StarSystem
 {
     public class StarSystemService : IStarService

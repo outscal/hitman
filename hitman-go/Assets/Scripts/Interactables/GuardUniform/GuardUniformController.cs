@@ -11,12 +11,16 @@ namespace InteractableSystem
         private InteractableManager interactableManager;
         int enemyNodeID;
 
+        private EnemyType currentEnemyType;
+
         public GuardUniformController(Vector3 nodePos, InteractableManager interactableManager
-                                            , InteractableView guardUniformPrefab)
+                                            , InteractableView guardUniformPrefab, EnemyType enemyType)
         {
+            this.currentEnemyType = enemyType;
             this.interactableManager = interactableManager;
             GameObject guardUniform = GameObject.Instantiate<GameObject>(guardUniformPrefab.gameObject);
             interactableView = guardUniform.GetComponent<GuardUniformView>();
+            interactableView.SetController(this);
             interactableView.transform.position = nodePos;
         }
 
@@ -32,7 +36,8 @@ namespace InteractableSystem
 
         public override void TakeAction(int nodeID)
         {
-
+            interactableManager.ReturnSignalBus().TryFire(new DisguiseSignal() 
+            { enemyType = currentEnemyType });
         }
 
         public override void InteractablePickedUp()
@@ -40,6 +45,11 @@ namespace InteractableSystem
             interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
             { soundName = SoundName.guardUniformFX });
             base.InteractablePickedUp();
+        }
+
+        public EnemyType GetEnemyType()
+        {
+            return currentEnemyType;
         }
     }
 }

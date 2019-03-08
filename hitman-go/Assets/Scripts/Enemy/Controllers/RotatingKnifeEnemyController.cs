@@ -34,7 +34,7 @@ namespace Enemy
 
             if (CheckForPlayerPresence(nodeID))
             {
-                if (!currentEnemyService.CheckForKillablePlayer())
+                if (!currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
                 {
                     return;
                 }

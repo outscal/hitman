@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BriefCaseSignal : MonoBehaviour
+namespace InteractableSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BriefCaseSignal
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

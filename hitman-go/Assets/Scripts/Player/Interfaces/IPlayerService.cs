@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Common;
 using Zenject;
 using System.Collections;
+using InteractableSystem;
 
 namespace Player
 {
@@ -19,12 +20,13 @@ namespace Player
         
         void OnGameStart();
         bool PlayerDeathStatus();
-        bool CheckForKillablePlayer();
+        bool CheckForKillablePlayer(EnemyType enemyType);
         bool CheckForRange( int _nodeID);
         void ChangeToEnemyState();
         int GetTargetNode();
         void FireLevelFinishedSignal();
         void SetTargetTap(int v);
+        SignalBus GetSignalBus();
     }
 
 }

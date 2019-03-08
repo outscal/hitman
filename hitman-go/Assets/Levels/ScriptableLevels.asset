@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScriptableLevels
   m_EditorClassIdentifier: 
   levelsList:
-  - {fileID: 11400000, guid: f92ce3b4cb252b44e9908521338f258c, type: 2}
+  - {fileID: 11400000, guid: bfa42bb199e49234ab8760bebc9bb975, type: 2}
   - {fileID: 11400000, guid: 37eb9bdaca9a79141a82b858195c49e8, type: 2}
   - {fileID: 11400000, guid: a5941728d607aa54bbc229be9abd97c6, type: 2}
   - {fileID: 11400000, guid: 2815985f6611e0c41b316f6d90e11905, type: 2}
@@ -26,3 +26,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66e817bdb60e080479d45c210b07d993, type: 2}
   - {fileID: 11400000, guid: 3cd71d0212c935c42b1186807d3312b1, type: 2}
   - {fileID: 11400000, guid: 16bd3fe245ca231478bed3126075ba2f, type: 2}
+  - {fileID: 11400000, guid: f92ce3b4cb252b44e9908521338f258c, type: 2}
+  - {fileID: 11400000, guid: 949768b4f52047540aa23c3a64460586, type: 2}

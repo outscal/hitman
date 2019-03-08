@@ -10,6 +10,7 @@ namespace Common
         public bool snipeable;
         public KeyTypes keyType;
         public int uniqueID;
+        public EnemyType disguise;
         public NodeProperty property;
         public InteractablePickup spawnPickups;
         public List<NodeEnemyData> spawnEnemies;

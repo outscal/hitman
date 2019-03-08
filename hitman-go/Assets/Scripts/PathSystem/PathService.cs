@@ -97,10 +97,13 @@ namespace PathSystem
         {
             return controller.CanEnemyMoveToNode(enemyNodeID, nextNodeID);
         }
-
         public List<int> GetOriginalPath(int ID)
-        {           
+        {
             return controller.GetOriginalPath(ID);
+        }
+        public EnemyType GetDisguise(int nodeID)
+        {
+            return controller.GetDisguise(nodeID);
         }
     }
 }
