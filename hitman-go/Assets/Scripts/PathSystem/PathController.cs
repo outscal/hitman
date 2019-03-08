@@ -13,12 +13,17 @@ namespace PathSystem
         List<GateData> gates;
         int shortestPathLength;
         List<StarData> Stars;
+        List<List<int>> circularPath = new List<List<int>>();
         List<CameraScriptableObj> cameraList;
         [SerializeField] List<Node> graph = new List<Node>();
         public PathController(ScriptableGraph Graph, IPathService pathService)
         {
             view = new PathView(pathService);
             cameraList = Graph.cameraScriptableList;
+            for (int i = 0; i < Graph.circularPath.Count; i++)
+            {
+                circularPath.Add(Graph.circularPath[i].path);
+            }
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
@@ -27,6 +32,10 @@ namespace PathSystem
                 node.connections = Graph.Graph[i].GetConnections();
                 graph.Add(node);
             }
+        }
+        public List<int> GetOriginalPath(int ID)
+        {
+            return circularPath[ID];
         }
         public void DrawGraph(ScriptableGraph Graph)
         {
@@ -175,7 +184,7 @@ namespace PathSystem
 
         public bool CanEnemyMoveToNode(int enemyNode, int destinationNode)
         {
-            return ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode));     
+            return ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode));
         }
 
         public bool ThrowRange(int playerNode, int destinationNode)

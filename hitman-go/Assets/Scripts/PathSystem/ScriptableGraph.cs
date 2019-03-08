@@ -3,15 +3,18 @@ using PathSystem.NodesScript;
 using System.Collections.Generic;
 using UnityEngine;
 using CameraSystem;
+using System;
 
 namespace PathSystem
 {
     [CreateAssetMenu(fileName = "ScriptableGraph", menuName = "Custom Objects/Graph/ScriptableGraph", order = 0)]
     public class ScriptableGraph : ScriptableObject
     {
+        
         public int maxwidth, maxhight;
         public bool set = true;
-       // public int NoOfDogs;
+        public List<cirPath> circularPath;
+        // public int NoOfDogs;
         public GameObject line;
         public List<GateData> GatesEdge=new List<GateData>();
         public StarData[] stars=new StarData[0];
@@ -31,6 +34,5 @@ namespace PathSystem
             }
             return graph;
         }
-
     }
 }

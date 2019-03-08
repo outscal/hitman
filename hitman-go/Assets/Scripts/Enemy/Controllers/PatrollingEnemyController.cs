@@ -8,8 +8,7 @@ using UnityEngine;
 namespace Enemy
 {
     public class PatrollingEnemyController : EnemyController
-    {
-        private int currentEnemyID;
+    {        
 
         public PatrollingEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection, bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection, _hasShield)
         {
@@ -23,13 +22,14 @@ namespace Enemy
             {
                 ChangeDirection();
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-               await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                
             }
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {               
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
-              await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
-
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
             if (CheckForPlayerPresence(nodeID))
             {
@@ -47,9 +47,8 @@ namespace Enemy
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);
             if (n == -1)
             {
-                ChangeDirection();
-               
-              await  currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                ChangeDirection();               
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
         }
 
@@ -58,11 +57,7 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
         }
 
-        public override void SetCircularCopID(int id)
-        {
-            currentEnemyID = id;
-            originalPath = pathService.GetOriginalPath(currentEnemyID);
-        }
+       
         
 
     }

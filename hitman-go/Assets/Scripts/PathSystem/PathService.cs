@@ -99,8 +99,8 @@ namespace PathSystem
         }
 
         public List<int> GetOriginalPath(int ID)
-        {
-           // throw new System.NotImplementedException();
+        {           
+            return controller.GetOriginalPath(ID);
         }
     }
 }
