@@ -99,6 +99,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 1
         dir: 3
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 0}
     up: 3
     down: 1
@@ -220,7 +221,7 @@ MonoBehaviour:
     up: 10
     down: 12
     left: 2
-    right: -1
+    right: 16
     teleport: 
   - node:
       snipeable: 0
@@ -244,6 +245,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 3
         dir: 0
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: 10}
     up: 12
     down: -1
@@ -286,7 +288,7 @@ MonoBehaviour:
       nodePosition: {x: -5, y: 0, z: 0}
     up: 15
     down: 17
-    left: -1
+    left: 11
     right: -1
     teleport: 
   - node:
@@ -311,6 +313,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 1
         dir: 0
+        hasShield: 0
       nodePosition: {x: -5, y: 0, z: 10}
     up: 17
     down: -1
@@ -339,6 +342,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 3
         dir: 2
+        hasShield: 0
       nodePosition: {x: -10, y: 0, z: -5}
     up: 19
     down: 21
@@ -367,6 +371,7 @@ MonoBehaviour:
       spawnEnemies:
       - enemy: 3
         dir: 2
+        hasShield: 0
       nodePosition: {x: -10, y: 0, z: 5}
     up: -1
     down: 23
