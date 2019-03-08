@@ -90,3 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b032826114249058cc0703a3dbfbbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderer: {fileID: 5242674404450974525}
+  staticEnemy: {r: 0.9811321, g: 0.013883919, b: 0.013883919, a: 1}
+  petrolEnemy: {r: 0.9056604, g: 0.80219764, b: 0.15806337, a: 1}
+  knifeEnemy: {r: 0.8490566, g: 0.06007475, b: 0.7109474, a: 1}
+  biDirectionalEnemy: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+  circularEnemy: {r: 0.27775022, g: 0, b: 0.8301887, a: 1}

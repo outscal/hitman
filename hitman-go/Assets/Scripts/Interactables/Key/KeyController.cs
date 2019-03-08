@@ -1,19 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using Common;
-using Enemy;
 
 namespace InteractableSystem
 {
-    public class KeyController:InteractableController
+    public class KeyController : InteractableController
     {
         private InteractableManager interactableManager;
         private KeyTypes keyType;
 
-        public KeyController(Vector3 nodePos , InteractableManager interactableManager, InteractableView keyPrefab, KeyTypes keyType)
+        public KeyController(Vector3 nodePos, InteractableManager interactableManager, InteractableView keyPrefab, KeyTypes keyType)
         {
             this.interactableManager = interactableManager;
             this.keyType = keyType;
@@ -36,7 +31,7 @@ namespace InteractableSystem
         public override void TakeAction(int nodeID)
         {
             interactableManager.ReturnPathService().KeyCollected(keyType);
-        }     
+        }
 
         public override void InteractablePickedUp()
         {

@@ -25,6 +25,9 @@ MonoBehaviour:
   - name: Ambush Plant
     gameSounds: 3
     audioClip: {fileID: 8300000, guid: cae9e1979f5024813bd33b2c53e8d44b, type: 3}
-  - name: Ambush Plant
+  - name: GuardUniform
     gameSounds: 7
     audioClip: {fileID: 8300000, guid: f52159eea81334f23a31c8d2165d5540, type: 3}
+  - name: GameMusic
+    gameSounds: 8
+    audioClip: {fileID: 8300000, guid: b6f76ea9ffd074a0c97b0be56367b4c2, type: 3}

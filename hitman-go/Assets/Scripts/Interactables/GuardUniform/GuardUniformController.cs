@@ -11,12 +11,16 @@ namespace InteractableSystem
         private InteractableManager interactableManager;
         int enemyNodeID;
 
+        private EnemyType enemyType;
+
         public GuardUniformController(Vector3 nodePos, InteractableManager interactableManager
-                                            , InteractableView guardUniformPrefab)
+                                            , InteractableView guardUniformPrefab, EnemyType enemyType)
         {
+            this.enemyType = enemyType;
             this.interactableManager = interactableManager;
             GameObject guardUniform = GameObject.Instantiate<GameObject>(guardUniformPrefab.gameObject);
             interactableView = guardUniform.GetComponent<GuardUniformView>();
+            interactableView.SetController(this);
             interactableView.transform.position = nodePos;
         }
 
@@ -40,6 +44,11 @@ namespace InteractableSystem
             interactableManager.ReturnSignalBus().TryFire(new SignalPlayOneShot()
             { soundName = SoundName.guardUniformFX });
             base.InteractablePickedUp();
+        }
+
+        public EnemyType GetEnemyType()
+        {
+            return enemyType;
         }
     }
 }

@@ -23,12 +23,19 @@ namespace SoundSystem
             signalBus.Subscribe<SignalPlayAudio>(ListenPlayAudioSignal);
             signalBus.Subscribe<SignalPlayOneShot>(ListenPlayOneShotSignal);
             signalBus.Subscribe<SignalStopAudio>(StopFXSound);
-            signalBus.Subscribe<GameStartSignal>(GameStart);
+            signalBus.Subscribe<StateChangeSignal>(GameStart);
         }
 
-        void GameStart()
+        void GameStart(StateChangeSignal signal)
         {
-            gameInstaller = GameObject.FindObjectOfType<GameInstaller>();
+            if (gameInstaller == null)
+                gameInstaller = GameObject.FindObjectOfType<GameInstaller>();
+
+            if(signal.newGameState == Common.GameStatesType.LOBBYSTATE)
+            {
+                PlayMusic(SoundName.gameMusic);
+            }
+
         }
 
         void ListenPlayAudioSignal(SignalPlayAudio signalPlayAudio)
@@ -63,7 +70,7 @@ namespace SoundSystem
             {
                 gameInstaller.musicSource.clip = ReturnAudio(gameSounds);
                 if (gameInstaller.musicSource.isPlaying == false)
-                    gameInstaller.musicSource.Play(0);
+                    gameInstaller.musicSource.Play();
             }
         }
 

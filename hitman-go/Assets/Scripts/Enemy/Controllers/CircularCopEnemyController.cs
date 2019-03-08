@@ -18,9 +18,9 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
         }
 
-        protected override Task MoveToNextNode(int nodeID)
-        {
+        //protected override Task MoveToNextNode(int nodeID)
+        //{
            
-        }
+        //}
     }
 }

@@ -97,5 +97,15 @@ namespace PathSystem
         {
             return controller.CanEnemyMoveToNode(enemyNodeID, nextNodeID);
         }
+
+        public List<int> GetOriginalPath()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public EnemyType GetDisguise(int nodeID)
+        {
+            return EnemyType.CIRCULAR_COP;
+        }
     }
 }
