@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using StarSystem;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -18,17 +19,19 @@ namespace Enemy
         private List<IEnemyController> enemyList = new List<IEnemyController>();
         private IPathService pathService;
         private IPlayerService playerService;
+        private IStarService starService;
         private IEnemyFactory enemyFactory;
         private IGameService gameService;
         private EnemyScriptableObjectList enemyScriptableObjectList;
         private IEnumerable<Task> moveTasks;
         private List<Task> moveTaskList = new List<Task>();
 
-        public EnemyService(IPlayerService _playerService, IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
+        public EnemyService(IPlayerService _playerService, IStarService _starService ,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
             gameService = _gameService;
             playerService = _playerService;
+            starService = _starService;
 
             signalBus = _signalBus;
             enemyScriptableObjectList = enemyList;
@@ -113,8 +116,7 @@ namespace Enemy
                 if (!playerService.PlayerDeathStatus())
                 {
                     if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && CheckForKillablePlayer(controller.GetEnemyType()))
-                    {
-                        Debug.Log("Killing enemy ");
+                    {                       
                         KillableEnemies.Add(controller);
                         continue;
                     }
@@ -129,6 +131,7 @@ namespace Enemy
             }
             await Task.WhenAll(moveTaskList.ToArray());
             moveTaskList.Clear();
+
             IEnemyController controllerToKill;
             for (int i = 0; i < KillableEnemies.Count; i++)
             {
@@ -152,7 +155,10 @@ namespace Enemy
 
         private void KillEnemy(IEnemyController controllerToKill)
         {
-
+            if(controllerToKill.GetEnemyType()==EnemyType.DOGS)
+            {
+                starService.DogsKilled();
+            }
             enemyList.Remove(controllerToKill);
             controllerToKill.Reset();
             signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
@@ -176,13 +182,24 @@ namespace Enemy
 
                 }
             }
+            bool allDogsKilled=true;
+            foreach(IEnemyController enemyController in enemyList)
+            {
+                if(enemyController.GetEnemyType()==EnemyType.DOGS)
+                {
+                    allDogsKilled = false;
+                }
+            }
+            if(allDogsKilled)
+            {
+                starService.AllDogsKilled();
+            }
             if (enemyList.Count == 0)
             {
+                starService.AllDogsKilled();
                 gameService.ChangeToPlayerState();
             }
         }
-
-
         public void TriggerPlayerDeath()
         {
             signalBus.TryFire(new PlayerDeathSignal());
@@ -193,7 +210,7 @@ namespace Enemy
 
         }
 
-        public bool CheckForKillablePlayer(EnemyType enemyType)
+       public bool CheckForKillablePlayer(EnemyType enemyType)
         {
             return playerService.CheckForKillablePlayer(enemyType);
         }

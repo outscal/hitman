@@ -11,12 +11,12 @@ namespace Enemy
         void DisableEnemy();
         void Reset();
         void SetPosition(Vector3 pos);
-        void MoveToLocation(Vector3 pos);
+        Task MoveToLocation(Vector3 pos);
         Task RotateEnemy(Vector3 pos);
         Task RotateInOppositeDirection();
         void AlertEnemyView();
         void DisableAlertView();
-        void PerformRaycast();
+        Task PerformRaycast();
         void SetRayDirection(Directions directions);
         void SetCurrentController(IEnemyController controller);
         void StopRaycast();

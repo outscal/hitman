@@ -8,7 +8,7 @@ namespace StarSystem
 {
     public class StarSystemService : IStarService
     {
-        bool noKill = true, briefCase = false, completed = false, killalldogs = false, killnodogs = false;
+        bool noKill = true, briefCase = false, completed = false, killalldogs = false, killnodogs = true;
         int totalEnemyInLevel, killCount = 0, playerMoves = 0, maxPlayerMoves;
         SignalBus signalBus;
         StarSystemService(SignalBus signalBus)
@@ -55,6 +55,8 @@ namespace StarSystem
         {
 
             briefCase = false;
+            killalldogs = false;
+            killnodogs = true;
             killCount = 0;
             noKill = true;
             playerMoves = 0;
@@ -75,9 +77,9 @@ namespace StarSystem
             return result;
         }
 
-        public void NoDogsKilled()
+        public void DogsKilled()
         {
-            killnodogs = true;
+            killnodogs = false;
         }
 
         public void AllDogsKilled()

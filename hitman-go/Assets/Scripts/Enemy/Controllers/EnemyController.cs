@@ -4,6 +4,7 @@ using PathSystem;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StarSystem;
 using UnityEngine;
 
 namespace Enemy
@@ -15,6 +16,7 @@ namespace Enemy
         protected IPathService pathService;
         protected IEnemyView currentEnemyView;
         protected IGameService gameService;
+        
         protected Vector3 spawnLocation;
         protected GameObject enemyInstance;
         protected Directions spawnDirection;
@@ -45,6 +47,7 @@ namespace Enemy
             currentNodeID = _currentNodeID;
             gameService = _gameService;
             hasShield = _hasShield;
+            
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
             PopulateDirectionList();
@@ -105,8 +108,8 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
                 int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
 
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
@@ -114,12 +117,11 @@ namespace Enemy
                 int nextNodeID = alertedPathNodes[alertMoveCalled];              
                 if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
                 {
-                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                     await MoveToNextNode(nextNodeID);
+                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
            
                 }              
-               
-                
+                               
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);
@@ -173,9 +175,9 @@ namespace Enemy
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-            Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
-           await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
-
+           // Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
+           //await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
+            
 
         }
 
@@ -218,7 +220,7 @@ namespace Enemy
             return spawnDirection;
         }
 
-        public virtual bool IsKillable(KillMode killMode)
+       public virtual bool IsKillable(KillMode killMode)
         {
             if (hasShield && killMode == KillMode.SHOOT)
             {
@@ -227,9 +229,9 @@ namespace Enemy
             else { return true; }
         }
 
-        public bool IsPlayerKillable()
+       public bool IsPlayerKillable()
         {
-            return currentEnemyService.CheckForKillablePlayer(GetEnemyType());
+            return  currentEnemyService.CheckForKillablePlayer(GetEnemyType());
         }
 
         public virtual void SetCircularCopID(int id)
