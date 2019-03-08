@@ -15,6 +15,7 @@ MonoBehaviour:
   maxwidth: 5
   maxhight: 4
   set: 0
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
   stars:
@@ -33,12 +34,26 @@ MonoBehaviour:
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
   cameraScriptableList:
-  - {fileID: 11400000, guid: a35290991383de449942b376082e7d38, type: 2}
+  - {fileID: 11400000, guid: 9010e3a0f529d4fa3b9d64fcd80468f7, type: 2}
+  - {fileID: 11400000, guid: be501c1c5a3b24441b3337e4f6617493, type: 2}
+  - {fileID: 11400000, guid: 2fab0c2feb2b14aba8e2f00d153616c9, type: 2}
+  - {fileID: 11400000, guid: cb1c3ee31eee74ead93b4c06eb24591c, type: 2}
+  - {fileID: 11400000, guid: d3b446d942d204aeda36a72b2cbee99d, type: 2}
+  - {fileID: 11400000, guid: 5727dd0df7d8a4796b2de7c05d21829a, type: 2}
+  - {fileID: 11400000, guid: e3ad1811f10ae427faafcf881f67dff6, type: 2}
+  - {fileID: 11400000, guid: 1fa7306dff3b24c2e9dc21f4155a9d79, type: 2}
+  - {fileID: 11400000, guid: 934fa121a5e934adfa1c409ef999cf00, type: 2}
+  - {fileID: 11400000, guid: aa2bda04c7eda4f2396294c588a67cf4, type: 2}
+  - {fileID: 11400000, guid: faf44c04a3c60433c8b0a60ece9d4116, type: 2}
+  - {fileID: 11400000, guid: 6e9ffbf9d0c644798848cd020870049b, type: 2}
+  - {fileID: 11400000, guid: a58401a64317b4beb88c24c4cfe58512, type: 2}
+  - {fileID: 11400000, guid: e63e7f1988f154d608bb1d41a5bd5640, type: 2}
   Graph:
   - node:
       snipeable: 0
       keyType: 0
       uniqueID: 0
+      disguise: 0
       property: 1
       spawnPickups: 0
       spawnEnemies: []
@@ -52,6 +67,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 1
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -65,6 +81,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 2
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -78,6 +95,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 3
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -91,6 +109,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 4
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -104,6 +123,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 5
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -120,6 +140,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 6
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -133,6 +154,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 7
+      disguise: 0
       property: 0
       spawnPickups: 1
       spawnEnemies: []
@@ -146,6 +168,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 8
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -162,6 +185,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 9
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -175,6 +199,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 10
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies: []
@@ -188,6 +213,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 11
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -201,6 +227,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 12
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -214,6 +241,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 13
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies: []
@@ -227,6 +255,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 14
+      disguise: 0
       property: 2
       spawnPickups: 0
       spawnEnemies: []
