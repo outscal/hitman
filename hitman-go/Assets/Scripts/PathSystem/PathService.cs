@@ -105,7 +105,7 @@ namespace PathSystem
 
         public EnemyType GetDisguise(int nodeID)
         {
-            return EnemyType.CIRCULAR_COP;
+            return controller.GetDisguise(nodeID);
         }
     }
 }
