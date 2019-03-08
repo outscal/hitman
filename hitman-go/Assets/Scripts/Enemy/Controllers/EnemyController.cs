@@ -25,7 +25,9 @@ namespace Enemy
         protected int enemyID;
         protected int alertMoveCalled;
         protected EnemyType enemyType;
-        protected bool hasShield;
+        protected int originalMoveCalled;
+        protected int returnToPathCalled;
+        protected bool hasShield;        
         protected List<int> originalPath = new List<int>();
         
 
@@ -60,10 +62,7 @@ namespace Enemy
         {
 
             enemyInstance = GameObject.Instantiate(enemyScriptableObject.enemyPrefab.gameObject,spawnLocation,Quaternion.Euler( GetRotation(spawnDirection)));
-            currentEnemyView = enemyInstance.GetComponent<IEnemyView>();
-            //currentEnemyView.SetPosition(spawnLocation);
-            //currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
-            //enemyInstance.transform.Rotate(GetRotation(spawnDirection));
+            currentEnemyView = enemyInstance.GetComponent<IEnemyView>();         
             SetController();
 
         }
@@ -112,8 +111,7 @@ namespace Enemy
 
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
             {
-                int nextNodeID = alertedPathNodes[alertMoveCalled];
-                //currentEnemyView.RotateEnemy(pathService.GetNodeLocation(nextNodeID));
+                int nextNodeID = alertedPathNodes[alertMoveCalled];              
                 if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
                 {
                    await MoveToNextNode(nextNodeID);
@@ -228,6 +226,11 @@ namespace Enemy
         public bool IsPlayerKillable()
         {
             return currentEnemyService.CheckForKillablePlayer();
+        }
+
+        public virtual void SetCircularCopID(int id)
+        {
+           
         }
     }
 }

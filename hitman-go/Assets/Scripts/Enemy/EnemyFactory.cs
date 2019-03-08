@@ -84,10 +84,12 @@ namespace Enemy
 
                     for (int i = 0; i < spawnNodeID.Count; i++)
                     {
+                        int id = 0;
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
                         IEnemyController newEnemy = new CircularCopEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
+                        newEnemy.SetCircularCopID(id);
                         newEnemyControllers.Add(newEnemy);
-
+                        id++;
                     }
                     break;
 
