@@ -24,8 +24,8 @@ namespace Player
         {
             this.transform.LookAt(_location);
             // this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
-            iTween.MoveTo(this.gameObject, _location, 0.5f);
-            await new WaitForSeconds(0.5f);
+            iTween.MoveTo(this.gameObject, _location, 0.2f);
+            await new WaitForSeconds(0.2f);
         }
 
         public void PlayAnimation(PlayerStates state)

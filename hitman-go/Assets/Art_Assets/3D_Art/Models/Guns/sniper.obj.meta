@@ -14,7 +14,27 @@ ModelImporter:
     2300000: default
     3300000: default
     4300000: default
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_blue
+    second: {fileID: 2100000, guid: 0d1615ba27343ff409158a5ec2721a17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: 344560b617f273e4cbc2dbd512fadae7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_dark
+    second: {fileID: 2100000, guid: 7bb0d7ecb8db29f45aea80938c20df77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_light
+    second: {fileID: 2100000, guid: becc222e9227a8740a916f975ef93063, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

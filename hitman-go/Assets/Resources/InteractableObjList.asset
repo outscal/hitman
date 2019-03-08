@@ -41,7 +41,7 @@ MonoBehaviour:
     interactableView: {fileID: 0}
   - name: ColorKey
     interactablePickup: 7
-    interactableView: {fileID: 6529214185698926746, guid: d7666473943fb5d4eacbb9a5a4762d17,
+    interactableView: {fileID: 3933467476607936281, guid: d8b64da711e87ec4088fa0cc98397db3,
       type: 3}
   - name: AmbushPlant
     interactablePickup: 8

@@ -43,8 +43,8 @@ namespace Enemy
         async public Task MoveToLocation(Vector3 location)
         {
             Debug.Log("Starting move"+gameObject.GetHashCode(),gameObject);
-            iTween.MoveTo(gameObject, location, 1f);
-            await new WaitForSeconds(1f);
+            iTween.MoveTo(gameObject, location, 0.3f);
+            await new WaitForSeconds(0.3f);
             Debug.Log("end move" + gameObject.GetHashCode(),gameObject);
         }
 
@@ -57,9 +57,9 @@ namespace Enemy
         async public virtual Task RotateEnemy(Vector3 newRotation)
         {            
             Debug.Log("start rotate" + gameObject.GetHashCode(),gameObject);
-            iTween.RotateTo(this.gameObject, newRotation, 0.5f);
+            iTween.RotateTo(this.gameObject, newRotation, 0.2f);
 
-            await new WaitForSeconds(0.5f);
+            await new WaitForSeconds(0.2f);
             Debug.Log("end rotate" + gameObject.GetHashCode(),gameObject);
         }
 
