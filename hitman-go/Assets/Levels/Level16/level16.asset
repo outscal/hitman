@@ -20,7 +20,7 @@ MonoBehaviour:
   - key: 2
     node1: 0
     node2: 4
-    position: {x: -7.5, y: 0, z: 10}
+    position: {x: -7.5, y: 0, z: 15}
     gatePrefab: {fileID: 5434262468552243766, guid: b7936756e14d54f47b94b55948a8b7fb,
       type: 3}
   stars:
@@ -77,7 +77,7 @@ MonoBehaviour:
       property: 0
       spawnPickups: 7
       spawnEnemies: []
-      nodePosition: {x: -5, y: 0, z: 5}
+      nodePosition: {x: -10, y: 0, z: 5}
     up: 3
     down: 1
     left: 9
@@ -184,7 +184,7 @@ MonoBehaviour:
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 0, y: 0, z: 5}
+      nodePosition: {x: -5, y: 0, z: 5}
     up: 10
     down: 8
     left: 12
@@ -226,7 +226,7 @@ MonoBehaviour:
       property: 0
       spawnPickups: 0
       spawnEnemies: []
-      nodePosition: {x: 5, y: 0, z: 5}
+      nodePosition: {x: 0, y: 0, z: 5}
     up: 13
     down: 11
     left: -1
