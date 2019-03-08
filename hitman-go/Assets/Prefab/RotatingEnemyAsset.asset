@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ab38938eb9edc4da97810675ae8c9f, type: 3}
   m_Name: RotatingEnemyAsset
   m_EditorClassIdentifier: 
-  enemyType: 3
+  enemyType: 2
   enemyPrefab: {fileID: 4126106033669793196, guid: dc5a076a414994f4284f6226b31b86b6,
     type: 3}
   enemyRotation: {x: 0, y: 0, z: 0, w: 0}

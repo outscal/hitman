@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ab38938eb9edc4da97810675ae8c9f, type: 3}
   m_Name: SniperEnemyAsset
   m_EditorClassIdentifier: 
-  enemyType: 4
+  enemyType: 3
   enemyPrefab: {fileID: 2420192616190554478, guid: 0e53ab2d31aeb9b4e8555408c0dd681f,
     type: 3}
   enemyRotation: {x: 0, y: 0, z: 0, w: 0}
