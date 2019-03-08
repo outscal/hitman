@@ -20,5 +20,6 @@ namespace Enemy
         Directions GetDirection();
         bool IsKillable(KillMode killMode);
         bool IsPlayerKillable();
+        void SetCircularCopID(int id);
     }
 }

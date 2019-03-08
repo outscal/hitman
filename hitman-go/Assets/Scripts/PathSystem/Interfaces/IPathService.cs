@@ -28,6 +28,6 @@ namespace PathSystem
         List<CameraScriptableObj> GetCameraDataList();
         void DrawGraph(ScriptableGraph Graph);
         bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID);
-        List<int> GetOriginalPath();
+        List<int> GetOriginalPath(int ID);
     }
 }

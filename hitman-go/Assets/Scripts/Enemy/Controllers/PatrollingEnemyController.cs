@@ -9,7 +9,7 @@ namespace Enemy
 {
     public class PatrollingEnemyController : EnemyController
     {
-
+        private int currentEnemyID;
 
         public PatrollingEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection, bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection, _hasShield)
         {
@@ -58,7 +58,12 @@ namespace Enemy
             currentEnemyView.SetCurrentController(this);
         }
 
-
+        public override void SetCircularCopID(int id)
+        {
+            currentEnemyID = id;
+            originalPath = pathService.GetOriginalPath(currentEnemyID);
+        }
+        
 
     }
 }

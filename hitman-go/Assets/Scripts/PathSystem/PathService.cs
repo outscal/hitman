@@ -97,5 +97,10 @@ namespace PathSystem
         {
             return controller.CanEnemyMoveToNode(enemyNodeID, nextNodeID);
         }
+
+        public List<int> GetOriginalPath(int ID)
+        {
+           // throw new System.NotImplementedException();
+        }
     }
 }
