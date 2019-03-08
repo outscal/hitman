@@ -15,6 +15,7 @@ MonoBehaviour:
   maxwidth: 0
   maxhight: 0
   set: 0
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge:
   - key: 1
@@ -44,7 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 846b936b65aa14bcc8362d20391ce612, type: 2}
   - {fileID: 11400000, guid: 697ae17d9d99d4866886a6b7abfe72a0, type: 2}
   - {fileID: 11400000, guid: 82d161e7e66454fd790b34978911a15c, type: 2}
-  - {fileID: 11400000, guid: 492af7a72b2a54de3b51f65721308e52, type: 2}
+  - {fileID: 11400000, guid: 5e7ae52d4d879446caf3732ac7c6945e, type: 2}
   - {fileID: 11400000, guid: 8447aef117a754a848a16ae388c07107, type: 2}
   - {fileID: 11400000, guid: 377a7e9841adc4e9cb060a6cb6b9d776, type: 2}
   - {fileID: 11400000, guid: fc7b4ce962fa5405caa10c83f5fa8307, type: 2}
@@ -68,6 +69,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 0
+      disguise: 0
       property: 1
       spawnPickups: 0
       spawnEnemies: []
@@ -81,6 +83,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 1
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -94,6 +97,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 2
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -110,6 +114,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 3
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -123,6 +128,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 4
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -136,6 +142,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 5
+      disguise: 0
       property: 0
       spawnPickups: 8
       spawnEnemies: []
@@ -149,6 +156,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 6
+      disguise: 0
       property: 0
       spawnPickups: 8
       spawnEnemies: []
@@ -162,6 +170,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 7
+      disguise: 0
       property: 0
       spawnPickups: 8
       spawnEnemies: []
@@ -175,6 +184,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 8
+      disguise: 0
       property: 0
       spawnPickups: 8
       spawnEnemies: []
@@ -188,6 +198,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 9
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -201,6 +212,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 1
       uniqueID: 10
+      disguise: 0
       property: 0
       spawnPickups: 7
       spawnEnemies: []
@@ -214,6 +226,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 11
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -227,6 +240,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 12
+      disguise: 0
       property: 0
       spawnPickups: 1
       spawnEnemies: []
@@ -240,6 +254,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 13
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -256,6 +271,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 14
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -269,6 +285,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 15
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies: []
@@ -282,6 +299,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 16
+      disguise: 0
       property: 0
       spawnPickups: 2
       spawnEnemies: []
@@ -295,6 +313,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 17
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -308,6 +327,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 18
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies:
@@ -324,6 +344,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 19
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -337,6 +358,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 20
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -353,6 +375,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 21
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -366,6 +389,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 22
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -382,6 +406,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 23
+      disguise: 0
       property: 2
       spawnPickups: 0
       spawnEnemies: []

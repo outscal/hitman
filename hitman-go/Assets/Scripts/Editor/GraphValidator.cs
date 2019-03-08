@@ -27,6 +27,7 @@ namespace EditorScripts
                 }
             }
         }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();

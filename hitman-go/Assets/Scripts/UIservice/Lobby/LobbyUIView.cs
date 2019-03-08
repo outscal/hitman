@@ -50,6 +50,7 @@ namespace UIservice
             {
                 GameObject lobbyCard = Instantiate(lobbyCardPrefab);
                 lobbyCard.transform.SetParent(buttonContainer.transform);
+                lobbyCard.transform.localScale = Vector3.one;
                 LobbyCardController lobbyCardController = lobbyCard.GetComponent<LobbyCardController>();
 
 

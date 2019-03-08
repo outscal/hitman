@@ -15,6 +15,7 @@ MonoBehaviour:
   maxwidth: 5
   maxhight: 5
   set: 0
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge:
   - key: 2
@@ -39,7 +40,7 @@ MonoBehaviour:
   teleportNode: {fileID: 716432328203489091, guid: ae9eb49129511344a94f5a6d34e7ecbd,
     type: 3}
   cameraScriptableList:
-  - {fileID: 11400000, guid: 466840b468fd3475d9e86321c21f2963, type: 2}
+  - {fileID: 11400000, guid: e3f1ec51fd158425bbaf54eaa32a8565, type: 2}
   Graph:
   - node:
       snipeable: 0

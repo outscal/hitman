@@ -31,6 +31,7 @@ namespace UIservice
                 {
                     GameObject star = Instantiate(starPrefab);
                     star.transform.SetParent(this.transform);
+                    star.transform.localScale = Vector3.one;
                     star.GetComponent<LobbyStarController>().SetStarColor(startNotAchievedColor);
 
                     if (lobbyUIView.ReturnSaveService().ReadStarTypeForLevel(levelIndex, starDatas[i].type))
