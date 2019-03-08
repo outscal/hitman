@@ -43,7 +43,6 @@ namespace Player
                     bool inRange = _interactableController.CanTakeAction(playerService.GetPlayerNodeID(), nodeID);
                     if (inRange)
                     {
-                        Debug.Log("take action called");
                         stateMachine.ChangePlayerState(playerState, PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
                         stateMachine.ChangePlayerState(PlayerStates.END_TURN, PlayerStates.NONE);

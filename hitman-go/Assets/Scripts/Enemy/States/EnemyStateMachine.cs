@@ -38,6 +38,9 @@ namespace Enemy
                 case EnemyStates.CONSTANT_CHASE:
                     currentState = new EnemyConstantChaseState();
                     break;
+                case EnemyStates.RETURN_TO_PATH:
+                    currentState = new EnemyReturnToPathState();
+                    break;
 
             }
                     currentState.OnStateEnter();

@@ -12,7 +12,7 @@ namespace InputSystem
 
         public KeyboardInput()
         {
-            Debug.Log("<color=green>[KeyboardInput] Created:</color>");
+
         }
 
         void DetectTap()

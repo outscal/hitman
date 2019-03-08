@@ -14,6 +14,7 @@ namespace Enemy
         IPathService pathService;
         IGameService gameService;
         SignalBus signalBus;
+        int cID = 0;
 
         public EnemyFactory(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, SignalBus _signalBus)
         {
@@ -30,9 +31,11 @@ namespace Enemy
         {
             List<IEnemyController> enemyList = new List<IEnemyController>();
 
+            
             for (int i = 0; i < _list.enemyList.Count; i++)
             {
                 enemyList = enemyList.Concat(SpawnSingleEnemyLocations(_list.enemyList[i])).ToList();
+                
             }
 
             return enemyList;
@@ -41,6 +44,8 @@ namespace Enemy
 
         private List<IEnemyController> SpawnSingleEnemyLocations(EnemyScriptableObject _enemyScriptableObject)
         {
+            
+
             List<EnemySpawnData> spawnNodeID = new List<EnemySpawnData>();
             List<IEnemyController> newEnemyControllers = new List<IEnemyController>();
             spawnNodeID.Clear();
@@ -83,14 +88,14 @@ namespace Enemy
                 case EnemyType.CIRCULAR_COP:
 
                     for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        int id = 0;
+                    {                        
                         Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i].node);
                         IEnemyController newEnemy = new CircularCopEnemyController(enemyService, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i].node, spawnNodeID[i].dir, spawnNodeID[i].hasShield);
-                        newEnemy.SetCircularCopID(id);
+                        newEnemy.SetCircularCopID(cID);
                         newEnemyControllers.Add(newEnemy);
-                        id++;
+                        cID++;
                     }
+                    
                     break;
 
                 case EnemyType.DOGS:

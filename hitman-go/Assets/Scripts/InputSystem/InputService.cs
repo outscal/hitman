@@ -19,7 +19,7 @@ namespace InputSystem
 
         public InputService(IPlayerService playerService)
         {
-            Debug.Log("<color=red>[InputService] Created:</color>");
+
             this.playerService = playerService;
 
             swipeDirection = new SwipeDirection();
@@ -35,7 +35,7 @@ namespace InputSystem
 
         public void PassDirection(Directions direction)
         {
-            Debug.Log("[InputService] Setting Direction:" + direction);
+
             playerService.SetSwipeDirection(direction);
         }
 

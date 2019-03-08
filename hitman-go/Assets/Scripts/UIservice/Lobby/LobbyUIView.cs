@@ -34,7 +34,6 @@ namespace UIservice
 
         public void DisplayUI()
         {
-            Debug.Log("[lobby ui]");
             gameObject.SetActive(true);
 
             if (lobbyCardControllerList.Count <= 0)

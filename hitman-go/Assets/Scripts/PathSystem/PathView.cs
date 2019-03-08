@@ -153,10 +153,9 @@ namespace PathSystem
 
             for (int i = 0; i < physicalGates.Count; i++)
             {
-                Debug.Log("key Collected");
                 while (i < physicalGates.Count && physicalGates[i].GetKey() == key)
                 {
-                    Debug.Log("destroyed");
+                    
                     physicalGates[i].Disable();
                     physicalGates.RemoveAt(i);
                 }

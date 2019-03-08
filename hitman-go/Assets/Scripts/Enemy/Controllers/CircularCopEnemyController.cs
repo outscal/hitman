@@ -33,29 +33,57 @@ namespace Enemy
                 originalMoveCalled++;
                 int nextNodeID = originalPath[originalMoveCalled];
                 spawnDirection = pathService.GetDirections(currentNodeID, nextNodeID);
-                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
 
-            }
-            else if (stateMachine.GetEnemyState() == EnemyStates.RETURN_TO_PATH)
-            {
-                returnToPathCalled++;
-                int nextNode = alertedPathNodes[alertedPathNodes.Count-returnToPathCalled];
-                await MoveToNextNode(nextNode);
+                int rotNode = originalMoveCalled + 1;
+                if (rotNode >= originalPath.Count)
+                {
+                    rotNode = 0;
+                }
+                int toLookNode = originalPath[rotNode];
 
-                if(originalPath.Contains(nextNode))
+
+                Directions toLook = pathService.GetDirections(currentNodeID, toLookNode);
+                Debug.Log("Direction to look" + toLook.ToString());
+                currentEnemyView.RotateEnemy(GetRotation(toLook));
+               
+
+            }
+            if (stateMachine.GetEnemyState() == EnemyStates.RETURN_TO_PATH)
+            {
+                currentEnemyView.DisableAlertView();
+                returnToPathCalled++;
+                int nextNodeID = alertedPathNodes[alertedPathNodes.Count-returnToPathCalled];
+                spawnDirection = pathService.GetDirections(currentNodeID, nextNodeID);               
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                await MoveToNextNode(nextNodeID);
+             
+                //int rotNode = returnToPathCalled + 1;
+                //if (rotNode >= alertedPathNodes.Count)
+                //{
+                //    rotNode = alertedPathNodes.Count-1;
+                //}
+                //int toLookNode = alertedPathNodes[alertedPathNodes.Count-rotNode];
+
+                //Directions toLook = pathService.GetDirections(currentNodeID, toLookNode);
+                //Debug.Log("Direction to look[return path]" + toLook.ToString());
+
+                if (originalPath.Contains(nextNodeID))
                 {
                     returnToPathCalled = 0;
-                    stateMachine.ChangeEnemyState(EnemyStates.IDLE);
-                    originalMoveCalled = originalPath.IndexOf(nextNode);
+                    stateMachine.ChangeEnemyState(EnemyStates.IDLE);                   
+                    currentEnemyView.DisableAlertView();
+                    originalMoveCalled = originalPath.IndexOf(nextNodeID);
                 }
             }
-            else if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
+            if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {
                 alertMoveCalled++;
                 int nextNodeID = alertedPathNodes[alertMoveCalled];
                 if (pathService.CanEnemyMoveToNode(currentNodeID, nextNodeID))
                 {
+                    spawnDirection = pathService.GetDirections(currentNodeID, nextNodeID);                    
+                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                     await MoveToNextNode(nextNodeID);
                 }
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
@@ -64,6 +92,13 @@ namespace Enemy
                     returnToPathCalled = 1;
                 }
             }
+           
+
+        }
+
+        private async Task LookAtNextNode()
+        {
+            
         }
 
         async protected override Task MoveToNextNode(int nodeID)
@@ -76,12 +111,11 @@ namespace Enemy
                 if (!currentEnemyService.CheckForKillablePlayer())
                 {
                     return;
-                }
-               // currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
-              //  currentNodeID = nodeID;
+                }               
                 currentEnemyService.TriggerPlayerDeath();
             }
+           
+            await new WaitForEndOfFrame();
         }
 
         public override void SetCircularCopID(int id)

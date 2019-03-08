@@ -136,6 +136,7 @@ namespace Enemy
                 KillEnemy(controllerToKill);
 
             }
+            
             if (!playerService.PlayerDeathStatus())
             {
                 Debug.Log("changing to player state");

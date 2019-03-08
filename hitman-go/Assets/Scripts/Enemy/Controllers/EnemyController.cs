@@ -104,8 +104,8 @@ namespace Enemy
             alertMoveCalled++;
             if (stateMachine.GetEnemyState() == EnemyStates.IDLE)
             {
-                int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);              
-
+                int nextNodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
             }
 
@@ -114,7 +114,9 @@ namespace Enemy
                 int nextNodeID = alertedPathNodes[alertMoveCalled];              
                 if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
                 {
-                   await MoveToNextNode(nextNodeID);
+                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
+                    await MoveToNextNode(nextNodeID);
+           
                 }              
                
                 
@@ -124,7 +126,7 @@ namespace Enemy
                     currentEnemyView.DisableAlertView();
                 }
             }
-
+            await new WaitForEndOfFrame();
             
            
 
@@ -162,7 +164,7 @@ namespace Enemy
             return enemyType;
         }
 
-        public virtual void AlertEnemy(int _destinationID)
+        async public virtual void AlertEnemy(int _destinationID)
         {
             if (stateMachine.GetEnemyState() != EnemyStates.CHASE)
             {
@@ -171,7 +173,9 @@ namespace Enemy
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-            Debug.Log("[Alert Enemy] called by dogs controller");
+            Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
+           await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
+
 
         }
 
