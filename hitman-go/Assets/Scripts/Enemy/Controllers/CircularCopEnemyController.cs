@@ -108,7 +108,7 @@ namespace Enemy
 
             if (CheckForPlayerPresence(nodeID))
             {
-                if (!currentEnemyService.CheckForKillablePlayer())
+                if (!currentEnemyService.CheckForKillablePlayer(enemyType))
                 {
                     return;
                 }               
@@ -123,5 +123,7 @@ namespace Enemy
             currentEnemyID = id;
             originalPath = pathService.GetOriginalPath(currentEnemyID);
         }
+
+       
     }
 }

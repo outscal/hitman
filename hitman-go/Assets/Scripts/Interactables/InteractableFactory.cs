@@ -150,9 +150,13 @@ namespace InteractableSystem
                                                        .interactableView;
                         Vector3 position = interactableManager.ReturnPathService()
                                  .GetNodeLocation(nodeID[i]);
+                        EnemyType enemyType = interactableManager.ReturnPathService()
+                        .GetDisguise(nodeID[i]);
+
                         InteractableController guardController = new GuardUniformController(position
                         , interactableManager
-                        , guardView);
+                        , guardView
+                        , enemyType);
                         interactableManager.AddInteractable(nodeID[i], guardController);
                     }
                     break;

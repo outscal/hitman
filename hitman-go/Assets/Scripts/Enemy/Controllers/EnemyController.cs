@@ -229,7 +229,7 @@ namespace Enemy
 
         public bool IsPlayerKillable()
         {
-            return currentEnemyService.CheckForKillablePlayer();
+            return currentEnemyService.CheckForKillablePlayer(GetEnemyType());
         }
 
         public virtual void SetCircularCopID(int id)

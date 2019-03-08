@@ -264,5 +264,9 @@ namespace PathSystem
             else if (graph[sourceNode].connections[2] == nextNode) { return Directions.LEFT; }
             else { return Directions.RIGHT; }
         }
+        public EnemyType GetDisguise(int NodeId)
+        {
+            return graph[NodeId].node.disguise;
+        }
     }
 }

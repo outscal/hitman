@@ -29,5 +29,6 @@ namespace PathSystem
         void DrawGraph(ScriptableGraph Graph);
         bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID);
         List<int> GetOriginalPath(int ID);
+        EnemyType GetDisguise(int nodeID);
     }
 }

@@ -21,6 +21,7 @@ namespace Player
         private int playerNodeID;
         GameObject playerInstance;
         private Vector3 spawnLocation;
+        private EnemyType disguiseType = EnemyType.None;
 
         public PlayerController(IPlayerService _playerService, IGameService _gameService, IPathService _pathService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject)
         {
@@ -35,6 +36,7 @@ namespace Player
             spawnLocation = pathService.GetNodeLocation(playerNodeID);
 
             SpawnPlayerView();
+            playerService.GetSignalBus().Subscribe<DisguiseSignal>(SetDisguiseType);
         }
 
         public Vector3 GetCurrentLocation()
@@ -65,6 +67,7 @@ namespace Player
 
         public void Reset()
         {
+            playerService.GetSignalBus().Unsubscribe<DisguiseSignal>(SetDisguiseType);
             currentPlayerView.Reset();
         }
 
@@ -165,6 +168,18 @@ namespace Player
             return playerNodeID;
         }
 
+        public EnemyType GetDisguiseType()
+        {
+            return disguiseType;
+        }
+
+        public void SetDisguiseType(DisguiseSignal disguiseSignal)
+        {
+            disguiseType = disguiseSignal.enemyType;
+            Debug.Log("[PlayerController] Disguse Type:" + disguiseType);
+            currentPlayerView.SetDisguise(disguiseType); 
+        }
+
         private bool IsGameFinished()
         {
             return pathService.CheckForTargetNode(playerNodeID);
@@ -172,7 +187,6 @@ namespace Player
 
         async  public void PerformAction(Directions _direction )
         {
-           
             int nextNodeID = pathService.GetNextNodeID(GetID(), _direction);
             if (nextNodeID == -1)
             {
@@ -180,9 +194,6 @@ namespace Player
                 return;
             }
             await PerformMovement(nextNodeID);
-
-           
-
         }
     }
 }

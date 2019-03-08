@@ -15,8 +15,7 @@ namespace Enemy
 
         public BiDirectionalEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection, bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection, _hasShield)
         {
-            
-
+            enemyType = EnemyType.BIDIRECTIONAL;
         }
         
         async protected override Task MoveToNextNode(int nodeID)
@@ -32,7 +31,7 @@ namespace Enemy
 
             if (CheckForPlayerPresence(nodeID))
             {
-                if(!currentEnemyService.CheckForKillablePlayer())
+                if(!currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
                 {
                     return;
                 }               
@@ -46,7 +45,7 @@ namespace Enemy
                 int secondNodeCheck = pathService.GetNextNodeID(currentNodeID,secondDirection);
                 if (CheckForPlayerPresence(secondNodeCheck))
                 {
-                    if (!currentEnemyService.CheckForKillablePlayer())
+                    if (!currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
                     {
                         return;
                     }

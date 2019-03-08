@@ -15,7 +15,7 @@ namespace Enemy
 
         public StaticEnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int currentNodeID, Directions spawnDirection,bool _hasShield) : base(_enemyService, _pathService, _gameService, _spawnLocation, _enemyScriptableObject, currentNodeID, spawnDirection,_hasShield)
         {
-            
+            enemyType = EnemyType.STATIC;
 
         }
         async protected override Task MoveToNextNode(int nodeID)
@@ -33,7 +33,7 @@ namespace Enemy
             }
             if (CheckForPlayerPresence(nodeID))
             {
-                if(!currentEnemyService.CheckForKillablePlayer())
+                if(!currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
                 {
                     return;
                 }           

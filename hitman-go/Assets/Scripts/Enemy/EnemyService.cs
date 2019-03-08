@@ -112,7 +112,7 @@ namespace Enemy
                 IEnemyController controller = enemyList[i];
                 if (!playerService.PlayerDeathStatus())
                 {
-                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && CheckForKillablePlayer())
+                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && CheckForKillablePlayer(controller.GetEnemyType()))
                     {
                         Debug.Log("Killing enemy ");
                         KillableEnemies.Add(controller);
@@ -193,9 +193,9 @@ namespace Enemy
 
         }
 
-        public bool CheckForKillablePlayer()
+        public bool CheckForKillablePlayer(EnemyType enemyType)
         {
-            return playerService.CheckForKillablePlayer();
+            return playerService.CheckForKillablePlayer(enemyType);
         }
 
         private void AlertEnemies(SignalAlertGuards _signalAlertGuards)

@@ -38,6 +38,7 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<EnemyKillSignal>();
         Container.DeclareSignal<SignalStopAudio>();
         Container.DeclareSignal<NewDogDestinationSignal>();
+        Container.DeclareSignal<DisguiseSignal>();
 
         Container.Bind<ISound>()
             .To<SoundManager>()

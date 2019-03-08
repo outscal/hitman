@@ -35,7 +35,8 @@ namespace Common
         DOGS,
         CIRCULAR_COP,
         GUARD_TORCH,
-        TARGET
+        TARGET,
+        None
     }
     public enum KeyTypes{
         NONE,
