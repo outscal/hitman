@@ -223,12 +223,13 @@ namespace Player
 
         public void FireLevelFinishedSignal()
         {
+            
             signalBus.TryFire(new LevelFinishedSignal());
         }
 
-        public void SetTargetTap(int v)
+        public void SetTargetTap(int tapNode)
         {
-            targetNode = v;
+            targetNode = tapNode;
         }
 
         public SignalBus GetSignalBus()

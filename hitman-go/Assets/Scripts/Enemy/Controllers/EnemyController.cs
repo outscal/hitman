@@ -4,6 +4,7 @@ using PathSystem;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StarSystem;
 using UnityEngine;
 
 namespace Enemy
@@ -15,6 +16,7 @@ namespace Enemy
         protected IPathService pathService;
         protected IEnemyView currentEnemyView;
         protected IGameService gameService;
+        
         protected Vector3 spawnLocation;
         protected GameObject enemyInstance;
         protected Directions spawnDirection;
@@ -45,6 +47,7 @@ namespace Enemy
             currentNodeID = _currentNodeID;
             gameService = _gameService;
             hasShield = _hasShield;
+            
             stateMachine = new EnemyStateMachine();
             SpawnEnemyView();
             PopulateDirectionList();
@@ -118,8 +121,7 @@ namespace Enemy
                     await MoveToNextNode(nextNodeID);
            
                 }              
-               
-                
+                               
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);

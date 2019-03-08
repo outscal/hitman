@@ -57,16 +57,7 @@ namespace Enemy
                 spawnDirection = pathService.GetDirections(currentNodeID, nextNodeID);               
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 await MoveToNextNode(nextNodeID);
-             
-                //int rotNode = returnToPathCalled + 1;
-                //if (rotNode >= alertedPathNodes.Count)
-                //{
-                //    rotNode = alertedPathNodes.Count-1;
-                //}
-                //int toLookNode = alertedPathNodes[alertedPathNodes.Count-rotNode];
-
-                //Directions toLook = pathService.GetDirections(currentNodeID, toLookNode);
-                //Debug.Log("Direction to look[return path]" + toLook.ToString());
+                          
 
                 if (originalPath.Contains(nextNodeID))
                 {
