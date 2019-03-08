@@ -36,5 +36,10 @@ namespace Common
         public StarTypes type;
         public String name;
     }
-    
+    [Serializable]
+    public class cirPath
+    {
+        public List<int> path;
+    }
+
 }
