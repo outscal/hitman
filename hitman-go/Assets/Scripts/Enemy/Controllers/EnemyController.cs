@@ -175,7 +175,7 @@ namespace Enemy
             currentEnemyView.AlertEnemyView();
             Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
            await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
-
+            
 
         }
 
