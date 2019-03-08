@@ -10,18 +10,18 @@ namespace Enemy
     public class EnemyView : MonoBehaviour, IEnemyView
     {
         [SerializeField]
-        public SpriteRenderer alertSprite;
+        public GameObject alertSprite;
 
         protected IEnemyController enemyController;      
 
         public void AlertEnemyView()
         {
-            alertSprite.enabled = true;
+            alertSprite.SetActive(true);
 
         }
         public void DisableAlertView()
         {
-            alertSprite.enabled = false;
+            alertSprite.SetActive(false);
         }
         public void DisableEnemy()
         {
@@ -30,7 +30,7 @@ namespace Enemy
         }
         private void Start()
         {
-            alertSprite.enabled = false;
+            alertSprite.SetActive(false);
            
         }    
       

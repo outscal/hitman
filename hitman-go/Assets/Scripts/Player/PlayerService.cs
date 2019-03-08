@@ -91,7 +91,7 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = 0;
-            await new WaitForSeconds(2f);
+            await new WaitForSeconds(.75f);
             gameService.ChangeToGameOverState();
         }
         //reset level trigger

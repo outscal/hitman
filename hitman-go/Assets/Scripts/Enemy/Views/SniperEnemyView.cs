@@ -17,8 +17,8 @@ namespace Enemy
 
         void Start()
         {
-           // offSet = new Vector3(0,0.75f,0);
-            alertSprite.enabled = false;                    
+            // offSet = new Vector3(0,0.75f,0);
+            alertSprite.SetActive(false);
             PerformFirstRaycast();
         }
      
