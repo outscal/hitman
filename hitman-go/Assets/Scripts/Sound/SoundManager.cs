@@ -11,16 +11,16 @@ namespace SoundSystem
         readonly SignalBus signalBus;
         private GameInstaller gameInstaller;
         private SoundScriptable soundScriptable;
-        private List<AudioClip> bgMusic;
         private List<SoundData> soundDatas;
+        private BackgroundMusic backgroundMusics;
 
         public SoundManager(SoundScriptable soundScriptable, SignalBus signalBus)
         {
-            bgMusic = new List<AudioClip>();
             soundDatas = new List<SoundData>();
             this.signalBus = signalBus;
             this.soundScriptable = soundScriptable;
             soundDatas = soundScriptable.soundDatas;
+            backgroundMusics = soundScriptable.backgroundMusic;
             signalBus.Subscribe<SignalPlayAudio>(ListenPlayAudioSignal);
             signalBus.Subscribe<SignalPlayOneShot>(ListenPlayOneShotSignal);
             signalBus.Subscribe<SignalStopAudio>(StopFXSound);
@@ -32,7 +32,8 @@ namespace SoundSystem
             if (gameInstaller == null)
                 gameInstaller = GameObject.FindObjectOfType<GameInstaller>();
 
-            if(signal.newGameState == Common.GameStatesType.LOBBYSTATE)
+            if(signal.newGameState == Common.GameStatesType.LOBBYSTATE
+            || signal.newGameState == Common.GameStatesType.LOADLEVELSTATE)
             {
                 PlayMusic(SoundName.gameMusic);
             }
@@ -47,6 +48,23 @@ namespace SoundSystem
         void ListenPlayOneShotSignal(SignalPlayOneShot signalPlayOneShot)
         {
             PlayAudioOneShot(signalPlayOneShot.soundName);
+        }
+
+        public void PlayMusic(SoundName gameSounds)
+        {
+            if (gameInstaller != null)
+            {
+                Debug.Log("[SoundManager] BgMusic List:" + backgroundMusics.audioClips.Count);
+                gameInstaller.musicSource.clip = ReturnBackground();
+                if (gameInstaller.musicSource.isPlaying == false)
+                    gameInstaller.musicSource.Play();
+            }
+        }
+
+        public void PlayAudioOneShot(SoundName audioName)
+        {
+            if (gameInstaller != null)
+                gameInstaller.fxSource.PlayOneShot(ReturnAudio(audioName));
         }
 
         AudioClip ReturnAudio(SoundName gameSounds)
@@ -64,32 +82,9 @@ namespace SoundSystem
             return audioClip;
         }
 
-        public void PlayMusic(SoundName gameSounds)
+        AudioClip ReturnBackground()
         {
-            if (gameInstaller != null)
-            {
-                int i = 0;
-
-                if (bgMusic.Count <= 0)
-                {
-                    bgMusic.Add(ReturnAudio(gameSounds)); 
-                }
-                else
-                {
-                    i = Random.Range(0, bgMusic.Count); 
-                }
-
-
-                gameInstaller.musicSource.clip = bgMusic[i];
-                if (gameInstaller.musicSource.isPlaying == false)
-                    gameInstaller.musicSource.Play();
-            }
-        }
-
-        public void PlayAudioOneShot(SoundName audioName)
-        {
-            if (gameInstaller != null)
-                gameInstaller.fxSource.PlayOneShot(ReturnAudio(audioName));
+            return backgroundMusics.audioClips[Random.Range(0, backgroundMusics.audioClips.Count)];
         }
 
         public void StopFXSound()
