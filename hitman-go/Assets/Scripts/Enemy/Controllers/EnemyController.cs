@@ -234,5 +234,10 @@ namespace Enemy
         {
            
         }
+
+        async public Task PlayAnimation(EnemyStates state)
+        {
+            await currentEnemyView.PlayAnimation(state);
+        }
     }
 }

@@ -49,6 +49,7 @@ namespace Player
                 animator.Play("Shoot");
             } else if (state == PlayerStates.DEAD)
             {
+                
                 animator.Play("Death");
                 await new WaitForSeconds(2f);
             }

@@ -11,13 +11,15 @@ namespace Enemy
     {
         [SerializeField]
         public GameObject alertSprite;
-
-        protected IEnemyController enemyController;      
+        public Animator animator;
+        protected IEnemyController enemyController;
+        //public AnimationCurve moveAnimationCurve;
+        public float enemyDeathDuration;
+        //public float durationOfMoveAnimation;
 
         public void AlertEnemyView()
         {
-            alertSprite.SetActive(true);
-
+            alertSprite.SetActive(true);       
         }
         public void DisableAlertView()
         {
@@ -25,16 +27,12 @@ namespace Enemy
         }
         public void DisableEnemy()
         {
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
+            gameObject.SetActive(false);          
         }
         private void Start()
         {
-            alertSprite.SetActive(false);
-           
-        }    
-      
-
+            alertSprite.SetActive(false);           
+        }       
         public GameObject GetGameObject()
         {
             return this.gameObject;
@@ -42,12 +40,10 @@ namespace Enemy
 
         async public Task MoveToLocation(Vector3 location)
         {
-            
-            iTween.MoveTo(gameObject, location, 0.3f);
-            await new WaitForSeconds(0.3f);
-            
+            Debug.Log("move called",gameObject);
+            iTween.MoveTo(this.gameObject, location, 1f);
+            await new WaitForSeconds(1f);
         }
-
         public void Reset()
         {
             //DisableEnemy();
@@ -56,11 +52,8 @@ namespace Enemy
 
         async public virtual Task RotateEnemy(Vector3 newRotation)
         {            
-            
-            iTween.RotateTo(this.gameObject, newRotation, 0.2f);
-
-            await new WaitForSeconds(0.2f);
-            
+            iTween.RotateTo(this.gameObject, newRotation, 0.1f);
+            await new WaitForSeconds(0.1f);            
         }
 
         public void SetPosition(Vector3 pos)
@@ -70,8 +63,7 @@ namespace Enemy
 
         async public Task RotateInOppositeDirection()
         {
-            RotateEnemy(new Vector3(0, 180+Mathf.Abs(this.transform.localEulerAngles.y), 0));
-             
+            RotateEnemy(new Vector3(0, 180+Mathf.Abs(this.transform.localEulerAngles.y), 0));             
         }
       
 
@@ -91,6 +83,29 @@ namespace Enemy
         public virtual void StopRaycast()
         {
            
+        }
+
+        //async protected Task MoveInCurve(Vector3 _location)
+        //{
+        //    float t = 0;
+        //    while (t < durationOfMoveAnimation)
+        //    {
+        //        t += Time.deltaTime;
+        //        this.transform.LookAt(_location);
+        //        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t / durationOfMoveAnimation));
+        //        await new WaitForEndOfFrame();
+        //    }
+        //}
+
+        async public Task PlayAnimation(EnemyStates enemyStates)
+        {
+            if(enemyStates==EnemyStates.DEATH)
+            {
+                this.animator.Play("Death");
+                await new WaitForSeconds(enemyDeathDuration);
+
+            }
+            await new WaitForEndOfFrame();
         }
     }
 }
