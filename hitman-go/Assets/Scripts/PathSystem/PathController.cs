@@ -85,11 +85,11 @@ namespace PathSystem
                         setdir1 = 3;
                         node = node = gates[i].node2;
                     }
-                    //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
+                    
                     graph[gates[i].node1].connections[setdir1] = gates[i].node2;
                     graph[gates[i].node2].connections[setdir2] = gates[i].node1;
                     view.DrawPath(dir, GetNodeLocation(node));
-                    //Debug.Log("direction of gate" + dir + " " + setdir1 + " " + setdir2 + " " + gates[i].node1 + " " + graph[gates[i].node1].connections[3]);
+                   
 
                 }
             }
@@ -99,9 +99,9 @@ namespace PathSystem
         {
             shortestPath = new List<int>();
             shortestPathLength = graph.Count;
-            //Debug.Log("is" + shortestPathLength);
+            
             printAllPaths(_currentNode, _destinationNode);
-            //Debug.Log("Shortest Path Length is" + shortestPath.Count);
+            
             return shortestPath;
         }
         private void printAllPaths(int s, int d)
@@ -258,7 +258,7 @@ namespace PathSystem
         }
         public Directions GetDirections(int sourceNode, int nextNode)
         {
-            //Debug.Log("source is" + sourceNode + " dest is" + nextNode);
+            
             if (graph[sourceNode].connections[0] == nextNode) { return Directions.UP; }
             else if (graph[sourceNode].connections[1] == nextNode) { return Directions.DOWN; }
             else if (graph[sourceNode].connections[2] == nextNode) { return Directions.LEFT; }

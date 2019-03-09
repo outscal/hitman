@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Common;
+﻿using Common;
 using PathSystem.NodesScript;
 using Player;
+using UnityEngine;
 
 namespace InputSystem
 {
@@ -15,7 +15,6 @@ namespace InputSystem
 
         public TouchInput()
         {
-            Debug.Log("<color=green>[TouchInput] Created:</color>");
         }
 
         public void OnInitialized(IInputService inputService)

@@ -203,7 +203,7 @@ namespace Player
             {
                 if (playerController.GetDisguiseType() != EnemyType.None)
                 {
-                    Debug.Log("[PlayerService] Disguise:" + playerController.GetDisguiseType());
+                    
                     if (enemyType == playerController.GetDisguiseType())
                     { return false; }
                 }

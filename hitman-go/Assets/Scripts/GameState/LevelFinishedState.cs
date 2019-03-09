@@ -34,7 +34,7 @@ namespace GameState
             List<StarData> stars = pathService.GetStarsForLevel();
             for (int i = 0; i < stars.Count; i++)
             {
-                Debug.Log(stars[i].type);
+               
                 saveService.SaveStarTypeForLevel(currentLevel, stars[i].type, starService.CheckForStar(stars[i].type));
             }
            service.IncrimentMaxLevel();

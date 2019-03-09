@@ -56,7 +56,7 @@ namespace Enemy
 
                 if (raycastHit.collider.GetComponent<IPlayerView>() != null)
                 {
-                    Debug.Log("Hitting "+ raycastHit.collider.name);
+                    
                     if (enemyController.IsPlayerKillable())
                     { await enemyController.KillPlayer(); }
                     else

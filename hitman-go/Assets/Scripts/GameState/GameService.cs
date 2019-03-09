@@ -62,7 +62,7 @@ namespace GameState
         }
         public void ChangeToLoadLevelState()
         {
-            //            Debug.Log(currentLevel);
+            
             starService.SetTotalEnemyandMaxPlayerMoves(levels.levelsList[currentLevel].noOfEnemies, levels.levelsList[currentLevel].maxPlayerMoves);
             ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
         }
@@ -86,13 +86,13 @@ namespace GameState
             if (previousGameState != null) { previousGameState.OnStateExit(); }
             currentGameState = newGameState;
             currentGameState.OnStateEnter();
-            //            Debug.Log("CurrentGame State is "+newGameState.GetStatesType());
+            
         }
 
         public void Initialize()
         {
             ChangeToLobbyState();
-            //signalBus.TryFire(new GameStartSignal());
+            
         }
 
         public int GetCurrentLevel()

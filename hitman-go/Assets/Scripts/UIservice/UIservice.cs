@@ -67,8 +67,7 @@ namespace UIservice
                     break;
 
             }
-                //if (currentUI != null && previousUI != null)
-                //Debug.Log( "current UI state is " + currentUI.GetUIState());
+                
         }
     }
 }
