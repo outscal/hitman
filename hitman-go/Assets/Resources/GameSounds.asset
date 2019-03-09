@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b83d881d70d45e5a3302ccfa3f0125, type: 3}
   m_Name: GameSounds
   m_EditorClassIdentifier: 
+  backgroundMusic:
+    soundName: 8
+    audioClips:
+    - {fileID: 8300000, guid: 31625f1e31afb84448620095d8431b12, type: 3}
+    - {fileID: 8300000, guid: f5a0348f6e29a6e448c88d80e89c3f4f, type: 3}
+    - {fileID: 8300000, guid: 9225ded92e7615c43b253c391317aabc, type: 3}
   soundDatas:
   - name: Dual Gun
     gameSounds: 0
@@ -28,15 +34,12 @@ MonoBehaviour:
   - name: GuardUniform
     gameSounds: 7
     audioClip: {fileID: 8300000, guid: f52159eea81334f23a31c8d2165d5540, type: 3}
-  - name: GameMusic
-    gameSounds: 8
-    audioClip: {fileID: 8300000, guid: b6f76ea9ffd074a0c97b0be56367b4c2, type: 3}
+  - name: Player Death
+    gameSounds: 11
+    audioClip: {fileID: 8300000, guid: 8de2cea1854794b5ba64faf6b49497d9, type: 3}
   - name: Btn Click
     gameSounds: 9
     audioClip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
   - name: Player Move
     gameSounds: 10
     audioClip: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
-  - name: Player Death
-    gameSounds: 11
-    audioClip: {fileID: 8300000, guid: 8de2cea1854794b5ba64faf6b49497d9, type: 3}

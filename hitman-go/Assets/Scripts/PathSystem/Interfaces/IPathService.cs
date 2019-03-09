@@ -30,5 +30,8 @@ namespace PathSystem
         bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID);
         List<int> GetOriginalPath(int ID);
         EnemyType GetDisguise(int nodeID);
+        void HighlightTeleportNodes(int destID);
+        bool CheckIfTeleportable(int playerID, int nodeID);
+        void UnhighlightTeleportableNodes();
     }
 }
