@@ -13,11 +13,9 @@ namespace Player
         [SerializeField]
         private Color staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy, circularEnemy;
         public AnimationCurve moveAnimationCurve;
-        public AnimationCurve shootingAnimationCurve;
-        public AnimationCurve deathAnimationCurve;
+  
         public float durationOfMoveAnimation;
-        public float durationOfDeathAnimation;
-        public float durationOfAnimation;
+      
 
         public void DisablePlayer()
         {
@@ -79,12 +77,12 @@ namespace Player
         async private Task MoveInCurve(Vector3 _location)
         {
             float t = 0;
-            while(t<durationOfAnimation)
+            while(t<durationOfMoveAnimation)
             {
                 t += Time.deltaTime;
                 // transform.position = new Vector3(transform.position.x, animationCurve.Evaluate(t / 15) * 10, transform.position.z);
                 this.transform.LookAt(_location);
-                this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t / durationOfAnimation));
+                this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t / durationOfMoveAnimation));
                 await new WaitForEndOfFrame();
             }            
         }
