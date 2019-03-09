@@ -14,7 +14,6 @@ namespace Enemy
         public void OnStateEnter()
         {
             
-            Debug.Log("In chase State enemy");
         }
 
         public void OnStateExit()
