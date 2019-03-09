@@ -153,12 +153,14 @@ namespace Enemy
             return controller.IsKillable(killMode);
         }
 
-        private void KillEnemy(IEnemyController controllerToKill)
+       async private void KillEnemy(IEnemyController controllerToKill)
         {
             if(controllerToKill.GetEnemyType()==EnemyType.DOGS)
             {
                 starService.DogsKilled();
             }
+
+            await controllerToKill.PlayAnimation(EnemyStates.DEATH);
             enemyList.Remove(controllerToKill);
             controllerToKill.Reset();
             signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
@@ -177,6 +179,7 @@ namespace Enemy
                     if (CheckForKillableEnemy(enemyController, _killSignal.killMode))
                     {
                         enemyList.Remove(enemyController);
+                       await enemyController.PlayAnimation(EnemyStates.DEATH);
                         enemyController.Reset();
                     }
 

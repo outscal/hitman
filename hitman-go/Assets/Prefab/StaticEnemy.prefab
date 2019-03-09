@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertSprite: {fileID: 2386034303795946077}
+  animator: {fileID: 5488126276072122257}
+  enemyDeathDuration: 1
 --- !u!1 &7817930006911782898
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7817930006912255032}
+  - component: {fileID: 5488126276072122257}
   m_Layer: 0
   m_Name: StaticEnemy
   m_TagString: Untagged
@@ -155,6 +158,25 @@ Transform:
   m_Father: {fileID: 4508711303850016643}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5488126276072122257
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7817930006911789022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 304c4da90d340f14fba15bd72c4fb217, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7817930006911795640
 GameObject:
   m_ObjectHideFlags: 0

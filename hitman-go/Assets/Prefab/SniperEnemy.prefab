@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertSprite: {fileID: 6655128227618975001}
+  animator: {fileID: 52092432858244569}
+  enemyDeathDuration: 1
   lineRenderer: {fileID: 4011432960207622427}
 --- !u!120 &4011432960207622427
 LineRenderer:
@@ -223,11 +225,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 9517976, guid: 2599104a4a2a5214f8407d03827b5eff, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2599104a4a2a5214f8407d03827b5eff, type: 3}
 --- !u!4 &52092432868165493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 432436, guid: 2599104a4a2a5214f8407d03827b5eff,
+    type: 3}
+  m_PrefabInstance: {fileID: 52092432867745345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &52092432858244569 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9517976, guid: 2599104a4a2a5214f8407d03827b5eff,
     type: 3}
   m_PrefabInstance: {fileID: 52092432867745345}
   m_PrefabAsset: {fileID: 0}
