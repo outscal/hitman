@@ -147,7 +147,9 @@ namespace Player
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerService.SetTargetTap(-1);
+                    currentPlayerView.PlayAnimation(PlayerStates.SHOOTING);
                     await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
+                    currentPlayerView.PlayAnimation(PlayerStates.IDLE);
                     break;
                 case InteractablePickup.STONE:                    
                     pathService.ShowThrowableNodes(playerNodeID);

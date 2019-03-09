@@ -13,5 +13,6 @@ namespace Player
         void Reset();
         void PlayAnimation(PlayerStates state);
         void SetDisguise(EnemyType disguiseType);
+        void StopAnimation(PlayerStates state);
     }
 }

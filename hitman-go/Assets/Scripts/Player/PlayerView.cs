@@ -22,7 +22,7 @@ namespace Player
 
         private void Start()
         {
-            TestAnimation();
+            sniperRifle.SetActive(false);
         }
 
         public void DisablePlayer()
@@ -42,13 +42,16 @@ namespace Player
 
         public void PlayAnimation(PlayerStates state)
         {
-           // TestCurve();
+          if(state==PlayerStates.SHOOTING)
+          {
+                sniperRifle.SetActive(true);
+                animator.Play("Shoot");
+          }          
         }
 
         private void TestAnimation()
         {
-
-            animator.Play("Shoot");
+           // animator.Play("Shoot");
         }
 
         public void Reset()
@@ -98,6 +101,14 @@ namespace Player
                 this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t/ durationOfMoveAnimation));                
                 await new WaitForEndOfFrame();
             }            
+        }
+
+        public void StopAnimation(PlayerStates playerState)
+        {
+            if(playerState==PlayerStates.SHOOTING)
+            {
+
+            }
         }
     }
 }
