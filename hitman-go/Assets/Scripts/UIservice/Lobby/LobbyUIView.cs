@@ -19,6 +19,7 @@ namespace UIservice
         [Inject] IGameService gameService;
         [Inject] IPathService pathService;
         [Inject] ISaveService saveService;
+        [Inject] SignalBus signalBus;
 
         private List<LobbyCardController> lobbyCardControllerList;
 
@@ -96,6 +97,11 @@ namespace UIservice
         public ISaveService ReturnSaveService()
         {
             return saveService; 
+        }
+
+        public SignalBus ReturnSignalBus()
+        {
+            return signalBus; 
         }
     }
 }

@@ -20,5 +20,6 @@ namespace Enemy
         void SetRayDirection(Directions directions);
         void SetCurrentController(IEnemyController controller);
         void StopRaycast();
+        Task PlayAnimation(EnemyStates enemyStates);
     }
 }

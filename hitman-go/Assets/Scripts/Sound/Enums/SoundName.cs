@@ -15,5 +15,8 @@ namespace SoundSystem
         , keyPickUp
         , guardUniformFX
             , gameMusic
+            , btnClick
+            , playerMove
+            , playerDeath
     }
 }

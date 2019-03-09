@@ -6,6 +6,8 @@ using System.Collections;
 using PathSystem;
 using System.Threading.Tasks;
 using UnityEngine;
+using Zenject;
+using SoundSystem;
 
 namespace Player
 {
@@ -22,9 +24,11 @@ namespace Player
         GameObject playerInstance;
         private Vector3 spawnLocation;
         private EnemyType disguiseType = EnemyType.None;
+        readonly SignalBus signalBus;
 
-        public PlayerController(IPlayerService _playerService, IGameService _gameService, IPathService _pathService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject)
+        public PlayerController(IPlayerService _playerService, IGameService _gameService, IPathService _pathService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
+            this.signalBus = signalBus;
             playerService = _playerService;            
             pathService = _pathService;
             gameService = _gameService;
@@ -46,6 +50,8 @@ namespace Player
 
         async public Task MoveToLocation(Vector3 _location)
         {
+            signalBus.TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.playerMove });
             await currentPlayerView.MoveToLocation(_location);
         }
 
@@ -66,7 +72,6 @@ namespace Player
 
         public void Reset()
         {
-            
             playerService.GetSignalBus().Unsubscribe<DisguiseSignal>(SetDisguiseType);
             currentPlayerView.Reset();
         }

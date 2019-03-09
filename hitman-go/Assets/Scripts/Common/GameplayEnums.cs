@@ -86,7 +86,8 @@ namespace Common
         MOVING,
         CHASE,
         RETURN_TO_PATH,
-        CONSTANT_CHASE
+        CONSTANT_CHASE,
+        DEATH
     }
     public enum KillMode
     {
