@@ -47,8 +47,6 @@ namespace InteractableSystem
                 //interactablePickup = interactablePickup
             });
 
-            
-
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);
         }

@@ -27,14 +27,13 @@ namespace InteractableSystem
             List<int> nodeID = new List<int>();
             nodeID.Clear();
             int k = (int)interactablePickup;
+            nodeID = interactableManager.GetNodeIDOfController(interactablePickup);
             switch (interactablePickup)
             {
                 case InteractablePickup.NONE:
                     break;
 
                 case InteractablePickup.BREIFCASE:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.BREIFCASE);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView briefCaseView = interactableScriptableObj.interactableItems[k]
@@ -49,8 +48,6 @@ namespace InteractableSystem
                     break;
 
                 case InteractablePickup.STONE:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.STONE);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView stoneView = interactableScriptableObj.interactableItems[k]
@@ -65,8 +62,6 @@ namespace InteractableSystem
                     break;
 
                 case InteractablePickup.BONE:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.BONE);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView boneView = interactableScriptableObj.interactableItems[k]
@@ -81,8 +76,6 @@ namespace InteractableSystem
                     break;
 
                 case InteractablePickup.SNIPER_GUN:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.SNIPER_GUN);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView sniperView = interactableScriptableObj.interactableItems[k]
@@ -97,8 +90,6 @@ namespace InteractableSystem
                     break;
 
                 case InteractablePickup.DUAL_GUN:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.DUAL_GUN);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView dualGunView = interactableScriptableObj.interactableItems[k]
@@ -112,8 +103,6 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.COLOR_KEY:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.COLOR_KEY);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView keyView = interactableScriptableObj.interactableItems[k]
@@ -127,8 +116,6 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.AMBUSH_PLANT:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.AMBUSH_PLANT);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView ambushPlantView = interactableScriptableObj.interactableItems[k]
@@ -142,8 +129,6 @@ namespace InteractableSystem
                     }
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
-                    nodeID = interactableManager.GetNodeIDOfController(InteractablePickup.GUARD_DISGUISE);
-
                     for (int i = 0; i < nodeID.Count; i++)
                     {
                         InteractableView guardView = interactableScriptableObj.interactableItems[k]

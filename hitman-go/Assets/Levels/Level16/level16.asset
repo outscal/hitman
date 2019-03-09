@@ -150,7 +150,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 7
-      disguise: 2
+      disguise: 1
       property: 0
       spawnPickups: 9
       spawnEnemies: []
@@ -265,7 +265,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 15
-      disguise: 1
+      disguise: 0
       property: 0
       spawnPickups: 9
       spawnEnemies: []
@@ -304,7 +304,7 @@ MonoBehaviour:
     up: 18
     down: 16
     left: -1
-    right: -1
+    right: 13
     teleport: 
   - node:
       snipeable: 0

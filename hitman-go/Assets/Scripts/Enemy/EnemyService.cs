@@ -202,6 +202,7 @@ namespace Enemy
                 starService.AllDogsKilled();
                 gameService.ChangeToPlayerState();
             }
+            await new WaitForEndOfFrame();
         }
         public void TriggerPlayerDeath()
         {
