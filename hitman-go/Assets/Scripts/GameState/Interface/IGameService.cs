@@ -4,6 +4,7 @@ namespace GameState
 {
     public interface IGameService
     {
+         void IncrimentMaxLevel();
          GameStatesType GetCurrentState();
          void ChangeToPlayerState();
          int GetCurrentLevel();

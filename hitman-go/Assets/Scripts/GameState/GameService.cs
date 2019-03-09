@@ -20,7 +20,7 @@ namespace GameState
         IStarService starService;
         readonly SignalBus signalBus;
         ScriptableLevels levels;
-        int currentLevel = 0;
+        int currentLevel = 0, maxLevel = 0;
         IPathService pathService;
 
         public GameService(SignalBus signalBus, ScriptableLevels levels, IPathService pathService, ISaveService saveService, IStarService starService)
@@ -35,6 +35,7 @@ namespace GameState
         }
         public void SetCurrentLevel(int level){
             currentLevel=level;
+            maxLevel = level;
         }
         public List<StarData> GetStarsForLevel(int level)
         {
@@ -55,23 +56,25 @@ namespace GameState
         {
             ChangeState(new GameOverState(signalBus, this));
         }
-        public void ChangeToLoadLevelState()
-        {
-            //            Debug.Log(currentLevel);
-            starService.SetTotalEnemyandMaxPlayerMoves(levels.levelsList[currentLevel].noOfEnemies, levels.levelsList[currentLevel].maxPlayerMoves);
-            ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
-        }
         public void IncrimentLevel()
         {
             if (levels.levelsList.Count > currentLevel) { currentLevel = currentLevel + 1; }
-            saveService.SaveMaxLevel(currentLevel);
+        }
+        public void ChangeToLoadLevelState()
+        {
+            
+            starService.SetTotalEnemyandMaxPlayerMoves(levels.levelsList[currentLevel].noOfEnemies, levels.levelsList[currentLevel].maxPlayerMoves);
+            ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
+        }
+        public void IncrimentMaxLevel()
+        {
+            if (levels.levelsList.Count > maxLevel) { maxLevel = maxLevel + 1; }
+            saveService.SaveMaxLevel(maxLevel);
             
         }
         public void ChangeToLevelFinishedState()
         {
             ChangeState(new LevelFinishedState(signalBus, this,saveService,pathService,currentLevel,starService));
-
-
         }
         public void ChangeToEnemyState()
         {
@@ -83,13 +86,13 @@ namespace GameState
             if (previousGameState != null) { previousGameState.OnStateExit(); }
             currentGameState = newGameState;
             currentGameState.OnStateEnter();
-            //            Debug.Log("CurrentGame State is "+newGameState.GetStatesType());
+            
         }
 
         public void Initialize()
         {
             ChangeToLobbyState();
-            //signalBus.TryFire(new GameStartSignal());
+            
         }
 
         public int GetCurrentLevel()

@@ -142,7 +142,7 @@ namespace Enemy
             
             if (!playerService.PlayerDeathStatus())
             {
-                Debug.Log("changing to player state");
+                
                 gameService.ChangeToPlayerState();
 
             }

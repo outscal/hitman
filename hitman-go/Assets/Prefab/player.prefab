@@ -65,6 +65,40 @@ MonoBehaviour:
   knifeEnemy: {r: 0.9622642, g: 0.36765754, b: 0.9127926, a: 1}
   biDirectionalEnemy: {r: 0.5849056, g: 0.57111067, b: 0.57111067, a: 1}
   circularEnemy: {r: 0.52175754, g: 0.3890174, b: 0.8867924, a: 1}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.67360187
+      value: 0.6203355
+      inSlope: 0.38362837
+      outSlope: 0.38362837
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.18296283
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  durationOfAnimation: 3
 --- !u!1001 &528756964591342239
 PrefabInstance:
   m_ObjectHideFlags: 0

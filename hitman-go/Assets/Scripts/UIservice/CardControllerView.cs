@@ -7,9 +7,11 @@ namespace UIservice
     {
         public Text cardName;
         public GameObject showTrue, showFalse;
-        private void OnEnable() { 
+        private void OnEnable() {
+          
         }
         private void OnDestroy() {
+           
         }
 
         public void setCardName(string name)

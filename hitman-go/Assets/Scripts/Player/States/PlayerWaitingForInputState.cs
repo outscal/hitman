@@ -52,7 +52,7 @@ namespace Player
                     else
                     {
 
-                        Debug.Log("NOT IN RANGE");
+                      
                         await new WaitForEndOfFrame();
                     }
                 }

@@ -149,7 +149,7 @@ namespace Enemy
                     break;
 
                 default:
-                    Debug.Log("No Enemy Controller of this type");
+                    
                     break;
             }
 

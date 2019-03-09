@@ -18,12 +18,12 @@ namespace InputSystem
                 {
                     if (value.x < 0)
                     {
-                        Debug.Log("[SwipeDirection] SwipeLeft");
+                        
                         direction = Directions.LEFT;
                     }
                     else if (value.x > 0)
                     {
-                        Debug.Log("[SwipeDirection] SwipeRight");
+                       
                         direction = Directions.RIGHT;
                     }
                 }//y axis swipe
@@ -31,12 +31,12 @@ namespace InputSystem
                 {
                     if (value.y < 0)
                     {
-                        Debug.Log("[SwipeDirection] SwipeDown");
+                        
                         direction = Directions.DOWN;
                     }
                     else if (value.y > 0)
                     {
-                        Debug.Log("[SwipeDirection] SwipeUp");
+                        
                         direction = Directions.UP;
                     }
                 }

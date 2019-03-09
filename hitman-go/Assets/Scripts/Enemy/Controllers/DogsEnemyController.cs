@@ -27,10 +27,7 @@ namespace Enemy
         {
             alertedPathNodes.Clear();
             //alertedPathNodes = pathService.GetAlertedNodes(newDogDestinationSignal.nodeID);
-            alertedPathNodes = pathService.GetShortestPath(currentNodeID,newDogDestinationSignal.nodeID);
-            for (int i = 0; i < alertedPathNodes.Count; i++)
-            {
-            }
+            alertedPathNodes = pathService.GetShortestPath(currentNodeID,newDogDestinationSignal.nodeID);                                       
             alertMoveCalled = 0;
             stateMachine.ChangeEnemyState(EnemyStates.CHASE);
             currentEnemyView.AlertEnemyView();
@@ -108,7 +105,7 @@ namespace Enemy
                 return;
             }
             if (CheckForPlayerPresence(nextNodeCheck))
-            {
+            {                
                 AlertEnemy(nextNodeCheck);
                 return;
             }
@@ -124,12 +121,14 @@ namespace Enemy
             for (int i = 0; i < directionList.Count; i++)
             {
                 int nextNodeCheck = pathService.GetNextNodeID(nextNode, directionList[i]);
+                
                 if (nextNodeCheck == -1)
                 {
                     continue;
                 }
                 if (CheckForPlayerPresence(nextNodeCheck))
                 {
+                    
                     AlertEnemy(nextNodeCheck);
                     break;
                 }
@@ -140,6 +139,7 @@ namespace Enemy
         public override void AlertEnemy(int _destinationID)
         {
             int middleID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+            
             if(alertedPathNodes.Count!=0)
             {
                 middleID = alertedPathNodes[2];

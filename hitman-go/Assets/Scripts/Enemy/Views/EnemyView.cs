@@ -42,8 +42,10 @@ namespace Enemy
 
         async public Task MoveToLocation(Vector3 location)
         {
+            
             iTween.MoveTo(gameObject, location, 0.3f);
             await new WaitForSeconds(0.3f);
+            
         }
 
         public void Reset()
@@ -54,9 +56,11 @@ namespace Enemy
 
         async public virtual Task RotateEnemy(Vector3 newRotation)
         {            
+            
             iTween.RotateTo(this.gameObject, newRotation, 0.2f);
 
             await new WaitForSeconds(0.2f);
+            
         }
 
         public void SetPosition(Vector3 pos)

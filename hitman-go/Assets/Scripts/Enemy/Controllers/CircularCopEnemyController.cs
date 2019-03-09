@@ -44,6 +44,7 @@ namespace Enemy
 
 
                 Directions toLook = pathService.GetDirections(currentNodeID, toLookNode);
+                
                 currentEnemyView.RotateEnemy(GetRotation(toLook));
                
 

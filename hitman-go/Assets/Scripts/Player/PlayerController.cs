@@ -176,7 +176,7 @@ namespace Player
         public void SetDisguiseType(DisguiseSignal disguiseSignal)
         {
             disguiseType = disguiseSignal.enemyType;
-            Debug.Log("[PlayerController] Disguse Type:" + disguiseType);
+           
             currentPlayerView.SetDisguise(disguiseType); 
         }
 
