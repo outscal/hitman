@@ -40,13 +40,18 @@ namespace Player
             await MoveInCurve(_location);
         }
 
-        public void PlayAnimation(PlayerStates state)
+        async public Task PlayAnimation(PlayerStates state)
         {
-          if(state==PlayerStates.SHOOTING)
-          {
+            if (state == PlayerStates.SHOOTING)
+            {
                 sniperRifle.SetActive(true);
+                animator.StartPlayback();
                 animator.Play("Shoot");
-          }          
+            } else if (state == PlayerStates.DEAD)
+            {
+                animator.Play("Death");
+                await new WaitForSeconds(2f);
+            }
         }
 
         private void TestAnimation()
@@ -105,9 +110,11 @@ namespace Player
 
         public void StopAnimation(PlayerStates playerState)
         {
+            Debug.Log("Stop Animation Called");
             if(playerState==PlayerStates.SHOOTING)
             {
-
+                sniperRifle.SetActive(false);
+                animator.Play("DefaultIdleState");
             }
         }
     }

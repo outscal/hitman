@@ -20,5 +20,6 @@ namespace Player
         void PerformAction(Directions direction);
         EnemyType GetDisguiseType();
         void SetDisguiseType(DisguiseSignal disguiseSignal);
+        Task PlayAnimation(PlayerStates dEAD);
     }
 }

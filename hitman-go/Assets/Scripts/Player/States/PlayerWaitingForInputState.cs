@@ -46,6 +46,7 @@ namespace Player
                         stateMachine.ChangePlayerState(playerState, PlayerStates.NONE);
                         _interactableController.TakeAction(nodeID);
                         stateMachine.ChangePlayerState(PlayerStates.END_TURN, PlayerStates.NONE);
+                        
                         playerService.ChangeToEnemyState();
                         break;
                     }
