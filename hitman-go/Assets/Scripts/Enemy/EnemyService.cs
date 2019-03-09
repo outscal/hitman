@@ -1,12 +1,13 @@
-﻿using Common;
-using GameState.Interface;
-using GameState.Signals;
+using Common;
+using GameState;
 using PathSystem;
 using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using StarSystem;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -15,198 +16,242 @@ namespace Enemy
     public class EnemyService : IEnemyService
     {
         readonly SignalBus signalBus;
-        private Dictionary<int, EnemyController> enemyList = new Dictionary<int, EnemyController>();
+        private List<IEnemyController> enemyList = new List<IEnemyController>();
         private IPathService pathService;
         private IPlayerService playerService;
+        private IStarService starService;
+        private IEnemyFactory enemyFactory;
         private IGameService gameService;
-    
+        private EnemyScriptableObjectList enemyScriptableObjectList;
+        private IEnumerable<Task> moveTasks;
+        private List<Task> moveTaskList = new List<Task>();
 
-
-        public EnemyService(IPlayerService _playerService,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
+        public EnemyService(IPlayerService _playerService, IStarService _starService ,IPathService _pathService, EnemyScriptableObjectList enemyList, SignalBus _signalBus, IGameService _gameService)
         {
             pathService = _pathService;
             gameService = _gameService;
-            signalBus = _signalBus;
             playerService = _playerService;
-            SpawnEnemy(enemyList);
-            signalBus.Subscribe<EnemyDeathSignal>(EnemyDead);
+            starService = _starService;
+
+            signalBus = _signalBus;
+            enemyScriptableObjectList = enemyList;
+
+            signalBus.Subscribe<EnemyKillSignal>(EnemyDead);
             signalBus.Subscribe<StateChangeSignal>(OnTurnStateChange);
+            signalBus.Subscribe<ResetSignal>(ResetEnemy);
+            signalBus.Subscribe<GameStartSignal>(OnGameStart);
+            signalBus.Subscribe<SignalAlertGuards>(AlertEnemies);
+
         }
 
-
-        public bool CheckForEnemyPresence(int nodeID)
+        private void OnGameStart()
         {
-            if (enemyList.ContainsKey(nodeID))
+            enemyFactory = new EnemyFactory(this, pathService, gameService, signalBus);
+            SpawnEnemy(enemyScriptableObjectList);
+
+        }
+
+        private bool CheckForEnemyPresence(IEnemyController enemyController, int nodeID)
+        {
+            if (nodeID == -1)
+            {
+                return false;
+            }
+            if (enemyList.Count == 0)
             {
 
-                return true;
-            }
-            else
                 return false;
+            }
+            return enemyController.GetCurrentNodeID() == nodeID;
+        }
+
+        private void ResetEnemy()
+        {
+            ResetEverything();
+        }
+
+        private void ResetEverything()
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                enemyList[i].Reset();
+            }
+            enemyList.Clear();
         }
 
         public int GetPlayerNodeID()
         {
             return playerService.GetPlayerNodeID();
         }
+
         private void OnTurnStateChange()
         {
-            if(gameService.GetCurrentState()==GameStatesType.ENEMYSTATE)
+            if (gameService.GetCurrentState() == GameStatesType.ENEMYSTATE)
             {
                 PerformMovement();
             }
+
         }
 
-        private void PerformMovement()
+        async private Task PerformMovement()
         {
-            List<int> enemyKey = new List<int>();
-            foreach (int key in enemyList.Keys)
+
+            if (enemyList.Count == 0)
             {
-                enemyKey.Add(key);
-            }
-
-            for (int i = 0; i < enemyKey.Count; i++)
-            {
-                EnemyController controller;
-
-                enemyList.TryGetValue(enemyKey[i], out controller);
-
-                if (CheckForEnemyPresence(playerService.GetPlayerNodeID()))
+                if (!playerService.PlayerDeathStatus())
                 {
-                    signalBus.TryFire(new EnemyDeathSignal() { nodeID = playerService.GetPlayerNodeID() });
+                    gameService.ChangeToPlayerState();
+
                 }
-                else { controller.Move(); }
+                return;
             }
+
+            List<IEnemyController> KillableEnemies = new List<IEnemyController>();
+            List<Task> taskToKill = new List<Task>();
+
+            Task moveTask;
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                IEnemyController controller = enemyList[i];
+                if (!playerService.PlayerDeathStatus())
+                {
+                    if (CheckForEnemyPresence(controller, playerService.GetPlayerNodeID()) && CheckForKillablePlayer(controller.GetEnemyType()))
+                    {                       
+                        KillableEnemies.Add(controller);
+                        continue;
+                    }
+                    else
+                    {
+                        moveTask = controller.Move();
+                        moveTaskList.Add(moveTask);
+                    }
+                }
+
+
+            }
+            await Task.WhenAll(moveTaskList.ToArray());
+            moveTaskList.Clear();
+
+            IEnemyController controllerToKill;
+            for (int i = 0; i < KillableEnemies.Count; i++)
+            {
+                controllerToKill = KillableEnemies[i];
+                KillEnemy(controllerToKill);
+
+            }
+            
             if (!playerService.PlayerDeathStatus())
             {
-                Debug.Log("changing from enemy to player");
-                signalBus.TryFire(new StateChangeSignal());
+                
+                gameService.ChangeToPlayerState();
+
             }
         }
-        public void EnemyDead(EnemyDeathSignal _deathSignal)
+
+        private bool CheckForKillableEnemy(IEnemyController controller, KillMode killMode)
         {
-           
-            EnemyController enemy;            
-            enemyList.TryGetValue(_deathSignal.nodeID, out enemy);
-            enemy.DisableEnemy();
-            enemyList.Remove(_deathSignal.nodeID);
+            return controller.IsKillable(killMode);
         }
 
-        public void SpawnEnemy(EnemyScriptableObjectList scriptableObjectList)
+       async private void KillEnemy(IEnemyController controllerToKill)
         {
-            for (int i = 0; i < scriptableObjectList.enemyList.Count; i++)
+            if(controllerToKill.GetEnemyType()==EnemyType.DOGS)
             {
-                SpawnSingleEnemy(scriptableObjectList.enemyList[i]);
+                starService.DogsKilled();
             }
+
+            await controllerToKill.PlayAnimation(EnemyStates.DEATH);
+            enemyList.Remove(controllerToKill);
+            controllerToKill.Reset();
+            signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
         }
 
+
+        async public void EnemyDead(EnemyKillSignal _killSignal)
+        {
+            var tempList = enemyList;
+
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                IEnemyController enemyController = tempList[i];
+                if (enemyController.GetCurrentNodeID() == _killSignal.nodeID)
+                {
+                    if (CheckForKillableEnemy(enemyController, _killSignal.killMode))
+                    {
+                        enemyList.Remove(enemyController);
+                       await enemyController.PlayAnimation(EnemyStates.DEATH);
+                        enemyController.Reset();
+                    }
+
+                }
+            }
+            bool allDogsKilled=true;
+            foreach(IEnemyController enemyController in enemyList)
+            {
+                if(enemyController.GetEnemyType()==EnemyType.DOGS)
+                {
+                    allDogsKilled = false;
+                }
+            }
+            if(allDogsKilled)
+            {
+                starService.AllDogsKilled();
+            }
+            if (enemyList.Count == 0)
+            {
+                starService.AllDogsKilled();
+                gameService.ChangeToPlayerState();
+            }
+            await new WaitForEndOfFrame();
+        }
         public void TriggerPlayerDeath()
         {
-           
             signalBus.TryFire(new PlayerDeathSignal());
         }
-
-        private void SpawnSingleEnemy(EnemyScriptableObject _enemyScriptableObject)
+        private void SpawnEnemy(EnemyScriptableObjectList enemyScriptableObjectList)
         {
-            List<int> spawnNodeID = new List<int>();
+            enemyList = enemyFactory.SpawnEnemies(enemyScriptableObjectList);
 
-            switch (_enemyScriptableObject.enemyType)
+        }
+
+       public bool CheckForKillablePlayer(EnemyType enemyType)
+        {
+            return playerService.CheckForKillablePlayer(enemyType);
+        }
+
+        private void AlertEnemies(SignalAlertGuards _signalAlertGuards)
+        {
+            List<int> alertedNodes = new List<int>();
+            alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
+
+            for (int i = 0; i < enemyList.Count; i++)
             {
-                case EnemyType.STATIC:
-                    spawnNodeID.Clear();
+                for (int j = 0; j < alertedNodes.Count; j++)
+                {
 
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    //Debug.Log(spawnNodeID.Count);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
+                    switch (_signalAlertGuards.interactablePickup)
                     {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new StaticEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        //Debug.Log("spawn id node :" + spawnNodeID[i]);
-                        enemyList.Add(spawnNodeID[i], newEnemy);
+                        case InteractablePickup.BONE:
+                            if (enemyList[i].GetEnemyType() == EnemyType.DOGS)
+                            {
+                                if (enemyList[i].GetCurrentNodeID() == alertedNodes[j])
+                                {
+                                    enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
+                                }
+                            }
+                            break;
+                        case InteractablePickup.STONE:
+                            if (enemyList[i].GetEnemyType() != EnemyType.DOGS)
+                            {
+                                if (enemyList[i].GetCurrentNodeID() == alertedNodes[j])
+                                {
+                                    enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
+                                }
+                            }
+                            break;
                     }
-                    break;
 
-                case EnemyType.PATROLLING:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new PatrollingEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.ROTATING_KNIFE:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new RotatingKnifeEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.CIRCULAR_COP:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new CircularCopEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.SHIELDED:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new ShieldedEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.DOGS:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new DogsEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.SNIPER:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new SniperEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                case EnemyType.TARGET:
-                    spawnNodeID.Clear();
-                    spawnNodeID = pathService.GetEnemySpawnLocation(EnemyType.STATIC);
-                    for (int i = 0; i < spawnNodeID.Count; i++)
-                    {
-                        Vector3 spawnLocation = pathService.GetNodeLocation(spawnNodeID[i]);
-                        EnemyController newEnemy = new TargetEnemyController(this, pathService, gameService, spawnLocation, _enemyScriptableObject, spawnNodeID[i], pathService.GetEnemySpawnDirection(spawnNodeID[i]));
-                        enemyList.Add(spawnNodeID[i], newEnemy);
-                    }
-                    break;
-
-                default:
-                    Debug.Log("No Enemy Controller of this type");
-                    break;
-
+                }
             }
         }
     }

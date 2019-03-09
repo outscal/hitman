@@ -1,155 +1,121 @@
 using Common;
-using PathSystem.NodesScript;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CameraSystem;
 
 namespace PathSystem
 {
     public class PathService : IPathService
     {
-        List<int> shortestPath;
-        GameObject line;
-        NodeControllerView nodeprefab, targetNode;
-        int shortestPathLength;
-        [SerializeField] List<Node> graph = new List<Node>();
-        public PathService(ScriptableGraph _Graph)
-        {
-            
-            nodeprefab = _Graph.nodeprefab;
-            targetNode = _Graph.targetNode;
-            line = _Graph.line; DrawGraph(_Graph);
-            Debug.Log("path created");
-        }
+        PathController controller;
         public void DrawGraph(ScriptableGraph Graph)
         {
-            for (int i = 0; i < Graph.Graph.Count; i++)
-            {
-                Node node = new Node();
-                node.node = Graph.Graph[i].node;
-                node.connections = Graph.Graph[i].GetConnections();
-                graph.Add(node);
-                nodeprefab.SetNodeID(i);
-                if (graph[i].node.property == NodeProperty.TARGETNODE)
-                {
-                    GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
-                }
-                else
-                {
-                    GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity);
-                }
-                if (node.connections[0] != -1)
-                {
-                    GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)));
-                }
-                if (node.connections[2] != -1)
-                {
-                    GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0));
-                }
-
-            }
-            shortestPathLength=graph.Count;
-            GetShortestPath(0, 3);
-
+            controller = new PathController(Graph,this);
+            controller.DrawGraph(Graph);
         }
-        private void printAllPaths(int s, int d)
-        {
-            bool[] isVisited = new bool[graph.Count];
-            List<int> pathList = new List<int>();
-            pathList.Add(s);
-            printAllPathsUtil(s, d, isVisited, pathList);
+        public void KeyCollected(KeyTypes key){
+            controller.KeyCollected(key);
         }
-        private void printAllPathsUtil(int u, int d, bool[] isVisited, List<int> localPathList)
+        public KeyTypes GetKeyType(int node){
+            return controller.GetKeyType(node);
+        }
+        public void DestroyPath()
         {
-            isVisited[u] = true;
-            if (u.Equals(d))
+            if (controller != null)
             {
-                Debug.Log("Shortest Path Length is" +localPathList);
-                isVisited[u] = false;
-                return;
+                controller.DestroyPath();
+                controller = null;
             }
-            foreach (int i in graph[u].connections)
-            {
-                if (i != -1)
-                {
-                    if (!isVisited[i])
-                    {
-                        localPathList.Add(i);
-                        printAllPathsUtil(i, d, isVisited, localPathList);
-                        localPathList.Remove(i);
-                    }
-                }
-            }
-            isVisited[u] = false;
+        }
+        public List<StarData> GetStarsForLevel()
+        {
+            return controller.GetStarsForLevel();
+        }
+        public void ShowThrowableNodes(int nodeId)
+        {
+            controller.ShowThrowableNodes(nodeId);
         }
         public List<int> GetShortestPath(int _currentNode, int _destinationNode)
         {
-            shortestPath = new List<int>();
-            printAllPaths(_currentNode, _destinationNode);
-            Debug.Log("Shortest Path Length is" + shortestPath.Count);
-            return shortestPath;
+            return controller.GetShortestPath(_currentNode, _destinationNode);
         }
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
-            return graph[_nodeId].connections[(int)_dir];
+            return controller.GetNextNodeID(_nodeId, _dir);
         }
-        
         public Vector3 GetNodeLocation(int _nodeID)
         {
-            return graph[_nodeID].node.nodePosition;
+            return controller.GetNodeLocation(_nodeID);
         }
-
         public List<int> GetPickupSpawnLocation(InteractablePickup type)
         {
-            List<int> pickableNodeList = new List<int>();
-            for (int i = 0; i < graph.Count; i++)
-            {
-                if (graph[i].node.spawnPickups == type)
-                {
-                    pickableNodeList.Add(graph[i].node.uniqueID);
-                }
-            }
-            return pickableNodeList;
+            return controller.GetPickupSpawnLocation(type);
         }
-
         public int GetPlayerNodeID()
         {
-            int playerNode = -1;
-            for (int i = 0; i < graph.Count; i++)
-            {
-                if (graph[i].node.property == NodeProperty.SPAWNPLAYER)
-                {
-                    playerNode = graph[i].node.uniqueID;
-                    break;
-                }
-            }
-            return playerNode;
+            return controller.GetPlayerNodeID();
         }
-        public List<int> GetEnemySpawnLocation(EnemyType type)
+        public List<EnemySpawnData> GetEnemySpawnLocation(EnemyType type)
         {
-            List<int> enemySpawnNode = new List<int>();
-            for (int i = 0; i < graph.Count; i++)
-            {
-                if (graph[i].ContainsEnemyType(type))
-                {
-                    enemySpawnNode.Add(graph[i].node.uniqueID);
-                }
-            }
-            return enemySpawnNode;
+            return controller.GetEnemySpawnLocation(type);
         }
         public List<int> GetAlertedNodes(int _targetNodeID)
         {
-            throw new NotImplementedException();
+            return controller.GetAlertedNodes(_targetNodeID);
         }
-
         public Directions GetEnemySpawnDirection(int _nodeID)
         {
-            return graph[_nodeID].node.spawnEnemies[0].dir;
+            return controller.GetEnemySpawnDirection(_nodeID);
         }
-
         public bool CheckForTargetNode(int _NodeID)
         {
-            return graph[_NodeID].node.property == NodeProperty.TARGETNODE;
+            return controller.CheckForTargetNode(_NodeID);
+        }
+        public bool CanMoveToNode(int playerNode, int destinationNode)
+        {
+            return controller.CanMoveToNode(playerNode, destinationNode);
+        }
+        public bool ThrowRange(int playerNode, int destinationNode)
+        {
+            return controller.ThrowRange(playerNode, destinationNode);
+        }
+        public Directions GetDirections(int sourceNode, int nextNode)
+        {
+            return controller.GetDirections(sourceNode, nextNode);
+
+        }
+        public bool CheckIfSnipeable(int nodeId)
+        {
+            return controller.CheckIfSnipeable(nodeId);
+        }
+            public List<CameraScriptableObj> GetCameraDataList()
+        {
+            return controller.GetCameraScriptableObject();
+        }
+
+        public bool CanEnemyMoveToNode(int enemyNodeID, int nextNodeID)
+        {
+            return controller.CanEnemyMoveToNode(enemyNodeID, nextNodeID);
+        }
+        public List<int> GetOriginalPath(int ID)
+        {
+            return controller.GetOriginalPath(ID);
+        }
+        public EnemyType GetDisguise(int nodeID)
+        {
+            return controller.GetDisguise(nodeID);
+        }
+        public bool CheckIfTeleportable(int playerID,int nodeID)
+        {
+            return controller.CheckTeleportable(playerID,nodeID);
+        }
+        public void HighlightTeleportNodes(int destID)
+        {
+            controller.ShowTeleportableNodes(destID);
+        }
+        public void UnhighlightTeleportableNodes()
+        {
+            controller.UnhighlightTeleportableNodes();
         }
     }
 }

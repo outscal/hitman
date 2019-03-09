@@ -1,114 +1,230 @@
-﻿using Common;
+﻿using CameraSystem; //
+using Common;
 using Enemy;
+using GameState;
+using InteractableSystem;
 using PathSystem;
-using GameState.Interface;
-using GameState.Signals;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+using SoundSystem;
 
 namespace Player
 {
     public class PlayerService : IPlayerService
     {
-        readonly SignalBus _signalBus;
-        private PlayerController playerController;
+        readonly SignalBus signalBus;
+        private IPlayerController playerController;
         private IPathService currentPathService;
-        private PlayerDeathSignal playerDeathSignal;        
+        private PlayerDeathSignal playerDeathSignal;
         private PlayerScriptableObject playerScriptableObject;
         private Vector3 spawnLocation;
         private IGameService gameService;
-        private bool isPlayerDead=false;
-        private int playerNodeID;
+        private IInteractable interactableService;
+        private ICamera camera;
 
-        public PlayerService(IPathService _pathService,IGameService  _gameService,PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
+        private bool isPlayerDead = false;
+        private int playerNodeID;
+        private int targetNode;
+
+        public PlayerService(IPathService _pathService, IGameService _gameService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus _signalBus, ICamera camera) //
         {
-            _signalBus = signalBus;
+            this.signalBus = _signalBus;
+            this.camera = camera;
             gameService = _gameService;
-            
+            interactableService = _interactableService;
             currentPathService = _pathService;
             playerScriptableObject = _playerScriptableObject;
-            
-            _signalBus.Subscribe<PlayerDeathSignal>(PlayerDead);
-            _signalBus.Subscribe<GameOverSignal>(GameOver);
-            _signalBus.Subscribe<GameStartSignal>(OnGameStart);
-       
+            this.signalBus.Subscribe<PlayerDeathSignal>(this.PlayerDead);
+            this.signalBus.Subscribe<ResetSignal>(this.ResetLevel);
+            this.signalBus.Subscribe<GameStartSignal>(this.OnGameStart);
+            this.signalBus.Subscribe<StateChangeSignal>(this.OnStateChange);
+
         }
 
         public void OnGameStart()
         {
             SpawnPlayer();
         }
+        public void OnStateChange()
+        {
+            if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT )//&& playerController.GetPlayerState() != PlayerStates.AMBUSH)
+            {
+                playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+               // currentPathService.UnhighlightTeleportableNodes();
+            }
+        }
 
-        public void SetSwipeDirection(Directions _direction)
+        //swipe input
+        async public void SetSwipeDirection(Directions _direction)
         {
-            if(gameService.GetCurrentState()!=GameStatesType.PLAYERSTATE)
+           
+            if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
+            {
+                Debug.Log("player state nahi hai");
+                return;
+            }
+            if (gameService.GetCurrentState() == GameStatesType.GAMEOVERSTATE)
             {
                 return;
             }
-            int nextNodeID = currentPathService.GetNextNodeID(playerNodeID, _direction);
-            if (nextNodeID == -1)
+            if (playerController.GetPlayerState() != PlayerStates.IDLE)
             {
                 return;
             }
-            Vector3 nextLocation = currentPathService.GetNodeLocation(nextNodeID);
-        
-            playerController.MoveToLocation(nextLocation);
-            playerNodeID = nextNodeID;           
-            if (CheckForFinishCondition())
-            {
-                Debug.Log("Game finished");
-            }
-            _signalBus.TryFire(new StateChangeSignal());
-            
+            currentPathService.UnhighlightTeleportableNodes();
+            playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
+            playerController.PerformAction(_direction);
+            await new WaitForEndOfFrame();
+            camera.SetNodeID(GetPlayerNodeID());
         }
-       
-        private void PlayerDead()
+
+
+        //dead trigger
+        async private void PlayerDead()
         {
-            playerController.DisablePlayer();
             isPlayerDead = true;
-            _signalBus.TryFire(new GameOverSignal());
+            playerNodeID = 0;
+            //await new WaitForSeconds(.75f);
+            signalBus.TryFire(new SignalPlayOneShot(){ soundName = SoundName.playerDeath });
+            await playerController.PlayAnimation(PlayerStates.DEAD);
+            gameService.ChangeToGameOverState();
         }
-        private void GameOver()
+        //reset level trigger
+        private void ResetLevel()
         {
-            _signalBus.Unsubscribe<PlayerDeathSignal>(PlayerDead);
-            Debug.Log("GameOver");
+            if (playerController == null)
+            {
+                return;
+            }
+            ResetEverything();
         }
-        private bool CheckForFinishCondition()
+
+        //reset calls
+        private void ResetEverything()
+        {
+            isPlayerDead = false;            
+            playerController.Reset();
+            playerController = null;
+        }
+        //is game finished?
+        private bool IsGameFinished()
         {
             return currentPathService.CheckForTargetNode(playerNodeID);
         }
 
         public void SpawnPlayer()
         {
-         
-            playerNodeID = currentPathService.GetPlayerNodeID();
-            spawnLocation = currentPathService.GetNodeLocation(playerNodeID);
-            playerController = new PlayerController(this, spawnLocation, playerScriptableObject);
-            _signalBus.TryFire(new PlayerSpawnSignal());
 
+            playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject, signalBus);
+            signalBus.TryFire(new PlayerSpawnSignal());
+            playerNodeID = playerController.GetID();
+            playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
         }
 
+        //increase score on enemyKill etc 
         public void IncreaseScore()
-        {          
-            _signalBus.TryFire(new PlayerKillSignal());
-        }
-
-        public void SetTargetNode(int _nodeID)
         {
+            signalBus.TryFire(new PlayerKillSignal());
+        }
+        //Get Tap Input
+        async public void SetTargetNode(int _nodeID)
+        {
+            if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
+            {
+                targetNode = _nodeID;
+                return;
+            }
+            else if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
+            {
+                return;
+            }
+            else if (gameService.GetCurrentState() == GameStatesType.GAMEOVERSTATE)
+            {
+                return;
+            }
+            currentPathService.UnhighlightTeleportableNodes();
+            targetNode = _nodeID;
+            if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
+            {
+                playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
+                playerController.PerformMovement(_nodeID);               
+            }
+
+            await new WaitForEndOfFrame();
+            camera.SetNodeID(GetPlayerNodeID());
+
 
         }
 
+        //get the node after tap
+        public int GetTargetNode()
+        {
+            return targetNode;
+        }
+
+        //return player node id
         public int GetPlayerNodeID()
         {
-            return playerNodeID;
+            if (playerController == null)
+                return 0;
+
+            return playerController.GetID();
         }
-        
+        //is player dead?
 
         public bool PlayerDeathStatus()
         {
             return isPlayerDead;
+        }
+
+
+        public bool CheckForKillablePlayer(EnemyType enemyType)
+        {
+            bool killable = true;
+
+            if (playerController.GetPlayerState() == PlayerStates.AMBUSH)
+            {
+                return false;
+            }
+            else
+            {
+                if (playerController.GetDisguiseType() != EnemyType.None)
+                {
+                    
+                    if (enemyType == playerController.GetDisguiseType())
+                    { return false; }
+                }
+            }
+          
+            return killable;
+        }
+
+        public bool CheckForRange(int _nodeID)
+        {
+            return currentPathService.ThrowRange(GetPlayerNodeID(), _nodeID);
+        }
+
+        public void ChangeToEnemyState()
+        {
+            gameService.ChangeToEnemyState();
+        }
+
+        public void FireLevelFinishedSignal()
+        {
+            signalBus.TryFire(new LevelFinishedSignal());
+        }
+
+        public void SetTargetTap(int tapNode)
+        {
+            targetNode = tapNode;
+        }
+
+        public SignalBus GetSignalBus()
+        {
+            return signalBus;
         }
     }
 }

@@ -1,10 +1,10 @@
 using Common;
-namespace GameState.Interface
+namespace GameState
 {
     public interface IGameStates
     {
          GameStatesType GetStatesType();
-         void OnStateEneter();
+         void OnStateEnter();
          void OnStateExit();
     }
 }

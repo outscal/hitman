@@ -6,12 +6,19 @@ using InputSystem;
 using PathSystem;
 using System.Collections;
 using Common;
-using GameState.Interface;
 using GameState;
-using GameState.Signals;
+using InteractableSystem;
+using StarSystem;
+using UIservice;
+using SavingSystem;
+using CameraSystem;
+using SoundSystem;
+
 
 public class GameInstaller : MonoInstaller
 {
+    public AudioSource musicSource, fxSource;
+
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
@@ -21,10 +28,27 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<PlayerKillSignal>();
         Container.DeclareSignal<EnemyDeathSignal>();
         Container.DeclareSignal<GameStartSignal>();
-        Container.DeclareSignal<GameOverSignal>();
+        Container.DeclareSignal<ResetSignal>();
+        Container.DeclareSignal<LevelFinishedSignal>();
         Container.DeclareSignal<StateChangeSignal>();
-        
+        Container.DeclareSignal<SignalAlertGuards>();
+        Container.DeclareSignal<BriefCaseSignal>();
+        Container.DeclareSignal<SignalPlayAudio>();
+        Container.DeclareSignal<SignalPlayOneShot>();
+        Container.DeclareSignal<EnemyKillSignal>();
+        Container.DeclareSignal<SignalStopAudio>();
+        Container.DeclareSignal<NewDogDestinationSignal>();
+        Container.DeclareSignal<DisguiseSignal>();
 
+        Container.Bind<ISound>()
+            .To<SoundManager>()
+            .AsSingle()
+            .NonLazy();
+
+        Container.Bind<IUIService>()
+                   .To<UIService>()
+                   .AsSingle()
+                   .NonLazy();
         Container.Bind<IEnemyService>()
             .To<EnemyService>()
             .AsSingle()
@@ -33,28 +57,35 @@ public class GameInstaller : MonoInstaller
             .To<PlayerService>()
             .AsSingle()
             .NonLazy();
-
-        Container.Bind(typeof(IInputService),typeof(ITickable))
+        Container.Bind<IStarService>()
+        .To<StarSystemService>()
+        .AsSingle()
+        .NonLazy();
+        Container.Bind(typeof(IInputService), typeof(ITickable))
             .To<InputService>()
             .AsSingle()
             .NonLazy();
-        
 
+        Container.Bind<IInteractable>()
+        .To<InteractableManager>()
+        .AsSingle()
+        .NonLazy();
+        Container.Bind<ICamera>()
+        .To<CameraManager>()
+        .AsSingle()
+        .NonLazy();
 
         Container.Bind<IPathService>()
             .To<PathService>()
+            .AsSingle()
+            .NonLazy();
+            Container.Bind<ISaveService>()
+            .To<SaveService>()
             .AsSingle()
             .NonLazy();
 
         Container.BindInterfacesAndSelfTo<GameService>()
             .AsSingle()
             .NonLazy();
-
-        Container.BindSignal<StateChangeSignal>().ToMethod<GameService>(x=>x.ChangeState).FromResolve();
-
-     
-        
-
-
     }
 }

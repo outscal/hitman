@@ -7,10 +7,23 @@ namespace Common
         LEFT,
         RIGHT
     }
-    public enum GameStatesType{
+    public enum GameStatesType
+    {
         PLAYERSTATE,
         ENEMYSTATE,
-        GAMEOVERSTATE
+        GAMEOVERSTATE,
+        LEVELFINISHEDSTATE,
+        LOBBYSTATE,
+        LOADLEVELSTATE
+    }
+    public enum StarTypes{
+        PLAYERMOVES,
+        NOKILL,
+        ALLKILL,
+        PICKBRIEFCASE,
+        KILLDOGS,
+        COMPLETED,
+        NOKILLDOGS
     }
     public enum EnemyType
     {
@@ -18,10 +31,26 @@ namespace Common
         PATROLLING,
         ROTATING_KNIFE,
         SNIPER,
-        SHIELDED,
+        BIDIRECTIONAL,        
         DOGS,
         CIRCULAR_COP,
-        TARGET
+        GUARD_TORCH,
+        TARGET,
+        None
+    }
+    public enum KeyTypes{
+        NONE,
+        RED,
+        BLUE,
+        YELLOW
+    }
+     public enum NodeProperty
+    {
+        NONE,
+        SPAWNPLAYER,
+        TARGETNODE,
+        TELEPORT
+
     }
     public enum InteractablePickup
     {
@@ -35,5 +64,36 @@ namespace Common
         COLOR_KEY,
         AMBUSH_PLANT,
         GUARD_DISGUISE
+    }
+    public enum PlayerStates
+    {
+        IDLE,
+        AMBUSH,
+        DISGUISE,
+        UNLOCK_DOOR,
+        SHOOTING,
+        THROWING,
+        WAIT_FOR_INPUT,
+        END_TURN,
+        INTERMEDIATE_MOVE,
+        DEAD,
+        NONE
+
+    }
+    public enum EnemyStates
+    {
+        IDLE,
+        MOVING,
+        CHASE,
+        RETURN_TO_PATH,
+        CONSTANT_CHASE,
+        DEATH
+    }
+    public enum KillMode
+    {
+        WALK,
+        SHOOT,
+        BOMB
+
     }
 }

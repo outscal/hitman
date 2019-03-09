@@ -4,6 +4,9 @@ using Player;
 using Enemy;
 using System.Collections;
 using PathSystem;
+using InteractableSystem;
+using ScriptableObjSystem;
+using SoundSystem;
 
 namespace Common
 {
@@ -11,16 +14,21 @@ namespace Common
     public class ScriptableSettingsInstaller : ScriptableObjectInstaller
     {
 
-        public ScriptableGraph scriptableGraph;
+        public ScriptableLevels scriptableLevels;
         public PlayerScriptableObject playerScriptableObject;
-
-        public EnemyScriptableObjectList enemyScriptableObjectList;      
+        public InteractableScriptableObj interactableScriptableObj;
+        public EnemyScriptableObjectList enemyScriptableObjectList;
+        public GameBasicObjects gameBasicObjects;
+        public SoundScriptable soundScriptable;
 
         public override void InstallBindings()
         {
-           Container.BindInstance(playerScriptableObject);
-           Container.BindInstance(enemyScriptableObjectList);
-           Container.BindInstance(scriptableGraph);
+            Container.BindInstances(interactableScriptableObj);
+            Container.BindInstance(playerScriptableObject);
+            Container.BindInstance(enemyScriptableObjectList);
+            Container.BindInstance(scriptableLevels);
+            Container.BindInstances(gameBasicObjects);
+            Container.BindInstances(soundScriptable);
         }
     }
 }

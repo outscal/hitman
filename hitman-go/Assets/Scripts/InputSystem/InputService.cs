@@ -1,7 +1,8 @@
-using UnityEngine;
-using System;
 using Common;
+using PathSystem.NodesScript;
 using Player;
+using System;
+using UnityEngine;
 using Zenject;
 
 namespace InputSystem
@@ -10,28 +11,54 @@ namespace InputSystem
     {
         private IPlayerService playerService;
 
-        private IInputComponent inputComponent;
+        private IInputComponent playerInput;
+        private ISwipeDirection swipeDirection;
+        private ITapDetect tapDetect;
+        private GameObject tapObject;
+        private int nodeLayer = 1 << 9;
 
-        public InputService (IPlayerService playerService)
+        public InputService(IPlayerService playerService)
         {
-            Debug.Log("<color=red>[InputService] Created:</color>");
+
             this.playerService = playerService;
-            #if UNITY_ANDROID || UNITY_IOS
-                        inputComponent = new TouchInput();
-            #elif UNITY_EDITOR || UNITY_STANDALONE
-                        inputComponent = new KeyboardInput();
-            #endif
-            inputComponent.OnInitialized(this);
+
+            swipeDirection = new SwipeDirection();
+            tapDetect = new TapDetect();
+
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+            playerInput = new TouchInput();
+#elif UNITY_EDITOR || UNITY_STANDALONE
+             playerInput = new KeyboardInput();
+#endif
+            playerInput.OnInitialized(this);
         }
 
         public void PassDirection(Directions direction)
         {
+
             playerService.SetSwipeDirection(direction);
+        }
+
+        public void PassNodeID(int nodeID)
+        {
+
+            playerService.SetTargetNode(nodeID);
         }
 
         public void Tick()
         {
-            inputComponent.OnTick();
+            playerInput.OnTick();
+        }
+
+
+        public ISwipeDirection GetSwipeDirection()
+        {
+            return swipeDirection;
+        }
+
+        public ITapDetect GetTapDetect()
+        {
+            return tapDetect;
         }
     }
 }

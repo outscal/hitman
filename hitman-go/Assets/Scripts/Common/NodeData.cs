@@ -4,64 +4,43 @@ using System.Collections.Generic;
 
 namespace Common
 {
-    public enum NodeProperty
-    {
-        NONE,
-        SPAWNPLAYER,
-        TARGETNODE
-        
-    }
-    [Serializable]
-    public struct Edge
-    {
-        public Node NodeID1, NodeID2;
-    }
-
     [Serializable]
     public struct NodeData
     {
+        public bool snipeable;
+        public KeyTypes keyType;
         public int uniqueID;
+        public EnemyType disguise;
         public NodeProperty property;
         public InteractablePickup spawnPickups;
         public List<NodeEnemyData> spawnEnemies;
         public Vector3 nodePosition;
     }
+    
     [Serializable]
     public class NodeEnemyData
     {
         public EnemyType enemy;
         public Directions dir;
+        public bool hasShield;
+    }
+    public struct EnemySpawnData
+    {
+        public Directions dir;
+        public int node;
+        public bool hasShield;
     }
 
+    [Serializable]
+    public class StarData
+    {
+        public StarTypes type;
+        public String name;
+    }
+    [Serializable]
+    public class cirPath
+    {
+        public List<int> path;
+    }
 
-    [Serializable]
-    public class Node
-    {
-        public NodeData node;
-        public int[] connections = new int[4];
-        public bool ContainsEnemyType(EnemyType type)
-        {
-            for (int i = 0; i < node.spawnEnemies.Count; i++)
-            {
-                if (node.spawnEnemies[i].enemy == type)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-    [Serializable]
-    public class ScriptableNode
-    {
-        public NodeData node;
-        public int up=-1, down=-1, left=-1, right=-1;
-        public ScriptableNode(){
-            up=-1; down=-1; left=-1; right=-1;
-        }
-        public int[] GetConnections()
-        {
-            return new int[4] { up, down, left, right };
-        }
-    }
 }

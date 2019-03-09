@@ -12,14 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
+  maxwidth: 0
+  maxhight: 0
+  set: 0
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
+  GatesEdge: []
+  stars:
+  - type: 5
+    name: Completed
+  maxPlayerMoves: 10
+  noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,
     type: 3}
   targetNode: {fileID: 716432328203489091, guid: 9ba69eed27bf6fe4aa2a0990ae910293,
     type: 3}
+  teleportNode: {fileID: 0}
+  cameraScriptableList:
+  - {fileID: 11400000, guid: bb1dd246efd4844a2b0cd9cef05a40bf, type: 2}
+  - {fileID: 11400000, guid: 8a0147fb17d5f47338c741ac36575ab0, type: 2}
+  - {fileID: 11400000, guid: 228e32db3e44741efa7e05b5deb8b488, type: 2}
+  - {fileID: 11400000, guid: f42a73f1fefc34c8a980cffd7bc90730, type: 2}
+  - {fileID: 11400000, guid: 7027944f8b54b4f65901c729dce6a791, type: 2}
+  - {fileID: 11400000, guid: aa970c472387148a4a31e0702b1da651, type: 2}
   Graph:
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 0
+      disguise: 0
       property: 1
       spawnPickups: 0
       spawnEnemies: []
@@ -28,8 +49,12 @@ MonoBehaviour:
     down: -1
     left: 1
     right: -1
+    teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 1
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -38,30 +63,43 @@ MonoBehaviour:
     down: -1
     left: 2
     right: 0
+    teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 2
+      disguise: 0
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 0
-        dir: 2
+      spawnEnemies: []
       nodePosition: {x: 0, y: 0, z: 5}
     up: -1
     down: -1
     left: 3
     right: 1
+    teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 3
+      disguise: 0
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 0
+        dir: 2
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 5}
     up: 4
-    down: 3
+    down: -1
     left: -1
-    right: -1
+    right: 2
+    teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 4
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -70,8 +108,12 @@ MonoBehaviour:
     down: 3
     left: -1
     right: -1
+    teleport: 
   - node:
+      snipeable: 0
+      keyType: 0
       uniqueID: 5
+      disguise: 0
       property: 2
       spawnPickups: 0
       spawnEnemies: []
@@ -80,3 +122,4 @@ MonoBehaviour:
     down: 4
     left: -1
     right: -1
+    teleport: 
