@@ -17,5 +17,6 @@ namespace SoundSystem
             , gameMusic
             , btnClick
             , playerMove
+            , playerDeath
     }
 }

@@ -9,6 +9,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+using SoundSystem;
 
 namespace Player
 {
@@ -84,6 +85,7 @@ namespace Player
             isPlayerDead = true;
             playerNodeID = 0;
             //await new WaitForSeconds(.75f);
+            signalBus.TryFire(new SignalPlayOneShot(){ soundName = SoundName.playerDeath });
             await playerController.PlayAnimation(PlayerStates.DEAD);
             gameService.ChangeToGameOverState();
         }
@@ -113,7 +115,7 @@ namespace Player
         public void SpawnPlayer()
         {
 
-            playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject);
+            playerController = new PlayerController(this, gameService, currentPathService, interactableService, playerScriptableObject, signalBus);
             signalBus.TryFire(new PlayerSpawnSignal());
             playerNodeID = playerController.GetID();
             playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
