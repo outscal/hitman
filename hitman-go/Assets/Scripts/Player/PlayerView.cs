@@ -12,10 +12,18 @@ namespace Player
         private Renderer _renderer;
         [SerializeField]
         private Color staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy, circularEnemy;
+        [SerializeField]
+        private GameObject sniperRifle;
+
+        public Animator animator;
         public AnimationCurve moveAnimationCurve;
-  
+       
         public float durationOfMoveAnimation;
-      
+
+        private void Start()
+        {
+            TestAnimation();
+        }
 
         public void DisablePlayer()
         {
@@ -35,6 +43,12 @@ namespace Player
         public void PlayAnimation(PlayerStates state)
         {
            // TestCurve();
+        }
+
+        private void TestAnimation()
+        {
+
+            animator.Play("Shoot");
         }
 
         public void Reset()
@@ -79,10 +93,9 @@ namespace Player
             float t = 0;
             while(t<durationOfMoveAnimation)
             {
-                t += Time.deltaTime;
-                // transform.position = new Vector3(transform.position.x, animationCurve.Evaluate(t / 15) * 10, transform.position.z);
+                t += Time.deltaTime;               
                 this.transform.LookAt(_location);
-                this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t / durationOfMoveAnimation));
+                this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t/ durationOfMoveAnimation));                
                 await new WaitForEndOfFrame();
             }            
         }

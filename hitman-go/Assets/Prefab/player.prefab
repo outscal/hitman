@@ -89,7 +89,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  durationOfMoveAnimation: 0.6
+  shootingAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  deathAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  durationOfMoveAnimation: 2
+  durationOfDeathAnimation: 0
+  durationOfShootAnimation: 0
 --- !u!1001 &528756964591342239
 PrefabInstance:
   m_ObjectHideFlags: 0
