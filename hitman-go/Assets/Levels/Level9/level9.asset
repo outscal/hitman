@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level9
   m_EditorClassIdentifier: 
+  platform: {fileID: 8662582703415764840, guid: 896b37a58a4fb8d47a5f956b82422025,
+    type: 3}
   maxwidth: 0
   maxhight: 0
   set: 1
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge: []
   stars:
@@ -57,6 +60,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 0
+      disguise: 0
       property: 1
       spawnPickups: 0
       spawnEnemies: []
@@ -70,6 +74,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 1
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -83,6 +88,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 2
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -96,6 +102,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 3
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -109,6 +116,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 4
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies: []
@@ -122,11 +130,13 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 5
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
       - enemy: 2
         dir: 3
+        hasShield: 0
       nodePosition: {x: 0, y: 0, z: 0}
     up: -1
     down: -1
@@ -137,6 +147,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 6
+      disguise: 0
       property: 0
       spawnPickups: 1
       spawnEnemies: []
@@ -150,6 +161,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 7
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -163,6 +175,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 8
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -176,11 +189,13 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 9
+      disguise: 0
       property: 3
       spawnPickups: 0
       spawnEnemies:
       - enemy: 2
         dir: 1
+        hasShield: 0
       nodePosition: {x: -10, y: 0, z: -5}
     up: 14
     down: 8
@@ -191,11 +206,13 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 10
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
       - enemy: 2
         dir: 1
+        hasShield: 0
       nodePosition: {x: -5, y: 0, z: -5}
     up: 15
     down: 6
@@ -206,6 +223,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 11
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -219,11 +237,13 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 12
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
       - enemy: 2
         dir: 1
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: -5}
     up: 17
     down: 2
@@ -234,6 +254,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 13
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -247,6 +268,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 14
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -260,6 +282,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 15
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -273,6 +296,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 16
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -286,6 +310,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 17
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -299,6 +324,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 18
+      disguise: 0
       property: 2
       spawnPickups: 0
       spawnEnemies: []

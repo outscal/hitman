@@ -10,7 +10,7 @@ namespace PathSystem
     [CreateAssetMenu(fileName = "ScriptableGraph", menuName = "Custom Objects/Graph/ScriptableGraph", order = 0)]
     public class ScriptableGraph : ScriptableObject
     {
-        
+        public GameObject platform;
         public int maxwidth, maxhight;
         public bool set = true;
         public List<cirPath> circularPath;

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level15
   m_EditorClassIdentifier: 
+  platform: {fileID: 8662582703415764840, guid: 3ed59bafec26d8f4f85efaf836111d5d,
+    type: 3}
   maxwidth: 5
   maxhight: 5
   set: 0
