@@ -76,6 +76,7 @@ namespace Common
         WAIT_FOR_INPUT,
         END_TURN,
         INTERMEDIATE_MOVE,
+        DEAD,
         NONE
 
     }

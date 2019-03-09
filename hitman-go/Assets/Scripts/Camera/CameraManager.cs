@@ -24,7 +24,6 @@ namespace CameraSystem
             this.pathService = pathService;
             this.gameBasicObjects = gameBasicObjects;
             signalBus.Subscribe<GameStartSignal>(GameStarted);
-            //signalBus.Subscribe<StateChangeSignal>()
         }
 
         public void SetNodeID(int nodeID)
@@ -47,8 +46,6 @@ namespace CameraSystem
             {
                 GameObject cameraObj = GameObject.Instantiate<GameObject>(gameBasicObjects.CameraScript.gameObject);
                 cameraScript = cameraObj.GetComponent<CameraScript>();
-                //cameraObj.transform.position = cameraData.cameraData.position;
-                //cameraData = Resources.Load("Camera/CameraDataLevel2") as CameraScriptableObj;
                 cameraScript.SetCameraSettings(cameraDataList[0]);
             }
             else if (cameraScript != null)

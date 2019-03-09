@@ -22,7 +22,7 @@ namespace Player
 
         private void Start()
         {
-            TestAnimation();
+            sniperRifle.SetActive(false);
         }
 
         public void DisablePlayer()
@@ -40,15 +40,23 @@ namespace Player
             await MoveInCurve(_location);
         }
 
-        public void PlayAnimation(PlayerStates state)
+        async public Task PlayAnimation(PlayerStates state)
         {
-           // TestCurve();
+            if (state == PlayerStates.SHOOTING)
+            {
+                sniperRifle.SetActive(true);
+                animator.StartPlayback();
+                animator.Play("Shoot");
+            } else if (state == PlayerStates.DEAD)
+            {
+                animator.Play("Death");
+                await new WaitForSeconds(2f);
+            }
         }
 
         private void TestAnimation()
         {
-
-            animator.Play("Shoot");
+           // animator.Play("Shoot");
         }
 
         public void Reset()
@@ -98,6 +106,16 @@ namespace Player
                 this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t/ durationOfMoveAnimation));                
                 await new WaitForEndOfFrame();
             }            
+        }
+
+        public void StopAnimation(PlayerStates playerState)
+        {
+            Debug.Log("Stop Animation Called");
+            if(playerState==PlayerStates.SHOOTING)
+            {
+                sniperRifle.SetActive(false);
+                animator.Play("DefaultIdleState");
+            }
         }
     }
 }
