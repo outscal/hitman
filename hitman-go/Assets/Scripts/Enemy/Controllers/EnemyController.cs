@@ -35,11 +35,7 @@ namespace Enemy
 
         public EnemyController(IEnemyService _enemyService, IPathService _pathService, IGameService _gameService, Vector3 _spawnLocation, EnemyScriptableObject _enemyScriptableObject, int _currentNodeID, Directions _spawnDirection,bool _hasShield)
         {
-            currentEnemyService = _enemyService;
-            if (currentEnemyService == null)
-            {
-                Debug.Log("null enemy service");
-            }
+            currentEnemyService = _enemyService;            
             spawnLocation = _spawnLocation;
             enemyScriptableObject = _enemyScriptableObject;
             pathService = _pathService;

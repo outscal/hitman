@@ -16,8 +16,7 @@ namespace InputSystem
                 if (Physics.Raycast(ray, out raycast, Mathf.Infinity))
                 {
                     gameObject = raycast.collider.gameObject;
-                    if (gameObject != null)
-                        Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                    
                 }
             }
 
@@ -34,8 +33,7 @@ namespace InputSystem
                 if (Physics.Raycast(ray, out raycast, Mathf.Infinity, layerMask))
                 {
                     gameObject = raycast.collider.gameObject;
-                    if (gameObject != null)
-                        Debug.Log("[TapDetect] GameObject:" + gameObject.name);
+                  
                 }
             }
 

@@ -11,26 +11,32 @@ namespace Player
         [SerializeField]
         private Renderer _renderer;
         [SerializeField]
-        private Color staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy
-            , circularEnemy;
+        private Color staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy, circularEnemy;
+        public AnimationCurve moveAnimationCurve;
+        public AnimationCurve shootingAnimationCurve;
+        public AnimationCurve deathAnimationCurve;
+        public float durationOfMoveAnimation;
+        public float durationOfDeathAnimation;
+        public float durationOfAnimation;
 
         public void DisablePlayer()
         {
             gameObject.SetActive(false);
         }
       
-
+        
        async public Task MoveToLocation(Vector3 _location)
         {
-            this.transform.LookAt(_location);
-            // this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
-            iTween.MoveTo(this.gameObject, _location, 0.2f);
-            await new WaitForSeconds(0.2f);
+            //this.transform.LookAt(_location);
+            //// this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, 1f);
+            //iTween.MoveTo(this.gameObject, _location, 0.2f);
+            //await new WaitForSeconds(0.2f);
+            await MoveInCurve(_location);
         }
 
         public void PlayAnimation(PlayerStates state)
         {
-           
+           // TestCurve();
         }
 
         public void Reset()
@@ -68,6 +74,19 @@ namespace Player
                 default:
                     break;
             }
+        }
+
+        async private Task MoveInCurve(Vector3 _location)
+        {
+            float t = 0;
+            while(t<durationOfAnimation)
+            {
+                t += Time.deltaTime;
+                // transform.position = new Vector3(transform.position.x, animationCurve.Evaluate(t / 15) * 10, transform.position.z);
+                this.transform.LookAt(_location);
+                this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t / durationOfAnimation));
+                await new WaitForEndOfFrame();
+            }            
         }
     }
 }

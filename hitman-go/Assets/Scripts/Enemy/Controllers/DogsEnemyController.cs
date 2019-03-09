@@ -27,14 +27,7 @@ namespace Enemy
         {
             alertedPathNodes.Clear();
             //alertedPathNodes = pathService.GetAlertedNodes(newDogDestinationSignal.nodeID);
-            alertedPathNodes = pathService.GetShortestPath(currentNodeID,newDogDestinationSignal.nodeID);
-                Debug.Log(" stone thrown at"+ newDogDestinationSignal.nodeID);
-            
-            for (int i = 0; i < alertedPathNodes.Count; i++)
-            {
-
-                Debug.Log("alerted nodes after stone shit"+alertedPathNodes[i]);
-            }
+            alertedPathNodes = pathService.GetShortestPath(currentNodeID,newDogDestinationSignal.nodeID);                                       
             alertMoveCalled = 0;
             stateMachine.ChangeEnemyState(EnemyStates.CHASE);
             currentEnemyView.AlertEnemyView();
@@ -112,8 +105,7 @@ namespace Enemy
                 return;
             }
             if (CheckForPlayerPresence(nextNodeCheck))
-            {
-                Debug.Log("[dog enemy]Enemy alerted at : node" + nextNodeCheck);
+            {                
                 AlertEnemy(nextNodeCheck);
                 return;
             }
@@ -129,14 +121,14 @@ namespace Enemy
             for (int i = 0; i < directionList.Count; i++)
             {
                 int nextNodeCheck = pathService.GetNextNodeID(nextNode, directionList[i]);
-                Debug.Log("[check for all direc]" + nextNodeCheck);
+                
                 if (nextNodeCheck == -1)
                 {
                     continue;
                 }
                 if (CheckForPlayerPresence(nextNodeCheck))
                 {
-                    Debug.Log("[dog enemy]Enemy alerted at : node" + nextNodeCheck);
+                    
                     AlertEnemy(nextNodeCheck);
                     break;
                 }
@@ -147,7 +139,7 @@ namespace Enemy
         public override void AlertEnemy(int _destinationID)
         {
             int middleID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
-            Debug.Log("Alerted");
+            
             if(alertedPathNodes.Count!=0)
             {
                 middleID = alertedPathNodes[2];

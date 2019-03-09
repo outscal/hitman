@@ -47,7 +47,7 @@ namespace InteractableSystem
                 //interactablePickup = interactablePickup
             });
 
-            Debug.Log("[BoneController] Throw Task Done");
+            
 
             interactableView.gameObject.SetActive(false);
             interactableManager.RemoveInteractable(this);

@@ -17,7 +17,7 @@ namespace InteractableSystem
         public override void SetController(InteractableController interactableController)
         {
             this.guardUniformController = (GuardUniformController)interactableController;
-            Debug.Log("[GuardUniformView] EnemyType:" + guardUniformController.GetEnemyType());
+            
             switch (guardUniformController.GetEnemyType())
             {
                 case EnemyType.STATIC:

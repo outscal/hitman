@@ -25,10 +25,7 @@ namespace Enemy
 
             }
             if (nodeID == -1)
-            {
-                //Debug.Log("Node is -1 , direction is " + spawnDirection);
-                //await currentEnemyView.RotateInOppositeDirection();
-                //ChangeDirection();
+            {                
                 return;
             }
 
