@@ -183,7 +183,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 9
-      disguise: 0
+      disguise: 9
       property: 0
       spawnPickups: 0
       spawnEnemies:

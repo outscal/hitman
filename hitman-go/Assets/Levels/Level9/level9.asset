@@ -24,7 +24,7 @@ MonoBehaviour:
   - type: 5
     name: Completed
   - type: 3
-    name: Pick BriefCase
+    name: Pick Laptop
   - type: 0
     name: 13 Moves
   maxPlayerMoves: 13

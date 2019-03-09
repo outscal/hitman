@@ -35,8 +35,8 @@ namespace Enemy
                 {
                     return;
                 }
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
 
             }

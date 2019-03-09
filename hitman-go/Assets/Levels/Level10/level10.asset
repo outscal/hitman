@@ -42,7 +42,7 @@ MonoBehaviour:
   - type: 5
     name: Level Completed
   - type: 3
-    name: Collect BriefCase
+    name: Pick Laptop
   - type: 0
     name: 23 Turns Max
   maxPlayerMoves: 23

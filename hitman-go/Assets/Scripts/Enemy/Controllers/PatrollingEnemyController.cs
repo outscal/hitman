@@ -22,6 +22,7 @@ namespace Enemy
             {
                 ChangeDirection();
                 nodeID = pathService.GetNextNodeID(currentNodeID, spawnDirection);
+                    currentNodeID = nodeID;
                await currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 
@@ -29,19 +30,21 @@ namespace Enemy
             if (stateMachine.GetEnemyState() == EnemyStates.CHASE)
             {               
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+                    currentNodeID = nodeID;
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
             }
             if (CheckForPlayerPresence(nodeID))
             {
                 if(currentEnemyService.CheckForKillablePlayer(GetEnemyType()))
-                {                   
+                {
+                    currentNodeID = nodeID;
                     currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                     currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                     currentEnemyService.TriggerPlayerDeath();
                 }
             }
-            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
             currentNodeID = nodeID;
+            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
            
             int n = pathService.GetNextNodeID(currentNodeID, spawnDirection);

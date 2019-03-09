@@ -35,7 +35,7 @@ MonoBehaviour:
   - type: 0
     name: 19 Moves
   - type: 3
-    name: Pick BriefCase
+    name: Pick Laptop
   maxPlayerMoves: 10
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,

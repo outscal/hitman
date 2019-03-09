@@ -92,7 +92,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  durationOfMoveAnimation: 0.6
+  durationOfMoveAnimation: 0.75
 --- !u!1001 &528756964591342239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,6 +174,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091824907, guid: 93f2747121efd564bb408cfd66919ff2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f2747121efd564bb408cfd66919ff2, type: 3}
@@ -261,6 +265,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 42.474003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652293516822424976, guid: fb69307ccf39d88418823b6c1bd81b14,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652293516822424976, guid: fb69307ccf39d88418823b6c1bd81b14,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652293516822424976, guid: fb69307ccf39d88418823b6c1bd81b14,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb69307ccf39d88418823b6c1bd81b14, type: 3}

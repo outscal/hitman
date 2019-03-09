@@ -22,7 +22,7 @@ MonoBehaviour:
   GatesEdge: []
   stars:
   - type: 3
-    name: BriefCase Picked
+    name: Pick Laptop
   - type: 0
     name: 13 Moves
   - type: 5

@@ -134,7 +134,10 @@ MonoBehaviour:
       disguise: 0
       property: 0
       spawnPickups: 0
-      spawnEnemies: []
+      spawnEnemies:
+      - enemy: 0
+        dir: 0
+        hasShield: 0
       nodePosition: {x: 5, y: 0, z: 0}
     up: 10
     down: 2
@@ -207,10 +210,7 @@ MonoBehaviour:
       disguise: 0
       property: 0
       spawnPickups: 0
-      spawnEnemies:
-      - enemy: 1
-        dir: 1
-        hasShield: 0
+      spawnEnemies: []
       nodePosition: {x: 5, y: 0, z: -5}
     up: 14
     down: 5

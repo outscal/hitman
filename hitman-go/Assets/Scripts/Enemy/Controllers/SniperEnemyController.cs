@@ -35,9 +35,9 @@ namespace Enemy
             {
                 StopRaycast();
                 spawnDirection = pathService.GetDirections(currentNodeID, nodeID);
+                currentNodeID = nodeID;
                 await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
                 currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                currentNodeID = nodeID;
 
             }
             else {

@@ -100,7 +100,7 @@ namespace Player
         async private Task MoveInCurve(Vector3 _location)
         {
             float t = 0;
-            while(t<durationOfMoveAnimation)
+            while(t<=durationOfMoveAnimation)
             {
                 t += Time.deltaTime;               
                 this.transform.LookAt(_location);
