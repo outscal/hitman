@@ -67,7 +67,13 @@ namespace UIservice
                     break;
 
             }
-                
+               
         }
+
+        public SignalBus ReturnSignalBus()
+        {
+            return signalBus; 
+        }
+
     }
 }
