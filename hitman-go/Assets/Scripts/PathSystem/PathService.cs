@@ -105,5 +105,17 @@ namespace PathSystem
         {
             return controller.GetDisguise(nodeID);
         }
+        public bool CheckIfTeleportable(int playerID,int nodeID)
+        {
+            return controller.CheckTeleportable(playerID,nodeID);
+        }
+        public void HighlightTeleportNodes(int destID)
+        {
+            controller.ShowTeleportableNodes(destID);
+        }
+        public void UnhighlightTeleportableNodes()
+        {
+            controller.UnhighlightTeleportableNodes();
+        }
     }
 }

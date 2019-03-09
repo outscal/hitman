@@ -164,12 +164,12 @@ namespace PathSystem
         }
         public Directions GetEnemySpawnDirection(int _nodeID) { return graph[_nodeID].node.spawnEnemies[0].dir; }
         public bool CheckForTargetNode(int _NodeID) { return graph[_NodeID].node.property == NodeProperty.TARGETNODE; }
-        bool CheckTeleportable(int playerNode, int destinationNode) { return graph[playerNode].teleport.Contains(destinationNode); }
+        public bool CheckTeleportable(int playerNode, int destinationNode) { return graph[playerNode].teleport.Contains(destinationNode); }
         public bool CanMoveToNode(int playerNode, int destinationNode)
         {
             if ((graph[playerNode].connections[0] == destinationNode || graph[playerNode].connections[1] == destinationNode || graph[playerNode].connections[2] == destinationNode || graph[playerNode].connections[3] == destinationNode))
             {
-                view.Unhighlightnodes();
+                //UnhighlightTeleportableNodes();
                 if (graph[destinationNode].node.property == NodeProperty.TELEPORT)
                 {
                     view.ShowTeleportableNodes(graph[destinationNode].teleport);
@@ -182,6 +182,15 @@ namespace PathSystem
             }
         }
 
+        public void UnhighlightTeleportableNodes()
+        {
+            view.Unhighlightnodes();
+        }
+
+        public void ShowTeleportableNodes(int destID)
+        {
+            view.ShowTeleportableNodes(graph[destID].teleport);
+        }
         public bool CanEnemyMoveToNode(int enemyNode, int destinationNode)
         {
             return ((graph[enemyNode].connections[0] == destinationNode || graph[enemyNode].connections[1] == destinationNode || graph[enemyNode].connections[2] == destinationNode || graph[enemyNode].connections[3] == destinationNode));
@@ -205,12 +214,11 @@ namespace PathSystem
         public int GetNextNodeID(int _nodeId, Directions _dir)
         {
             int nextnode = graph[_nodeId].connections[(int)_dir];
-            // CheckTeleportable(_nodeId, nextnode);
-            view.Unhighlightnodes();
-            if (nextnode != -1 && graph[nextnode].node.property == NodeProperty.TELEPORT)
-            {
-                //view.ShowTeleportableNodes(graph[nextnode].teleport);
-            }
+            
+            //if (nextnode != -1 && graph[nextnode].node.property == NodeProperty.TELEPORT)
+            //{
+                
+            //}
 
             return nextnode;
         }

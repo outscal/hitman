@@ -53,12 +53,14 @@ namespace Player
             if (gameService.GetCurrentState() == GameStatesType.PLAYERSTATE && playerController.GetPlayerState() != PlayerStates.WAIT_FOR_INPUT )//&& playerController.GetPlayerState() != PlayerStates.AMBUSH)
             {
                 playerController.ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+               // currentPathService.UnhighlightTeleportableNodes();
             }
         }
 
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
+           
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -72,6 +74,7 @@ namespace Player
             {
                 return;
             }
+            currentPathService.UnhighlightTeleportableNodes();
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
             playerController.PerformAction(_direction);
             await new WaitForEndOfFrame();
@@ -129,14 +132,11 @@ namespace Player
         //Get Tap Input
         async public void SetTargetNode(int _nodeID)
         {
-
-
             if (playerController.GetPlayerState() == PlayerStates.SHOOTING || playerController.GetPlayerState() == PlayerStates.WAIT_FOR_INPUT || playerController.GetPlayerState() == PlayerStates.THROWING || playerController.GetPlayerState() == PlayerStates.INTERMEDIATE_MOVE)
             {
                 targetNode = _nodeID;
                 return;
             }
-
             else if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 return;
@@ -145,17 +145,12 @@ namespace Player
             {
                 return;
             }
-
+            currentPathService.UnhighlightTeleportableNodes();
             targetNode = _nodeID;
-
             if (currentPathService.CanMoveToNode(GetPlayerNodeID(), _nodeID))
             {
-
-
                 playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-
-                playerController.PerformMovement(_nodeID);
-
+                playerController.PerformMovement(_nodeID);               
             }
 
             await new WaitForEndOfFrame();

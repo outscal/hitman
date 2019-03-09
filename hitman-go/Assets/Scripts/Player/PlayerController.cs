@@ -1,13 +1,13 @@
 ﻿using Common;
 using GameState;
 using InteractableSystem;
+using PathSystem;
+using SoundSystem;
 using System;
 using System.Collections;
-using PathSystem;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using SoundSystem;
 
 namespace Player
 {
@@ -29,7 +29,7 @@ namespace Player
         public PlayerController(IPlayerService _playerService, IGameService _gameService, IPathService _pathService, IInteractable _interactableService, PlayerScriptableObject _playerScriptableObject, SignalBus signalBus)
         {
             this.signalBus = signalBus;
-            playerService = _playerService;            
+            playerService = _playerService;
             pathService = _pathService;
             gameService = _gameService;
             interactableService = _interactableService;
@@ -93,9 +93,19 @@ namespace Player
 
         async public Task PerformMovement(int nextNodeID)
         {
-            playerNodeID = nextNodeID;
+
             Vector3 nextLocation = pathService.GetNodeLocation(nextNodeID);
+            if (pathService.CheckIfTeleportable(playerNodeID, nextNodeID))
+            {
+                pathService.HighlightTeleportNodes(nextNodeID);
+            }
+            //else { 
+            //    pathService.UnhighlightTeleportableNodes();
+            //}
+
             await MoveToLocation(nextLocation);
+            playerNodeID = nextNodeID;
+
 
             if (interactableService.CheckForInteractable(nextNodeID))
             {
@@ -104,15 +114,14 @@ namespace Player
             }
             if (IsGameFinished())
             {
-                
-                playerService.FireLevelFinishedSignal();                
+
+                playerService.FireLevelFinishedSignal();
 
             }
             else if (GetPlayerState() != PlayerStates.WAIT_FOR_INPUT)
             {
                 gameService.ChangeToEnemyState();
             }
-
         }
         async public void PerformInteractableAction(IInteractableController _interactableController)
         {
@@ -121,49 +130,49 @@ namespace Player
             switch (_interactableController.GetInteractablePickup())
             {
                 case InteractablePickup.AMBUSH_PLANT:
-                    await  ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
-                    _interactableController.TakeAction(playerNodeID);              
+                    await ChangePlayerState(PlayerStates.AMBUSH, PlayerStates.NONE);
+                    _interactableController.TakeAction(playerNodeID);
                     break;
                 case InteractablePickup.BONE:
                     pathService.ShowThrowableNodes(playerNodeID);
                     playerService.SetTargetTap(-1);
-                    await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
+                    await ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
 
                     break;
                 case InteractablePickup.BREIFCASE:
-                    await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                    await ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
                     await new WaitForEndOfFrame();
                     break;
                 case InteractablePickup.COLOR_KEY:
-                    await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                    await ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                   
+
                     break;
                 case InteractablePickup.DUAL_GUN:
-                    await  ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
+                    await ChangePlayerState(PlayerStates.IDLE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
 
                     break;
                 case InteractablePickup.GUARD_DISGUISE:
-                    await  ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
+                    await ChangePlayerState(PlayerStates.DISGUISE, PlayerStates.NONE);
                     _interactableController.TakeAction(playerNodeID);
-                  
+
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerService.SetTargetTap(-1);
                     currentPlayerView.PlayAnimation(PlayerStates.SHOOTING);
-                    await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
-                    
+                    await ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
+
                     break;
-                case InteractablePickup.STONE:                    
+                case InteractablePickup.STONE:
                     pathService.ShowThrowableNodes(playerNodeID);
                     playerService.SetTargetTap(-1);
-                    await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
+                    await ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.THROWING, _interactableController);
                     break;
                 case InteractablePickup.TRAP_DOOR:
                     playerService.SetTargetTap(-1);
-                    await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.UNLOCK_DOOR, _interactableController);
+                    await ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.UNLOCK_DOOR, _interactableController);
                     break;
             }
             await new WaitForEndOfFrame();
@@ -183,8 +192,8 @@ namespace Player
         public void SetDisguiseType(DisguiseSignal disguiseSignal)
         {
             disguiseType = disguiseSignal.enemyType;
-           
-            currentPlayerView.SetDisguise(disguiseType); 
+
+            currentPlayerView.SetDisguise(disguiseType);
         }
 
         private bool IsGameFinished()
@@ -192,7 +201,7 @@ namespace Player
             return pathService.CheckForTargetNode(playerNodeID);
         }
 
-        async  public void PerformAction(Directions _direction )
+        async public void PerformAction(Directions _direction)
         {
             int nextNodeID = pathService.GetNextNodeID(GetID(), _direction);
             if (nextNodeID == -1)
@@ -201,6 +210,7 @@ namespace Player
                 return;
             }
             await PerformMovement(nextNodeID);
+
         }
 
         async public Task PlayAnimation(PlayerStates state)

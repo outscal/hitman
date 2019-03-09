@@ -40,7 +40,7 @@ namespace Enemy
 
         async public Task MoveToLocation(Vector3 location)
         {
-            Debug.Log("move called",gameObject);
+            
             iTween.MoveTo(this.gameObject, location, 1f);
             await new WaitForSeconds(1f);
         }
