@@ -11,11 +11,12 @@ namespace SoundSystem
         readonly SignalBus signalBus;
         private GameInstaller gameInstaller;
         private SoundScriptable soundScriptable;
-
+        private List<AudioClip> bgMusic;
         private List<SoundData> soundDatas;
 
         public SoundManager(SoundScriptable soundScriptable, SignalBus signalBus)
         {
+            bgMusic = new List<AudioClip>();
             soundDatas = new List<SoundData>();
             this.signalBus = signalBus;
             this.soundScriptable = soundScriptable;
@@ -65,10 +66,21 @@ namespace SoundSystem
 
         public void PlayMusic(SoundName gameSounds)
         {
-
             if (gameInstaller != null)
             {
-                gameInstaller.musicSource.clip = ReturnAudio(gameSounds);
+                int i = 0;
+
+                if (bgMusic.Count <= 0)
+                {
+                    bgMusic.Add(ReturnAudio(gameSounds)); 
+                }
+                else
+                {
+                    i = Random.Range(0, bgMusic.Count); 
+                }
+
+
+                gameInstaller.musicSource.clip = bgMusic[i];
                 if (gameInstaller.musicSource.isPlaying == false)
                     gameInstaller.musicSource.Play();
             }
