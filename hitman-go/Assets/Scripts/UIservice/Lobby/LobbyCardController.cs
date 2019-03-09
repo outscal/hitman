@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using GameState;
 using Common;
+using Zenject;
+using SoundSystem;
 
 namespace UIservice
 {
@@ -46,6 +48,8 @@ namespace UIservice
 
         public void LoadLevel()
         {
+            lobbyUIView.ReturnSignalBus().TryFire(new SignalPlayOneShot()
+            { soundName = SoundName.btnClick });
             lobbyUIView.ReturnGameService().SetCurrentLevel(levelIndex);
             lobbyUIView.ReturnGameService().ChangeToLoadLevelState();
         }
