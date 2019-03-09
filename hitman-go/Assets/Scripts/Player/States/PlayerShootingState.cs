@@ -34,7 +34,7 @@ namespace Player
 
         public void OnStateExit()
         {
-
+            playerView.StopAnimation(currentStateType);
         }
         public PlayerStates GetCurrentStateType()
         {

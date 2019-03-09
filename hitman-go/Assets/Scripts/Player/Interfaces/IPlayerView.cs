@@ -11,7 +11,8 @@ namespace Player
        Task MoveToLocation(Vector3 location);
         void DisablePlayer();
         void Reset();
-        void PlayAnimation(PlayerStates state);
+        Task PlayAnimation(PlayerStates state);
         void SetDisguise(EnemyType disguiseType);
+        void StopAnimation(PlayerStates state);
     }
 }

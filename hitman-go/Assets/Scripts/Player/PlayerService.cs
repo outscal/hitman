@@ -58,7 +58,6 @@ namespace Player
         //swipe input
         async public void SetSwipeDirection(Directions _direction)
         {
-
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
                 Debug.Log("player state nahi hai");
@@ -72,17 +71,10 @@ namespace Player
             {
                 return;
             }
-
-
-
             playerController.ChangePlayerState(PlayerStates.INTERMEDIATE_MOVE, PlayerStates.NONE);
-
             playerController.PerformAction(_direction);
-
             await new WaitForEndOfFrame();
-
             camera.SetNodeID(GetPlayerNodeID());
-
         }
 
 
@@ -91,7 +83,8 @@ namespace Player
         {
             isPlayerDead = true;
             playerNodeID = 0;
-            await new WaitForSeconds(.75f);
+            //await new WaitForSeconds(.75f);
+            await playerController.PlayAnimation(PlayerStates.DEAD);
             gameService.ChangeToGameOverState();
         }
         //reset level trigger
@@ -107,7 +100,7 @@ namespace Player
         //reset calls
         private void ResetEverything()
         {
-            isPlayerDead = false;
+            isPlayerDead = false;            
             playerController.Reset();
             playerController = null;
         }
@@ -210,8 +203,6 @@ namespace Player
             }
           
             return killable;
-
-
         }
 
         public bool CheckForRange(int _nodeID)
@@ -226,7 +217,6 @@ namespace Player
 
         public void FireLevelFinishedSignal()
         {
-
             signalBus.TryFire(new LevelFinishedSignal());
         }
 

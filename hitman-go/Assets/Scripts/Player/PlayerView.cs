@@ -11,7 +11,7 @@ namespace Player
         [SerializeField]
         private Renderer _renderer;
         [SerializeField]
-        private Texture staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy, circularEnemy;
+        private Color staticEnemy, petrolEnemy, knifeEnemy, biDirectionalEnemy, circularEnemy;
         [SerializeField]
         private GameObject sniperRifle;
 
@@ -22,7 +22,7 @@ namespace Player
 
         private void Start()
         {
-            //TestAnimation();
+            sniperRifle.SetActive(false);
         }
 
         public void DisablePlayer()
@@ -40,15 +40,23 @@ namespace Player
             await MoveInCurve(_location);
         }
 
-        public void PlayAnimation(PlayerStates state)
+        async public Task PlayAnimation(PlayerStates state)
         {
-           // TestCurve();
+            if (state == PlayerStates.SHOOTING)
+            {
+                sniperRifle.SetActive(true);
+                animator.StartPlayback();
+                animator.Play("Shoot");
+            } else if (state == PlayerStates.DEAD)
+            {
+                animator.Play("Death");
+                await new WaitForSeconds(2f);
+            }
         }
 
         private void TestAnimation()
         {
-
-            animator.Play("Shoot");
+           // animator.Play("Shoot");
         }
 
         public void Reset()
@@ -61,23 +69,23 @@ namespace Player
             switch (disguiseType)
             {
                 case EnemyType.STATIC:
-                    _renderer.material.mainTexture = staticEnemy;
+                    _renderer.material.color = staticEnemy;
                     break;
                 case EnemyType.PATROLLING:
-                    _renderer.material.mainTexture = petrolEnemy;
+                    _renderer.material.color = petrolEnemy;
                     break;
                 case EnemyType.ROTATING_KNIFE:
-                    _renderer.material.mainTexture = knifeEnemy;
+                    _renderer.material.color = knifeEnemy;
                     break;
                 case EnemyType.SNIPER:
                     break;
                 case EnemyType.BIDIRECTIONAL:
-                    _renderer.material.mainTexture = biDirectionalEnemy;
+                    _renderer.material.color = biDirectionalEnemy;
                     break;
                 case EnemyType.DOGS:
                     break;
                 case EnemyType.CIRCULAR_COP:
-                    _renderer.material.mainTexture = circularEnemy;
+                    _renderer.material.color = circularEnemy;
                     break;
                 case EnemyType.GUARD_TORCH:
                     break;
@@ -98,6 +106,16 @@ namespace Player
                 this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, _location, moveAnimationCurve.Evaluate(t/ durationOfMoveAnimation));                
                 await new WaitForEndOfFrame();
             }            
+        }
+
+        public void StopAnimation(PlayerStates playerState)
+        {
+            Debug.Log("Stop Animation Called");
+            if(playerState==PlayerStates.SHOOTING)
+            {
+                sniperRifle.SetActive(false);
+                animator.Play("DefaultIdleState");
+            }
         }
     }
 }

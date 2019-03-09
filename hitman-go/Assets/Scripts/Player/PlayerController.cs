@@ -57,7 +57,6 @@ namespace Player
             playerStateMachine = new PlayerStateMachine(currentPlayerView, playerService);
             playerNodeID = 0;
             playerInstance.transform.localPosition = spawnLocation;
-
         }
 
         public void DisablePlayer()
@@ -67,6 +66,7 @@ namespace Player
 
         public void Reset()
         {
+            
             playerService.GetSignalBus().Unsubscribe<DisguiseSignal>(SetDisguiseType);
             currentPlayerView.Reset();
         }
@@ -147,7 +147,9 @@ namespace Player
                     break;
                 case InteractablePickup.SNIPER_GUN:
                     playerService.SetTargetTap(-1);
+                    currentPlayerView.PlayAnimation(PlayerStates.SHOOTING);
                     await  ChangePlayerState(PlayerStates.WAIT_FOR_INPUT, PlayerStates.SHOOTING, _interactableController);
+                    
                     break;
                 case InteractablePickup.STONE:                    
                     pathService.ShowThrowableNodes(playerNodeID);
@@ -194,6 +196,11 @@ namespace Player
                 return;
             }
             await PerformMovement(nextNodeID);
+        }
+
+        async public Task PlayAnimation(PlayerStates state)
+        {
+            await currentPlayerView.PlayAnimation(state);
         }
     }
 }
