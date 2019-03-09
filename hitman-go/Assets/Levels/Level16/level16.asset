@@ -304,7 +304,7 @@ MonoBehaviour:
     up: 18
     down: 16
     left: -1
-    right: -1
+    right: 13
     teleport: 
   - node:
       snipeable: 0
