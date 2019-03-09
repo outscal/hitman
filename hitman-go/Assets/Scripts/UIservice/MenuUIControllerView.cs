@@ -27,7 +27,7 @@ namespace UIservice
         {
             ClearCards();
             nextButton.gameObject.SetActive(true);
-            retryButton.gameObject.SetActive(false);
+            LobyButton.gameObject.SetActive(false);
             levelComplete = true;
             SetCards();
         }
@@ -44,7 +44,7 @@ namespace UIservice
             ClearCards();
             levelComplete = false;
             nextButton.gameObject.SetActive(false);
-            retryButton.gameObject.SetActive(true);
+            LobyButton.gameObject.SetActive(true);
             SetCards();
         }
        
