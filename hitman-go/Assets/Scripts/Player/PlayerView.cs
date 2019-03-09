@@ -22,7 +22,7 @@ namespace Player
 
         private void Start()
         {
-            TestAnimation();
+            //TestAnimation();
         }
 
         public void DisablePlayer()
