@@ -12,9 +12,17 @@ namespace SoundSystem
         public AudioClip audioClip; 
     }
 
+    [System.Serializable]
+    public struct BackgroundMusic
+    {
+        public SoundName soundName;
+        public List<AudioClip> audioClips;
+    }
+
     [CreateAssetMenu(fileName = "GameSounds",menuName ="Custom Objects/SoundData", order = 8)]
     public class SoundScriptable : ScriptableObject
     {
+        public BackgroundMusic backgroundMusic;
         public List<SoundData> soundDatas;
     }
 }
