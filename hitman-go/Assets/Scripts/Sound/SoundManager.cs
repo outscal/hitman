@@ -54,7 +54,6 @@ namespace SoundSystem
         {
             if (gameInstaller != null)
             {
-                Debug.Log("[SoundManager] BgMusic List:" + backgroundMusics.audioClips.Count);
                 gameInstaller.musicSource.clip = ReturnBackground();
                 if (gameInstaller.musicSource.isPlaying == false)
                     gameInstaller.musicSource.Play();

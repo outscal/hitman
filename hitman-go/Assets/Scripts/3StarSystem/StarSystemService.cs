@@ -23,7 +23,6 @@ namespace StarSystem
         public void Finished()
         {
             completed = true;
-            Debug.Log("compled this level" + completed);
         }
         public void SetTotalEnemyandMaxPlayerMoves(int enemy, int playerMoves)
         {
@@ -66,7 +65,7 @@ namespace StarSystem
             bool result = false;
             switch (starType)
             {
-                case StarTypes.COMPLETED: result = completed; Debug.Log("compled this level"); break;
+                case StarTypes.COMPLETED: result = completed; break;
                 case StarTypes.ALLKILL: result = (killCount == totalEnemyInLevel); break;
                 case StarTypes.NOKILL: result = noKill; break;
                 case StarTypes.PICKBRIEFCASE: result = briefCase; break;

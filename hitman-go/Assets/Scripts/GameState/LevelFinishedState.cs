@@ -37,7 +37,7 @@ namespace GameState
                
                 saveService.SaveStarTypeForLevel(currentLevel, stars[i].type, starService.CheckForStar(stars[i].type));
             }
-           service.IncrimentMaxLevel();
+           service.IncrementMaxLevel();
             signalBus.TryFire(new StateChangeSignal() { newGameState = GetStatesType() });
         }
         public void OnStateExit()

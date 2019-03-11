@@ -67,7 +67,7 @@ namespace UIservice
         }
         void LoadNext()
         {
-            gameService.IncrimentLevel();
+            gameService.IncrementLevel();
             gameService.ChangeToLoadLevelState();
         }
         void Retry()

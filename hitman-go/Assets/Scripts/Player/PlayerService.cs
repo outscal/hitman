@@ -63,7 +63,7 @@ namespace Player
            
             if (gameService.GetCurrentState() != GameStatesType.PLAYERSTATE)
             {
-                Debug.Log("player state nahi hai");
+                
                 return;
             }
             if (gameService.GetCurrentState() == GameStatesType.GAMEOVERSTATE)

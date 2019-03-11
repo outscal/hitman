@@ -56,9 +56,9 @@ namespace GameState
         {
             ChangeState(new GameOverState(signalBus, this));
         }
-        public void IncrimentLevel()
+        public void IncrementLevel()
         {
-            if (levels.levelsList.Count > currentLevel) { currentLevel = currentLevel + 1; }
+            if (levels.levelsList.Count-1 > currentLevel) { currentLevel = currentLevel + 1; }
         }
         public void ChangeToLoadLevelState()
         {
@@ -66,10 +66,10 @@ namespace GameState
             starService.SetTotalEnemyandMaxPlayerMoves(levels.levelsList[currentLevel].noOfEnemies, levels.levelsList[currentLevel].maxPlayerMoves);
             ChangeState(new LoadLevelState(signalBus, levels.levelsList[currentLevel], pathService, this));
         }
-        public void IncrimentMaxLevel()
+        public void IncrementMaxLevel()
         {
-            if(maxLevel==currentLevel)
-            if (levels.levelsList.Count > maxLevel) { maxLevel = maxLevel + 1; }
+            if (maxLevel == currentLevel)
+            { if (levels.levelsList.Count-1 > maxLevel) { maxLevel = maxLevel + 1; } }
             saveService.SaveMaxLevel(maxLevel);
             
         }
