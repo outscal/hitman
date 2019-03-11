@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level13
   m_EditorClassIdentifier: 
+  platform: {fileID: 8662582703415764840, guid: aa3ff9cf2c070bc49968767a3e0cc679,
+    type: 3}
   maxwidth: 0
   maxhight: 0
   set: 0
@@ -28,9 +30,9 @@ MonoBehaviour:
   - type: 5
     name: Completed
   - type: 0
-    name: '!7 Moves'
+    name: 17 Moves
   - type: 3
-    name: Pick BriefCase
+    name: Pick Laptop
   maxPlayerMoves: 17
   noOfEnemies: 1
   nodeprefab: {fileID: 716432328203489091, guid: a3a9e6039fe1a974b9eb306788280d91,

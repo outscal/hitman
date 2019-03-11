@@ -14,6 +14,7 @@ namespace PathSystem
         List<GameObject> physicalPath = new List<GameObject>();
         List<GameObject> physicalNode = new List<GameObject>();
         NodeControllerView nodeprefab, targetNode, teleportNode;
+        GameObject platform;
         // int shortestPathLength;
         IPathService pathService;
         //List<StarTypes> Stars;
@@ -24,11 +25,13 @@ namespace PathSystem
         [SerializeField] List<Node> graph = new List<Node>();
         public int DrawGraph(ScriptableGraph Graph)
         {
+            
             nodeprefab = Graph.nodeprefab;
             targetNode = Graph.targetNode;
             teleportNode = Graph.teleportNode;
             SetGates(Graph.GatesEdge);
             line = Graph.line;
+            platform=GameObject.Instantiate(Graph.platform, new Vector3(0, -0.3f, 0),Quaternion.identity);
             for (int i = 0; i < Graph.Graph.Count; i++)
             {
                 Node node = new Node();
@@ -40,17 +43,17 @@ namespace PathSystem
                 if (graph[i].node.property == NodeProperty.TARGETNODE)
                 {
                     targetNode.SetNodeID(i);
-                    physicalNode.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    physicalNode.Add(GameObject.Instantiate(targetNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity,platform.transform));
                 }
                 else if (graph[i].node.property == NodeProperty.TELEPORT)
                 {
                     teleportNode.SetNodeID(i);
-                    physicalNode.Add(GameObject.Instantiate(teleportNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    physicalNode.Add(GameObject.Instantiate(teleportNode.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity, platform.transform));
                 }
                 else
                 {
                     nodeprefab.SetNodeID(i);
-                    physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity));
+                    physicalNode.Add(GameObject.Instantiate(nodeprefab.gameObject, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), Quaternion.identity, platform.transform));
                 }
                 if (graph[i].node.snipeable)
                 {
@@ -59,11 +62,11 @@ namespace PathSystem
                 }
                 if (node.connections[0] != -1)
                 {
-                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));
+                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)), platform.transform));
                 }
                 if (node.connections[2] != -1)
                 {
-                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0)));
+                    physicalPath.Add(GameObject.Instantiate(line, new Vector3(node.node.nodePosition.x + 2.5f, node.node.nodePosition.y - 0.195f, node.node.nodePosition.z), new Quaternion(0, 0, 0, 0), platform.transform));
                 }
             }
             return graph.Count;
@@ -73,11 +76,11 @@ namespace PathSystem
         {
             if (dir == 0)
             {
-                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x, nodePosition.y - 0.195f, nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0))));
+                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x, nodePosition.y - 0.195f, nodePosition.z - 2.5f), Quaternion.Euler(new Vector3(0, 90, 0)), platform.transform));
             }
             if (dir == 2)
             {
-                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x + 2.5f, nodePosition.y - 0.195f, nodePosition.z), new Quaternion(0, 0, 0, 0)));
+                physicalPath.Add(GameObject.Instantiate(line, new Vector3(nodePosition.x + 2.5f, nodePosition.y - 0.195f, nodePosition.z), new Quaternion(0, 0, 0, 0), platform.transform));
             }
         }
         public void ShowTeleportableNodes(List<int> nodes)
@@ -106,6 +109,8 @@ namespace PathSystem
             physicalGates = new List<GateControllerView>();
             physicalPath = new List<GameObject>();
             physicalNode = new List<GameObject>();
+            GameObject.DestroyImmediate(platform);
+            platform = null;
         }
         public void Unhighlightnodes()
         {

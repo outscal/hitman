@@ -48,8 +48,8 @@ namespace Enemy
                 Vector3 rot = GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
 
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 if (currentNodeID == alertedPathNodes[alertedPathNodes.Count - 1])
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);
@@ -66,8 +66,8 @@ namespace Enemy
                 Vector3 rot = GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
 
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+               await currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 if (currentNodeID == alertedPathNodes[alertedPathNodes.Count - 1])
                 {
                     stateMachine.ChangeEnemyState(EnemyStates.IDLE);
@@ -83,8 +83,8 @@ namespace Enemy
                     return;
                 }
 
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;
+              await  currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentEnemyService.TriggerPlayerDeath();
             }
             else

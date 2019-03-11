@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf88d1c10264fbb4bbdaa305b3ebe26c, type: 3}
   m_Name: level12
   m_EditorClassIdentifier: 
+  platform: {fileID: 8662582703415764840, guid: 64460dd0469b432459008f7575676ba4,
+    type: 3}
   maxwidth: 0
   maxhight: 0
   set: 1
+  circularPath: []
   line: {fileID: 4524030926007961840, guid: dbc3c198b6187dc4e82bf54c7c2a2d1d, type: 3}
   GatesEdge:
   - key: 3
@@ -39,7 +42,7 @@ MonoBehaviour:
   - type: 5
     name: Completed
   - type: 3
-    name: Pick Briefcase
+    name: Pick Laptop
   - type: 0
     name: 27 Moves
   maxPlayerMoves: 10
@@ -75,6 +78,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 0
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -88,6 +92,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 1
+      disguise: 0
       property: 1
       spawnPickups: 0
       spawnEnemies: []
@@ -101,6 +106,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 2
+      disguise: 0
       property: 0
       spawnPickups: 4
       spawnEnemies: []
@@ -114,6 +120,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 3
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -127,6 +134,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 4
+      disguise: 0
       property: 0
       spawnPickups: 4
       spawnEnemies: []
@@ -140,6 +148,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 5
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -153,6 +162,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 6
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -169,6 +179,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 7
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -182,6 +193,7 @@ MonoBehaviour:
       snipeable: 1
       keyType: 0
       uniqueID: 8
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -198,6 +210,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 9
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -211,6 +224,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 10
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -227,6 +241,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 11
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -240,6 +255,7 @@ MonoBehaviour:
       snipeable: 1
       keyType: 0
       uniqueID: 12
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -256,6 +272,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 1
       uniqueID: 13
+      disguise: 0
       property: 0
       spawnPickups: 7
       spawnEnemies: []
@@ -269,6 +286,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 14
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -282,6 +300,7 @@ MonoBehaviour:
       snipeable: 1
       keyType: 0
       uniqueID: 15
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies:
@@ -301,6 +320,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 3
       uniqueID: 16
+      disguise: 0
       property: 0
       spawnPickups: 7
       spawnEnemies: []
@@ -314,6 +334,7 @@ MonoBehaviour:
       snipeable: 1
       keyType: 0
       uniqueID: 17
+      disguise: 0
       property: 0
       spawnPickups: 0
       spawnEnemies: []
@@ -327,6 +348,7 @@ MonoBehaviour:
       snipeable: 0
       keyType: 0
       uniqueID: 18
+      disguise: 0
       property: 2
       spawnPickups: 0
       spawnEnemies: []

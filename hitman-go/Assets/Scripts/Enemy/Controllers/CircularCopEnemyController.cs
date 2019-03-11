@@ -94,8 +94,8 @@ namespace Enemy
 
         async protected override Task MoveToNextNode(int nodeID)
         {            
-            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
             currentNodeID = nodeID;
+            currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
 
             if (CheckForPlayerPresence(nodeID))
             {

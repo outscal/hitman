@@ -26,8 +26,8 @@ namespace Enemy
                 spawnDirection= pathService.GetDirections(currentNodeID, nodeID);              
                 Vector3 rot=GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
                 currentNodeID = nodeID;             
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
             }
 
             if (CheckForPlayerPresence(nodeID))
@@ -36,9 +36,8 @@ namespace Enemy
                 {
                     return;
                 }               
-                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-
-                currentNodeID = nodeID;
+                currentNodeID = nodeID;             
+                currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));                
                 currentEnemyService.TriggerPlayerDeath();
             }
             else
@@ -50,9 +49,9 @@ namespace Enemy
                     {
                         return;
                     }
+                    currentNodeID = secondNodeCheck;
                     currentEnemyView.MoveToLocation(pathService.GetNodeLocation(secondNodeCheck));
 
-                    currentNodeID = secondNodeCheck;
                     currentEnemyService.TriggerPlayerDeath();
                 }
             }

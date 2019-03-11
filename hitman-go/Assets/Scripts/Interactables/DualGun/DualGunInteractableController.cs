@@ -55,7 +55,7 @@ namespace InteractableSystem
             {
                 enemyNodeID = interactableManager.ReturnPathService()
                                 .GetNextNodeID(targetNodeID, direction);
-
+                Debug.Log("found enemy nodeid"+enemyNodeID+" "+direction);
                 interactableManager.ReturnSignalBus().Fire(new EnemyKillSignal()
                 { nodeID = enemyNodeID, killMode= KillMode.SHOOT});
             }
@@ -63,6 +63,7 @@ namespace InteractableSystem
             {
                 enemyNodeID = interactableManager.ReturnPathService()
                                 .GetNextNodeID(targetNodeID, direction);
+                Debug.Log("not found enemy nodeid"+enemyNodeID+" "+direction);
             }
             interactableManager.RemoveInteractable(this);
         }
