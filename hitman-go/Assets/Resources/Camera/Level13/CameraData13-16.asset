@@ -15,5 +15,5 @@ MonoBehaviour:
   cameraData:
     nodeID: 16
     position: {x: -3.09, y: 8.56, z: 12.1}
-    rotation: {x: 0.003534413, y: 0.89299065, z: -0.45000663, w: 0.0070136697}
-    fieldOfView: 63
+    rotation: {x: -0.031000014, y: 0.8908969, z: -0.4489515, w: -0.061516255}
+    fieldOfView: 60.6
