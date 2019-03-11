@@ -110,12 +110,13 @@ namespace Enemy
 
             else if (stateMachine.GetEnemyState() == EnemyStates.CHASE || stateMachine.GetEnemyState()==EnemyStates.CONSTANT_CHASE)
             {
-                int nextNodeID = alertedPathNodes[alertMoveCalled];              
-                if(pathService.CanEnemyMoveToNode(currentNodeID,nextNodeID))
+                
+                int nextNodeID = alertedPathNodes[alertMoveCalled];
+                
+                if (pathService.CanEnemyMoveToNode(currentNodeID, nextNodeID))
                 {
                     await MoveToNextNode(nextNodeID);
-                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));
-           
+                    await currentEnemyView.RotateEnemy(GetRotation(spawnDirection));           
                 }              
                                
                 if (alertMoveCalled == alertedPathNodes.Count - 1)
@@ -168,12 +169,17 @@ namespace Enemy
             {
                 stateMachine.ChangeEnemyState(EnemyStates.CHASE);
             }
+            Debug.Log("Current Node ID" + currentNodeID);
             alertedPathNodes = pathService.GetShortestPath(currentNodeID, _destinationID);
             alertMoveCalled = 0;
             currentEnemyView.AlertEnemyView();
-           // Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
-           //await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
-            
+            //foreach (int i in alertedPathNodes)
+            //{
+            //    Debug.Log("Path next "+ i);
+            //}
+            // Directions dirToLook = pathService.GetDirections(currentNodeID, alertedPathNodes[0]);
+            //await currentEnemyView.RotateEnemy(GetRotation(dirToLook));
+            await new WaitForEndOfFrame(); 
 
         }
 
@@ -237,7 +243,7 @@ namespace Enemy
 
         async public Task PlayAnimation(EnemyStates state)
         {
-            await currentEnemyView.PlayAnimation(state);
+            currentEnemyView.PlayAnimation(state);
         }
     }
 }

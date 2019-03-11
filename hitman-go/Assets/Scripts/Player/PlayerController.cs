@@ -103,8 +103,8 @@ namespace Player
             //    pathService.UnhighlightTeleportableNodes();
             //}
 
-            await MoveToLocation(nextLocation);
             playerNodeID = nextNodeID;
+            await MoveToLocation(nextLocation);
 
 
             if (interactableService.CheckForInteractable(nextNodeID))

@@ -51,9 +51,7 @@ namespace Player
                         break;
                     }
                     else
-                    {
-
-                      
+                    {                      
                         await new WaitForEndOfFrame();
                     }
                 }

@@ -105,7 +105,7 @@ namespace Enemy
                 await new WaitForSeconds(enemyDeathDuration);
 
             }
-            await new WaitForEndOfFrame();
+            //await new WaitForEndOfFrame();
         }
     }
 }

@@ -41,6 +41,9 @@ namespace Enemy
                 case EnemyStates.RETURN_TO_PATH:
                     currentState = new EnemyReturnToPathState();
                     break;
+                case EnemyStates.DEATH:
+                    currentState = null;
+                    break;
 
             }
                     currentState.OnStateEnter();

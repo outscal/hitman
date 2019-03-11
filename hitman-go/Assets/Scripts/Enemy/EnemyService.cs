@@ -160,8 +160,8 @@ namespace Enemy
                 starService.DogsKilled();
             }
 
-            await controllerToKill.PlayAnimation(EnemyStates.DEATH);
             enemyList.Remove(controllerToKill);
+           await controllerToKill.PlayAnimation(EnemyStates.DEATH);
             controllerToKill.Reset();
             signalBus.TryFire(new EnemyDeathSignal() { nodeID = controllerToKill.GetCurrentNodeID() });
         }
@@ -179,7 +179,7 @@ namespace Enemy
                     if (CheckForKillableEnemy(enemyController, _killSignal.killMode))
                     {
                         enemyList.Remove(enemyController);
-                       await enemyController.PlayAnimation(EnemyStates.DEATH);
+                      await  enemyController.PlayAnimation(EnemyStates.DEATH);
                         enemyController.Reset();
                     }
 
@@ -224,11 +224,11 @@ namespace Enemy
             List<int> alertedNodes = new List<int>();
             alertedNodes = pathService.GetAlertedNodes(_signalAlertGuards.nodeID);
 
+            Debug.Log(enemyList.Count);
             for (int i = 0; i < enemyList.Count; i++)
             {
                 for (int j = 0; j < alertedNodes.Count; j++)
                 {
-
                     switch (_signalAlertGuards.interactablePickup)
                     {
                         case InteractablePickup.BONE:
@@ -239,7 +239,7 @@ namespace Enemy
                                     enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }
                             }
-                            break;
+                            continue;
                         case InteractablePickup.STONE:
                             if (enemyList[i].GetEnemyType() != EnemyType.DOGS)
                             {
@@ -248,7 +248,7 @@ namespace Enemy
                                     enemyList[i].AlertEnemy(_signalAlertGuards.nodeID);
                                 }
                             }
-                            break;
+                            continue;
                     }
 
                 }

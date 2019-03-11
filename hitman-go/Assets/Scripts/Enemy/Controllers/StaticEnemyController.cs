@@ -23,13 +23,12 @@ namespace Enemy
             if(stateMachine.GetEnemyState()==EnemyStates.CHASE)
             {
                 spawnDirection= pathService.GetDirections(currentNodeID, nodeID);
+                currentNodeID = nodeID;
                 
                 Vector3 rot=GetRotation(spawnDirection);
                 await currentEnemyView.RotateEnemy(rot);
                 await currentEnemyView.MoveToLocation(pathService.GetNodeLocation(nodeID));
-                currentNodeID = nodeID;
               
-
             }
             if (CheckForPlayerPresence(nodeID))
             {

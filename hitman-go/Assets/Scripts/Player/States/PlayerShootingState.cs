@@ -25,7 +25,7 @@ namespace Player
 
         async public Task OnStateEnter(PlayerStates playerStates = PlayerStates.NONE, IInteractableController controller = null)
         {
-            playerView.PlayAnimation(currentStateType);
+          
             if (controller != null && playerStates != PlayerStates.NONE)
             {
                 await new WaitForEndOfFrame();
@@ -34,7 +34,7 @@ namespace Player
 
         public void OnStateExit()
         {
-            playerView.StopAnimation(currentStateType);
+           playerView.StopAnimation(currentStateType);
         }
         public PlayerStates GetCurrentStateType()
         {

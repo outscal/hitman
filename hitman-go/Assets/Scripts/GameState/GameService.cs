@@ -68,6 +68,7 @@ namespace GameState
         }
         public void IncrimentMaxLevel()
         {
+            if(maxLevel==currentLevel)
             if (levels.levelsList.Count > maxLevel) { maxLevel = maxLevel + 1; }
             saveService.SaveMaxLevel(maxLevel);
             
