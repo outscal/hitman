@@ -50,7 +50,7 @@ namespace InteractableSystem
         {
             Vector3 position = interactableManager.ReturnPathService()
                                 .GetNodeLocation(targetNodeID);
-
+            position.y += 1f;
             if (EnemyPresent(position, GetDiectionInVector3(direction)) == true)
             {
                 enemyNodeID = interactableManager.ReturnPathService()
@@ -65,7 +65,6 @@ namespace InteractableSystem
                                 .GetNextNodeID(targetNodeID, direction);
                 Debug.Log("not found enemy nodeid"+enemyNodeID+" "+direction);
             }
-
             interactableManager.RemoveInteractable(this);
         }
 
@@ -99,6 +98,8 @@ namespace InteractableSystem
                 return direction = interactableView.transform.TransformDirection(Vector3.left);
             return direction;
         }
+
+
 
     }
 }
