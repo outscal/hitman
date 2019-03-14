@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a633f4f57fdaf4ddaa437590976b1ef3, type: 3}
+  m_Name: InteractableObjList
+  m_EditorClassIdentifier: 
+  interactableItems:
+  - name: 
+    interactablePickup: 0
+    interactableView: {fileID: 0}
+  - name: Breifcase
+    interactablePickup: 1
+    interactableView: {fileID: 8452448333639867623, guid: e60836ab6807c4aff89efb6eee7b2974,
+      type: 3}
+  - name: Stone
+    interactablePickup: 2
+    interactableView: {fileID: 196724156742594001, guid: efd4652ec7a074974a6a2a1db7d99549,
+      type: 3}
+  - name: Bone
+    interactablePickup: 3
+    interactableView: {fileID: 8179980625334902081, guid: cf1e3def29b494756a18406080f90d48,
+      type: 3}
+  - name: SniperGun
+    interactablePickup: 4
+    interactableView: {fileID: 8350863200400509222, guid: 65ce4ca67756042bbbc767c7bed430db,
+      type: 3}
+  - name: DualGun
+    interactablePickup: 5
+    interactableView: {fileID: 2896918865722667041, guid: 5a83e1f415bb64307a316ff36f611ea5,
+      type: 3}
+  - name: TrapDoor
+    interactablePickup: 6
+    interactableView: {fileID: 0}
+  - name: ColorKey
+    interactablePickup: 7
+    interactableView: {fileID: 3933467476607936281, guid: d8b64da711e87ec4088fa0cc98397db3,
+      type: 3}
+  - name: AmbushPlant
+    interactablePickup: 8
+    interactableView: {fileID: 8420180870922670027, guid: f4cae739d6a9b4ce3ac09f53afedefb3,
+      type: 3}
+  - name: GuardDisguise
+    interactablePickup: 9
+    interactableView: {fileID: 4157695961388850241, guid: 0c372abb96eb35d44ade808d82678ccc,
+      type: 3}
